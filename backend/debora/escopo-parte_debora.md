@@ -238,10 +238,10 @@
 
 #### Dados retornados (status code 200)
 
-- Exibição de uma lista contendo o board (objeto) encontrado, o qual contém seus respectivos cards (lista de objetos) com suas respectivas tasks (lista de objetos).
-  Cada board, sendo um objeto, tem como propriedades os seus dados (id, titulo, favoritado, usuario_id, data_de_criacao, data_de_atualizacao) e seus respectivos cards.
-  Por sua vez, os cards são listados como objetos, contendo como propriedades seus dados (id, titulo, board_id) e suas respectivas tasks.
-  Por fim, as tasks também são listadas como objetos, cujas propriedades consistem nos seus dados (id, titulo, descricao, card_id).
+- Exibição do board (objeto) encontrado, o qual contém seus respectivos cards (lista de objetos) com suas respectivas tasks (lista de objetos).
+  - Cada board, sendo um objeto, tem como propriedades os seus dados (id, titulo, favoritado, usuario_id, data_de_criacao, data_de_atualizacao) e seus respectivos cards.
+  - Por sua vez, os cards são listados como objetos, contendo como propriedades seus dados (id, titulo, board_id) e suas respectivas tasks.
+  - Por fim, as tasks também são listadas como objetos, cujas propriedades consistem nos seus dados (id, titulo, descricao, card_id).
 
 #### Requisitos
 
@@ -258,7 +258,6 @@
 
 ```javascript
 // HTTP Status: 200
-[
 {
    "id": 1
    "titulo": "Tarefas Semanais"
@@ -282,7 +281,6 @@
         }
     ]
 }
-]
 ```
 
 #### **Exemplos de resposta mal-sucedida**
