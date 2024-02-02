@@ -73,27 +73,26 @@
 ## Banco de Dados
 
 - usuarios
-  id serial (primary key)
-  nome varchar(255)
-  email varchar(255) (único)
-  senha varchar(255)
+  - id serial (primary key)
+  - nome varchar(40)
+  - email varchar(256) (único)
+  - senha varchar(20)
 - boards
-  id serial (primary key)
-  titulo varchar(255)
-  favoritado boolean
-  usuario_id integer (foreign_key)
-  data_de_criacao datetime
-  data_de_atualizacao datetime
+  - id serial (primary key)
+  - titulo varchar(20)
+  - favoritado boolean
+  - usuario_id integer (foreign_key)
+  - data_de_criacao datetime
+  - data_de_atualizacao datetime
 - cards
-  id serial (primary key)
-  titulo varchar(255)
-  board_id integer (foreign_key)
-
+  - id serial (primary key)
+  - titulo varchar(20)
+  - board_id integer (foreign_key)
 - tasks
-  id serial (primary key)
-  titulo varchar(255)
-  descricao text
-  card_id integer (foreign_key)
+  - id serial (primary key)
+  - titulo varchar(50)
+  - descricao varchar(1000)
+  - card_id integer (foreign_key)
 
 ---
 
