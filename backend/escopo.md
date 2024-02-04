@@ -76,7 +76,7 @@
   - id serial (primary key)
   - nome varchar(40)
   - email varchar(256) (único)
-  - senha varchar(20)
+  - senha varchar(256)
 - boards
   - id serial (primary key)
   - titulo varchar(20)
