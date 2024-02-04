@@ -80,17 +80,17 @@
 
 // HTTP Status: 400
 {
-   "mensagem": "O título do board é obrigatório."
+   "mensagem": "O campo titulo é obrigatório."
 }
 
 // HTTP Status: 400
 {
-   "mensagem": "O status de favoritado do board é obrigatório."
+   "mensagem": "O campo favoritado é obrigatório."
 }
 
 // HTTP Status: 400
 {
-    "mensagem": "O título do board só pode ter até 20 caracteres."
+    "mensagem": "O titulo do board só pode ter até 20 caracteres."
 }
 
 // HTTP status: 400
@@ -409,17 +409,17 @@
 
 // HTTP Status Code: 400
 {
-    "mensagem": "O título do board é obrigatório"
+    "mensagem": "O campo titulo é obrigatório"
 }
 
 // HTTP Status Code: 400
 {
-    "mensagem": "O board_id é obrigatório"
+    "mensagem": "O campo board_id é obrigatório"
 }
 
 // HTTP Status Code: 400
 {
-    "mensagem": "O título do board só pode ter até 20 caracteres."
+    "mensagem": "O titulo do card só pode ter até 20 caracteres."
 }
 
 // HTTP Status Code: 404
