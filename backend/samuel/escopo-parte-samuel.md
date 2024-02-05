@@ -1,21 +1,23 @@
 13) Edição de card: PUT /card/:id
+    
      **Entrada:**
      ```javascript=
          {
-             board_id: number,
-             titulo: String
+             board_id: 1,
+             titulo: Cartão 1
          }
      ```
      **Saida:**
      ```javascript=
         //status code 201
          {
-             id: Number,
-             titulo: String,
-             board_id: Number
+             id: 1,
+             titulo: Cartão 1,
+             board_id: 1
          }
      ```
- 14) Exclusão de card: DELETE /card/:id
+ 15) Exclusão de card: DELETE /card/:id
+
      **Entrada:**
      ```javascript=
         //Id do card passado pela querry Params 
@@ -24,62 +26,66 @@
         ```javascript=
                 // 204 (No Content) = requisição bem sucedida, sem conteúdo no corpo da resposta
         ```
-15) Criação de task: POST /task/:id
+17) Criação de task: POST /task/:id
 *Descrição: Esta é a rota que será usada para criar uma task no card.*
-    **Entrada**
+
+     **Entrada**
     ```javascript=
         {
-            titulo: String,
-            descricao: string,
-            card_id: Number
+            titulo: Tarefa 1,
+            descricao: Fazer PR,
+            card_id: 1
         }
     ```
     **Saida:**
     ```javascript=
         //status code 201
         {
-            id: Noumber,
-            titulo: String,
-            descricao: string,
-            card_id: Number
+            id: 1,
+            titulo: Tarefa 1,
+            descricao: Fazer PR,
+            card_id: 1
         }
     ```
-16) Edição de task: PUT/task/:id
+19) Edição de task: PUT/task/:id
 *Descrição: Esta é a rota que será usada para editar uma task no card.*
-    **Entrada:**
+
+     **Entrada:**
     ```javascript=
         //ID passado por query params
         {
-            itulo: String,
-            descricao: String,
-            card_id: Number
+            itulo: Tarefa 1 atualizada,
+            descricao: Fazer PR,
+            card_id: 1
         }
     ```
     **Saida:**
     ```javascript=
         //ID passado por query params
         {
-            id: Number,
-            itulo: String,
-            descricao: String,
-            card_id: Number
+            id: 1,
+            itulo: Tarefa 1 atualizada,
+            descricao: Fazer PR,
+            card_id: 1
         }
     ```
-17) Detalhamento de task: GET/task/:id
+21) Detalhamento de task: GET/task/:id
 *Descrição: Esta é a rota que será usada para detalhar/acessar uma task no card.*
-    **Entrada:**
+
+     **Entrada:**
     ```javascript=
         //Id passado pela query params
     ```
     **Saida:**
     ```javascript=
-        id: Number,
-        titulo: String,
-        descricao: String,
-        card_id: Number
+        id: 1,
+        titulo: Tarefa 1 atualizada,
+        descricao: Fazer PR,
+        card_id: 1
     ```
-18) Exclusão de task: DELETE /task/:id
+23) Exclusão de task: DELETE /task/:id
 *Descrição: Esta é a rota que será usada para excluir uma task do card.*
+
     **Entrada:**
     ```javascript=
         //Id passado na query params
