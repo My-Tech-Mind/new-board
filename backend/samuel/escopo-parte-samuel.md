@@ -1,5 +1,7 @@
 13) Edição de card: PUT /card/:id
-    
+
+*Descrição: Esta é a rota que será usada para editar um card.*
+
      **Entrada:**
      ```javascript=
          {
@@ -18,6 +20,8 @@
      ```
  15) Exclusão de card: DELETE /card/:id
 
+*Descrição: Esta é a rota que será usada para apagar um card.*
+
      **Entrada:**
      ```javascript=
         //Id do card passado pela querry Params 
@@ -27,6 +31,7 @@
                 // 204 (No Content) = requisição bem sucedida, sem conteúdo no corpo da resposta
         ```
 17) Criação de task: POST /task/:id
+    
 *Descrição: Esta é a rota que será usada para criar uma task no card.*
 
      **Entrada**
@@ -48,6 +53,7 @@
         }
     ```
 19) Edição de task: PUT/task/:id
+
 *Descrição: Esta é a rota que será usada para editar uma task no card.*
 
      **Entrada:**
@@ -70,6 +76,7 @@
         }
     ```
 21) Detalhamento de task: GET/task/:id
+
 *Descrição: Esta é a rota que será usada para detalhar/acessar uma task no card.*
 
      **Entrada:**
@@ -84,6 +91,7 @@
         card_id: 1
     ```
 23) Exclusão de task: DELETE /task/:id
+
 *Descrição: Esta é a rota que será usada para excluir uma task do card.*
 
     **Entrada:**
