@@ -24,9 +24,9 @@
 //Dados enviados:
 
 {
-    nome: 'Bonates',
-    email: 'bonates@email.com',
-    senha: 'senha123'
+    "nome": "Bonates",
+    "email": "bonates@email.com",
+    "senha": "senha123"
 }
 
 ```
@@ -62,7 +62,7 @@
 //status code 401
 
 {
-    mensagem: `O ${email} informado já existe`
+    mensagem: `O email informado já existe`
 }
 
 ```
@@ -71,7 +71,7 @@
 // status code 400
 
 {
-    mensagem: `Formato de ${email} inválido`
+    mensagem: `Formato de email inválido`
 }
 
 ```
@@ -126,8 +126,8 @@
 //Dados enviados:
 
 { 
-    email: 'bonates@email.com'
-    senha: 'senha3241'
+    "email": "bonates@email.com",
+    "senha": "senha3241"
 }
 
 ```
@@ -198,6 +198,7 @@
 - token no formato bearer token no cabeçalho da requisição.
 
 ```javascript
+// Dados enviados
 {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
 }
@@ -249,10 +250,11 @@
 - JSON com as informações que o usuário deseja alterar
 
 ```javascript
+//Dados enviados
 {
-    nome: 'igor',
-    email: 'bonates@email.com',
-    senha: 'senha321'
+    "nome": "igor",
+    "email": "bonates@email.com",
+    "senha": "senha321"
 }
 ```
 
@@ -317,6 +319,113 @@
 }
 ```
 
+### Exclusão de usuário: DELETE/user
+
+**Descrição: Esta é a rota que será usada para excluir os dados do usuário.**
+
+**Dados enviados**
+
+- token no formato bearer token no cabeçalho da requisição.
+
+**Critérios de aceite:**
+
+- O usuário precisa estar logado.
+
+**Exemplo de requisição mal sucedida:**
+
+```javascript
+//status code 401
+
+{
+    mensagem: 'Não autorizado'
+
+}
+
+```
+
+**Em caso de requisição bem sucedida**
+
+- Sem retorno de conteúdo.
+
+```javascript
+// status code 200
+
+```
 
 
 
+### Criação de Board: POST/board
+
+**Descrição: Esta é a rota que será usada para criar um board.**
+
+**Dados enviados**
+
+- Token no formato bearer token no cabeçalho da requisição.
+
+- JSON com o titulo do board
+
+    - `titulo: string`
+
+```javascript
+// Dados enviados
+{
+    "titulo": "Tarefas Semanais"
+}
+
+```
+
+**Critérios de aceite:**
+
+- O usuário precisa estar logado.
+
+- Verificar se o campo título foi passado corretamente.
+
+
+**Exemplo de requisição mal sucedida:**
+
+```javascript
+//status code: 401
+
+{
+    mensagem: 'Não autorizado'
+
+}
+```
+
+```javascript
+//status code: 400
+
+{
+    mensagem: `O campo titulo é obrigatório.`
+}
+```
+
+```javascript
+//status code: 400
+
+{
+    mensagem: 'O campo titulo precisa ser do tipo string'
+}
+
+```
+
+**Em caso de requisição bem sucedida:**
+
+- Inserir os Dados do board no banco de dados
+- Retornar os dados:
+    - id
+    - titulo
+    - favoritado
+    - usuario_id
+
+**Exemplo de requisição bem sucedida:**
+
+```javascript
+//status code 201
+{
+    id: 1,
+    titulo: 'Tarefas Semanais',
+    favoritado: false,
+    usuario_id: 1
+}
+```
