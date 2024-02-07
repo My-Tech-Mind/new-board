@@ -1,11 +1,11 @@
 import styles from './index.module.css'
 
-const Account = () => {
+const Boards = () => {
     return ( 
         <div>
-            <p>Account</p>
+            <p>Boards</p>
         </div>
      );
 }
  
-export default Account;
+export default Boards;
