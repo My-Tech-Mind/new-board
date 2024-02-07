@@ -2,11 +2,11 @@ import styles from './index.module.css'
 
 const Button = ({title, style}) => {
     return ( 
-        <nav>
-            <button>
+        <>
+            <button className={styles[`${style}`]}>
                 <a href="#">{ title }</a>
             </button>
-        </nav>
+        </>
      );
 }
  

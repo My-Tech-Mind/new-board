@@ -1,0 +1,15 @@
+.container_image {
+    display: flex;
+    justify-content: flex-start;
+    width: 100vw;
+    padding: 20px;
+}
+
+.container_image > img {
+    width: 80px; 
+}
+
+nav {
+    height: 100px;
+    background-color: var(--background-color-navbar);
+}
