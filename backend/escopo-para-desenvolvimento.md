@@ -178,7 +178,7 @@
 
 # ATENÇÃO: Todas as rotas a seguir exigem que o usuário esteja logado para acessá-las.
 
-### Listar usuário logado: GET/user
+### Detalhar usuário logado: GET/user
 
 **Descrição: Esta é a rota que será usada para exibir os dados do usuário logado.**
 
