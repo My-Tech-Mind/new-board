@@ -17,12 +17,12 @@
 .container_content h1 {
     font-size: 18px;
     color: var(--color3);
-    margin: 20px 20px 0 20px;   
+    padding: 20px 20px 0 20px;   
 }
 
 .container_content p {
     color: var(--color3);
-    margin: 20px;   
+    margin: 0 20px 20px 20px;   
 }
 
 .container_buttons {
@@ -71,24 +71,11 @@
     
     .container_content h1 {
         font-size: 25px;
-        color: var(--color3);
-        margin: 20px 20px 0 20px;   
+        margin: 0;  
     }
     
     .container_content p {
-        color: var(--color3);
         margin: 20px;   
-    }
-    
-    .container_buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-    
-    .container_buttons button {
-        margin-bottom: 10px;
     }
     
 }

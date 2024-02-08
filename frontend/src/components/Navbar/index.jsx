@@ -1,6 +1,6 @@
 import styles from './index.module.css'
 import logo from '../../assets/logo-light.png'
-import ButtonDesktop from '../Button/Desktop';
+import ButtonDesktop from '../Button/LoginDesktop';
 const Navbar = () => {
     return ( 
         <nav>

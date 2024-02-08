@@ -1,5 +1,5 @@
 import Button from '../../components/Button/index'
-import ButtonMobile from '../../components/Button/Mobile';
+import ButtonMobile from '../../components/Button/LoginMobile';
 import Navbar from '../../components/Navbar';
 import styles from './index.module.css'
 import imageHome from '../../assets/home.png'

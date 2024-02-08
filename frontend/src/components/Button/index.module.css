@@ -6,6 +6,10 @@
     background-color: var(--color1);
 }
 
+.default:hover {
+    background-color: var(--color-hover);
+}
+
 .default a {
     color: #ffffff;
     font-weight: 600;
@@ -28,6 +32,10 @@
     text-decoration: none;
 }
 
+.login:hover {
+    background-color: var(--color-hover-login);
+}
+
 @media screen and (min-width: 768px) {
     .default {
         width: 300px;
@@ -35,6 +43,7 @@
         border-radius: 20px;
         border: none;
         background-color: var(--color1);
+        cursor: pointer;
     }
     
     .default a {
@@ -46,11 +55,12 @@
     
     .login {
         margin: 20px;
-        width: 200px;
+        width: 100px;
         height: 40px;
         border-radius: 20px;
         border: solid var(--color3) 2px;
         background-color: var(--background-color-navbar);
+        cursor: pointer;
     }
     
     .login a {
