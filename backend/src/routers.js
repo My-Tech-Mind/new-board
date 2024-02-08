@@ -1,5 +1,4 @@
 import express from 'express';
-import { conn } from './database/connection.js';
 
 export const router = express.Router(); 
 
