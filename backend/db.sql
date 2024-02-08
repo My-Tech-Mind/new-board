@@ -1,30 +1,30 @@
-CREATE DATABASE new_boards;
+CREATE DATABASE new_boar;
 
 CREATE TABLE users(
 	id serial primary key,
-  name varchar(40),
-  email varchar(256) unique,
-  password varchar(20)
+    name varchar(40) not null,
+    email varchar(256) unique not null,
+    password varchar(256) not null
 );
 
 CREATE TABLE boards(
-	id serial primary key,
-  title varchar(20),
-  favorited boolean,
-  user_id integer references users(id),
-  creation_date timestamptz,
-  update_date timestamptz
+    id serial primary key,
+    title varchar(20) not null,
+    favorited boolean,
+    user_id integer references users(id) not null,
+    creation_date timestamp not null,
+    update_date timestamp not null
 );
 
 CREATE TABLE cards(
 	id serial primary key,
-  title varchar(20),
-  board_id integer references boards(id)
+    title varchar(20) not null,
+    board_id integer references boards(id) not null
 );
 
 CREATE TABLE tasks(
 	id serial primary key,
-  title varchar(20),
-  description varchar(1000),
-  card_id integer references cards(id)
+    title varchar(50) not null,
+    description varchar(1000),
+    card_id integer references cards(id) not null
 );
