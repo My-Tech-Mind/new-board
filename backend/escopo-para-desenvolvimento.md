@@ -428,7 +428,6 @@
 - Parâmetro: de rota - ID do board a ser editado
 - Body da requisição:
   - titulo
-  - favoritado
 
 #### Dados retornados (status code 200)
 
@@ -444,7 +443,6 @@
 - Validar se existe um board para o ID informado como parâmetro de url
 - Validar os campos obrigatórios:
   - titulo
-  - favoritado
 - Validar se o titulo informado tem até 20 caracteres
 - Validar se o campo favoritado recebeu o valor "true" ou "false"
 - Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição forem enviados
@@ -490,11 +488,6 @@
 // HTTP Status: 400
 {
    "mensagem": "O campo titulo é obrigatório."
-}
-
-// HTTP Status: 400
-{
-   "mensagem": "O campo favoritado é obrigatório."
 }
 
 // HTTP Status: 400
