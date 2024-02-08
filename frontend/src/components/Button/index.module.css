@@ -45,11 +45,12 @@
     }
     
     .login {
+        margin: 20px;
         width: 200px;
         height: 40px;
         border-radius: 20px;
         border: solid var(--color3) 2px;
-        background-color: var(--background-color);
+        background-color: var(--background-color-navbar);
     }
     
     .login a {

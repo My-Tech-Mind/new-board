@@ -13,3 +13,24 @@ nav {
     height: 100px;
     background-color: var(--background-color-navbar);
 }
+
+@media screen and (min-width: 768px) {
+    .container_image {
+        display: flex;
+        justify-content: flex-start;
+        width: 100vw;
+        padding: 20px;
+    }
+    
+    .container_image > img {
+        width: 100px; 
+    }
+    
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+        background-color: var(--background-color-navbar);
+    }
+}
