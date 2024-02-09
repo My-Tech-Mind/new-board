@@ -12,13 +12,13 @@ const updateUser = async (req, res) => {
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    const updateUser = await knex('users').update({
+    const updatingUser = await knex('users').update({
         name,
         email,
         password: encryptedPassword
     }).where({id: req.user.id}).returning(['id', 'name', 'email']);
 
-    return res.status(200).json(updateUser[0]);
+    return res.status(200).json(updatingUser[0]);
     } catch (error) {
         return res.status(500).json({message: 'Internal server error'})
     }
