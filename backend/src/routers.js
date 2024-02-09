@@ -1,6 +1,7 @@
 import express from 'express';
 import { updateUser } from './controllers/users/update-user.js';
 import { deleteUser } from './controllers/users/delete-user.js'; 
+import { createBoard } from './controllers/boards/create-board.js';
 
 const router = express.Router(); 
 
@@ -10,5 +11,6 @@ router.get('/', async (req, res)=>{
 
 router.put('/user', updateUser);
 router.delete('/user/', deleteUser);
+router.post('/board', createBoard);
 
 export { router };
