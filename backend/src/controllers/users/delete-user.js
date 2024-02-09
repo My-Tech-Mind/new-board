@@ -1,10 +1,8 @@
 import { connection as knex } from '../../database/connection.js';
 
 const deleteUser = async (req, res) => {
-    const { id } = req.params;
-
     try {
-    const deletingUser = await knex('users').where({id}).delete();
+    const deletingUser = await knex('users').where({id: req.user.id}).delete();
 
     return res.status(204).json();
 
