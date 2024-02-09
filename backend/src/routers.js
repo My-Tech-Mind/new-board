@@ -1,7 +1,6 @@
 import express from 'express';
 import { updateUser } from './controllers/users/update-user.js';
 import { deleteUser } from './controllers/users/delete-user.js'; 
-import { validateUserId } from './middlewares/validations/params/validate-user-id.js';
 
 const router = express.Router(); 
 
@@ -10,6 +9,6 @@ router.get('/', async (req, res)=>{
 });
 
 router.put('/user', updateUser);
-router.delete('/user/:id', validateUserId, deleteUser);
+router.delete('/user/', deleteUser);
 
 export { router };
