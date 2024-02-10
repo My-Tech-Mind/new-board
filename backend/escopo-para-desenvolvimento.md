@@ -6,9 +6,6 @@
 
 - Será enviado um objeto no formato JSON com nome, email e senha.
 
-
-
-
 ```javascript
 //Dados enviados:
 
@@ -21,29 +18,29 @@
 ```
 
 **Critérios de aceite:**
-- Verificar se o nome, email e senha foram passados no body
-    - `nome: string`
-    - `email: string`
-    - `senha: string`
 
+- Verificar se o nome, email e senha foram passados no body
+
+  - `nome: string`
+  - `email: string`
+  - `senha: string`
 
 - Verificar Se o email enviado já existe no banco de dados
 
-
 **Exemplo de requisição mal sucedida:**
+
 ```javascript
 //Status code 400
 
 {
-    mensagem: `O campo ${campo} é obrigatório` 
+  mensagem: `O campo ${campo} é obrigatório`;
 }
-
 ```
 
 ```javascript
 //status code 400
 {
-    mensagem: `O campo ${campo} tem que ser uma string`
+  mensagem: `O campo ${campo} tem que ser uma string`;
 }
 ```
 
@@ -51,18 +48,16 @@
 //status code 401
 
 {
-    mensagem: `O email informado já existe`
+  mensagem: `O email informado já existe`;
 }
-
 ```
 
 ```javascript
 // status code 400
 
 {
-    mensagem: `Formato de email inválido`
+  mensagem: `Formato de email inválido`;
 }
-
 ```
 
 **Em caso de requisição bem sucedida:**
@@ -70,17 +65,12 @@
 - Criptografar Senha e inseri-la no banco de dados.
 - Inserir o usuário cadastrado no banco de dados
 
-
-
 - Retornar:
-    - id
-    - nome
-    - email
-
-
+  - id
+  - nome
+  - email
 
 **Exemplo de requisição bem sucedida:**
-
 
 ```javascript
 //status code 201
@@ -93,88 +83,83 @@
 
 ```
 
-
 ### Login de usuario POST/login
 
 **Descrição:Esta é a rota que será usada para o usuário fazer login.**
 
 - Será enviado um objeto no formato JSON com email e senha.
 
-
 **Critérios de aceite:**
 
 - Validar Os campos obrigatórios:
-    - `email: string`
-    - `senha: string` 
+
+  - `email: string`
+  - `senha: string`
 
 - Validar se o email consta no banco de dados
 - Validar se a senha fornecida está correta
 
-
 ```javascript
 //Dados enviados:
 
-{ 
+{
     "email": "bonates@email.com",
     "senha": "senha3241"
 }
 
 ```
+
 **Exemplo de requisição mal sucedida:**
 
 ```javascript
 //status code: 401
 
 {
-    mensagem: `O email ou a senha estão incorretos`
+  mensagem: `O email ou a senha estão incorretos`;
 }
-
 ```
-
 
 ```javascript
 //status code: 400
 {
-    mensagem: `O campo ${campo} é obrigatório.`
+  mensagem: `O campo ${campo} é obrigatório.`;
 }
 ```
-
 
 ```javascript
 //status code: 400
 {
-    mensagem: `O campo ${campo} tem que ser uma string`
+  mensagem: `O campo ${campo} tem que ser uma string`;
 }
 ```
 
 **Em caso de requisição bem sucedida**
+
 - Criar token do acesso com expiração de 24h.
 
 - Retornar os dados do usuario em um array com:
 
-    - id
-    - nome
-    - email
-    - token
+  - id
+  - nome
+  - email
+  - token
 
 ```javascript
 //status code 200
 
 [
-    {
-        id: 1,
-        nome: 'Bonates',
-        email: 'bonates@email.com'
+  {
+    id: 1,
+    nome: "Bonates",
+    email: "bonates@email.com",
+  },
 
-    },
-
-    {
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
-    }
-]
-
+  {
+    token:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+  },
+];
 ```
-
 
 # ATENÇÃO: Todas as rotas a seguir exigem que o usuário esteja logado para acessá-las.
 
@@ -189,11 +174,12 @@
 ```javascript
 // Dados enviados
 {
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
 }
 ```
 
 **Critérios de aceite:**
+
 - O usuário precisa estar logado no sistema.
 
 **Exemplo de requisição mal sucedida:**
@@ -202,18 +188,16 @@
 //status code 401
 
 {
-    mensagem: `Não autorizado`
+  mensagem: `Não autorizado`;
 }
 ```
-
-
 
 **Em caso de requisição bem sucedida:**
 
 - Retornar os dados do usuário:
-    - id
-    - nome
-    - email
+  - id
+  - nome
+  - email
 
 **Exemplo de requisição bem sucedida:**
 
@@ -226,7 +210,6 @@
 
 }
 ```
-
 
 ### Atualizar usuário logado: PUT/user
 
@@ -255,14 +238,13 @@
 
 - Criptografar a senha caso seja informada.
 
-
 **Exemplo de requisição mal sucedida:**
 
 ```javascript
 //status code 401
 
 {
-    mensagem: `Não autorizado`
+  mensagem: `Não autorizado`;
 }
 ```
 
@@ -270,7 +252,7 @@
 //status code 401
 
 {
-    mensagem: `O email informado já pertence a outro usuário`
+  mensagem: `O email informado já pertence a outro usuário`;
 }
 ```
 
@@ -278,23 +260,18 @@
 //status code 400
 
 {
-    mensagem: `O campo ${campo} tem que ser do tipo string`
+  mensagem: `O campo ${campo} tem que ser do tipo string`;
 }
-
 ```
-
-
 
 **Em caso de requisição bem sucedida:**
 
 - Se a senha for alterada, guardar o hash no banco de dados
 
-
 - Retornar os dados do usuário:
-    - id
-    - nome
-    - email
-
+  - id
+  - nome
+  - email
 
 **Exemplo de requisição bem sucedida:**
 
@@ -326,10 +303,8 @@
 //status code 401
 
 {
-    mensagem: 'Não autorizado'
-
+  mensagem: "Não autorizado";
 }
-
 ```
 
 **Em caso de requisição bem sucedida**
@@ -338,10 +313,7 @@
 
 ```javascript
 // status code 200
-
 ```
-
-
 
 ### Criação de Board: POST/board
 
@@ -353,7 +325,7 @@
 
 - JSON com o titulo do board
 
-    - `titulo: string`
+  - `titulo: string`
 
 ```javascript
 // Dados enviados
@@ -369,6 +341,7 @@
 
 - Verificar se o campo título foi passado corretamente.
 
+- Validar se o usuário não excedeu o limite de 5 boards criados.
 
 **Exemplo de requisição mal sucedida:**
 
@@ -376,8 +349,7 @@
 //status code: 401
 
 {
-    mensagem: 'Não autorizado'
-
+  mensagem: "Não autorizado";
 }
 ```
 
@@ -385,7 +357,7 @@
 //status code: 400
 
 {
-    mensagem: `O campo titulo é obrigatório.`
+  mensagem: `O campo titulo é obrigatório.`;
 }
 ```
 
@@ -393,19 +365,20 @@
 //status code: 400
 
 {
-    mensagem: 'O campo titulo precisa ser do tipo string'
+  mensagem: "O campo titulo precisa ser do tipo string";
 }
-
 ```
 
 **Em caso de requisição bem sucedida:**
 
 - Inserir os Dados do board no banco de dados
 - Retornar os dados:
-    - id
-    - titulo
-    - favoritado
-    - usuario_id
+  - id
+  - titulo
+  - favoritado
+  - usuario_id
+  - data_de_criacao
+  - data_de_atualizacao
 
 **Exemplo de requisição bem sucedida:**
 
@@ -416,8 +389,11 @@
     titulo: 'Tarefas Semanais',
     favoritado: false,
     usuario_id: 1
+    data_de_criacao: 2024-02-01 14:11:09
+    data _de_atualizacao: 2024-02-01 14:11:09
 }
 ```
+
 ### 7) Edição de board: PUT/board/:id
 
 #### Descrição: Esta é a rota que será usada para editar um board.
@@ -836,9 +812,10 @@
 ```
 
 ---
-13) Edição de card: PUT /card/:id
 
-*Descrição: Esta é a rota que será usada para editar um card.*
+13. Edição de card: PUT /card/:id
+
+_Descrição: Esta é a rota que será usada para editar um card._
 
 #### Dados enviados
 
@@ -866,25 +843,29 @@
 
 #### **Exemplos de requisição bem-sucedida**
 
-  **Entrada:**
-  ```javascript=
-         {
-             board_id: 1,
-             titulo: Cartão 1
-         }
-  ```
-  **Saida:**
-  ```javascript=
-        //status code 200
-         {
-             id: 1,
-             titulo: Cartão 1,
-             board_id: 1
-         }
-  ```
- 14) Exclusão de card: DELETE /card/:id
+**Entrada:**
 
-*Descrição: Esta é a rota que será usada para apagar um card.*
+```javascript=
+       {
+           board_id: 1,
+           titulo: Cartão 1
+       }
+```
+
+**Saida:**
+
+```javascript=
+      //status code 200
+       {
+           id: 1,
+           titulo: Cartão 1,
+           board_id: 1
+       }
+```
+
+14. Exclusão de card: DELETE /card/:id
+
+_Descrição: Esta é a rota que será usada para apagar um card._
 
 #### Dados enviados
 
@@ -902,18 +883,22 @@
 
 #### **Exemplos de requisição bem-sucedida**
 
-  **Entrada:**
-  ```javascript=
-      //Id do card passado pela querry Params 
-      // DELETE /card/1
-  ```
-  **Saida:**
-  ```javascript=
-       // 204 (No Content) = requisição bem sucedida, sem conteúdo no corpo da resposta
-  ```
-15) Criação de task: POST card/1/task/
-    
-*Descrição: Esta é a rota que será usada para criar uma task no card.*
+**Entrada:**
+
+```javascript=
+    //Id do card passado pela querry Params
+    // DELETE /card/1
+```
+
+**Saida:**
+
+```javascript=
+     // 204 (No Content) = requisição bem sucedida, sem conteúdo no corpo da resposta
+```
+
+15. Criação de task: POST card/1/task/
+
+_Descrição: Esta é a rota que será usada para criar uma task no card._
 
 #### Dados enviados
 
@@ -935,31 +920,36 @@
 - Validar se existe um board para o ID informado como Query params
 - Validar os campos obrigatórios:
   - titulo
+- Validar se o usuario não excedeu o limite de 20 tasks criadas por card
 - Criar a task no banco de dados
 
 #### **Exemplos de requisição bem-sucedida**
 
-  **Entrada**
-  ```javascript=
-      // POST card/1/task/
-        {
-            titulo: Tarefa 1,
-            descricao: Fazer PR,
-        }
-  ```
-  **Saida:**
-  ```javascript=
-        //status code 201
-        {
-            id: 1,
-            titulo: Tarefa 1,
-            descricao: Fazer PR,
-            card_id: 1
-        }
-  ```
-16) Edição de task: PUT /task/:id
+**Entrada**
 
-*Descrição: Esta é a rota que será usada para editar uma task no card.*
+```javascript=
+    // POST card/1/task/
+      {
+          titulo: Tarefa 1,
+          descricao: Fazer PR,
+      }
+```
+
+**Saida:**
+
+```javascript=
+      //status code 201
+      {
+          id: 1,
+          titulo: Tarefa 1,
+          descricao: Fazer PR,
+          card_id: 1
+      }
+```
+
+16. Edição de task: PUT /task/:id
+
+_Descrição: Esta é a rota que será usada para editar uma task no card._
 
 #### Dados enviados
 
@@ -987,28 +977,32 @@
 
 #### **Exemplos de requisição bem-sucedida**
 
-  **Entrada:**
-  ```javascript=
-        //ID passado por query params
-        // /task/1
-        {
-            itulo: Tarefa 1 atualizada,
-            descricao: Fazer PR,
-            card_id: 1
-        }
-  ```
-  **Saida:**
-  ```javascript=
-        {
-            id: 1,
-            itulo: Tarefa 1 atualizada,
-            descricao: Fazer PR,
-            card_id: 1
-        }
-  ```
-17) Detalhamento de task: GET/task/:id
+**Entrada:**
 
-*Descrição: Esta é a rota que será usada para detalhar/acessar uma task no card.*
+```javascript=
+      //ID passado por query params
+      // /task/1
+      {
+          itulo: Tarefa 1 atualizada,
+          descricao: Fazer PR,
+          card_id: 1
+      }
+```
+
+**Saida:**
+
+```javascript=
+      {
+          id: 1,
+          itulo: Tarefa 1 atualizada,
+          descricao: Fazer PR,
+          card_id: 1
+      }
+```
+
+17. Detalhamento de task: GET/task/:id
+
+_Descrição: Esta é a rota que será usada para detalhar/acessar uma task no card._
 
 #### Dados enviados
 
@@ -1030,28 +1024,33 @@
 
 #### **Exemplos de requisição bem-sucedida**
 
-  **Entrada:**
-  ```javascript=
-        //Id passado pela query params
-  ```
-  **Saida:**
-  ```javascript=
-      {
-            id: 1,
-            itulo: Tarefa 1 atualizada,
-            descricao: Fazer PR,
-            card_id: 1
-      }
-  ```
-18) Exclusão de task: DELETE /task/:id
+**Entrada:**
 
-*Descrição: Esta é a rota que será usada para excluir uma task do card.*
+```javascript=
+      //Id passado pela query params
+```
+
+**Saida:**
+
+```javascript=
+    {
+          id: 1,
+          itulo: Tarefa 1 atualizada,
+          descricao: Fazer PR,
+          card_id: 1
+    }
+```
+
+18. Exclusão de task: DELETE /task/:id
+
+_Descrição: Esta é a rota que será usada para excluir uma task do card._
 
 #### Dados enviados
 
 - Token de autenticação
 - Parâmetro: de rota - ID da task a ser excluida
 - Body da requisição (Sem conteudo)
+
 #### Dados retornados (status code 204)
 
 - Sem conteudo retornado (Status code 204)
@@ -1063,12 +1062,15 @@
 
 #### **Exemplos de requisição bem-sucedida**
 
-  **Entrada:**
-  ```javascript=
-    //Id passado na query params
-    // task/1   
-  ```
-  **Saida:**
-  ```javascript=
-      //No content status code 204
-  ```
+**Entrada:**
+
+```javascript=
+  //Id passado na query params
+  // task/1
+```
+
+**Saida:**
+
+```javascript=
+    //No content status code 204
+```
