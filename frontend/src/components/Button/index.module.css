@@ -1,0 +1,72 @@
+.default {
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--color1);
+}
+
+.default:hover {
+    background-color: var(--color-hover);
+}
+
+.default a {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.login {
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    border: solid var(--color3) 2px;
+    background-color: var(--background-color);
+}
+
+.login a {
+    color: var(--color3);
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.login:hover {
+    background-color: var(--color-hover-login);
+}
+
+@media screen and (min-width: 768px) {
+    .default {
+        width: 300px;
+        height: 40px;
+        border-radius: 20px;
+        border: none;
+        background-color: var(--color1);
+        cursor: pointer;
+    }
+
+    .default a {
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 16px;
+        text-decoration: none;
+    }
+
+    .login {
+        margin: 20px;
+        width: 100px;
+        height: 40px;
+        border-radius: 20px;
+        border: solid var(--color3) 2px;
+        background-color: var(--background-color-navbar);
+        cursor: pointer;
+    }
+
+    .login a {
+        color: var(--color3);
+        font-weight: 700;
+        font-size: 16px;
+        text-decoration: none;
+    }
+}
