@@ -9,7 +9,6 @@ const editBoard = async (req, res)=>{
 			title,
             favorited,
             user_id: 2,
-            creation_date: format(new Date(), 'yyyy-MM-dd kk:mm:ss'),
             update_date: format(new Date(), 'yyyy-MM-dd kk:mm:ss')
 		}).where('id', id).returning('*');
 		const formattedCreatingBoard = boardEdit.map(board => ({
