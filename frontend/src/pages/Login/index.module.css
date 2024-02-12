@@ -43,22 +43,12 @@ main {
     size: 20px;
 }
 
-.main_container .input_senha {
-    position: relative;
-}
-
+.main_container .input_senha,
 .main_container .input_email {
     position: relative;
 }
 
-.main_container .input_senha .icone {
-    position: absolute;
-    color: #D4CACA;
-    top: 15px;
-    right: 15px;
-    cursor: pointer;
-}
-
+.main_container .input_senha .icone,
 .main_container .input_email .icone {
     position: absolute;
     color: #D4CACA;
