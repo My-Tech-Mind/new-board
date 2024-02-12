@@ -48,8 +48,8 @@ main {
     position: relative;
 }
 
-.main_container .input_senha .icone,
-.main_container .input_email .icone {
+.main_container .input_email .icone,
+.main_container .input_senha .icone {
     position: absolute;
     color: #D4CACA;
     top: 15px;
