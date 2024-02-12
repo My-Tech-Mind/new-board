@@ -6,6 +6,7 @@ import { validateBodyCreateUser } from './middlewares/joi/joi-validations/valida
 import { createUser } from './controllers/users/create-user.js';
 import { validateBodyLogin } from './middlewares/joi/joi-validations/validate-body-login.js';
 import {loginUser} from './controllers/users/login-user.js'
+import {validateLogin} from './middlewares/validations/validate-token.js'
 
 const router = express.Router();
 
@@ -15,6 +16,8 @@ router.get('/', async (req, res) => {
 
 router.post('/user', validateBodyCreateUser, createUser);
 router.post('/login', validateBodyLogin, loginUser)
+
+router.use(validateLogin)
 
 router.put('/user', updateUser);
 router.delete('/user/', deleteUser);
