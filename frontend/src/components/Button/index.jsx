@@ -8,7 +8,6 @@ const Button = ({ title, style }) => {
                     {title}
                 </button>
             </a>
-
         </>
     );
 }
