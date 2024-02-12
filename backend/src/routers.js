@@ -2,6 +2,7 @@ import express from 'express';
 import { updateUser } from './controllers/users/update-user.js';
 import { deleteUser } from './controllers/users/delete-user.js';
 import { createBoard } from './controllers/boards/create-board.js';
+import { editBoard } from './controllers/boards/edit-board.js';
 import { listBoards } from './controllers/boards/list-boards.js';
 import { validationBodyRequest } from './middlewares/joi/joi-validations/validate-body-request.js';
 import { validationParamsRequest } from './middlewares/joi/joi-validations/validate-params-request.js';
@@ -17,6 +18,7 @@ router.get('/', async (req, res) => {
 router.put('/user', updateUser);
 router.delete('/user/', deleteUser);
 router.post('/board', createBoard);
-router.get('/board', validationQueryRequest(querySchema), listBoards)
+router.put('/board/:id', validationParamsRequest(paramsSchema), editBoard);
+router.get('/board', validationQueryRequest(querySchema), listBoards);
 
 export { router };
