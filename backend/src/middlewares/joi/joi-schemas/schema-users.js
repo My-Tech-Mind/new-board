@@ -1,4 +1,4 @@
-import { joi } from 'joi';
+import joi from 'joi'
 
 const bodyCreateUser = joi.object({
     name: joi.string().required().messages({
@@ -17,4 +17,6 @@ const bodyCreateUser = joi.object({
     })
 });
 
-export { bodyCreateUser };
+
+
+export {bodyCreateUser}
