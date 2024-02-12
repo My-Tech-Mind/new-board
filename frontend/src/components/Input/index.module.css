@@ -8,3 +8,12 @@
      border-radius: 5px;
 
  }
+
+ @media screen and (max-width: 768px) {
+     .input_default {
+         width: 200px;
+         height: 35px;
+     }
+
+
+ }
