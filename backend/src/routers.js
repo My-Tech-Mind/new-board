@@ -17,6 +17,6 @@ router.get('/', async (req, res) => {
 router.put('/user', updateUser);
 router.delete('/user/', deleteUser);
 router.post('/board', createBoard);
-router.get('/board', listBoards)
+router.get('/board', validationQueryRequest(querySchema), listBoards)
 
 export { router };
