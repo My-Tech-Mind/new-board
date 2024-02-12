@@ -541,14 +541,14 @@
 }
 ```
 
-### 9) Caso Especial de Listagem de Boards - Favoritos: GET/board/?favorite=true
+### 9) Caso Especial de Listagem de Boards - Favoritos: GET/board/?favorited=true
 
 #### Descrição: Esta é a rota que será usada para listar os boards favoritos do usuário.
 
 #### Dados enviados
 
 - Token de autenticação
-- Parâmetro: de consulta - favorite (status de favoritado=true)
+- Parâmetro: de consulta - favorited (status de favoritado=true)
 - Body da requisição: [x]
 
 #### Dados retornados (status code 200)
@@ -598,7 +598,7 @@
 
 // HTTP Status: 400
 {
-   "mensagem": "O parâmetro de consulta, favorite, deve ter o valor true."
+   "mensagem": "O parâmetro de consulta, favorited, deve ter o valor true."
 }
 ```
 
@@ -833,7 +833,7 @@ _Descrição: Esta é a rota que será usada para editar um card._
 
 #### Requisitos
 
-- Validar se existe um board para o ID informado como query params
+- Validar se existe um board para o ID informado como url params
 - Validar os campos obrigatórios:
   - titulo
   - board_id
@@ -870,7 +870,7 @@ _Descrição: Esta é a rota que será usada para apagar um card._
 #### Dados enviados
 
 - Token de autenticação
-- Query params - ID do board a ser editado
+- Parâmetro: de rota - ID do card a ser excluido
 
 #### Dados retornados (status code 204)
 
@@ -878,7 +878,7 @@ _Descrição: Esta é a rota que será usada para apagar um card._
 
 #### Requisitos
 
-- Validar se existe um card para o ID informado como query params
+- Validar se existe um card para o ID informado como url params
 - Apagar o card no banco de dados
 
 #### **Exemplos de requisição bem-sucedida**
@@ -896,17 +896,18 @@ _Descrição: Esta é a rota que será usada para apagar um card._
      // 204 (No Content) = requisição bem sucedida, sem conteúdo no corpo da resposta
 ```
 
-15. Criação de task: POST card/1/task/
+15. Criação de task: POST card/task
 
 _Descrição: Esta é a rota que será usada para criar uma task no card._
 
 #### Dados enviados
 
 - Token de autenticação
-- Query params - ID do card em que a task vai ser criada
+- Parametro (nenhum)
 - Body da requisição:
   - titulo
   - descricao
+  - card_id
 
 #### Dados retornados (status code 200)
 
@@ -917,9 +918,10 @@ _Descrição: Esta é a rota que será usada para criar uma task no card._
 
 #### Requisitos
 
-- Validar se existe um board para o ID informado como Query params
+- Validar se existe um card para o card_id informado no body
 - Validar os campos obrigatórios:
   - titulo
+  - card_id
 - Validar se o usuario não excedeu o limite de 20 tasks criadas por card
 - Criar a task no banco de dados
 
@@ -947,14 +949,14 @@ _Descrição: Esta é a rota que será usada para criar uma task no card._
       }
 ```
 
-16. Edição de task: PUT /task/:id
+16. Edição de task: PUT/task/:id
 
 _Descrição: Esta é a rota que será usada para editar uma task no card._
 
 #### Dados enviados
 
 - Token de autenticação
-- Query params - ID da task a ser editada
+- Parâmetro: de rota - ID da task a ser editada
 - Body da requisição:
   - titulo
   - descricao
@@ -969,7 +971,7 @@ _Descrição: Esta é a rota que será usada para editar uma task no card._
 
 #### Requisitos
 
-- Validar se existe uma task para o ID informado como Query params
+- Validar se existe uma task para o ID informado como url params
 - Validar os campos obrigatórios:
   - titulo
 - Validar se o titulo informado tem até 20 caracteres
@@ -1019,7 +1021,7 @@ _Descrição: Esta é a rota que será usada para detalhar/acessar uma task no c
 
 #### Requisitos
 
-- Validar se existe uma task para o ID informado como Query params
+- Validar se existe uma task para o ID informado como url params
 - Exibir os dados da task vindo do banco de dados
 
 #### **Exemplos de requisição bem-sucedida**
@@ -1057,7 +1059,7 @@ _Descrição: Esta é a rota que será usada para excluir uma task do card._
 
 #### Requisitos
 
-- Validar se existe uma task para o ID informado como query params
+- Validar se existe uma task para o ID informado como url params
 - Deletas a task do banco de dados
 
 #### **Exemplos de requisição bem-sucedida**
