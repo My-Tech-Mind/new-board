@@ -8,7 +8,7 @@ const editBoard = async (req, res)=>{
 		const boardEdit = await knex('boards').update({
 			title,
             favorited,
-            user_id: 2,
+            user_id: req.user.id,
             update_date: format(new Date(), 'yyyy-MM-dd kk:mm:ss')
 		}).where('id', id).returning('*');
 		const formattedCreatingBoard = boardEdit.map(board => ({
