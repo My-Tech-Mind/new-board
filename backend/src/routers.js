@@ -7,6 +7,7 @@ import { createUser } from './controllers/users/create-user.js';
 import { validateBodyLogin } from './middlewares/joi/joi-validations/validate-body-login.js';
 import {loginUser} from './controllers/users/login-user.js'
 import {validateLogin} from './middlewares/validations/validate-token.js'
+import {validateBodyCreateBoard} from './middlewares/joi/joi-validations/validade-body-create-board.js'
 
 const router = express.Router();
 
@@ -18,6 +19,8 @@ router.post('/user', validateBodyCreateUser, createUser);
 router.post('/login', validateBodyLogin, loginUser)
 
 router.use(validateLogin)
+
+router.post('/board', validateBodyCreateBoard)
 
 router.put('/user', updateUser);
 router.delete('/user/', deleteUser);
