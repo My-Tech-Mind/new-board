@@ -14,6 +14,7 @@ import { validationBodyRequest } from './middlewares/joi/joi-validations/validat
 import { validationParamsRequest } from './middlewares/joi/joi-validations/validate-params-request.js';
 import { validationQueryRequest } from './middlewares/joi/joi-validations/validate-query-request.js';
 import { paramsSchema, querySchema } from './middlewares/joi/joi-schemas/parameters-schema.js';
+import {userDatails} from './controllers/users/user-details.js'
 
 const router = express.Router();
 
@@ -26,11 +27,11 @@ router.post('/login', validateBodyLogin, loginUser)
 
 router.use(validateLogin)
 
-router.post('/board', validateBodyCreateBoard)
+router.get('/user', userDatails)
 
 router.put('/user', updateUser);
 router.delete('/user/', deleteUser);
-router.post('/board', createBoard);
+router.post('/board', validateBodyCreateBoard,createBoard);
 router.put('/board/:id', validationParamsRequest(paramsSchema), editBoard);
 router.get('/board', validationQueryRequest(querySchema), listBoards);
 
