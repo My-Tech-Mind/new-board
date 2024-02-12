@@ -1,9 +1,32 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body, html {
   margin: 0;
   padding: 0;
-  height: 100vw;
+  height: 100vh;
+  width: 100vw;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: Poppins, sans-serif;
+  background-color: var(--background-color);
+  overflow-x: hidden;
+}
+
+:root {
+  --color0: #00fcfc;
+  --color1: #00a6a6;
+  --color2: #004040;
+  --color3: #005959;
+  --color4: #001c1c;
+  --color-hover: #00c2c2;
+  --color-hover-login: #fff;
+  --background-color: #fff;
+  --background-color-navbar: #f2f2f2;
+  --background-color-dark: #171717;
+  --background-color-navbar-dark: #1e1e1e;
+  --shadow: #00000075;
+  --button-width-desktop: 280px;
+  --button-width-mobile: 200px;
+  --button-height-desktop: 40px;
+  --button-height-mobile: 40px;
+
 }

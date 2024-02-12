@@ -1,0 +1,52 @@
+.default {
+    width: var(--button-width-mobile);
+    height: var(--button-height-mobile);
+    border-radius: 20px;
+    border: none;
+    background-color: var(--color1);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.default:hover {
+    background-color: var(--color-hover);
+}
+
+.login {
+    width: var(--button-width-mobile);
+    height: var(--button-height-mobile);
+    border-radius: 20px;
+    border: solid var(--color3) 2px;
+    background-color: var(--background-color);
+    color: var(--color3);
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.login:hover {
+    background-color: var(--color-hover-login);
+}
+
+@media screen and (min-width: 768px) {
+    .default {
+        width: var(--button-width-desktop);
+        height: var(--button-height-desktop);
+        border-radius: 20px;
+        border: none;
+        background-color: var(--color1);
+        cursor: pointer;
+    }
+    
+    .login {
+        margin: 20px;
+        width: 100px;
+        height: 40px;
+        border-radius: 20px;
+        border: solid var(--color3) 2px;
+        background-color: var(--background-color-navbar);
+        cursor: pointer;
+    }
+}
