@@ -1,5 +1,5 @@
-import {passwordHash} from './password-hash.js'
-import { jwt } from 'jsonwebtoken'
+import {passwording} from './password-hash.js'
+import  jwt  from 'jsonwebtoken'
 import { connection as knex } from '../../database/connection.js'
 
 
@@ -14,7 +14,7 @@ const validateLogin = async (req, res, next) => {
 
         const token = authorization.replace('Bearer', '').trim();
 
-        const { id } = jwt.verify(token, passwordHash);
+        const { id } = jwt.verify(token, passwording);
 
         const userFound = await knex('user').where({id}).first();
 
