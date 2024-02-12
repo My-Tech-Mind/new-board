@@ -1,11 +1,11 @@
 import styles from './index.module.css'
 
-const SignIn = () => {
+const SignUp = () => {
     return ( 
         <div>
-            <p>SignIn</p>
+            <p>SignUp</p>
         </div>
      );
 }
  
-export default SignIn;
+export default SignUp;

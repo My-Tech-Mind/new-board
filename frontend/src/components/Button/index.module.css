@@ -1,33 +1,27 @@
 .default {
-    width: 200px;
-    height: 40px;
+    width: var(--button-width-mobile);
+    height: var(--button-height-mobile);
     border-radius: 20px;
     border: none;
     background-color: var(--color1);
-}
-
-.default:hover {
-    background-color: var(--color-hover);
-}
-
-.default a {
     color: #ffffff;
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
 }
 
+.default:hover {
+    background-color: var(--color-hover);
+}
+
 .login {
-    width: 200px;
-    height: 40px;
+    width: var(--button-width-mobile);
+    height: var(--button-height-mobile);
     border-radius: 20px;
     border: solid var(--color3) 2px;
     background-color: var(--background-color);
-}
-
-.login a {
     color: var(--color3);
-    font-weight: 700;
+    font-weight: 600;
     font-size: 16px;
     text-decoration: none;
 }
@@ -38,19 +32,12 @@
 
 @media screen and (min-width: 768px) {
     .default {
-        width: 300px;
-        height: 40px;
+        width: var(--button-width-desktop);
+        height: var(--button-height-desktop);
         border-radius: 20px;
         border: none;
         background-color: var(--color1);
         cursor: pointer;
-    }
-    
-    .default a {
-        color: #ffffff;
-        font-weight: 600;
-        font-size: 16px;
-        text-decoration: none;
     }
     
     .login {
@@ -61,12 +48,5 @@
         border: solid var(--color3) 2px;
         background-color: var(--background-color-navbar);
         cursor: pointer;
-    }
-    
-    .login a {
-        color: var(--color3);
-        font-weight: 700;
-        font-size: 16px;
-        text-decoration: none;
     }
 }

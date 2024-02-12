@@ -18,11 +18,15 @@ const ButtonMobile = ({ title, style }) => {
     }, [])
     return ( 
         <>
-            {windowSize < 768 && (
-                <button className={styles[`${style}`]}>
-                <a href="#">{ title }</a>
-            </button>)}
-            
+            {
+                windowSize < 768 && (
+                <a href="/login">
+                    <button className={styles[`${style}`]}>
+                        {title}
+                    </button>
+                </a>
+            )
+            }
         </>
      );
 }
