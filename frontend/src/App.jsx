@@ -1,12 +1,9 @@
-import Home from './pages/Home';
-import Login from './pages/Login';
-import "./components/FontAwesomeIcons";
+import PagesNavigation from './routes'
 function App() {
   return (
     <div className="App">
-      <Login />
+      <PagesNavigation />
     </div>
-
   );
 }
 

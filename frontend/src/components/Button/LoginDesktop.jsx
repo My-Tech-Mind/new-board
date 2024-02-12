@@ -10,7 +10,7 @@ const ButtonDesktop = ({ title, style }) => {
             setWindowSize(window.innerWidth);
         };
 
-        window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', handleResize)
 
         return () => {
             window.removeEventListener('resize', handleResize)
@@ -18,10 +18,15 @@ const ButtonDesktop = ({ title, style }) => {
     }, [])
     return (
         <>
-            {windowSize > 768 && (
-                <button className={styles[`${style}`]}>
-                    <a href="#">{title}</a>
-                </button>)}
+            {
+                windowSize > 768 && (
+                    <a href="/login">
+                        <button className={styles[`${style}`]}>
+                            {title}
+                        </button>
+                    </a>
+                )
+            }
 
         </>
     );
