@@ -10,7 +10,7 @@ const ButtonDesktop = ({ title, style }) => {
             setWindowSize(window.innerWidth);
         };
 
-        window.addEventListener('resize', handleResize)
+        window.addEventListener('resize', handleResize);
 
         return () => {
             window.removeEventListener('resize', handleResize)

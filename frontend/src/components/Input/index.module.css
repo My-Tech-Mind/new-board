@@ -1,0 +1,9 @@
+ .input_default {
+     width: 270px;
+     height: 42px;
+     outline: 0;
+     font-family: "Poppins", sans-serif;
+     border: 3px solid #D4CACA;
+     padding-left: 20px;
+     border-radius: 5px;
+ }
