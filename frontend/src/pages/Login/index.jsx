@@ -9,16 +9,16 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 
 const Login = () => {
-
     const [state, setState] = useState("password");
     const [iconPasswordStateOne, setIconPassStateOne] = useState("none");
-    const [iconPasswordStateTwo, setIconPassStateTwo] = useState("")
+    const [iconPasswordStateTwo, setIconPassStateTwo] = useState("");
+
     const handleClick = () => {
-        if (state == "password") {
+        if (state === "password") {
             setState("text");
             setIconPassStateOne("");
             setIconPassStateTwo("none");
-        } else if (state == "text") {
+        } else if (state === "text") {
             setState("password");
             setIconPassStateOne("none");
             setIconPassStateTwo("");
