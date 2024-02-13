@@ -31,26 +31,29 @@ const Login = () => {
                             <Input
                                 {...register('email',
                                     {
-                                        required: 'Email é obrigatório', pattern: { value: /\S+@\S+\.\S+/, message: 'Email inválido' }
+                                        required: 'Email é obrigatório',
+                                        pattern: { value: /\S+@\S+\.\S+/, message: 'Email inválido' }
                                     })
                                 }
                                 type='email' placeholder='Enter your e-mail' style='input_default' />
                             <FontAwesomeIcon icon={['fa', 'envelope']} className={styles.icone} />
                             <p className={styles.mensagem_erro}>{errors.email?.message}</p>
                         </div>
-
                         <div className={styles.input_senha}>
                             <Input
                                 {...register('password',
                                     {
-                                        required: 'Senha é obrigatória', minLength: { value: 6, message: 'Senha deve ter pelo menos 6 caracteres' }
+                                        required: 'Senha é obrigatória',
+                                        minLength: { value: 8, message: 'Senha deve ter pelo menos 8 caracteres' },
+                                        pattern: {
+                                            value: /((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/g, message: 'senha inválida'
+                                        }
                                     })
                                 }
                                 type={PasswordInputType} placeholder="Enter your password" style='input_default' />
                             <div className={styles.icone}>{ToggleIcon}</div>
                             <p className={styles.mensagem_erro}>{errors.password?.message}</p>
                         </div>
-
                         <div className={styles.container_buttons}>
                             <Button type='submit' title='Continue' style='default' />
                         </div>
