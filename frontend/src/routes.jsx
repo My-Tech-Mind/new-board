@@ -4,6 +4,7 @@ import Account from './pages/Account'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 
+
 const PagesNavigation = () => {
     return (
         <BrowserRouter>

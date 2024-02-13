@@ -1,4 +1,5 @@
- .input_default {
+ .input_default,
+ .input_error {
      width: 270px;
      height: 42px;
      outline: 0;
@@ -9,13 +10,21 @@
 
  }
 
+ .input_error {
+     border-color: red;
+ }
 
  @media screen and (max-width: 768px) {
-     .input_default {
-         width: 200px;
-         height: 35px;
+
+     .input_default,
+     .input_error {
+         width: 230px;
+         height: 30px;
      }
 
+     .input_default::placeholder {
+         font-size: 12px;
+     }
 
 
 

@@ -6,12 +6,17 @@ import logoLight from '../../assets/logo-light.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import usePasswordToggle from '../../components/Hook/usePasswordToogle';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [PasswordInputType, ToggleIcon] = usePasswordToggle();
     const { register, handleSubmit, formState: { errors } } = useForm();
-    function handleLogin(data) {
+    const navigate = useNavigate();
+    function handleLogin(data, event) {
         console.log(data);
+        event.preventDefault();
+        navigate('/signup');
+
     }
     return (
         <>
@@ -19,7 +24,7 @@ const Login = () => {
                 <div className={styles.container_image}>
                     <img src={ilustrationLogin} alt='Ilustration' />
                 </div>
-                <form onSubmit={handleSubmit(handleLogin)}>
+                <form onSubmit={handleSubmit(handleLogin)} >
                     <div className={styles.main_container}>
                         <div className={styles.logo}>
                             <img src={logoLight} alt="Logo" />
@@ -27,7 +32,7 @@ const Login = () => {
                         <div className={styles.texto}>
                             <p>Login to the newBoard</p>
                         </div>
-                        <div className={styles.input_email}>
+                        <div className={styles.input_email} >
                             <Input
                                 {...register('email',
                                     {
@@ -35,7 +40,7 @@ const Login = () => {
                                         pattern: { value: /\S+@\S+\.\S+/, message: 'Email inválido' }
                                     })
                                 }
-                                type='email' placeholder='Enter your e-mail' style='input_default' />
+                                type='email' placeholder='Enter your e-mail' style={errors.email?.message ? 'input_error' : 'input_default'} />
                             <FontAwesomeIcon icon={['fa', 'envelope']} className={styles.icone} />
                             <p className={styles.mensagem_erro}>{errors.email?.message}</p>
                         </div>
@@ -52,7 +57,7 @@ const Login = () => {
                                         }
                                     })
                                 }
-                                type={PasswordInputType} placeholder="Enter your password" style='input_default' />
+                                type={PasswordInputType} placeholder="Enter your password" style={errors.email?.message ? 'input_error' : 'input_default'} />
                             <div className={styles.icone}>{ToggleIcon}</div>
                             <p className={styles.mensagem_erro}>{errors.password?.message}</p>
                         </div>
@@ -64,7 +69,7 @@ const Login = () => {
                         </div>
                     </div>
                 </form>
-            </main>
+            </main >
         </>
     );
 }
