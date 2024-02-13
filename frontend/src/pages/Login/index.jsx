@@ -39,14 +39,16 @@ const Login = () => {
                             <FontAwesomeIcon icon={['fa', 'envelope']} className={styles.icone} />
                             <p className={styles.mensagem_erro}>{errors.email?.message}</p>
                         </div>
-                        <div className={styles.input_senha}>
+                        <div className={styles.input_password}>
                             <Input
                                 {...register('password',
                                     {
                                         required: 'Senha é obrigatória',
                                         minLength: { value: 8, message: 'Senha deve ter pelo menos 8 caracteres' },
                                         pattern: {
-                                            value: /((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/g, message: 'senha inválida'
+                                            value: /((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/g, message: `senha deve ter: 
+                                                    Letra maiúscula, Letra minúscula,
+                                             Caractere especial, e Número.`
                                         }
                                     })
                                 }

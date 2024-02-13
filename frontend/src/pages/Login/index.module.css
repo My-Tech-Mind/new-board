@@ -43,13 +43,13 @@ main {
     size: 20px;
 }
 
-.main_container .input_senha,
+.main_container .input_password,
 .main_container .input_email {
     position: relative;
 }
 
 .main_container .input_email .icone,
-.main_container .input_senha .icone {
+.main_container .input_password .icone {
     position: absolute;
     color: #D4CACA;
     top: 15px;
@@ -77,8 +77,11 @@ main {
 }
 
 .main_container .mensagem_erro {
+    width: 250px;
     color: red;
     font-size: 12px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
 }
 
 
@@ -121,7 +124,7 @@ main {
     }
 
     .main_container .input_email .icone,
-    .main_container .input_senha .icone {
+    .main_container .input_password .icone {
         top: 10px;
     }
 }
