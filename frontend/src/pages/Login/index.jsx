@@ -57,7 +57,7 @@ const Login = () => {
                                         }
                                     })
                                 }
-                                type={PasswordInputType} placeholder="Enter your password" style={errors.email?.message ? 'input_error' : 'input_default'} />
+                                type={PasswordInputType} placeholder="Enter your password" style={errors.password?.message ? 'input_error' : 'input_default'} />
                             <div className={styles.icone}>{ToggleIcon}</div>
                             <p className={styles.mensagem_erro}>{errors.password?.message}</p>
                         </div>
