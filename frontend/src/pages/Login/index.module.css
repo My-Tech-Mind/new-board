@@ -76,6 +76,12 @@ main {
     text-decoration: none;
 }
 
+.main_container .mensagem_erro {
+    color: red;
+    font-size: 12px;
+}
+
+
 @media screen and (max-width: 768px) {
 
     main {
