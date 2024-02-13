@@ -14,6 +14,7 @@ const Login = () => {
     const navigate = useNavigate();
     function handleLogin(data, event) {
         console.log(data);
+        //dados serão enviados para o back em algum momento.
         event.preventDefault();
         navigate('/signup');
 
