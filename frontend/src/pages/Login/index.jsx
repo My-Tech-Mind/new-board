@@ -22,7 +22,7 @@ const Login = () => {
                 <form onSubmit={handleSubmit(handleLogin)} >
                     <div className={styles.main_container}>
                         <img className={styles.logo} src={logoLight} alt="Logo" />
-                        <p className={styles.texto}>Login to the newBoard</p>
+                        <p className={styles.texto}>Login to newBoard</p>
                         <EmailInput
                             name="email"
                             placeholder="Enter your e-mail"

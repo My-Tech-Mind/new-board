@@ -16,7 +16,7 @@ main {
     align-items: center;
     flex-direction: column;
     background-color: #d9d9d9;
-    padding: 15px;
+    padding: 10px;
 }
 
 .main_container .logo {
