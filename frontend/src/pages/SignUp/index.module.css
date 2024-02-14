@@ -16,11 +16,11 @@ main {
     align-items: center;
     flex-direction: column;
     background-color: #d9d9d9;
-    padding: 10px;
+    padding: 15px;
 }
 
 .main_container .logo {
-    width: 150px;
+    width: 130px;
     height: 50px;
 }
 
@@ -32,7 +32,6 @@ main {
 }
 
 .main_container .texto {
-    font-family: "Poppins", sans-serif;
     font-weight: 700;
     font-style: normal;
     size: 20px;
@@ -47,7 +46,7 @@ main {
 
 .main_container .container_buttons button {
     width: 230px;
-    height: 37px;
+    height: 35px;
     cursor: pointer;
 }
 
@@ -67,33 +66,33 @@ main {
     }
 
     .container_image {
-        width: 170px;
-        height: 170px;
+        width: 160px;
+        height: 160px;
     }
 
     .main_container {
         width: 290px;
-        height: 390px;
+        height: 400px;
         padding: 0px;
     }
 
     .main_container .logo {
         width: 100px;
-        height: 40px;
+        height: 35px;
     }
 
     .main_container .texto {
-        font-size: 15px;
+        font-size: 11px;
     }
 
     .main_container .container_buttons button {
         width: 190px;
-        height: 32px;
-        font-size: 14px;
+        height: 28px;
+        font-size: 12px;
     }
 
     .main_container .container_account {
-        font-size: 10px;
+        font-size: 9px;
 
     }
 }

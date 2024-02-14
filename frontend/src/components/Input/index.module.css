@@ -1,9 +1,8 @@
  .input_default,
  .input_error {
      width: 270px;
-     height: 42px;
+     height: 40px;
      outline: 0;
-     font-family: "Poppins", sans-serif;
      border: 3px solid #D4CACA;
      padding-left: 20px;
      border-radius: 5px;
@@ -32,9 +31,8 @@
  .message_error {
      width: 260px;
      color: red;
-     font-size: 12px;
+     font-size: 11px;
      margin: 0;
-     font-family: "Poppins", sans-serif;
      font-weight: 600;
  }
 
@@ -43,16 +41,20 @@
      .input_default,
      .input_error {
          width: 230px;
-         height: 30px;
+         height: 27px;
      }
 
      .input_default::placeholder {
          font-size: 12px;
      }
 
-     .main_container .message_error {
+     .message_error {
          font-size: 10px;
      }
 
+     .icon {
+         top: 10px;
+         font-size: 14px;
+     }
 
  }
