@@ -6,7 +6,7 @@ const bodyLogin = joi.object({
         'string.empty': 'The email field cannot be empty.',
         'string.email': 'The email field must be a valid email address.'
     }),
-    password: joi.string().min(8).max(22).required().messages({
+    password: joi.string().min(8).max(20).required().messages({
         'any.required': 'The password field is required.',
         'string.empty': 'The password field cannot be empty.'
     })
