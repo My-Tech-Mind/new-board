@@ -66,7 +66,7 @@ const Login = () => {
                             <Button type='submit' title='Continue' style='default' />
                         </div>
                         <div className={styles.container_account}>
-                            <a href="#">Create an account</a>
+                            <a href="/signup">Create an account</a>
                         </div>
                     </div>
                 </form>

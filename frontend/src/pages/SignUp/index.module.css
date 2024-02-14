@@ -1,0 +1,115 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+main {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+}
+
+.main_container {
+    border-radius: 15px;
+    width: 350px;
+    height: 450px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    background-color: #d9d9d9;
+    padding: 10px;
+}
+
+.main_container .logo {
+    width: 150px;
+    height: 50px;
+}
+
+.container_image {
+    width: 350px;
+    height: 350px;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_container .texto {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    size: 20px;
+}
+
+.main_container .container_buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main_container .container_buttons button {
+    width: 230px;
+    height: 37px;
+    cursor: pointer;
+}
+
+.main_container .container_account a {
+    color: var(--color1);
+    font-weight: 300;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.main_container .mensagem_erro {
+    width: 250px;
+    color: red;
+    font-size: 12px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+
+    main {
+        flex-direction: column-reverse;
+        height: 97vh;
+    }
+
+    .container_image img {
+        width: 170px;
+        height: 170px;
+    }
+
+    .main_container {
+        width: 290px;
+        height: 380px;
+        padding: 0px;
+    }
+
+    .main_container .logo img {
+        width: 100px;
+        height: 40px;
+    }
+
+    .main_container .texto p {
+        font-size: 15px;
+    }
+
+    .main_container .container_buttons button {
+        width: 190px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .main_container .container_account a {
+        font-size: 10px;
+        text-decoration: underline;
+    }
+
+    .main_container .mensagem_erro {
+        font-size: 10px;
+    }
+}

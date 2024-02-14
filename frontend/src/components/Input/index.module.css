@@ -14,6 +14,29 @@
      border-color: red;
  }
 
+ .input_password,
+ .input_email,
+ .input_name {
+     position: relative;
+ }
+
+ .icone {
+     position: absolute;
+     color: #D4CACA;
+     top: 15px;
+     right: 15px;
+     font-size: 16px;
+     cursor: pointer;
+ }
+
+ .mensagem_erro {
+     width: 250px;
+     color: red;
+     font-size: 12px;
+     font-family: "Poppins", sans-serif;
+     font-weight: 600;
+ }
+
  @media screen and (max-width: 768px) {
 
      .input_default,
