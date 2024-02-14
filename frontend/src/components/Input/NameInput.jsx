@@ -10,8 +10,8 @@ const NameInput = ({ name, placeholder, register, errors }) => {
             <Input
                 {...register(name,
                     {
-                        required: 'Nome é obrigatório',
-                        minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' },
+                        required: 'Name is required',
+                        minLength: { value: 3, message: 'Name must have at least 3 characters' },
                     })
                 }
                 type='text' placeholder={placeholder} style={errors[name]?.message ? 'input_error' : 'input_default'} />

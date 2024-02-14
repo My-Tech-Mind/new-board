@@ -1,4 +1,4 @@
-import styles from './index.module.css';
+import styles from '../Login/index.module.css';
 import Button from '../../components/Button/index';
 import PasswordInput from '../../components/Input/PasswordInput';
 import NameInput from '../../components/Input/NameInput';
@@ -52,9 +52,7 @@ const SignUp = () => {
                         <div className={styles.container_buttons}>
                             <Button type='submit' title='Continue' style='default' />
                         </div>
-                        <div className={styles.container_account}>
-                            <a href="/login">Back to login</a>
-                        </div>
+                        <a className={styles.container_account} href="/login">Back to login</a>
                     </div>
                 </form>
                 <img className={styles.container_image} src={ilustrationLogin} alt='Ilustration' />

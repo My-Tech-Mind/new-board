@@ -11,13 +11,13 @@ const PasswordInput = ({ name, placeholder, register, errors, watch }) => {
             <Input
                 {...register(name,
                     {
-                        required: 'Senha é obrigatória',
-                        minLength: { value: 8, message: 'Senha deve ter pelo menos 8 caracteres' },
+                        required: 'Password is required',
+                        minLength: { value: 8, message: 'Password must have at least 8 characters' },
                         pattern: {
                             value: /((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/g,
-                            message: `Senha deve ter: 
-                                Letra maiúscula, Letra minúscula,
-                                Caractere especial, e Número.`
+                            message: `Password must have: 
+                            Uppercase, Lowercase,
+                            Special Character, and Number.`
                         },
                         validate: (value) => {
                             const password = watch('password');

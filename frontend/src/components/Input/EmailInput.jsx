@@ -10,8 +10,8 @@ const EmailInput = ({ name, placeholder, register, errors }) => {
             <Input
                 {...register(name,
                     {
-                        required: 'Email é obrigatório',
-                        pattern: { value: /\S+@\S+\.\S+/, message: 'Email inválido' }
+                        required: 'Email is required',
+                        pattern: { value: /\S+@\S+\.\S+/, message: 'Invalid email' }
                     })
                 }
                 type='email' placeholder={placeholder} style={errors[name]?.message ? 'input_error' : 'input_default'} />

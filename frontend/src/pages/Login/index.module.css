@@ -56,7 +56,7 @@ main {
     cursor: pointer;
 }
 
-.main_container .container_account a {
+.main_container .container_account {
     color: var(--color1);
     font-weight: 300;
     font-size: 12px;
@@ -96,14 +96,9 @@ main {
         font-size: 14px;
     }
 
-    .main_container .container_account a {
+    .main_container .container_account {
         font-size: 10px;
         text-decoration: underline;
     }
 
-
-
-    .main_container .mensagem_erro {
-        font-size: 10px;
-    }
 }

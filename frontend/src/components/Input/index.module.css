@@ -49,6 +49,9 @@
          font-size: 12px;
      }
 
+     .main_container .mensagem_erro {
+         font-size: 10px;
+     }
 
 
  }
