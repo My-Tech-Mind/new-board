@@ -11,7 +11,7 @@ const createUser = async (req, res) => {
         if (verifyEmail.length <= 0) {
             const encryptedPassword = await bcrypt.hash(password, 10);
 
-            const create = await knex('users').insert(
+            const creatingUser = await knex('users').insert(
                 {
                     name,
                     email,
@@ -25,7 +25,7 @@ const createUser = async (req, res) => {
                 ]
             );
 
-            return res.status(201).json(create);
+            return res.status(201).json(creatingUser);
         }
 
         return res.status(400).json({message: 'This email address is already registered.'});
