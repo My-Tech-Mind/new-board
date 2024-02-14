@@ -1,6 +1,6 @@
 import joi from 'joi'
 
-const bodyCreateUser = joi.object({
+const schemaUser = joi.object({
     name: joi.string().required().messages({
         'any.required': 'The name field is required.',
         'string.empty': 'The name field cannot be empty.'
@@ -19,4 +19,4 @@ const bodyCreateUser = joi.object({
 
 
 
-export {bodyCreateUser}
+export {schemaUser}

@@ -8,35 +8,30 @@ const createUser = async (req, res) => {
     try {
         const verifyEmail = await knex('users').select('email').where({email});
 
-        console.log('VERIFICAÇÃO DO EMAIL', verifyEmail);
-
-        if (verifyEmail.length <= 0) {
-            const encryptedPassword = await bcrypt.hash(password, 10);
-
-            const create = await knex('users').insert(
-                {
-                    name,
-                    email,
-                    password: encryptedPassword
-                }
-            ).returning(
-                [
-                    'id',
-                    'name',
-                    'email'
-                ]
-            );
-
-            return res.status(201).json(create);
+        if (verifyEmail.length > 0) {
+            return res.status(400).json({message: 'This email address is already registered.'});
         }
 
-        return res.status(400).json({message: 'This email address is already registered.'});
+        const encryptedPassword = await bcrypt.hash(password, 10);
+
+        const creatingUser = await knex('users').insert(
+            {
+                name,
+                email,
+                password: encryptedPassword
+            }
+        ).returning(
+            [
+                'id',
+                'name',
+                'email'
+            ]
+        );
+
+        return res.status(201).json(creatingUser);
 
     } catch (error) {
-        console.log('Error Message:', error.message);
-
         return res.status(500).json({message: 'internal server error'});
-
     }
 };
 

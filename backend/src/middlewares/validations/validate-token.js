@@ -31,8 +31,8 @@ const validateLogin = async (req, res, next) => {
 
         next();
     } catch (error) {
-        console.log('Message error:', error.message);
-        res.status(500).json({message: 'Internal server error'});
+    
+        return res.status(500).json({message: 'Internal server error'});
     }
 }
 
