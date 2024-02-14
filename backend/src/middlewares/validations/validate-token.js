@@ -1,13 +1,14 @@
-import { passwording } from './password-hash.js';
-import jwt from 'jsonwebtoken';
-import { connection as knex } from '../../database/connection.js';
+import  jwt  from 'jsonwebtoken'
+import { connection as knex } from '../../database/connection.js'
+
 
 const validateLogin = async (req, res, next) => {
-    const { authorization } = req.headers;
+    const {authorization} = req.headers;
 
-    
-    if (!authorization) {
-        return res.status(401).json({ message: 'Token not provided' });
+    const passwording = process.env.PASSWORD_HASH;
+
+    if(!authorization){
+        return res.status(401).json({message: 'Unauthorized'});
     }
 
     try {
@@ -30,18 +31,8 @@ const validateLogin = async (req, res, next) => {
 
         next();
     } catch (error) {
-
-        if (error instanceof jwt.JsonWebTokenError) {
-            return res.status(401).json({ message: 'Invalid token' });
-
-        } else if (error instanceof jwt.TokenExpiredError) {
-        
-            return res.status(401).json({ message: 'Expired token' });
-        } else {
-            console.log('Message error:', error.message);
-            console.log('ENTROU AQUI');
-            return res.status(500).json({ message: 'Internal server error' });
-        }
+        console.log('Message error:', error.message);
+        res.status(500).json({message: 'Internal server error'});
     }
 }
 
