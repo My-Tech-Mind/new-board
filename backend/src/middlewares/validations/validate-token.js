@@ -1,10 +1,11 @@
-import {passwording} from './password-hash.js'
 import  jwt  from 'jsonwebtoken'
 import { connection as knex } from '../../database/connection.js'
 
 
 const validateLogin = async (req, res, next) => {
     const {authorization} = req.headers;
+
+    const passwording = process.env.PASSWORD_HASH;
 
     if(!authorization){
         return res.status(401).json({message: 'Unauthorized'});

@@ -1,10 +1,12 @@
 import  bcrypt from 'bcrypt';
 import { connection as knex } from "../../database/connection.js";
 import  jwt  from 'jsonwebtoken'
-import { passwording } from '../../middlewares/validations/password-hash.js'
+
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body
+
+    const passwording = process.env.PASSWORD_HASH;
 
     try {
 
@@ -27,7 +29,6 @@ const loginUser = async (req, res) => {
 
     } catch (error) {
 
-        console.log('Message error:', error.message);
         return res.status(500).json({ message: error.message })
     }
 }
