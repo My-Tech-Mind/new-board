@@ -58,10 +58,11 @@ main {
     text-decoration: underline;
 }
 
+
 @media screen and (max-width: 768px) {
 
     main {
-        flex-direction: column;
+        flex-direction: column-reverse;
         height: 97vh;
     }
 
@@ -72,7 +73,7 @@ main {
 
     .main_container {
         width: 290px;
-        height: 380px;
+        height: 390px;
         padding: 0px;
     }
 
@@ -93,6 +94,6 @@ main {
 
     .main_container .container_account {
         font-size: 10px;
-    }
 
+    }
 }

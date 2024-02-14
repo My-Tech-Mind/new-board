@@ -1,4 +1,4 @@
-import styles from '../Login/index.module.css';
+import styles from './index.module.css';
 import Button from '../../components/Button/index';
 import PasswordInput from '../../components/Input/PasswordInput';
 import NameInput from '../../components/Input/NameInput';
@@ -22,7 +22,7 @@ const SignUp = () => {
                 <form onSubmit={handleSubmit(handleSignUp)} >
                     <div className={styles.main_container}>
                         <img className={styles.logo} src={logoLight} alt="Logo" />
-                        <p className={styles.texto}>SignUp to the newBoard</p>
+                        <p className={styles.texto}>SignUp to newBoard</p>
                         <NameInput
                             name="name"
                             placeholder="Enter your name"

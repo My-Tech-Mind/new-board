@@ -15,8 +15,8 @@ const EmailInput = ({ name, placeholder, register, errors }) => {
                     })
                 }
                 type='email' placeholder={placeholder} style={errors[name]?.message ? 'input_error' : 'input_default'} />
-            <FontAwesomeIcon icon={['fa', 'envelope']} className={styles.icone} />
-            <p className={styles.mensagem_erro}>{errors[name]?.message}</p>
+            <FontAwesomeIcon icon={['fa', 'envelope']} className={styles.icon} />
+            <p className={styles.message_error}>{errors[name]?.message}</p>
         </div>
     );
 };

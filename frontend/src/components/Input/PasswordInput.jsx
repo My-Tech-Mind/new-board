@@ -21,7 +21,7 @@ const PasswordInput = ({ name, placeholder, register, errors, watch }) => {
                         },
                         validate: (value) => {
                             const password = watch('password');
-                            return value === password || 'As senhas não coincidem';
+                            return value === password || 'Password do not match';
                         },
                     })
                 }
@@ -29,8 +29,8 @@ const PasswordInput = ({ name, placeholder, register, errors, watch }) => {
                 placeholder={placeholder}
                 style={errors[name]?.message ? 'input_error' : 'input_default'}
             />
-            <div className={styles.icone}>{ToggleIcon}</div>
-            <p className={styles.mensagem_erro}>{errors[name]?.message}</p>
+            <div className={styles.icon}>{ToggleIcon}</div>
+            <p className={styles.message_error}>{errors[name]?.message}</p>
         </div>
     );
 };

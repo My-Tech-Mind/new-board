@@ -15,8 +15,8 @@ const NameInput = ({ name, placeholder, register, errors }) => {
                     })
                 }
                 type='text' placeholder={placeholder} style={errors[name]?.message ? 'input_error' : 'input_default'} />
-            <FontAwesomeIcon icon={['fa', 'user']} className={styles.icone} />
-            <p className={styles.mensagem_erro}>{errors[name]?.message}</p>
+            <FontAwesomeIcon icon={['fa', 'user']} className={styles.icon} />
+            <p className={styles.message_error}>{errors[name]?.message}</p>
         </div>
     );
 };
