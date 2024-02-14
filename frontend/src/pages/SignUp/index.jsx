@@ -14,7 +14,6 @@ const SignUp = () => {
     function handleSignUp(data, event) {
         event.preventDefault();
         console.log(data);
-        //dados serão enviados para o back em algum momento.
         navigate('/signup');
     }
     return (

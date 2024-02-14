@@ -63,14 +63,6 @@ main {
     text-decoration: none;
 }
 
-.main_container .mensagem_erro {
-    width: 250px;
-    color: red;
-    font-size: 12px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-}
-
 @media screen and (max-width: 768px) {
 
     main {
@@ -107,9 +99,5 @@ main {
     .main_container .container_account a {
         font-size: 10px;
         text-decoration: underline;
-    }
-
-    .main_container .mensagem_erro {
-        font-size: 10px;
     }
 }

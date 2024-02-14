@@ -24,38 +24,23 @@ main {
     padding: 10px;
 }
 
-.main_container .logo img {
+.main_container .logo {
     width: 150px;
     height: 50px;
 }
 
-.container_image img {
+.container_image {
     width: 350px;
     height: 350px;
     justify-content: center;
     align-items: center;
 }
 
-.main_container .texto p {
+.main_container .texto {
     font-family: "Poppins", sans-serif;
     font-weight: 700;
     font-style: normal;
     size: 20px;
-}
-
-.main_container .input_password,
-.main_container .input_email {
-    position: relative;
-}
-
-.main_container .input_email .icone,
-.main_container .input_password .icone {
-    position: absolute;
-    color: #D4CACA;
-    top: 15px;
-    right: 15px;
-    font-size: 16px;
-    cursor: pointer;
 }
 
 .main_container .container_buttons {
@@ -78,15 +63,6 @@ main {
     text-decoration: none;
 }
 
-.main_container .mensagem_erro {
-    width: 250px;
-    color: red;
-    font-size: 12px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-}
-
-
 @media screen and (max-width: 768px) {
 
     main {
@@ -94,7 +70,7 @@ main {
         height: 97vh;
     }
 
-    .container_image img {
+    .container_image {
         width: 170px;
         height: 170px;
     }
@@ -105,12 +81,12 @@ main {
         padding: 0px;
     }
 
-    .main_container .logo img {
+    .main_container .logo {
         width: 100px;
         height: 40px;
     }
 
-    .main_container .texto p {
+    .main_container .texto {
         font-size: 15px;
     }
 
@@ -125,11 +101,7 @@ main {
         text-decoration: underline;
     }
 
-    .main_container .input_email .icone,
-    .main_container .input_password .icone {
-        top: 9px;
-        font-size: 12px;
-    }
+
 
     .main_container .mensagem_erro {
         font-size: 10px;
