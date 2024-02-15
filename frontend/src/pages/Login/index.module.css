@@ -17,6 +17,7 @@ main {
     flex-direction: column;
     background-color: #d9d9d9;
     padding: 10px;
+
 }
 
 .main_container .logo {
@@ -29,12 +30,13 @@ main {
     height: 350px;
     justify-content: center;
     align-items: center;
+
 }
 
 .main_container .texto {
     font-weight: 700;
     font-style: normal;
-    size: 20px;
+    font-size: 20px;
 }
 
 .main_container .container_buttons {
@@ -57,42 +59,41 @@ main {
     text-decoration: underline;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
 
     main {
         flex-direction: column;
         height: 97vh;
     }
 
-    .container_image {
+    .container_image img {
         width: 160px;
         height: 160px;
     }
 
     .main_container {
         width: 290px;
-        height: 380px;
+        height: 350px;
         padding: 0px;
+
     }
 
     .main_container .logo {
         width: 100px;
-        height: 40px;
+        height: 35px;
     }
 
     .main_container .texto {
-        font-size: 15px;
+        font-size: 18px;
     }
 
     .main_container .container_buttons button {
         width: 190px;
-        height: 32px;
+        height: 28px;
         font-size: 14px;
     }
 
     .main_container .container_account {
         font-size: 10px;
-
     }
-
 }

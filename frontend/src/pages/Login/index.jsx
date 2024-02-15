@@ -18,8 +18,11 @@ const Login = () => {
     return (
         <>
             <main>
-                <img className={styles.container_image} src={ilustrationLogin} alt='Ilustration' />
-                <form onSubmit={handleSubmit(handleLogin)} >
+                <div className={styles.container_image}>
+                    <img src={ilustrationLogin} alt='Ilustration' />
+                </div>
+
+                <form onSubmit={handleSubmit(handleLogin)}  >
                     <div className={styles.main_container}>
                         <img className={styles.logo} src={logoLight} alt="Logo" />
                         <p className={styles.texto}>Login to newBoard</p>
