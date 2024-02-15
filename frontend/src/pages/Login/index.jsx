@@ -21,6 +21,7 @@ const Login = () => {
                 <div className={styles.container_image}>
                     <img src={ilustrationLogin} alt='Ilustration' />
                 </div>
+
                 <form onSubmit={handleSubmit(handleLogin)}  >
                     <div className={styles.main_container}>
                         <img className={styles.logo} src={logoLight} alt="Logo" />
@@ -41,7 +42,7 @@ const Login = () => {
                         <div className={styles.container_buttons}>
                             <Button type='submit' title='Continue' style='default' />
                         </div>
-                        <a className={styles.container_account} href="/signup">Create An Account</a>
+                        <a className={styles.container_account} href="/signup">Create an account</a>
                     </div>
                 </form>
             </main >

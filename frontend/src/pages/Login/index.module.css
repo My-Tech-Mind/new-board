@@ -21,11 +21,11 @@ main {
 }
 
 .main_container .logo {
-    width: 130px;
+    width: 150px;
     height: 50px;
 }
 
-.container_image img {
+.container_image {
     width: 350px;
     height: 350px;
     justify-content: center;
@@ -59,7 +59,6 @@ main {
     text-decoration: underline;
 }
 
-
 @media screen and (max-width: 768px) {
 
     main {
@@ -70,7 +69,6 @@ main {
     .container_image img {
         width: 160px;
         height: 160px;
-
     }
 
     .main_container {
@@ -97,6 +95,5 @@ main {
 
     .main_container .container_account {
         font-size: 10px;
-
     }
 }
