@@ -9,7 +9,7 @@ const usePasswordToggle = () => {
             onClick={() => setVisibility(visibility => !visibility)} />
     )
     const InputType = visible ? "password" : "text";
-    return [InputType, Icon]
+    return [InputType, Icon];
 }
 
-export default usePasswordToggle
+export default usePasswordToggle;
