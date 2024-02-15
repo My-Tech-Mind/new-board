@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-const bodyLogin = joi.object({
+const schemaLogin = joi.object({
     email: joi.string().email().required().messages({
         'any.required': 'The email field is required.',
         'string.empty': 'The email field cannot be empty.',
@@ -14,4 +14,4 @@ const bodyLogin = joi.object({
     })
 });
 
-export { bodyLogin };
+export { schemaLogin };

@@ -1,6 +1,6 @@
 
 
-const userDatails = async (req, res) => {
+const userDetails = async (req, res) => {
     const {authorization} = req.headers
 
     const user = req.user;
@@ -16,9 +16,9 @@ const userDatails = async (req, res) => {
     } catch (error) {
 
         
-        return res.status(400).json({message: error.message});
+        return res.status(500).json({message: error.message});
     }
 
 }
 
-export {userDatails}
+export {userDetails}
