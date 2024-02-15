@@ -4,7 +4,7 @@ import styles from './index.module.css';
 const ButtonDesktop = ({ title, style }) => {
 
     const [windowSize, setWindowSize] = useState(window.innerWidth);
-    
+
     useEffect(() => {
         const handleResize = () => {
             setWindowSize(window.innerWidth);
@@ -16,7 +16,7 @@ const ButtonDesktop = ({ title, style }) => {
             window.removeEventListener('resize', handleResize)
         }
     }, [])
-    return ( 
+    return (
         <>
             {
                 windowSize > 768 && (
@@ -25,11 +25,11 @@ const ButtonDesktop = ({ title, style }) => {
                             {title}
                         </button>
                     </a>
-               )
+                )
             }
-            
+
         </>
-     );
+    );
 }
- 
+
 export default ButtonDesktop;

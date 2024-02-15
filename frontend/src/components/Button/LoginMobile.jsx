@@ -4,7 +4,7 @@ import styles from './index.module.css';
 const ButtonMobile = ({ title, style }) => {
 
     const [windowSize, setWindowSize] = useState(window.innerWidth);
-    
+
     useEffect(() => {
         const handleResize = () => {
             setWindowSize(window.innerWidth);
@@ -16,19 +16,19 @@ const ButtonMobile = ({ title, style }) => {
             window.removeEventListener('resize', handleResize)
         }
     }, [])
-    return ( 
+    return (
         <>
             {
                 windowSize < 768 && (
-                <a href="/login">
-                    <button className={styles[`${style}`]}>
-                        {title}
-                    </button>
-                </a>
-            )
+                    <a href="/login">
+                        <button className={styles[`${style}`]}>
+                            {title}
+                        </button>
+                    </a>
+                )
             }
         </>
-     );
+    );
 }
- 
+
 export default ButtonMobile;

@@ -4,8 +4,9 @@ import Account from './pages/Account'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 
+
 const PagesNavigation = () => {
-    return ( 
+    return (
         <BrowserRouter>
             <Routes>
                 <Route exact path='/' element={<Home />} />
@@ -14,7 +15,7 @@ const PagesNavigation = () => {
                 <Route path='/account' element={<Account />} />
             </Routes>
         </BrowserRouter>
-     );
+    );
 }
- 
+
 export default PagesNavigation;

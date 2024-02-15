@@ -1,0 +1,60 @@
+.input_default,
+.input_error {
+    width: 270px;
+    height: 40px;
+    outline: 0;
+    border: 3px solid #D4CACA;
+    padding-left: 20px;
+    border-radius: 5px;
+
+}
+
+.input_error {
+    border-color: red;
+}
+
+.input_password,
+.input_email,
+.input_name {
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+    color: #D4CACA;
+    top: 15px;
+    right: 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.message_error {
+    width: 260px;
+    color: red;
+    font-size: 11px;
+    margin: 0;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+
+    .input_default,
+    .input_error {
+        width: 230px;
+        height: 28px;
+    }
+
+    .input_default::placeholder {
+        font-size: 12px;
+    }
+
+    .message_error {
+        font-size: 10px;
+    }
+
+    .icon {
+        top: 10px;
+        font-size: 14px;
+    }
+
+}
