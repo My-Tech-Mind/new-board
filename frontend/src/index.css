@@ -18,6 +18,8 @@ html {
   --color2: #004040;
   --color3: #005959;
   --color4: #001c1c;
+  --color-negative:#A60000;
+  --color-negative-hover:#c70000;
   --color-hover: #00c2c2;
   --color-hover-login: #fff;
   --background-color: #fff;

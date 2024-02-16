@@ -13,7 +13,7 @@ const Login = () => {
     function handleLogin(data, event) {
         console.log(data);
         event.preventDefault();
-        navigate('/signup');
+        navigate('/boards');
     }
     return (
         <>
