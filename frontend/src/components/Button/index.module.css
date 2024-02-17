@@ -8,6 +8,7 @@
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .default:hover {
@@ -24,6 +25,7 @@
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .negative:hover {
@@ -40,6 +42,7 @@
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .login:hover {
