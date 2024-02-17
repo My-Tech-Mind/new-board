@@ -24,56 +24,68 @@ const Account = () => {
             <main>
                 <div className={styles.form_container}>
                     <h1>My account</h1>
-                    <form onSubmit={handleSubmit(handleUpdateAccount)}>
+                    <form onSubmit={handleSubmit(handleUpdateAccount)} className={styles.account_form}>
                         <h2>Update account</h2>
+
                         <label htmlFor="name">Name:</label>
-                        <NameInput
-                            name="name"
-                            placeholder="Enter your name"
+                        
+                        <div className={styles.input_container}>
+                            <NameInput
+                                name="name"
+                                placeholder="Enter your name"
+                                register={register}
+                                errors={errors}
+                            />
+                        </div>
+                        <label htmlFor="email">E-mail</label>
+                        <div className={styles.input_container}>
+                            <EmailInput
+                            name="email"
+                            placeholder="Enter your e-mail"
                             register={register}
                             errors={errors}
-                        />
-                        <label htmlFor="email">E-mail</label>
-                        <EmailInput
-                        name="email"
-                        placeholder="Enter your e-mail"
-                        register={register}
-                        errors={errors}
-                        />
+                            />
+                        </div>
                     
                         <h2>Change password</h2>
                         <label htmlFor="password">Current Password</label>
-                        <PasswordInput
-                            name="password"
-                            placeholder="Enter your password"
-                            register={register}
-                            errors={errors}
-                            watch={watch}
-                        />
+                        <div className={styles.input_container}>
+                            <PasswordInput
+                                name="password"
+                                placeholder="Enter your password"
+                                register={register}
+                                errors={errors}
+                                watch={watch}
+                            />
+                        </div>
                         <label htmlFor="new password">New password</label>
-                        <PasswordInput
-                            name="password"
-                            placeholder="Enter your password"
-                            register={register}
-                            errors={errors}
-                            watch={watch}
-                        />
+                        <div className={styles.input_container}>
+                            <PasswordInput
+                                name="password"
+                                placeholder="Enter your password"
+                                register={register}
+                                errors={errors}
+                                watch={watch}
+                            />
+                        </div>
                         <div className={styles.container_button}>
                             <Button title="Save" style="default" />
                         </div>
                         <hr />
                         <h2>Delete account</h2>
                         <label htmlFor="password">Password</label>
-                        <PasswordInput
-                            name="password"
-                            placeholder="Enter your password"
-                            register={register}
-                            errors={errors}
-                            watch={watch}
-                        />
+                        <div className={styles.input_container}>
+                            <PasswordInput
+                                name="password"
+                                placeholder="Enter your password"
+                                register={register}
+                                errors={errors}
+                                watch={watch}
+                            />
+                        </div>
                         <div className={styles.warning_container}>
-                            <input type="checkbox" />
-                            <p>I am aware that my account, along with all my created boards will be permanently deleted.</p>
+                            <input type="checkbox" className={styles.checkbox} />
+                            <p className={styles.warning_text}>I am aware that my account, along with all my created boards will be permanently deleted.</p>
                         </div>
                         <div className={styles.container_button}>
                             <Button title="Delete" style="negative" />

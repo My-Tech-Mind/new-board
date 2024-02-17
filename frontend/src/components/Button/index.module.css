@@ -53,19 +53,16 @@
     .default {
         width: var(--button-width-desktop);
         height: var(--button-height-desktop);
-        border-radius: 20px;
-        border: none;
-        background-color: var(--color1);
-        cursor: pointer;
     }
 
     .login {
         margin: 20px;
         width: 100px;
         height: 40px;
-        border-radius: 20px;
-        border: solid var(--color3) 2px;
-        background-color: var(--background-color-navbar);
-        cursor: pointer;
+    }
+
+    .negative {
+        width: var(--button-width-desktop);
+        height: var(--button-height-desktop);
     }
 }
