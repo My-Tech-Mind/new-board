@@ -3,6 +3,7 @@ import logo from '../../assets/logo-light.png';
 import { useState, useEffect } from 'react';
 import Button from '../Button';
 import Menu from '../Menu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Header = ({logged}) => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
@@ -19,6 +20,8 @@ const Header = ({logged}) => {
         }
     }, []);
 
+    console.log(logged)
+
     return ( 
         <header>
             <div className={styles.header_container}>
@@ -26,17 +29,15 @@ const Header = ({logged}) => {
                     <img src={logo} alt="logo" />
                 </div>
                 {
+                    (logged) && (
+                            <Menu /> 
+                    )
+                }
+                {
                     (windowSize > 768 && !logged) && (
                         <Button title='Login' style='login' href='/login' />   
                     )
                 }
-
-                {
-                    (logged) && (
-                        <Menu />
-                    )
-                }
-                
             </div>
         </header>
      );

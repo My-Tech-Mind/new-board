@@ -20,6 +20,8 @@ html {
   --color4: #001c1c;
   --color-negative:#A60000;
   --color-negative-hover:#c70000;
+  --color-icons: #7a7a7a;
+  --color-avatar-circle: #d9d9d9;
   --color-hover: #00c2c2;
   --color-hover-login: #fff;
   --background-color: #fff;
@@ -31,5 +33,4 @@ html {
   --button-width-mobile: 200px;
   --button-height-desktop: 40px;
   --button-height-mobile: 40px;
-
 }

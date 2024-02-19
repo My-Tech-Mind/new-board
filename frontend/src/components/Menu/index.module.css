@@ -1,4 +1,62 @@
-.iconBars {
-    height: 20px;
-    padding: 20px;
+
+.menu_items {
+    width: 200px;
 }
+
+.menu_icons_container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100px;
+
+}
+
+.menu_icons {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+}
+
+.icons {
+    color: var(--color-icons);
+    font-size: 20px;
+    margin: 8px 10px 0 0;
+    cursor: pointer;
+}
+
+.user_circle {
+    font-size: 40px;
+    color: var(--color-icons);
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.menu_open {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    width: 250px;
+    background-color: var(--background-color-header);
+    transition: left 0.3s;
+    z-index: 1000;
+    border-radius: 10px;
+    border: solid 1px rgba(0, 0, 0, 0.3);
+
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+li {
+    display: flex;
+    align-items: end;
+    list-style-type: none;
+    margin-bottom: 10px;
+    
+}
+
