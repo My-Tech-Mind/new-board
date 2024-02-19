@@ -1,4 +1,4 @@
-import { FaUser, FaUserCircle, FaHome, FaSignOutAlt } from 'react-icons/fa';
+import { FaUser, FaUserCircle, FaHome, FaSignOutAlt, FaTimes } from 'react-icons/fa';
 import styles from './index.module.css';
 import { useState } from 'react';
 
@@ -16,11 +16,22 @@ const Menu = () => {
             
             <FaUserCircle className={styles.user_circle} onClick={toggleMenu} />
 
-            <nav className={styles[`menu_${menuOpen ? 'open' : ''}`]}>
                 {
                     (menuOpen) && (
+                        <nav className={styles.menu_open}>
+                            <div className={styles.icon_close_container}>
+                                <FaTimes className={styles.icon_close} onClick={toggleMenu} />
+                            </div>
                             <ul className={styles.menu_items}>
-                               
+                                <li>
+                                    <a href="/account">
+                                        <FaUser className={styles.icons} />
+                                    </a>
+                                    <a href="/account">
+                                        My account
+                                    </a>
+                                </li>
+                                
                                 <li>
                                 <a href="/boards">
                                     <FaHome className={styles.icons} />
@@ -29,18 +40,9 @@ const Menu = () => {
                                         Home
                                     </a>
                                 </li>
-                                
-    
-                                
-                                <li>
-                                <a href="/account">
-                                    <FaUser className={styles.icons} />
-                                </a>
-                                    <a href="/account">
-                                            My account
-                                    </a>
-                                </li> 
+                                    
                                 <hr />
+                            
                                 <li>
                                     <a href="/">
                                         <FaSignOutAlt className={styles.icons} />
@@ -50,9 +52,9 @@ const Menu = () => {
                                     </a>
                                 </li>
                             </ul>
+                        </nav>
                     ) 
                 }
-            </nav>
         </div>
      );
 }
