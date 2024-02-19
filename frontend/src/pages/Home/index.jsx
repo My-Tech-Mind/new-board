@@ -1,5 +1,5 @@
 import Button from '../../components/Button/index';
-import Navbar from '../../components/Navbar';
+import Header from '../../components/Header';
 import styles from './index.module.css'
 import imageHome from '../../assets/home.png'
 import { useState, useEffect } from 'react';
@@ -20,7 +20,7 @@ const Home = () => {
     }, [])
     return (
         <>
-            <Navbar />
+            <Header logged={false} />
             <main>
                 <div className={styles.main_container}>
                     <div className={styles.container_image}>

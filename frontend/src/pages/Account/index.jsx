@@ -1,11 +1,13 @@
 import styles from './index.module.css';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
+import Header from '../../components/Header';
 import NameInput from '../../components/Input/NameInput';
 import EmailInput from '../../components/Input/EmailInput';
 import PasswordInput from '../../components/Input/PasswordInput';
 import Button from '../../components/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 
 const Account = () => {
@@ -20,12 +22,15 @@ const Account = () => {
     }
     return ( 
         <>
-            <Navbar />  
+            <Header logged={true}/>  
             <main>
                 <div className={styles.form_container}>
                     <h1>My account</h1>
                     <form onSubmit={handleSubmit(handleUpdateAccount)} className={styles.account_form}>
+                        <div className={styles.title_setting}>
                         <h2>Update account</h2>
+                        <FontAwesomeIcon icon={['fa', 'edit']} className={styles.icon} />
+                        </div>
 
                         <label htmlFor="name">Name:</label>
                         

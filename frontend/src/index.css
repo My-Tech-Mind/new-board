@@ -23,9 +23,9 @@ html {
   --color-hover: #00c2c2;
   --color-hover-login: #fff;
   --background-color: #fff;
-  --background-color-navbar: #f2f2f2;
+  --background-color-header: #f2f2f2;
   --background-color-dark: #171717;
-  --background-color-navbar-dark: #1e1e1e;
+  --background-color-header-dark: #1e1e1e;
   --shadow: #00000075;
   --button-width-desktop: 280px;
   --button-width-mobile: 200px;

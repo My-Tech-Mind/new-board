@@ -14,6 +14,13 @@ h2 {
     margin-left: 20px;
 }
 
+.title_setting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 180px;
+}
+
 label {
     margin-left: 21px;
     font-weight: 600;
@@ -40,7 +47,7 @@ label {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: var(--background-color-navbar);
+    background-color: var(--background-color-header);
     padding: 20px;
     border: solid 1px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
@@ -64,6 +71,7 @@ label {
 
 .warning_text {
     width: 230px;
+    font-weight: 600;
     font-size: 10px;
     padding-left: 10px;
 }
@@ -91,12 +99,11 @@ label {
     }
 
     .warning_container {
-        width: 400px;
+        width: 500px;
     }
 
     .warning_text {
-        width: 250px;
-        font-size: 12px;
-        padding-left: 20px;
+        width: 280px;
+        font-size: 11px;
     }
 }
