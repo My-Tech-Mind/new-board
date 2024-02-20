@@ -8,7 +8,7 @@ const editBoard = async (req, res) => {
 	try {
 		const existingBoard = await knex('boards').select('id').where({ id }).first();
 		if (!existingBoard) {
-			return res.status(400).json({ message: 'Board not found.' })
+			return res.status(404).json({ message: 'Board not found.' })
 		}
 
 		const boardEdit = await knex('boards').update({
