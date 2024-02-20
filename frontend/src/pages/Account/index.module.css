@@ -1,8 +1,6 @@
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
+    margin: 20px;
 }
 
 h1 {
@@ -10,7 +8,7 @@ h1 {
 }
 
 h2 {
-    font-size: 16px;
+    font-size: 14px;
     margin-left: 20px;
 }
 
@@ -44,7 +42,7 @@ label {
 }
 
 .form_container {
-    padding: 280px 0 50px 0;
+    padding: 300px 0 50px 0;
 }
 
 .account_form {
@@ -59,7 +57,7 @@ label {
 }
 
 .line {
-    background-color: black;
+    margin: 10px 0 10px 0;
 }
 
 .warning_container {
@@ -69,7 +67,6 @@ label {
 }
 
 .checkbox {
-    width: 15px;
     cursor: pointer;
 }
 

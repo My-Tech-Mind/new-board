@@ -35,6 +35,6 @@
 @media screen and (min-width: 768px) {
     .container_image > a > img {
         width: 100px;
-        height: 40px; 
+        height: 35px; 
     }  
 }

@@ -7,9 +7,15 @@ import EmailInput from '../../components/Input/EmailInput';
 import PasswordInput from '../../components/Input/PasswordInput';
 import Button from '../../components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState } from 'react';
 
 const Account = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
+    const [ mode, setMode ] = useState('')
+    
+    const handleChange = (event) => {
+        setMode(event.target.value)
+    }
 
     const navigate = useNavigate();
 
@@ -27,29 +33,33 @@ const Account = () => {
                     
                     <h1>My account</h1>
                     <form onSubmit={handleSubmit(handleUpdateAccount)} className={styles.account_form}>
+                        <h2>Theme</h2>
                         <div>
-                            <h2>Theme</h2>
-                            <div>
-                                <label>
-                                    <input
-                                        className={styles.checkbox}
-                                        type="radio"
-                                        value='light'
-                                        checked
-                                    />
-                                    Light
-                                </label>
+                            <label>
+                                <input
+                                    className={styles.checkbox}
+                                    type="radio"
+                                    value='light'
+                                    checked={mode === 'light'}
+                                    onChange={handleChange}
+                                />
+                                Light
+                            </label>
 
-                                <label>
-                                    <input
-                                        className={styles.checkbox}
-                                        type="radio"
-                                        value='dark'
-                                    />
-                                    Dark
-                                </label>
-                            </div>
-  
+                            <label>
+                                <input
+                                    className={styles.checkbox}
+                                    type="radio"
+                                    value='dark'
+                                    checked={mode === 'dark'}
+                                    onChange={handleChange}
+                                />
+                                Dark
+                            </label>
+                        </div>
+                    
+                        <div className={styles.line}>
+                            <hr />
                         </div>
                         
                         <div className={styles.title_setting}>
@@ -101,7 +111,11 @@ const Account = () => {
                         <div className={styles.container_button}>
                             <Button title="Save" style="default" />
                         </div>
-                        <hr />
+
+                        <div className={styles.line}>
+                            <hr />
+                        </div>
+                        
                         <h2>Delete account</h2>
                         <label htmlFor="password">Password</label>
                         <div className={styles.input_container}>
