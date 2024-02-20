@@ -1,12 +1,11 @@
+import React, { useState, useEffect } from 'react';
 import styles from './index.module.css';
 import logo from '../../assets/logo-light.png';
-import { useState, useEffect } from 'react';
 import Button from '../Button';
 import Menu from '../Menu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Header = ({logged}) => {
-    const [windowSize, setWindowSize] = useState(window.innerWidth);
+const Header = ({ logged }) => {
+    const [windowSize, setWindowSize] = useState();
 
     useEffect(() => {
         const handleResize = () => {
@@ -17,27 +16,19 @@ const Header = ({logged}) => {
 
         return () => {
             window.removeEventListener('resize', handleResize);
-        }
+        };
     }, []);
 
-    console.log(logged)
-
     return ( 
-        <header>
+        <header className={styles.header} id={styles.header_light}>
             <div className={styles.header_container}>
                 <div className={styles.container_image}>
-                    <img src={logo} alt="logo" />
+                    <a href="/boards">
+                        <img src={logo} alt="logo" />
+                    </a>
                 </div>
-                {
-                    (logged) && (
-                            <Menu /> 
-                    )
-                }
-                {
-                    (windowSize > 768 && !logged) && (
-                        <Button title='Login' style='login' href='/login' />   
-                    )
-                }
+                {logged && <Menu />}
+                {windowSize > 768 && !logged && <Button title="Login" style="login" href="/login" />}
             </div>
         </header>
      );

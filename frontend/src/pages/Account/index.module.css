@@ -21,6 +21,10 @@ h2 {
     width: 180px;
 }
 
+.checkbox {
+    margin-right: 10px;
+}
+
 label {
     margin-left: 21px;
     font-weight: 600;

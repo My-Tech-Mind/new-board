@@ -1,12 +1,12 @@
 import Button from '../../components/Button/index';
 import Header from '../../components/Header';
-import styles from './index.module.css'
-import imageHome from '../../assets/home.png'
+import styles from './index.module.css';
+import imageHome from '../../assets/home.png';
 import { useState, useEffect } from 'react';
 
 const Home = () => {
-    const [windowSize, setWindowSize] = useState(window.innerWidth);
-
+    const [windowSize, setWindowSize] = useState();
+    
     useEffect(() => {
         const handleResize = () => {
             setWindowSize(window.innerWidth);
@@ -16,8 +16,8 @@ const Home = () => {
 
         return () => {
             window.removeEventListener('resize', handleResize)
-        }
-    }, [])
+        };
+    }, []);
     return (
         <>
             <Header logged={false} />

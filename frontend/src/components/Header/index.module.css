@@ -5,17 +5,24 @@
     padding: 10px;
 }
 
-.container_image > img {
+.container_image > a > img {
     width: 80px; 
     height: 30px;
 }
 
-header {
+.header {
     display: flex;
     align-items: start;
     height: 60px;
-    background-color: var(--background-color-header);
     padding: 10px;
+}
+
+#header_light {
+    background-color: var(--background-color-header);
+}
+
+#header_dark {
+    background-color: black;
 }
 
 .header_container {
@@ -26,7 +33,7 @@ header {
 }
 
 @media screen and (min-width: 768px) {
-    .container_image > img {
+    .container_image > a > img {
         width: 100px;
         height: 40px; 
     }  

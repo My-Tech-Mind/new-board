@@ -8,31 +8,56 @@ import PasswordInput from '../../components/Input/PasswordInput';
 import Button from '../../components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
-
 const Account = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
     const navigate = useNavigate();
 
-    function handleUpdateAccount(data, event) {
+    const handleUpdateAccount = (data, event) => {
         event.preventDefault();
         console.log(data);
         navigate('/account');
-    }
-    return ( 
+    };
+
+    return (
         <>
-            <Header logged={true}/>  
+            <Header logged={true} />
             <main>
                 <div className={styles.form_container}>
+                    
                     <h1>My account</h1>
                     <form onSubmit={handleSubmit(handleUpdateAccount)} className={styles.account_form}>
+                        <div>
+                            <h2>Theme</h2>
+                            <div>
+                                <label>
+                                    <input
+                                        className={styles.checkbox}
+                                        type="radio"
+                                        value='light'
+                                        checked
+                                    />
+                                    Light
+                                </label>
+
+                                <label>
+                                    <input
+                                        className={styles.checkbox}
+                                        type="radio"
+                                        value='dark'
+                                    />
+                                    Dark
+                                </label>
+                            </div>
+  
+                        </div>
+                        
                         <div className={styles.title_setting}>
-                        <h2>Update account</h2>
-                        <FontAwesomeIcon icon={['fa', 'edit']} className={styles.icon} />
+                            <h2>Update account</h2>
+                            <FontAwesomeIcon icon={['fa', 'edit']} className={styles.icon} />
                         </div>
 
-                        <label htmlFor="name">Name:</label>
+                        <label htmlFor="name">Name</label>
                         
                         <div className={styles.input_container}>
                             <NameInput
@@ -45,10 +70,10 @@ const Account = () => {
                         <label htmlFor="email">E-mail</label>
                         <div className={styles.input_container}>
                             <EmailInput
-                            name="email"
-                            placeholder="Enter your e-mail"
-                            register={register}
-                            errors={errors}
+                                name="email"
+                                placeholder="Enter your e-mail"
+                                register={register}
+                                errors={errors}
                             />
                         </div>
                     
@@ -99,7 +124,7 @@ const Account = () => {
                 </div>
             </main>
         </>
-     );
-}
+    );
+};
  
 export default Account;
