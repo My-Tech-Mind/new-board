@@ -6,7 +6,7 @@ const schemaBoard = joi.object({
         'string.empty': 'The title field cannot be empty.',
         'string.max': 'The title field must be at most {#limit} characters long.'
     }),
-    favorite: joi.boolean().optional().messages({
+    favorited: joi.boolean().optional().messages({
         'boolean.base': 'The favorite field must be a boolean.'
     })
 });
