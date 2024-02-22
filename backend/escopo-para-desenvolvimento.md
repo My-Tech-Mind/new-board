@@ -618,8 +618,9 @@
 
 - Exibição do board (objeto) encontrado, o qual contém seus respectivos cards (lista de objetos) com suas respectivas tasks (lista de objetos).
   - Cada board, sendo um objeto, tem como propriedades os seus dados (id, titulo, favoritado, usuario_id, data_de_criacao, data_de_atualizacao) e seus respectivos cards.
-  - Por sua vez, os cards são listados como objetos, contendo como propriedades seus dados (id, titulo, board_id) e suas respectivas tasks.
-  - Por fim, as tasks também são listadas como objetos, cujas propriedades consistem nos seus dados (id, titulo, descricao, card_id).
+  - Por sua vez, os cards são listados como objetos, contendo como propriedades seus dados (id, titulo, board_id, posicao) e suas respectivas tasks.
+  - Por fim, as tasks também são listadas como objetos, cujas propriedades consistem nos seus dados (id, titulo, descricao, card_id, posicao).
+  - Os cards com suas respectivas tasks são listados de acordo com o número informado na propriedade "posicao", em ordem crescente.
 
 #### Requisitos
 
@@ -648,12 +649,14 @@
             "id": 1
             "titulo": Limpar os cômodos da casa
             "board_id": 1
+            "posicao": 1
             "tasks": [
                 {
                     "id": 1
                     "titulo": Quarto
                     "descricao": Tirar o pó dos móveis, varrer e passar pano no chão.
-                    "card_id": 1
+                    "card_id": 1,
+                    "posicao": 1
                 }
             ]
         }
@@ -744,6 +747,7 @@
 - id
 - titulo
 - board_id
+- ordem
 
 #### Requisitos
 
@@ -755,6 +759,7 @@
 - Validar se o usuário não excedeu o limite de 10 cards criados por boards
 - Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição de criação de um novo card seu forem enviados
 - Cadastrar o card no banco de dados
+  - Lembrar de registrar o número de ordem do card no banco de dados para indicar a posição que ele ocupa na página. Na criação do card, o número de ordem que lhe será atribuído é o maior dentre os já armazenados na coluna ordem da tabela card (lembrando que o limite máximo de criação de cards é 10, então o maior número será 10). Assim o último card criado aparecerá na última ordem do board
 
 #### **Exemplos de requisição bem-sucedida**
 
@@ -774,6 +779,7 @@
     "id": 2
     "titulo": "Fazer a comida da semana"
     "board_id": 1
+    "ordem": 1
 }
 ```
 
@@ -830,6 +836,7 @@ _Descrição: Esta é a rota que será usada para editar um card._
 - id
 - titulo
 - board_id
+- ordem
 
 #### Requisitos
 
@@ -839,7 +846,9 @@ _Descrição: Esta é a rota que será usada para editar um card._
   - board_id
 - Validar se o titulo informado tem até 20 caracteres
 - Validar se o existe o board informado
+- Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição da edição de um card seu forem enviados
 - Atualizar os dados do card no banco de dados
+  - Lembrar de atualizar o número de ordem do card no banco de dados para indicar a posição que ele ocupa na página.
 
 #### **Exemplos de requisição bem-sucedida**
 
@@ -860,6 +869,7 @@ _Descrição: Esta é a rota que será usada para editar um card._
            id: 1,
            titulo: Cartão 1,
            board_id: 1
+           ordem: 1
        }
 ```
 
@@ -879,6 +889,7 @@ _Descrição: Esta é a rota que será usada para apagar um card._
 #### Requisitos
 
 - Validar se existe um card para o ID informado como url params
+- Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição da exclusão de um card seu forem enviados
 - Apagar o card no banco de dados
 
 #### **Exemplos de requisição bem-sucedida**
@@ -886,7 +897,7 @@ _Descrição: Esta é a rota que será usada para apagar um card._
 **Entrada:**
 
 ```javascript=
-    //Id do card passado pela querry Params
+    //Id do card passado pela query Params
     // DELETE /card/1
 ```
 
@@ -915,6 +926,7 @@ _Descrição: Esta é a rota que será usada para criar uma task no card._
 - titulo
 - descricao
 - card_id
+- ordem
 
 #### Requisitos
 
@@ -923,7 +935,9 @@ _Descrição: Esta é a rota que será usada para criar uma task no card._
   - titulo
   - card_id
 - Validar se o usuario não excedeu o limite de 20 tasks criadas por card
+- Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição da exclusão de um card seu forem enviados
 - Criar a task no banco de dados
+  - Lembrar de registrar o número de ordem da task no banco de dados para indicar a posição que ele ocupa na página. Na criação da task, o número de ordem que lhe será atribuído é o maior dentre os já armazenados na coluna ordem da tabela task (lembrando que o limite máximo de criação de tasks é 20, então o maior número será 20). Assim a última task criada aparecerá na última ordem do card
 
 #### **Exemplos de requisição bem-sucedida**
 
@@ -946,6 +960,7 @@ _Descrição: Esta é a rota que será usada para criar uma task no card._
           titulo: Tarefa 1,
           descricao: Fazer PR,
           card_id: 1
+          ordem: 1
       }
 ```
 
@@ -968,6 +983,7 @@ _Descrição: Esta é a rota que será usada para editar uma task no card._
 - titulo
 - descricao
 - card_id
+- ordem
 
 #### Requisitos
 
@@ -975,7 +991,9 @@ _Descrição: Esta é a rota que será usada para editar uma task no card._
 - Validar os campos obrigatórios:
   - titulo
 - Validar se o titulo informado tem até 20 caracteres
+- Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição da exclusão de um card seu forem enviados
 - Atualizar os dados da task no banco de dados
+  - Lembrar de atualizar o número de ordem da task no banco de dados
 
 #### **Exemplos de requisição bem-sucedida**
 
@@ -999,6 +1017,7 @@ _Descrição: Esta é a rota que será usada para editar uma task no card._
           itulo: Tarefa 1 atualizada,
           descricao: Fazer PR,
           card_id: 1
+          ordem: 1
       }
 ```
 
@@ -1018,6 +1037,7 @@ _Descrição: Esta é a rota que será usada para detalhar/acessar uma task no c
 - titulo
 - descricao
 - card_id
+- ordem
 
 #### Requisitos
 
@@ -1039,7 +1059,8 @@ _Descrição: Esta é a rota que será usada para detalhar/acessar uma task no c
           id: 1,
           itulo: Tarefa 1 atualizada,
           descricao: Fazer PR,
-          card_id: 1
+          card_id: 1,
+          ordem: 1
     }
 ```
 
@@ -1060,6 +1081,7 @@ _Descrição: Esta é a rota que será usada para excluir uma task do card._
 #### Requisitos
 
 - Validar se existe uma task para o ID informado como url params
+- Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição da exclusão de um card seu forem enviados
 - Deletas a task do banco de dados
 
 #### **Exemplos de requisição bem-sucedida**
