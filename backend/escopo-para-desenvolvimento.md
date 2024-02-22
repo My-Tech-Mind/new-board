@@ -935,6 +935,8 @@ _Descrição: Esta é a rota que será usada para criar uma task no card._
   - titulo
   - card_id
 - Validar se o usuario não excedeu o limite de 20 tasks criadas por card
+- Validar se o titulo informado tem até 50 caracteres
+- Caso a descrição seja informada, validar se tem até 1000 caracteres
 - Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição da exclusão de um card seu forem enviados
 - Criar a task no banco de dados
   - Lembrar de registrar o número de ordem da task no banco de dados para indicar a posição que ele ocupa na página. Na criação da task, o número de ordem que lhe será atribuído é o maior dentre os já armazenados na coluna ordem da tabela task (lembrando que o limite máximo de criação de tasks é 20, então o maior número será 20). Assim a última task criada aparecerá na última ordem do card
@@ -990,7 +992,9 @@ _Descrição: Esta é a rota que será usada para editar uma task no card._
 - Validar se existe uma task para o ID informado como url params
 - Validar os campos obrigatórios:
   - titulo
-- Validar se o titulo informado tem até 20 caracteres
+  - card_id
+- Validar se o titulo informado tem até 50 caracteres
+- Caso a descrição seja informada, validar se tem até 1000 caracteres
 - Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição da exclusão de um card seu forem enviados
 - Atualizar os dados da task no banco de dados
   - Lembrar de atualizar o número de ordem da task no banco de dados
