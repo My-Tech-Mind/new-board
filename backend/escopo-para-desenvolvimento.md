@@ -990,6 +990,7 @@ _Descrição: Esta é a rota que será usada para editar uma task no card._
 - Validar se existe uma task para o ID informado como url params
 - Validar os campos obrigatórios:
   - titulo
+  - card_id
 - Validar se o titulo informado tem até 20 caracteres
 - Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição da exclusão de um card seu forem enviados
 - Atualizar os dados da task no banco de dados
