@@ -32,10 +32,10 @@ router.use(validateLogin)
 
 router.get('/user', userDetails)
 
-router.put('/user', updateUser);
-router.delete('/user/', deleteUser);
+router.put('/user', validationBodyRequest(schemaUser), updateUser);
+router.delete('/user', deleteUser);
 router.post('/board', validationBodyRequest(schemaBoard), createBoard);
-router.put('/board/:id', validationParamsRequest(paramsSchema), editBoard);
+router.put('/board/:id', validationParamsRequest(paramsSchema), validationBodyRequest(schemaBoard), editBoard);
 router.get('/board', validationQueryRequest(querySchema), listBoards);
 
 export { router };
