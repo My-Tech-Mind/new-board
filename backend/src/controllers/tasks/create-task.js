@@ -7,7 +7,7 @@ const createTask = async (req, res) => {
     try {
         const existingCard = await knex('cards').select('id').where({ id: card_id }).first();
         if (!existingCard) {
-            return res.status(400).json({ message: `Card with card_id = ${card_id} was not found.` });
+            return res.status(404).json({ message: `Card with card_id = ${card_id} was not found.` });
         }
 
         const numberOfTasks = await knex('tasks').select('*').where({ card_id });
