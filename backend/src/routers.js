@@ -13,8 +13,10 @@ import { validationBodyRequest } from './middlewares/joi/joi-validations/validat
 import { validationParamsRequest } from './middlewares/joi/joi-validations/validate-params-request.js';
 import { validationQueryRequest } from './middlewares/joi/joi-validations/validate-query-request.js';
 import { paramsSchema, querySchema } from './middlewares/joi/joi-schemas/parameters-schema.js';
-import { userDetails } from './controllers/users/user-details.js'
-import { schemaBoard } from './middlewares/joi/joi-schemas/schema-boards.js'
+import { userDetails } from './controllers/users/user-details.js';
+import { schemaBoard } from './middlewares/joi/joi-schemas/schema-boards.js';
+import { cardSchema } from './middlewares/joi/joi-schemas/cards-schema.js';
+import { taskSchema } from './middlewares/joi/joi-schemas/tasks-schema.js';
 
 const router = express.Router();
 
