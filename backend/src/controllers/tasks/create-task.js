@@ -28,7 +28,7 @@ const createTask = async (req, res) => {
         const boardId = await knex('cards').select('board_id').where({ id: card_id });
         refreshUpdateDateBoard(boardId);
 
-        return res.status(200).json(creatingTask[0]);
+        return res.status(201).json(creatingTask[0]);
 
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error' });
