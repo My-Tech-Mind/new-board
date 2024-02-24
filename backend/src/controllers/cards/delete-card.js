@@ -5,8 +5,8 @@ const deleteCard = async (req, res) => {
     const id = req.params.id;
 
     try {
-        const existingCard = await knex('cards').select('id').where({ id }).first();
-        if (!existingCard) {
+        const card = await knex('cards').select('*').where({ id }).first();
+        if (!card) {
             return res.status(404).json({ message: 'Card not found.' });
         }
 
@@ -15,8 +15,7 @@ const deleteCard = async (req, res) => {
             const deletingAssociatedTasksToTheCard = await knex('tasks').delete().where({ card_id: id });
         }
 
-        const boardId = await knex('cards').select('board_id').where({ id });
-        refreshUpdateDateBoard(boardId[0].board_id);
+        refreshUpdateDateBoard(card.board_id);
 
         const deletingCard = await knex('cards').delete().where({ id });
 

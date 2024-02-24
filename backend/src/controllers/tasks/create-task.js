@@ -5,8 +5,8 @@ const createTask = async (req, res) => {
     const { title, description, card_id } = req.body;
 
     try {
-        const existingCard = await knex('cards').select('id').where({ id: card_id }).first();
-        if (!existingCard) {
+        const card = await knex('cards').select('*').where({ id: card_id }).first();
+        if (!card) {
             return res.status(404).json({ message: `Card with card_id = ${card_id} was not found.` });
         }
 
@@ -25,8 +25,7 @@ const createTask = async (req, res) => {
             ordenation: ordenationNumber
         }).returning('*');
 
-        const boardId = await knex('cards').select('board_id').where({ id: card_id });
-        refreshUpdateDateBoard(boardId[0].board_id);
+        refreshUpdateDateBoard(card.board_id);
 
         return res.status(201).json(creatingTask[0]);
     } catch (error) {
