@@ -19,6 +19,7 @@ import { cardSchema } from './middlewares/joi/joi-schemas/cards-schema.js';
 import { taskSchema } from './middlewares/joi/joi-schemas/tasks-schema.js';
 import { createTask } from './controllers/tasks/create-task.js';
 import { editCard } from './controllers/cards/edit-card.js';
+import { deleteCard } from './controllers/cards/delete-card.js';
 
 const router = express.Router();
 
@@ -39,8 +40,8 @@ router.delete('/user', deleteUser);
 router.post('/board', validationBodyRequest(schemaBoard), createBoard);
 router.put('/board/:id', validationParamsRequest(paramsSchema), validationBodyRequest(schemaBoard), editBoard);
 router.get('/board', validationQueryRequest(querySchema), listBoards);
-router.put('/card/:id', validationBodyRequest(cardSchema), editCard);
-
+router.put('/card/:id', validationParamsRequest(paramsSchema), validationBodyRequest(cardSchema), editCard);
+router.delete('/card/:id', validationParamsRequest(paramsSchema), deleteCard);
 router.post('/task', validationBodyRequest(taskSchema), createTask);
 
 

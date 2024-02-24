@@ -698,6 +698,7 @@
 #### Requisitos
 
 - Validar se existe um board para o id enviado como parâmetro de url
+- Excluir as cards ( assim como suas respectivas tasks) associadas ao board também, senão o banco de dados não permite a exclusão do board - por ordem de preferência, exclua as tasks e depois os cards
 - Excluir o board no banco de dados
 
 #### **Exemplos de requisição bem-sucedida**
@@ -889,8 +890,9 @@ _Descrição: Esta é a rota que será usada para apagar um card._
 #### Requisitos
 
 - Validar se existe um card para o ID informado como url params
-- Atualizar no banco de dados o valor da ordenação dos outros cards, já que a posição deles mudará com a exclusão de um card.
-- Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição da exclusão de um card seu forem enviados
+- Excluir as tasks associadas ao card também, senão o banco de dados não permite a exclusão do card.
+- Atualizar no banco de dados o valor da ordenação dos outros cards, já que a posição deles mudará com a exclusão de um card
+- Atualizar no banco de dados a data_de_atualizacao do board antes que os dados da requisição da exclusão de um card seu forem enviados (tem que ser atualizados antes da exclusão, porque senão neste caso não consegue captar mais qual card existe para atualizar o seu board)
 - Apagar o card no banco de dados
 
 #### **Exemplos de requisição bem-sucedida**
@@ -1087,7 +1089,7 @@ _Descrição: Esta é a rota que será usada para excluir uma task do card._
 
 - Validar se existe uma task para o ID informado como url params
 - Atualizar no banco de dados o valor da ordenação das outras tasks, já que a posição delas mudará com a exclusão de uma task.
-- Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição da exclusão de um card seu forem enviados
+- Atualizar no banco de dados a data_de_atualizacao do board assim que os dados da requisição da exclusão de um card seu forem enviados (tem que ser atualizados antes da exclusão, porque senão neste caso não consegue captar mais qual task existe para atualizar o seu board)
 - Excluir a task do banco de dados
 
 #### **Exemplos de requisição bem-sucedida**
