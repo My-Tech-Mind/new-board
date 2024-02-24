@@ -39,7 +39,7 @@ router.delete('/user', deleteUser);
 router.post('/board', validationBodyRequest(schemaBoard), createBoard);
 router.put('/board/:id', validationParamsRequest(paramsSchema), validationBodyRequest(schemaBoard), editBoard);
 router.get('/board', validationQueryRequest(querySchema), listBoards);
-router.put('/card/:id', validationBodyRequest(cardSchema), editCard);
+router.put('/card/:id', validationParamsRequest(paramsSchema), validationBodyRequest(cardSchema), editCard);
 
 router.post('/task', validationBodyRequest(taskSchema), createTask);
 
