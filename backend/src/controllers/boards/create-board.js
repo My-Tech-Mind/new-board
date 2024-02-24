@@ -1,5 +1,6 @@
 import { connection as knex } from '../../database/connection.js';
 import format from 'date-fns/format';
+import { formatDate } from '../../utils/format-date.js'
 
 const createBoard = async (req, res) => {
     const { title, favorited } = req.body;
@@ -18,14 +19,9 @@ const createBoard = async (req, res) => {
             update_date: format(new Date(), 'yyyy-MM-dd kk:mm:ss')
         }).returning(['id', 'title', 'favorited', 'user_id', 'creation_date', 'update_date']);
 
-        const formattedCreatingBoard = creatingBoard.map(board => ({
-            ...board,
-            creation_date: format(new Date(board.creation_date), 'yyyy-MM-dd kk:mm:ss'),
-            update_date: format(new Date(board.update_date), 'yyyy-MM-dd kk:mm:ss')
-        }));
-
-        return res.status(200).json(formattedCreatingBoard[0]);
+        return res.status(200).json(formatDate(creatingBoard)[0]);
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ message: 'Internal server error' });
     }
 };

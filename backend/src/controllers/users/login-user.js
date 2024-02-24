@@ -1,6 +1,6 @@
-import  bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { connection as knex } from "../../database/connection.js";
-import  jwt  from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
 
 const loginUser = async (req, res) => {
@@ -23,7 +23,7 @@ const loginUser = async (req, res) => {
         }
 
         const token = jwt.sign({ id: user.id }, passwording, { expiresIn: '24h' });
-        const { senha: _, ...userData } = user;
+        const { password: _, ...userData } = user;
 
         return res.status(200).json({ user: userData, token });
 
@@ -33,4 +33,4 @@ const loginUser = async (req, res) => {
     }
 }
 
-export {loginUser}
+export { loginUser }
