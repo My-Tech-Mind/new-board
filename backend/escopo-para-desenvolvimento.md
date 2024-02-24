@@ -840,7 +840,7 @@ _Descrição: Esta é a rota que será usada para editar um card._
 
 #### Requisitos
 
-- Validar se existe um board para o ID informado como url params
+- Validar se existe um card para o ID informado como url params
 - Validar os campos obrigatórios:
   - titulo
   - board_id

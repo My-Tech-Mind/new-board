@@ -7,7 +7,7 @@ const createTask = async (req, res) => {
     try {
         const existingCard = await knex('cards').select('id').where({ id: card_id }).first();
         if (!existingCard) {
-            return res.status(400).json({ message: `Card with card_id = ${card_id} was not found.` });
+            return res.status(404).json({ message: `Card with card_id = ${card_id} was not found.` });
         }
 
         const numberOfTasks = await knex('tasks').select('*').where({ card_id });
@@ -26,10 +26,9 @@ const createTask = async (req, res) => {
         }).returning('*');
 
         const boardId = await knex('cards').select('board_id').where({ id: card_id });
-        refreshUpdateDateBoard(boardId);
+        refreshUpdateDateBoard(boardId[0].board_id);
 
-        return res.status(200).json(creatingTask[0]);
-
+        return res.status(201).json(creatingTask[0]);
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error' });
     }
