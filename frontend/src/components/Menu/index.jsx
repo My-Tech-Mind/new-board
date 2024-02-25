@@ -13,7 +13,7 @@ const Menu = () => {
             <a href="/boards">
                 <FaHome className={styles.icons} />
             </a>
-            
+
             <FaUserCircle className={styles.user_circle} onClick={toggleMenu} />
 
             {
@@ -31,7 +31,7 @@ const Menu = () => {
                                     My account
                                 </a>
                             </li>
-                                
+
                             <li>
                                 <a href="/boards">
                                     <FaHome className={styles.icons} />
@@ -40,9 +40,9 @@ const Menu = () => {
                                     Home
                                 </a>
                             </li>
-                                    
+
                             <hr />
-                            
+
                             <li>
                                 <a href="/">
                                     <FaSignOutAlt className={styles.icons} />
@@ -58,5 +58,5 @@ const Menu = () => {
         </div>
     );
 };
- 
+
 export default Menu;
