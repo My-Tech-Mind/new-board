@@ -19,12 +19,14 @@ CREATE TABLE boards(
 CREATE TABLE cards(
     id serial primary key,
     title varchar(20) not null,
-    board_id integer references boards(id) not null
+    board_id integer references boards(id) not null,
+    ordenation integer not null
 );
 
 CREATE TABLE tasks(
     id serial primary key,
     title varchar(50) not null,
     description varchar(1000),
-    card_id integer references cards(id) not null
+    card_id integer references cards(id) not null,
+    ordenation integer not null
 );
