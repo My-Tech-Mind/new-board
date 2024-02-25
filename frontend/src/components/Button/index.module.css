@@ -8,10 +8,28 @@
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .default:hover {
     background-color: var(--color-hover);
+}
+
+.negative {
+    width: var(--button-width-mobile);
+    height: var(--button-height-mobile);
+    border-radius: 20px;
+    border: none;
+    background-color: var(--color-negative);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.negative:hover {
+    background-color: var(--color-negative-hover);
 }
 
 .login {
@@ -24,6 +42,7 @@
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .login:hover {
@@ -34,19 +53,16 @@
     .default {
         width: var(--button-width-desktop);
         height: var(--button-height-desktop);
-        border-radius: 20px;
-        border: none;
-        background-color: var(--color1);
-        cursor: pointer;
     }
 
     .login {
         margin: 20px;
         width: 100px;
         height: 40px;
-        border-radius: 20px;
-        border: solid var(--color3) 2px;
-        background-color: var(--background-color-navbar);
-        cursor: pointer;
+    }
+
+    .negative {
+        width: var(--button-width-desktop);
+        height: var(--button-height-desktop);
     }
 }

@@ -1,13 +1,26 @@
-import Button from '../../components/Button/index'
-import ButtonMobile from '../../components/Button/LoginMobile';
-import Navbar from '../../components/Navbar';
-import styles from './index.module.css'
-import imageHome from '../../assets/home.png'
+import Button from '../../components/Button/index';
+import Header from '../../components/Header';
+import styles from './index.module.css';
+import imageHome from '../../assets/home.png';
+import { useState, useEffect } from 'react';
 
 const Home = () => {
+    const [windowSize, setWindowSize] = useState();
+    
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowSize(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        };
+    }, []);
     return (
         <>
-            <Navbar />
+            <Header logged={false} />
             <main>
                 <div className={styles.main_container}>
                     <div className={styles.container_image}>
@@ -19,8 +32,12 @@ const Home = () => {
                             Collaborate, manage projects and reach new peaks in productivity. From skyscrapers to home offices, the way your team works is unique - do it all in a new way with New Board.
                         </p>
                         <div className={styles.container_buttons}>
-                            <Button title='Sign up' style='default' />
-                            <ButtonMobile title='Login' style='login' />
+                            <Button title='Sign up' style='default' href='/signup' />
+                            {
+                                windowSize < 768 && (
+                                    <Button title='Login' style='login' href='/login' />
+                                )
+                            }
                         </div>
                     </article>
                 </div>

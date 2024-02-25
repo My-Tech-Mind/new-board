@@ -14,7 +14,7 @@ const SignUp = () => {
     function handleSignUp(data, event) {
         event.preventDefault();
         console.log(data);
-        navigate('/signup');
+        navigate('/login');
     }
     return (
         <>

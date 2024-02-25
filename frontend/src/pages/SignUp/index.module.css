@@ -25,8 +25,8 @@ main {
 }
 
 .container_image {
-    width: 350px;
-    height: 350px;
+    width: 400px;
+    height: 400px;
     justify-content: center;
     align-items: center;
 }
@@ -66,8 +66,8 @@ main {
     }
 
     .container_image {
-        width: 160px;
-        height: 160px;
+        width: 200px;
+        height: 200px;
     }
 
     .main_container {

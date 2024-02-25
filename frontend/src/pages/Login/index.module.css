@@ -26,12 +26,18 @@ main {
 }
 
 .container_image {
-    width: 350px;
-    height: 350px;
+    display: flex;
     justify-content: center;
     align-items: center;
-
+    width: 350px;
+    height: 350px;
 }
+
+.container_image img {
+    width: 400px;
+    height: 400px;
+}
+
 
 .main_container .texto {
     font-weight: 700;
@@ -67,8 +73,8 @@ main {
     }
 
     .container_image img {
-        width: 160px;
-        height: 160px;
+        width: 200px;
+        height: 200px;
     }
 
     .main_container {
