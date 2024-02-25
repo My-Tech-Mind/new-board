@@ -5,7 +5,7 @@ import imageHome from '../../assets/home.png';
 import { useState, useEffect } from 'react';
 
 const Home = () => {
-    const [windowSize, setWindowSize] = useState();
+    const [windowSize, setWindowSize] = useState(window.innerWidth);
     
     useEffect(() => {
         const handleResize = () => {
@@ -21,7 +21,7 @@ const Home = () => {
     return (
         <>
             <Header logged={false} />
-            <main>
+            <main className={styles.main}>
                 <div className={styles.main_container}>
                     <div className={styles.container_image}>
                         <img src={imageHome} alt='Home' />

@@ -5,7 +5,7 @@ import Button from '../Button';
 import Menu from '../Menu';
 
 const Header = ({ logged }) => {
-    const [windowSize, setWindowSize] = useState();
+    const [windowSize, setWindowSize] = useState(window.innerWidth);
 
     useEffect(() => {
         const handleResize = () => {
@@ -23,9 +23,15 @@ const Header = ({ logged }) => {
         <header className={styles.header} id={styles.header_light}>
             <div className={styles.header_container}>
                 <div className={styles.container_image}>
-                    <a href="/boards">
-                        <img src={logo} alt="logo" />
-                    </a>
+                    {logged ? (
+                        <a href="/boards">
+                            <img src={logo} alt="logo" />
+                        </a>
+                    ): (
+                        <a href="/#">
+                            <img src={logo} alt="logo" />
+                        </a>  
+                    )}
                 </div>
                 {logged && <Menu />}
                 {windowSize > 768 && !logged && <Button title="Login" style="login" href="/login" />}
