@@ -6,8 +6,8 @@ const editCard = async (req, res) => {
     const { title, board_id } = req.body;
 
     try {
-        const existingCard = await knex('cards').select('id').where({ id }).first();
-        if (!existingCard) {
+        const card = await knex('cards').select('*').where({ id }).first();
+        if (!card) {
             return res.status(404).json({ message: 'Card not found.' });
         }
 
