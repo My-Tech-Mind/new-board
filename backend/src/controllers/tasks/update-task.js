@@ -5,11 +5,14 @@ const updateTask = async (req, res) => {
 	const { title, description, card_id, ordenation } = req.body;
 	const id = req.params.id;
 	try{
-		const taskAndBoardData = await knex('tasks').join('cards', 'cards.id', '=', 'tasks.card_id').where('tasks.id', id).first();
+		const taskAndBoardData = await knex('tasks')
+			.join('cards', 'cards.id', '=', 'tasks.card_id')
+			.select('tasks.id', 'board_id')
+			.where('tasks.id', id).first();
 		if (!taskAndBoardData) {
 			return res.status(404).json({ message: 'Task not found.'});
 		}
-		const { board_id, ...remainingData} = taskAndBoardData;
+		const { board_id } = taskAndBoardData;
 		const card = await knex('cards').where({ id: card_id }).first();
 		if (!card) {
 			return res.status(404).json({ message: 'Card not found.'});
