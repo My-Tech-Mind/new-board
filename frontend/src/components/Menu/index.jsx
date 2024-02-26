@@ -10,7 +10,7 @@ const Menu = () => {
     };
     return (
         <div className={styles.menu_icons_container}>
-            <a href="/boards">
+            <a href="/boards" className={styles.link}>
                 <FaHome className={styles.icons} />
             </a>
             
@@ -24,19 +24,19 @@ const Menu = () => {
                         </div>
                         <ul className={styles.menu_items}>
                             <li>
-                                <a href="/account">
+                                <a href="/account" className={styles.link}>
                                     <FaUser className={styles.icons} />
                                 </a>
-                                <a href="/account">
+                                <a href="/account" className={styles.link}>
                                     My account
                                 </a>
                             </li>
                                 
                             <li>
-                                <a href="/boards">
+                                <a href="/boards" className={styles.link}>
                                     <FaHome className={styles.icons} />
                                 </a>
-                                <a href="/boards">
+                                <a href="/boards" className={styles.link}>
                                     Home
                                 </a>
                             </li>
@@ -44,10 +44,10 @@ const Menu = () => {
                             <hr />
                             
                             <li>
-                                <a href="/">
+                                <a href="/" className={styles.link}>
                                     <FaSignOutAlt className={styles.icons} />
                                 </a>
-                                <a href="/">
+                                <a href="/" className={styles.link}>
                                     Sign out
                                 </a>
                             </li>

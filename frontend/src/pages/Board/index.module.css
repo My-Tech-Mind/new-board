@@ -1,19 +1,42 @@
 .main_board {
     margin: 10px;
-
 }
 
 .board_container {
+    display: flex;
     background-color: var(--color5);
     height: 78vh;
     padding: 10px;
+}
+
+.board_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.board_title_icon {
+    display: flex;
+    align-items: center;
 }
 
 .card {
     background-color: var(--color1);
     width: 250px;
     padding: 10px;
-    border-radius: 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.card_title_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add_card_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .card_title {
@@ -29,6 +52,7 @@
     background-color: #fff;
     padding: 5px;
     border-radius: 5px;
+    margin: 10px;
 }
 
 .task_title {
@@ -40,4 +64,10 @@
 
 .icons {
     color: var(--color-icons);
+    padding: 5px;
+    cursor: pointer;
+}
+
+.title_card_icon {
+    color: #fff;
 }
