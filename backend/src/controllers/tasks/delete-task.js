@@ -4,14 +4,15 @@ import { refreshUpdateDateBoard } from '../../utils/refresh-update-date-board.js
 const deleteTask = async (req, res) => {
 	const id = req.params.id;
 	try{
-		const task = await knex('tasks').where({ id }).first();
-		if(!task) {
+		const taskAndBoardData = await knex('tasks')
+			.join('cards', 'cards.id', '=', 'tasks.card_id')
+			.select('board_id', 'tasks.id')
+			.where('tasks.id', id).first();
+		if(!taskAndBoardData) {
 			return res.status(404).json({ message: 'Task not found.' });
 		}
-		const { card_id, ...taskData } = task;
+		const { board_id } = taskAndBoardData;
 		await knex('tasks').delete().where({ id });
-		const card = await knex('cards').where({ id: card_id}).first();
-		const { board_id, ...boardData } = card;
 		refreshUpdateDateBoard(board_id);
 		return res.status(204).json()
 	} catch(error){
