@@ -12,6 +12,12 @@ const cardSchema = joi.object({
         'number.base': 'The board_id field must be a number.',
         'number.positive': 'The board_id field must be a positive number',
         'number.integer': 'The board_id field must be an integer number'
+    }),
+    ordenation: joi.number().positive().integer().required().messages({
+        'any.required': 'The card_id field is required.',
+        'number.base': 'The card_id field must be a number.',
+        'number.positive': 'The card_id field must be a positive number',
+        'number.integer': 'The card_id field must be an integer number'
     })
 });
 

@@ -15,9 +15,10 @@ const deleteCard = async (req, res) => {
             const deletingAssociatedTasksToTheCard = await knex('tasks').delete().where({ card_id: id });
         }
 
-        refreshUpdateDateBoard(card.board_id);
 
+        const { board_id } = card
         const deletingCard = await knex('cards').delete().where({ id });
+        refreshUpdateDateBoard(board_id);
 
         return res.status(204).json();
     } catch (error) {
