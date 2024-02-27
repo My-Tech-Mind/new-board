@@ -64,6 +64,9 @@ const Board = () => {
                                 <FaEllipsisV className={styles.icons} />
                             </div>
                             ))}
+                            <div className={styles.task}>
+                                <FaPlus></FaPlus>
+                            </div>
                             
                         </div>
                     </div>
