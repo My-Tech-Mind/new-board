@@ -3,7 +3,7 @@ import { refreshUpdateDateBoard } from '../../utils/refresh-update-date-board.js
 
 const editCard = async (req, res) => {
     const id = req.params.id;
-    const { title, board_id } = req.body;
+    const { title, board_id, ordenation } = req.body;
 
     try {
         const card = await knex('cards').select('*').where({ id }).first();
@@ -18,7 +18,8 @@ const editCard = async (req, res) => {
 
         const cardEdit = await knex('cards').update({
             title,
-            board_id
+            board_id,
+            ordenation
         }).where({ id }).returning('*');
 
         refreshUpdateDateBoard(board_id);
