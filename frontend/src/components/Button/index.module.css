@@ -76,6 +76,20 @@
     margin: 5px;
 }
 
+.task_button {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--color1);
+    color: #000;
+    font-weight: 600;
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
 @media screen and (min-width: 768px) {
     .default {
         width: var(--button-width-desktop);

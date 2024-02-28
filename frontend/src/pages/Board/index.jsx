@@ -28,14 +28,13 @@ const Board = () => {
 
     const addCard =
         <div className={styles.add_card_container}>
-            <FaPlus />
+            <FaPlus className={styles.icon_card_plus} />
             <h1 className={styles.card_title}>Add Card</h1>
         </div>
     
     const addTask =
-        <div className={styles.add_card_container}>
-            <FaPlus />
-            <h1 className={styles.card_title}>Add Card</h1>
+        <div className={styles.add_task_container}>
+            <FaPlus className={styles.icon_task_plus} />
         </div>
     
     return ( 
@@ -50,6 +49,8 @@ const Board = () => {
                     </div>
                     <Button href='#' title='Save changes' style='board_button'/>
                 </div>
+
+
                 <div className={styles.board_container}>
                 {initialCards.map((card) => (
                     <div>
@@ -64,9 +65,7 @@ const Board = () => {
                                 <FaEllipsisV className={styles.icons} />
                             </div>
                             ))}
-                            <div className={styles.task}>
-                                <FaPlus></FaPlus>
-                            </div>
+                            <Button title={addTask} href='#' style='task_button' />
                             
                         </div>
                     </div>
