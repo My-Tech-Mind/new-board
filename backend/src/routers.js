@@ -18,6 +18,7 @@ import { schemaBoard } from './middlewares/joi/joi-schemas/schema-boards.js';
 import { cardSchema } from './middlewares/joi/joi-schemas/cards-schema.js';
 import { taskSchema } from './middlewares/joi/joi-schemas/tasks-schema.js';
 import { createTask } from './controllers/tasks/create-task.js';
+import { editTask } from './controllers/tasks/edit-task.js';
 import { deleteTask } from './controllers/tasks/delete-task.js';
 import { editCard } from './controllers/cards/edit-card.js';
 import { deleteCard } from './controllers/cards/delete-card.js';
@@ -45,6 +46,7 @@ router.get('/board', validationQueryRequest(querySchema), listBoards);
 router.put('/card/:id', validationParamsRequest(paramsSchema), validationBodyRequest(cardSchema), editCard);
 router.delete('/card/:id', validationParamsRequest(paramsSchema), deleteCard);
 router.post('/task', validationBodyRequest(taskSchema), createTask);
+router.put('/task/:id', validationParamsRequest(paramsSchema), validationBodyRequest(taskSchema), editTask);
 
 router.delete('/task/:id', validationParamsRequest(paramsSchema), deleteTask);
 
