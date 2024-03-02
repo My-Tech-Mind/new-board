@@ -3,27 +3,25 @@ import { connection as knex } from '../../database/connection.js';
 const detailBoard = async (req, res) => {
     const idBoard = req.params.id;
     try {
-        const lookingForBoard = await knex('boards')
-            .select('id', 'title', 'favorited', 'user_id')
-            .where('id', idBoard)
-            .returning('*');
+        const board = await knex('boards').where('id', idBoard).first();
 
-            const lookingForCards = await knex('cards').where('board_id', idBoard).returning('*')
-            
-            
-            const lookingForTasks = await knex('tasks')
+        if (!board) {
+            return res.status(404).json({ message: 'Board not found' });
+        }
 
+        const cards = await knex('cards').where('board_id', idBoard).orderBy('position', 'asc');
+        
+        for (let card of cards) {
+            const tasks = await knex('tasks').where('card_id', card.id).orderBy('position', 'asc');
+            card.tasks = tasks;
+        }
 
-            return res.status(200).json(lookingForBoard, lookingForCards, lookingForTasks)
+        board.cards = cards;
 
-
+        return res.status(200).json(board);
     } catch (error) {
-
-
-        return res.status(500).json({ mensagem: 'Internal server error' })
+        return res.status(500).json({ message: 'Internal server error' });
     }
-}
+};
 
-
-
-export { detailBoard }
+export { detailBoard };
