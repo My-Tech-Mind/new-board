@@ -8,28 +8,27 @@ import styles from './index.module.css';
 const Cards = () => {
     const initialCards = [
         {
-            id: '11',
+            id: 'card_1',
             title: 'To do',
             tasks: [
-                { id: '111', title: 'Untitled' }
+                { id: 'task_1', title: 'Untitled' }
             ]
         },
         {
-            id: '12',
+            id: 'card_2',
             title: 'Doing',
             tasks: [
-                { id: '222', title: 'Untitled' }
+                { id: 'task_2', title: 'Untitled' }
             ]
         },
         {
-            id: '13',
+            id: 'card_3',
             title: 'Done',
             tasks: [
-                { id: '333', title: 'Untitled' }
+                { id: 'task_3', title: 'Untitled' }
             ]
         }
-    ];
-        
+    ];   
     
     const [cards, setCards] = useState(initialCards);
 
@@ -46,7 +45,7 @@ const Cards = () => {
             newCards.splice(destination.index, 0, movedCard);
         
             setCards(newCards);
-
+            
         } else if (type === 'task') {
             const sourceCard = cards.find((card) => card.id === source.droppableId);
             const destinationCard = cards.find((card) => card.id === destination.droppableId);
@@ -92,6 +91,14 @@ const Cards = () => {
         }
     };
 
+    const toggleMenu = (cardId) => {
+        setOpenMenuCardId(cardId === openMenuCardId ? null : cardId);
+    }
+    
+        
+    const [openMenuCardId, setOpenMenuCardId] = useState(null);
+
+
     return (
         <>
             <DragDropContext onDragEnd={onDragEnd}>
@@ -113,7 +120,13 @@ const Cards = () => {
                                         >
                                             <div className={styles.card_title_container} {...provided.dragHandleProps}>
                                                 <h2 className={styles.card_title}>{card.title}</h2>
-                                                <FaEllipsisV className={styles.title_card_icon} />
+                                                    <FaEllipsisV className={styles.title_card_icon} onClick={() => toggleMenu(card.id)} />
+                                                    {openMenuCardId === card.id && (
+                                                        <div>
+                                                            <p>menu open</p>
+                                                        </div>
+                                                    )}
+
                                             </div>
                                                 
                                             <Droppable droppableId={card.id} key={card.id} type="task">
@@ -132,7 +145,7 @@ const Cards = () => {
                             <div>
                                 <Button
                                     title={
-                                    <div className={styles.add_card_container}>
+                                    <div className={styles.add_card_container} >
                                         <FaPlus className={styles.icon_card_plus} />
                                         <h1 className={styles.card_title}>Add Card</h1>
                                     </div>
