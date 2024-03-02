@@ -23,6 +23,9 @@ import { deleteTask } from './controllers/tasks/delete-task.js';
 import { editCard } from './controllers/cards/edit-card.js';
 import { deleteCard } from './controllers/cards/delete-card.js';
 import { detailTask } from './controllers/tasks/detail-task.js';
+import { detailBoard } from './controllers/boards/detail-board.js';
+import { createCard } from './controllers/cards/create-card.js';
+import { deleteBoard } from './controllers/boards/delete-board.js';
 
 const router = express.Router();
 
@@ -51,6 +54,12 @@ router.put('/task/:id', validationParamsRequest(paramsSchema), validationBodyReq
 router.delete('/task/:id', validationParamsRequest(paramsSchema), deleteTask);
 
 router.get('/task/:id', validationParamsRequest(paramsSchema), detailTask);
+
+router.post('/card', validationBodyRequest(cardSchema), createCard)
+
+router.get('/board/:id', validationParamsRequest(paramsSchema), detailBoard)
+
+router.delete('/board/:id', deleteBoard)
 
 
 
