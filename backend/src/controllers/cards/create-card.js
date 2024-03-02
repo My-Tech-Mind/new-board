@@ -1,18 +1,28 @@
-import { connection as knex } from '../../database/connection.js';
-
 const createCard = async (req, res) => {
-    const { title, board_id } = req.query;
+    const { title, board_id } = req.body;
 
     try {
-        await knex('cards').insert({ title, board_id });
+        const boardExists = await knex('boards').where('id', board_id).first();
+        if (!boardExists) {
+            return res.status(404).json({ message: 'Board not found' });
+        }
 
-        const [newCard] = await knex('cards').where({ title, board_id });
+
+        const boardCards = await knex('cards').where('board_id', board_id);
+        if (boardCards.length >= 10) {
+            return res.status(400).json({ message: 'Maximum number of cards per board reached' });
+        }
+
+        await knex('boards').where('id', board_id).update({ update_date: knex.fn.now() });
+
+        
+        const [newCard] = await knex('cards').insert({ title, board_id, ordenation: boardCards.length + 1 }).returning('*');
 
         return res.status(201).json(newCard);
     } catch (error) {
+    
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
 
-
-export {createCard}
+export { createCard };
