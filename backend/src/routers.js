@@ -26,6 +26,7 @@ import { detailTask } from './controllers/tasks/detail-task.js';
 import { detailBoard } from './controllers/boards/detail-board.js';
 import { createCard } from './controllers/cards/create-card.js';
 import { deleteBoard } from './controllers/boards/delete-board.js';
+import { createCardSchema } from './middlewares/joi/joi-schemas/card-create-schema.js';
 
 const router = express.Router();
 
@@ -55,7 +56,7 @@ router.delete('/task/:id', validationParamsRequest(paramsSchema), deleteTask);
 
 router.get('/task/:id', validationParamsRequest(paramsSchema), detailTask);
 
-router.post('/card', validationBodyRequest(cardSchema), createCard)
+router.post('/card', validationBodyRequest(createCardSchema), createCard)
 
 router.get('/board/:id', validationParamsRequest(paramsSchema), detailBoard)
 
