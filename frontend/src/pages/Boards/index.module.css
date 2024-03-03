@@ -48,7 +48,7 @@
 .create_boards {
     width: 250px;
     height: 140px;
-    margin: 10px;
+    margin: 10px 20px 10px 10px;
     display: flex;
     justify-content: center;
     position: relative;
@@ -74,8 +74,19 @@
 }
 
 .boards_name {
+    width: 70%;
+    background-color: var(--color1);
+    border: none;
+    text-align: center;
+    outline: none;
     font-weight: 700;
     font-size: large;
-    color: var(--color-hover-login);
+    color: var(--background-color);
+}
 
+.boards_name::placeholder {
+    font-weight: 700;
+    font-size: large;
+    color: var(--background-color);
+    opacity: 1.5;
 }

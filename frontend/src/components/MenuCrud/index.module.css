@@ -6,6 +6,7 @@
     width: 100%;
     padding: 0;
     margin-top: 0;
+
 }
 
 .menu_icons_container {
@@ -30,7 +31,7 @@
     transition: ease-in;
     background-color: var(--background-color);
     border: solid 2px rgba(0, 0, 0, 0.2);
-
+    z-index: 1;
 }
 
 .icon {
