@@ -26,3 +26,12 @@
     margin-left: 5px;
 }
 
+.close_icon {
+    position: absolute;
+    top: calc(50% - 85px);
+    left: calc(50% + 160px);
+    color: var(--color-icons);
+    cursor: pointer;
+    z-index: 1003;
+}
+

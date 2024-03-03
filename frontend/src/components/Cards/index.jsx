@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Button from '../../components/Button';
 import Tasks from '../Tasks';
-import { FaEllipsisV, FaPlus } from "react-icons/fa";
+import { FaEllipsisV, FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
+import EditBox from '../EditBox';
 
 const Cards = () => {
     const initialCards = [
@@ -92,15 +93,27 @@ const Cards = () => {
     };
 
     const toggleMenu = (cardId) => {
-        setOpenMenuCardId(cardId === openMenuCardId ? null : cardId);
+        return setOpenMenuCardId(cardId === openMenuCardId ? null : cardId);
     }
     
         
     const [openMenuCardId, setOpenMenuCardId] = useState(null);
+    const [openCardTitleBox, setopenCardTitleBox] = useState(false)
 
+    const editCardTitle = () => {
+        setopenCardTitleBox(!openCardTitleBox)
+    }
 
     return (
         <>
+            {
+                openCardTitleBox && (
+                    <>
+                        <FaTimes className={styles.close_icon} onClick={editCardTitle} />
+                        <EditBox title='Card title' buttonName='Save'/>
+                    </>
+                )
+            }
             <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="all-cards" direction="horizontal" type='card'>
                     {(provided) => (
@@ -119,7 +132,7 @@ const Cards = () => {
                                             className={styles.card}
                                         >
                                             <div className={styles.card_title_container} {...provided.dragHandleProps}>
-                                                <h2 className={styles.card_title}>{card.title}</h2>
+                                                <h2 className={styles.card_title} onClick={editCardTitle}>{card.title}</h2>
                                                     <FaEllipsisV className={styles.title_card_icon} onClick={() => toggleMenu(card.id)} />
                                                     {openMenuCardId === card.id && (
                                                         <div>
