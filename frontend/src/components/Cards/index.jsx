@@ -9,24 +9,24 @@ import EditBox from '../EditBox';
 const Cards = () => {
     const initialCards = [
         {
-            id: 'card_1',
+            id: '1',
             title: 'To do',
             tasks: [
-                { id: 'task_1', title: 'Untitled' }
+                { id: '1', title: 'Untitled' }
             ]
         },
         {
-            id: 'card_2',
+            id: '2',
             title: 'Doing',
             tasks: [
-                { id: 'task_2', title: 'Untitled' }
+                { id: '2', title: 'Untitled' }
             ]
         },
         {
-            id: 'card_3',
+            id: '3',
             title: 'Done',
             tasks: [
-                { id: 'task_3', title: 'Untitled' }
+                { id: '3', title: 'Untitled' }
             ]
         }
     ];   

@@ -8,7 +8,7 @@ const Tasks = ({ tasks }) => {
   return (
     <div>
       {tasks.map((task, index) => (
-        <Draggable key={task.id} draggableId={task.id} index={index}>
+        <Draggable key={`task_${task.id}`} draggableId={`task_${task.id}`} index={index}>
           {(provided) => (
             <div
               ref={provided.innerRef}
