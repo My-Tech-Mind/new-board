@@ -5,6 +5,7 @@ import Tasks from '../Tasks';
 import { FaEllipsisV, FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
 import EditBox from '../EditBox';
+import MenuCrud from '../MenuCrud';
 
 const Cards = () => {
     const initialCards = [
@@ -133,13 +134,13 @@ const Cards = () => {
                                         >
                                             <div className={styles.card_title_container} {...provided.dragHandleProps}>
                                                 <h2 className={styles.card_title} onClick={editCardTitle}>{card.title}</h2>
-                                                    <FaEllipsisV className={styles.title_card_icon} onClick={() => toggleMenu(card.id)} />
+                                                    {/* <FaEllipsisV className={styles.title_card_icon} onClick={() => toggleMenu(card.id)} />
                                                     {openMenuCardId === card.id && (
                                                         <div>
                                                             <p>menu open</p>
                                                         </div>
-                                                    )}
-
+                                                    )} */}
+                                                    <MenuCrud />
                                             </div>
                                                 
                                             <Droppable droppableId={card.id} key={card.id} type="task">
