@@ -8,17 +8,15 @@
     "@testing-library/react": "^12.1.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "^17.0.2",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.14.2",
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
-    "zod": "^3.22.4",
-    "react-beautiful-dnd": "^13.1.0"
-}
-
-,
+    "zod": "^3.22.4"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -42,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }
