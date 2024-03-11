@@ -5,37 +5,85 @@ import Tasks from '../Tasks';
 import { FaEllipsisV, FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
 import EditBox from '../EditBox';
-import MenuCrud from '../MenuCrud';
+import MenuCrud from '../modal/MenuCrud';
 
 const Cards = () => {
+
     const initialCards = [
         {
             id: '1',
-            title: 'To do',
+            title: 'card 1',
             tasks: [
-                { id: '1', title: 'Untitled' }
+                {
+                    id: '1',
+                    title: 'task 1',
+                    description: 'description 1'
+                }
             ]
         },
         {
             id: '2',
-            title: 'Doing',
+            title: 'card 2',
             tasks: [
-                { id: '2', title: 'Untitled' }
+                {
+                    id: '2',
+                    title: 'task 2',
+                    description: 'description 2'
+                }
             ]
         },
         {
             id: '3',
-            title: 'Done',
+            title: 'card 3',
             tasks: [
-                { id: '3', title: 'Untitled' }
+                {
+                    id: '3',
+                    title: 'task 3',
+                    description: 'description 3'
+                }
             ]
-        }
+        },
+        {
+            id: '4',
+            title: 'card 4',
+            tasks: [
+                {
+                    id: '4',
+                    title: 'task 4',
+                    description: 'description 4'
+                }
+            ]
+        },
+        {
+            id: '5',
+            title: 'card 5',
+            tasks: [
+                {
+                    id: '5',
+                    title: 'task 5',
+                    description: 'description 5'
+                }
+            ]
+        },
+        {
+            id: '6',
+            title: 'card 6',
+            tasks: [
+                {
+                    id: '6',
+                    title: 'task 6',
+                    description: 'description 6'
+                }
+            ]
+        },
     ];   
-    
+
     const [cards, setCards] = useState(initialCards);
+    const [movedPosition, setMovedPosition] = useState({})
 
     const onDragEnd = (result) => {
-        const { destination, source, type } = result;
+        
+        const { draggableId, destination, source, type } = result;
 
         if (!destination) {
             return;
@@ -47,10 +95,32 @@ const Cards = () => {
             newCards.splice(destination.index, 0, movedCard);
         
             setCards(newCards);
+
+            const cardMoved = {
+                cardId: draggableId,
+                cardSourcePosition: source.index,
+                cardDestinationPosition: destination.index,
+            }
+
+            setMovedPosition(cardMoved)
+            
             
         } else if (type === 'task') {
+
+            const taskMoved = {
+                taskId: draggableId[5],
+                taskSourcePosition: source.index,
+                taskDestinationPosition: destination.index,
+                cardIdSource: source.droppableId,
+                cardIdDestination: destination.droppableId,
+            }
+
+            setMovedPosition(taskMoved)
+
             const sourceCard = cards.find((card) => card.id === source.droppableId);
             const destinationCard = cards.find((card) => card.id === destination.droppableId);
+
+            
 
             if (sourceCard === destinationCard) {
                 const newTasks = Array.from(sourceCard.tasks);
@@ -89,6 +159,7 @@ const Cards = () => {
                 );
 
                 setCards(newCards);
+
             }
         }
     };
@@ -96,6 +167,16 @@ const Cards = () => {
     const toggleMenu = (cardId) => {
         return setOpenMenuCardId(cardId === openMenuCardId ? null : cardId);
     }
+
+    const [createdCard, setCardCreated] = useState(null)
+
+    const handleCreatedCard = (card) => {
+        setCardCreated(card)
+    }
+
+    // const createCard = (createdCard) => {
+    //     cards.push(createdCard)
+    // }
     
         
     const [openMenuCardId, setOpenMenuCardId] = useState(null);
@@ -133,14 +214,10 @@ const Cards = () => {
                                             className={styles.card}
                                         >
                                             <div className={styles.card_title_container} {...provided.dragHandleProps}>
-                                                <h2 className={styles.card_title} onClick={editCardTitle}>{card.title}</h2>
-                                                    {/* <FaEllipsisV className={styles.title_card_icon} onClick={() => toggleMenu(card.id)} />
-                                                    {openMenuCardId === card.id && (
-                                                        <div>
-                                                            <p>menu open</p>
-                                                        </div>
-                                                    )} */}
-                                                    <MenuCrud />
+                                                    <h2 className={styles.card_title} onClick={editCardTitle}>{card.title}</h2>
+                                                    
+                                                    <MenuCrud card={card} dataCard={ handleCreatedCard } />
+                                                    
                                             </div>
                                                 
                                             <Droppable droppableId={card.id} key={card.id} type="task">

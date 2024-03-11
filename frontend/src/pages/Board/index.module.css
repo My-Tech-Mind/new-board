@@ -4,9 +4,23 @@
 
 .board_container {
     display: flex;
+    overflow: auto;
+    overflow-y: hidden !important;
+    -ms-overflow-style: none;
+    scrollbar-color: transparent transparent !important;
     background-color: var(--color5);
     height: 78vh;
     padding: 10px;
+}
+
+.board_container::-webkit-scrollbar {
+    background-color: transparent !important;
+    color: transparent !important;
+}
+
+.board_container::-ms-scrollbar {
+    background-color: transparent !important;
+    color: transparent !important;
 }
 
 .board_header {
@@ -35,7 +49,7 @@
     z-index: 1003;
 }
 
-@media screen and (max-width: 768px){
+/* @media screen and (max-width: 768px){
     .board_container{
         overflow: auto;
         overflow-y: hidden !important;
@@ -52,4 +66,4 @@
         background-color: transparent !important;
         color: transparent !important;
     }
-}
+} */
