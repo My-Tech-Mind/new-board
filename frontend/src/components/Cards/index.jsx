@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Button from '../../components/Button';
 import Tasks from '../Tasks';
-import { FaEllipsisV, FaPlus, FaTimes } from "react-icons/fa";
+import { FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
 import EditBox from '../EditBox';
 import MenuCrud from '../modal/MenuCrud';
@@ -29,50 +29,6 @@ const Cards = () => {
                     id: '2',
                     title: 'task 2',
                     description: 'description 2'
-                }
-            ]
-        },
-        {
-            id: '3',
-            title: 'card 3',
-            tasks: [
-                {
-                    id: '3',
-                    title: 'task 3',
-                    description: 'description 3'
-                }
-            ]
-        },
-        {
-            id: '4',
-            title: 'card 4',
-            tasks: [
-                {
-                    id: '4',
-                    title: 'task 4',
-                    description: 'description 4'
-                }
-            ]
-        },
-        {
-            id: '5',
-            title: 'card 5',
-            tasks: [
-                {
-                    id: '5',
-                    title: 'task 5',
-                    description: 'description 5'
-                }
-            ]
-        },
-        {
-            id: '6',
-            title: 'card 6',
-            tasks: [
-                {
-                    id: '6',
-                    title: 'task 6',
-                    description: 'description 6'
                 }
             ]
         },
@@ -168,17 +124,36 @@ const Cards = () => {
         return setOpenMenuCardId(cardId === openMenuCardId ? null : cardId);
     }
 
-    const [createdCard, setCardCreated] = useState(null)
+    const [idCard, setidCard] = useState('a')
 
-    const handleCreatedCard = (card) => {
-        setCardCreated(card)
+    const handleDuplicateCard = (card) => {
+        setidCard(idCard + '1')
+        const copyTitle = card.title + ` (copy)`
+        const {id, title, index, ...newCard} = card
+        const createdCard = { id: idCard, title: copyTitle, ...newCard }
+        cards.splice(card.index + 1, 0, createdCard)
+        setCards(cards)
     }
 
-    // const createCard = (createdCard) => {
-    //     cards.push(createdCard)
-    // }
-    
-        
+    const handleDeleteCard = (index) => {
+        const cardsCopy = [...cards]
+        cardsCopy.splice(index, 1)
+        setCards(cardsCopy)
+    }
+
+    const handleCreateCard = (title) => {
+        setidCard(idCard + '2')
+        const newCard = {
+            id: idCard,
+            title,
+            tasks: []
+        }
+
+        const cardCopy = cards.push(newCard)
+        setCards(cardCopy)
+        console.log(cardCopy)
+    }
+ 
     const [openMenuCardId, setOpenMenuCardId] = useState(null);
     const [openCardTitleBox, setopenCardTitleBox] = useState(false)
 
@@ -192,12 +167,12 @@ const Cards = () => {
                 openCardTitleBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={editCardTitle} />
-                        <EditBox title='Card title' buttonName='Save'/>
+                        <EditBox title='Card title' buttonName='Save' onCreate={ handleCreateCard } />
                     </>
                 )
             }
             <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="all-cards" direction="horizontal" type='card'>
+                <Droppable droppableId="all-cards" direction="horizontal" type='card' key= "all-cards">
                     {(provided) => (
                         <div
                             ref={provided.innerRef}
@@ -215,13 +190,12 @@ const Cards = () => {
                                         >
                                             <div className={styles.card_title_container} {...provided.dragHandleProps}>
                                                     <h2 className={styles.card_title} onClick={editCardTitle}>{card.title}</h2>
-                                                    
-                                                    <MenuCrud card={card} dataCard={ handleCreatedCard } />
-                                                    
+
+                                                    <MenuCrud card={card} index={index} onDuplicate={handleDuplicateCard} onDelete={handleDeleteCard} />          
                                             </div>
                                                 
                                             <Droppable droppableId={card.id} key={card.id} type="task">
-                                                                                                                                                            {(provided) => (
+                                                                                                                                                           {(provided) => (
                                                     <div ref={provided.innerRef} {...provided.droppableProps} className={styles.task_container}>
                                                         <Tasks tasks={card.tasks} />
                                                     </div>
@@ -236,7 +210,7 @@ const Cards = () => {
                             <div>
                                 <Button
                                     title={
-                                    <div className={styles.add_card_container} >
+                                        <div className={styles.add_card_container} onClick={editCardTitle}>
                                         <FaPlus className={styles.icon_card_plus} />
                                         <h1 className={styles.card_title}>Add Card</h1>
                                     </div>

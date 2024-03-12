@@ -33,10 +33,12 @@
 
 .trash {
     color: var(--color-negative);
+    margin-right: 20px;
 }
 
 .crud_icons {
     color: var(--color-icons);
+    margin-right: 20px;
 }
 
 a .menu_crud_title {
@@ -49,16 +51,16 @@ a .menu_crud_title {
     color: var(--color-negative);
 }
 
-.link {
+.crud_option {
     display: flex;
     justify-content: start;
     align-items: center;
     width: 100%;
     height: 30px;
     margin-left: 10px;
-    text-decoration: none;
     color: black;
     font-size: 14px;
+    cursor: pointer;
 }
 
 ul {

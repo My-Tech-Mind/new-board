@@ -2,12 +2,12 @@ import styles from './index.module.css';
 import { useState, useEffect, useRef } from 'react';
 import { FaEllipsisV, FaRegTrashAlt, FaEdit, FaRegClone } from 'react-icons/fa';
 
-const MenuCrud = (dataCard, card) => {
-    console.log(card)
-
+const MenuCrud = ({card, index, onDuplicate, onDelete}) => {
+    
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null)
-    const [menuPosition, setMenuPosition] = useState({x:0, y:0})
+    const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 })
+    const cardWithPosition = { index, ...card }
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -44,23 +44,22 @@ const MenuCrud = (dataCard, card) => {
                     <nav className={styles.menu_open} ref={menuRef} style={{ top: menuPosition.y, left: menuPosition.x, right: menuPosition.r }}>
                                 <ul className={styles.menu_items}>
                                     <li>
-                                <div className={styles.link} onClick={() => { dataCard(card)}} >
-                                
+                                        <div className={styles.crud_option} onClick={() => onDuplicate(cardWithPosition)} >
                                             <FaRegClone className={`${styles.crud_icons} ${styles.icon}`} />
                                             <p className={styles.menu_crud_title}>Duplicar</p>
                                         </div>
                                     </li>
                                     <li>
-                                        <a href="/" className={styles.link}>
+                                        <div className={styles.crud_option}>
                                             <FaEdit className={`${styles.crud_icons} ${styles.icon}`}></FaEdit>
                                             <p className={styles.menu_crud_title}>Editar</p>
-                                        </a>
+                                        </div>
                                     </li>
                                     <li>
-                                        <a href="/" className={styles.link}>
-                                            <FaRegTrashAlt className={` ${styles.icon} ${styles.trash}`} />
+                                        <div className={styles.crud_option} onClick={() => onDelete(index)}>
+                                            <FaRegTrashAlt className={` ${styles.trash}`} />
                                             <p className={`${styles.menu_crud_title} ${styles.text}`} >Excluir</p>
-                                        </a>
+                                        </div>
                                     </li>
                                 </ul>
                             </nav>
