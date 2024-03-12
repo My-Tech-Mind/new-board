@@ -153,23 +153,21 @@ const Cards = () => {
         setCards(cards)  
     }
 
-    const handleEditCard = (card) => {
-        const {title, index, ...newCard} = card
-        const editCard = { id: idCard, title: card.title, ...newCard }
-        cards.splice(card.index, 1, editCard)
-        setCards(cards)
-    }
+    // const handleEditCard = (card) => {
+    //     const {title, index, ...newCard} = card
+    //     const editCard = { id: idCard, title: card.title, ...newCard }
+    //     cards.splice(card.index, 1, editCard)
+    //     setCards(cards)
+    // }
 
-    const handleEditTitleCard = (title) => {
-        const {title, ...cardWithoutTitle} = card
-        const editCard = { title, ...cardWithoutTitle }
-        const cardsCopy = [...cards]
-        cardsCopy.splice(card.index, 1, editCard)
-        setCards(cardsCopy)
-    }
+    // const [titleCardUpdated, setTitleCardUpdated] = useState()
+
+    // const handleEditTitleCard = (title) => {
+    //     setTitleCardUpdated(title)
+    // }
 
     const handleSaveCard = (save) => {
-        setOpenCardTitleBox(!save)
+        setOpenCreateCardBox(!save)
     }
 
     console.log(cards)
@@ -178,8 +176,8 @@ const Cards = () => {
     const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
     const [openEditCardBox, setOpenEditCardBox] = useState(false)
 
-    const editCardTitle = () => {
-        setOpenCardTitleBox(!openCardTitleBox)
+    const openCloseCardBox = () => {
+        setOpenCreateCardBox(!openCreateCardBox)
     }
 
     return (
@@ -187,20 +185,20 @@ const Cards = () => {
             {
                 openCreateCardBox && (
                     <>
-                        <FaTimes className={styles.close_icon} onClick={editCardTitle} />
+                        <FaTimes className={styles.close_icon} onClick={openCloseCardBox} />
                         <EditBox title='Card title' buttonName='Create' onCreate={handleCreateCard} onSave={ handleSaveCard } create="true" />
                     </>
                 )
             }
 
-            {
+            {/* {
                 openEditCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={editCardTitle} />
                         <EditBox title='Card title' buttonName='Save' onEdit={handleEditCard} onEditTitle={handleEditTitleCard} onSave={ handleSaveCard } create="false" />
                     </>
                 )
-            }
+            } */}
             <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="all-cards" direction="horizontal" type='card' key= "all-cards">
                     {(provided) => (
@@ -219,7 +217,8 @@ const Cards = () => {
                                             className={styles.card}
                                         >
                                             <div className={styles.card_title_container} {...provided.dragHandleProps}>
-                                                    <h2 className={styles.card_title} onClick={editCardTitle}>{card.title}</h2>
+                                                    <h2 className={styles.card_title}>{card.title}</h2>
+                                                    {/* onClick={editCardTitle} */}
 
                                                     <MenuCrud card={card} index={index} onDuplicate={handleDuplicateCard} onDelete={handleDeleteCard} />          
                                             </div>
@@ -240,7 +239,8 @@ const Cards = () => {
                             <div>
                                 <Button
                                     title={
-                                        <div className={styles.add_card_container} onClick={editCardTitle}>
+                                        <div className={styles.add_card_container} onClick={openCloseCardBox}>
+                                            
                                         <FaPlus className={styles.icon_card_plus} />
                                         <h1 className={styles.card_title}>Add Card</h1>
                                     </div>

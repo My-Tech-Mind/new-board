@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import Button from '../Button';
+// import Button from '../Button';
 import Input from '../Input';
 import styles from './index.module.css';
 
 
-const EditBox = ({ title, card, buttonName, onCreate, onEditTitle, onSave, create}) => {
-
+const EditBox = ({ title, card, buttonName, onCreate, onSave, create}) => {
+    // onEditTitle
     const [titleCard, setTitleCard] = useState('untitled')
 
     const handleTitleCardValue = (event) => {
@@ -17,10 +17,10 @@ const EditBox = ({ title, card, buttonName, onCreate, onEditTitle, onSave, creat
         onSave(true)
     }
 
-    const handleEditCard = () => {
-        onEditTitle(titleCard, card)
-        onSave(true)
-    }
+    // const handleEditCard = () => {
+    //     onEditTitle(titleCard, card)
+    //     onSave(true)
+    // }
 
     return ( 
         <div className={styles.edit_box_container}>
@@ -28,7 +28,8 @@ const EditBox = ({ title, card, buttonName, onCreate, onEditTitle, onSave, creat
             <div className={styles.edit_box}>
                 <h1>{ title }</h1>
                 <Input className={styles.input} onChange={handleTitleCardValue} />
-                <button onClick={create ? handleCreateCard : handleEditCard} className={styles.save_button}>{ buttonName }</button>
+                <button onClick={handleCreateCard} className={styles.save_button}>{buttonName}</button>
+                {/* handleEditCard */}
                 {/* <Button title={buttonName} style='board_button' onCreate(titleCard) /> */}
             </div>
         </div>
