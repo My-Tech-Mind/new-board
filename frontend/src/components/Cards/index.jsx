@@ -149,25 +149,55 @@ const Cards = () => {
             tasks: []
         }
 
-        const cardCopy = cards.push(newCard)
-        setCards(cardCopy)
-        console.log(cardCopy)
+        cards.push(newCard)
+        setCards(cards)  
     }
+
+    const handleEditCard = (card) => {
+        const {title, index, ...newCard} = card
+        const editCard = { id: idCard, title: card.title, ...newCard }
+        cards.splice(card.index, 1, editCard)
+        setCards(cards)
+    }
+
+    const handleEditTitleCard = (title) => {
+        const {title, ...cardWithoutTitle} = card
+        const editCard = { title, ...cardWithoutTitle }
+        const cardsCopy = [...cards]
+        cardsCopy.splice(card.index, 1, editCard)
+        setCards(cardsCopy)
+    }
+
+    const handleSaveCard = (save) => {
+        setOpenCardTitleBox(!save)
+    }
+
+    console.log(cards)
  
     const [openMenuCardId, setOpenMenuCardId] = useState(null);
-    const [openCardTitleBox, setopenCardTitleBox] = useState(false)
+    const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
+    const [openEditCardBox, setOpenEditCardBox] = useState(false)
 
     const editCardTitle = () => {
-        setopenCardTitleBox(!openCardTitleBox)
+        setOpenCardTitleBox(!openCardTitleBox)
     }
 
     return (
         <>
             {
-                openCardTitleBox && (
+                openCreateCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={editCardTitle} />
-                        <EditBox title='Card title' buttonName='Save' onCreate={ handleCreateCard } />
+                        <EditBox title='Card title' buttonName='Create' onCreate={handleCreateCard} onSave={ handleSaveCard } create="true" />
+                    </>
+                )
+            }
+
+            {
+                openEditCardBox && (
+                    <>
+                        <FaTimes className={styles.close_icon} onClick={editCardTitle} />
+                        <EditBox title='Card title' buttonName='Save' onEdit={handleEditCard} onEditTitle={handleEditTitleCard} onSave={ handleSaveCard } create="false" />
                     </>
                 )
             }

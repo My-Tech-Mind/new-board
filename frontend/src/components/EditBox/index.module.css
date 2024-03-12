@@ -22,5 +22,18 @@
     height: 30px;
 }
 
+.save_button {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--color2);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 11pt;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 
 
