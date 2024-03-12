@@ -18,7 +18,7 @@ const EditBox = ({ title, card, buttonName, onCreate, onSave, create}) => {
     }
 
     // const handleEditCard = () => {
-    //     onEditTitle(titleCard, card)
+    //     onEditTitle(titleCard)
     //     onSave(true)
     // }
 

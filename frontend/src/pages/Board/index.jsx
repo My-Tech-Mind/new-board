@@ -8,10 +8,19 @@ import EditBox from '../../components/EditBox';
 import {FaTimes} from 'react-icons/fa'
 
 const Board = () => {
-    const [openBoardTitleBox, setopenBoardTitleBox] = useState(false)
+    const [openBoardTitleBox, setOpenBoardTitleBox] = useState(false)
+    const [titleBoard, setTitleBoard] = useState('Untitled')
 
     const editBoardTitle = () => {
-        setopenBoardTitleBox(!openBoardTitleBox)
+        setOpenBoardTitleBox(!openBoardTitleBox)
+    }
+
+    const handleEditTitle = (title) => {
+        setTitleBoard(title)
+    }
+
+    const handleSaveCard = (save) => {
+        setOpenBoardTitleBox(!save)
     }
 
     return (
@@ -22,12 +31,12 @@ const Board = () => {
                 {openBoardTitleBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={editBoardTitle} />
-                        <EditBox title='Board title' buttonName='Save' />
+                        <EditBox title='Board title' buttonName='Save' onCreate={handleEditTitle} onSave={handleSaveCard} />
                     </>
                 )}
                 <div className={styles.board_header}>
                     <div className={styles.board_title_icon}>
-                        <h1 className={styles.board_title}>Board title</h1>
+                        <h1 className={styles.board_title}>{titleBoard}</h1>
                         <FaPen className={styles.icons} onClick={editBoardTitle} />
                     </div>
                     <Button href='#' title='Save changes' style='board_button' />

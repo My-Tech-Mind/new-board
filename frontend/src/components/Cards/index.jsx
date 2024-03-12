@@ -170,7 +170,6 @@ const Cards = () => {
         setOpenCreateCardBox(!save)
     }
 
-    console.log(cards)
  
     const [openMenuCardId, setOpenMenuCardId] = useState(null);
     const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
