@@ -6,7 +6,7 @@ import NameInput from '../../components/Input/NameInput';
 import EmailInput from '../../components/Input/EmailInput';
 import PasswordInput from '../../components/Input/PasswordInput';
 import Button from '../../components/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
 const Account = () => {
@@ -64,7 +64,7 @@ const Account = () => {
                         
                         <div className={styles.title_setting}>
                             <h2>Update account</h2>
-                            <FontAwesomeIcon icon={['fa', 'edit']} className={styles.icon} />
+                            {/* <FontAwesomeIcon icon={['fa', 'edit']} className={styles.icon} /> */}
                         </div>
 
                         <label htmlFor="name">Name</label>

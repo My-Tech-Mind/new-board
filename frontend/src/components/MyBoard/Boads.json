@@ -1,0 +1,16 @@
+{
+    "Myboards": [
+        {
+            "id": "board_1",
+            "title": "Work"
+        },
+        {
+            "id": "board_2",
+            "title": "Gym"
+        },
+        {
+            "id": "board_3",
+            "title": "House"
+        }
+    ]
+}

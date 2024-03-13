@@ -1,0 +1,28 @@
+.main_board {
+    margin: 10px;
+}
+
+.board_container {
+    display: flex;
+    background-color: var(--color5);
+    height: 78vh;
+    padding: 10px;
+}
+
+.board_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.board_title_icon {
+    display: flex;
+    align-items: center;
+}
+
+.icons {
+    color: var(--color-icons);
+    cursor: pointer;
+    font-size: 12pt;
+    margin-left: 5px;
+}
+

@@ -10,11 +10,10 @@
 }
 
 .menu_icons_container {
-    top: 5px;
-    left: 255px;
+    top: 0px;
+    left: 175px;
     position: absolute;
     display: flex;
-
 }
 
 .ellipsis {
@@ -40,7 +39,6 @@
 
 a .descriptions {
     margin: 0;
-
     font-weight: 700;
     padding: 5px 10px 0 20px;
 
