@@ -157,19 +157,30 @@ const Cards = () => {
 
     const handleEditCard = (card) => {
         setOpenEditCardBox(true)
-        const { title, ...cardWithoutTitle } = card
-        setCardToBeEdited(cardWithoutTitle)
+        setCardToBeEdited(card)
     }
 
-    const handleEditTitle = (title) => {
+    const handleEditTitle = (newTitle) => {
+        const { title, index, ...cardWithoutTitleIndex } = cardToBeEdited
         const updatedCard = {
-            title,
-            ...cardToBeEdited
+            title: newTitle,
+            ...cardWithoutTitleIndex
         }
         const cardsCopy = [...cards]
         cardsCopy.splice(cardToBeEdited.index, 1, updatedCard)
         setCards(cardsCopy)
+        console.log("title", title)
     }
+
+    // const handleEditTitle2 = (title) => {
+    //     const updatedCard = {
+    //         title,
+    //         ...cardToBeEdited
+    //     }
+    //     const cardsCopy = [...cards]
+    //     cardsCopy.splice(cardToBeEdited.index, 1, updatedCard)
+    //     setCards(cardsCopy)
+    // }
 
     // const handleEditCard = (card) => {
     //     const {title, index, ...newCard} = card
@@ -201,6 +212,8 @@ const Cards = () => {
     const openEditTitleCard = () => {
         setOpenEditCardBox(!openEditCardBox)
     }
+
+    console.log(cardToBeEdited)
 
     return (
         <>
@@ -240,8 +253,8 @@ const Cards = () => {
                                             className={styles.card}
                                         >
                                             <div className={styles.card_title_container} {...provided.dragHandleProps}>
-                                                    <h2 className={styles.card_title}>{card.title}</h2>
-                                                    {/* onClick={editCardTitle} */}
+                                                    <h2 className={styles.card_title} onClick={openEditTitleCard} onMouseDown={() => setCardToBeEdited({ index, ...card })}>{card.title}</h2>
+                                                    
 
                                                     <MenuCrud card={card} index={index} onDuplicate={handleDuplicateCard} onDelete={handleDeleteCard} onEdit={handleEditCard} onEditTile={handleEditTitle} />          
                                             </div>

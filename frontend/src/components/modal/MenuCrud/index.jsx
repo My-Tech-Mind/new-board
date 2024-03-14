@@ -44,13 +44,13 @@ const MenuCrud = ({card, index, onDuplicate, onEdit, onDelete}) => {
                     <nav className={styles.menu_open} ref={menuRef} style={{ top: menuPosition.y, left: menuPosition.x, right: menuPosition.r }}>
                                 <ul className={styles.menu_items}>
                                     <li>
-                                        <div className={styles.crud_option} onClick={() => onDuplicate(cardWithPosition)} >
+                                        <div className={styles.crud_option} onMouseDown={() => onDuplicate(cardWithPosition)} onClick={() => {setMenuOpen(false)}} >
                                             <FaRegClone className={`${styles.crud_icons} ${styles.icon}`} />
                                             <p className={styles.menu_crud_title}>Duplicar</p>
                                         </div>
                                     </li>
                                     <li>
-                                        <div className={styles.crud_option} onClick={() => onEdit(cardWithPosition)}>
+                                        <div className={styles.crud_option} onMouseDown={() => onEdit(cardWithPosition)} onClick={() => {setMenuOpen(false)}}>
                                         
                                             <FaEdit className={`${styles.crud_icons} ${styles.icon}`}></FaEdit>
                                             <p className={styles.menu_crud_title}>Editar</p>
