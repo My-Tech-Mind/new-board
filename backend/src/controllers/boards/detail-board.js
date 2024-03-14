@@ -2,12 +2,16 @@ import { connection as knex } from '../../database/connection.js';
 
 import { formatDate } from '../../utils/format-date.js';
 
+import { queryDB } from '../../utils/query.js';
+
+import {handleErrors} from '../../utils/catch-error.js'
+
 const detailBoard = async (req, res) => {
     const idBoard = req.params.id;
     try {
-        const board = await knex('boards').where('id', idBoard).first();
+        const board = await queryDB('boards', 'select', { id: idBoard });
 
-        if (!board[0]) {
+        if (!board) {
             return res.status(404).json({ message: 'Board not found' });
         }
 
@@ -20,12 +24,12 @@ const detailBoard = async (req, res) => {
             card.tasks = tasks;
         }
 
-        boardFormateData[0].cards = cards
+        boardFormateData[0].cards = cards;
 
         return res.status(200).json(boardFormateData[0]);
+        
     } catch (error) {
-        return res.status(500).json({ message: 'Internal server error' });
+        return handleErrors(res, error);
     }
 };
-
 export { detailBoard };

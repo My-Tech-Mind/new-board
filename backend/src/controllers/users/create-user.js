@@ -2,36 +2,30 @@ import bcrypt from 'bcrypt';
 
 import { connection as knex } from '../../database/connection.js';
 
+import { queryDB } from '../../utils/query.js';
+import { handleErrors } from '../../utils/catch-error.js';
+
+
 const createUser = async (req, res) => {
-    const {name, email, password} = req.body;
+    const { name, email, password } = req.body;
 
     try {
-        const verifyEmail = await knex('users').select('email').where({email});
+        const verifyEmail = await queryDB('users', 'select', { email });
 
-        if (verifyEmail.length > 0) {
-            return res.status(400).json({message: 'This email address is already registered.'});
+        if (verifyEmail) {
+            return res.status(400).json({ message: 'This email address is already registered.' });
         }
 
         const encryptedPassword = await bcrypt.hash(password, 10);
 
-        const creatingUser = await knex('users').insert(
-            {
-                name,
-                email,
-                password: encryptedPassword
-            }
-        ).returning(
-            [
-                'id',
-                'name',
-                'email'
-            ]
-        );
+        const creatingUser = await queryDB('users', 'insert', { name, email, password: encryptedPassword });
 
-        return res.status(201).json(creatingUser);
+        const { id, ...userData } = creatingUser[0];
+
+        return res.status(201).json({ id, ...userData });
 
     } catch (error) {
-        return res.status(500).json({message: 'internal server error'});
+        return handleErrors(res, error);
     }
 };
 
