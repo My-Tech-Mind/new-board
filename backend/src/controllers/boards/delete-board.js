@@ -16,7 +16,7 @@ const deleteBoard = async (req, res) => {
 
         return res.sendStatus(200);
     } catch (error) {
-        return res.sendStatus(500);
+        return res.status(500).json({message: 'Internal Server error'});
     }
 };
 
