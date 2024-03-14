@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 import { FaPen } from "react-icons/fa";
 import styles from './index.module.css';
 import Cards from '../../components/Cards';
-import EditBox from '../../components/EditBox';
+import CardBox from '../../components/modal/CardBox';
 import {FaTimes} from 'react-icons/fa'
 
 const Board = () => {
@@ -31,7 +31,9 @@ const Board = () => {
                 {openBoardTitleBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={editBoardTitle} />
-                        <EditBox title='Board title' buttonName='Save' onCreate={handleEditTitle} onSave={handleSaveCard} />
+                        <CardBox title='Board title' buttonName='Save' />
+                        {/* onSave={handleSaveCard} */}
+                        {/* onCreate={handleEditTitle} */}
                     </>
                 )}
                 <div className={styles.board_header}>

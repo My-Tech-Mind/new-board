@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 import Tasks from '../Tasks';
 import { FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
-import EditBox from '../EditBox';
+import CardBox from '../modal/CardBox';
 import MenuCrud from '../modal/MenuCrud';
 
 const Cards = () => {
@@ -133,6 +133,7 @@ const Cards = () => {
         const createdCard = { id: idCard, title: copyTitle, ...newCard }
         cards.splice(card.index + 1, 0, createdCard)
         setCards(cards)
+        
     }
 
     const handleDeleteCard = (index) => {
@@ -148,9 +149,26 @@ const Cards = () => {
             title,
             tasks: []
         }
-
         cards.push(newCard)
         setCards(cards)  
+    }
+
+    const [cardToBeEdited, setCardToBeEdited] = useState({})
+
+    const handleEditCard = (card) => {
+        setOpenEditCardBox(true)
+        const { title, ...cardWithoutTitle } = card
+        setCardToBeEdited(cardWithoutTitle)
+    }
+
+    const handleEditTitle = (title) => {
+        const updatedCard = {
+            title,
+            ...cardToBeEdited
+        }
+        const cardsCopy = [...cards]
+        cardsCopy.splice(cardToBeEdited.index, 1, updatedCard)
+        setCards(cardsCopy)
     }
 
     // const handleEditCard = (card) => {
@@ -167,6 +185,7 @@ const Cards = () => {
     // }
 
     const handleSaveCard = (save) => {
+        setOpenEditCardBox(!save)
         setOpenCreateCardBox(!save)
     }
 
@@ -179,25 +198,30 @@ const Cards = () => {
         setOpenCreateCardBox(!openCreateCardBox)
     }
 
+    const openEditTitleCard = () => {
+        setOpenEditCardBox(!openEditCardBox)
+    }
+
     return (
         <>
             {
                 openCreateCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={openCloseCardBox} />
-                        <EditBox title='Card title' buttonName='Create' onCreate={handleCreateCard} onSave={ handleSaveCard } create="true" />
+                        < CardBox title='Card title' buttonName='Create' onCreateOrEdit={handleCreateCard} onSave={ handleSaveCard } />
                     </>
                 )
             }
 
-            {/* {
+            {
                 openEditCardBox && (
                     <>
-                        <FaTimes className={styles.close_icon} onClick={editCardTitle} />
-                        <EditBox title='Card title' buttonName='Save' onEdit={handleEditCard} onEditTitle={handleEditTitleCard} onSave={ handleSaveCard } create="false" />
+                        <FaTimes className={styles.close_icon} onClick={openEditTitleCard} />
+                        < CardBox title='Card title' buttonName='Save' onEdit={handleEditCard} onCreateOrEdit={handleEditTitle} onSave={ handleSaveCard }/>
+                        
                     </>
                 )
-            } */}
+            }
             <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="all-cards" direction="horizontal" type='card' key= "all-cards">
                     {(provided) => (
@@ -219,7 +243,7 @@ const Cards = () => {
                                                     <h2 className={styles.card_title}>{card.title}</h2>
                                                     {/* onClick={editCardTitle} */}
 
-                                                    <MenuCrud card={card} index={index} onDuplicate={handleDuplicateCard} onDelete={handleDeleteCard} />          
+                                                    <MenuCrud card={card} index={index} onDuplicate={handleDuplicateCard} onDelete={handleDeleteCard} onEdit={handleEditCard} onEditTile={handleEditTitle} />          
                                             </div>
                                                 
                                             <Droppable droppableId={card.id} key={card.id} type="task">
@@ -239,10 +263,9 @@ const Cards = () => {
                                 <Button
                                     title={
                                         <div className={styles.add_card_container} onClick={openCloseCardBox}>
-                                            
-                                        <FaPlus className={styles.icon_card_plus} />
-                                        <h1 className={styles.card_title}>Add Card</h1>
-                                    </div>
+                                            <FaPlus className={styles.icon_card_plus} />
+                                            <h1 className={styles.card_title}>Add Card</h1>
+                                        </div>
                                     }
                                     href='#' style='card_button'
                                 />

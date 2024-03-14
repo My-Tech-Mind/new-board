@@ -2,8 +2,7 @@ import styles from './index.module.css';
 import { useState, useEffect, useRef } from 'react';
 import { FaEllipsisV, FaRegTrashAlt, FaEdit, FaRegClone } from 'react-icons/fa';
 
-const MenuCrud = ({card, index, onDuplicate, onDelete}) => {
-    // onEdit
+const MenuCrud = ({card, index, onDuplicate, onEdit, onDelete}) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null)
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 })
@@ -36,6 +35,7 @@ const MenuCrud = ({card, index, onDuplicate, onDelete}) => {
         setMenuOpen(true)
     };
 
+
     return (
             <div className={styles.menu_icons_container}>
             <FaEllipsisV className={`${styles.ellipsis} ${styles.icon}`} onClick={toggleMenu} />
@@ -50,8 +50,8 @@ const MenuCrud = ({card, index, onDuplicate, onDelete}) => {
                                         </div>
                                     </li>
                                     <li>
-                                        <div className={styles.crud_option}>
-                                        {/* onClick={() => onEdit(cardWithPosition)} */}
+                                        <div className={styles.crud_option} onClick={() => onEdit(cardWithPosition)}>
+                                        
                                             <FaEdit className={`${styles.crud_icons} ${styles.icon}`}></FaEdit>
                                             <p className={styles.menu_crud_title}>Editar</p>
                                         </div>
@@ -63,8 +63,7 @@ const MenuCrud = ({card, index, onDuplicate, onDelete}) => {
                                         </div>
                                     </li>
                                 </ul>
-                            </nav>
-                    
+                            </nav>               
                 )
             }
         </div >       
