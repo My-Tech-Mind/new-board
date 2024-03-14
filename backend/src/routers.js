@@ -21,8 +21,10 @@ import { createTask } from './controllers/tasks/create-task.js';
 import { editTask } from './controllers/tasks/edit-task.js';
 import { deleteTask } from './controllers/tasks/delete-task.js';
 import { editCard } from './controllers/cards/edit-card.js';
+import { ordenationCards } from './controllers/cards/ordenation-card.js';
 import { deleteCard } from './controllers/cards/delete-card.js';
 import { detailTask } from './controllers/tasks/detail-task.js';
+import { ordenationTask } from './controllers/tasks/ordenation-task.js';
 
 const router = express.Router();
 
@@ -36,8 +38,7 @@ router.post('/login', validationBodyRequest(schemaLogin), loginUser)
 
 router.use(validateLogin)
 
-router.get('/user', userDetails)
-
+router.get('/user', userDetails);
 router.put('/user', validationBodyRequest(schemaUser), updateUser);
 router.delete('/user', deleteUser);
 router.post('/board', validationBodyRequest(schemaBoard), createBoard);
@@ -51,7 +52,8 @@ router.put('/task/:id', validationParamsRequest(paramsSchema), validationBodyReq
 router.delete('/task/:id', validationParamsRequest(paramsSchema), deleteTask);
 
 router.get('/task/:id', validationParamsRequest(paramsSchema), detailTask);
-
+router.put('/cards/ordenation', ordenationCards);
+router.put('/task/ordenation', ordenationTask)
 
 
 export { router };
