@@ -56,7 +56,7 @@ router.delete('/task/:id', validationParamsRequest(paramsSchema), deleteTask);
 
 router.get('/task/:id', validationParamsRequest(paramsSchema), detailTask);
 
-router.post('/card', validationParamsRequest(paramsSchema), validationBodyRequest(createCardSchema), createCard)
+router.post('/card', validationBodyRequest(createCardSchema), createCard)
 
 router.get('/board/:id', validationParamsRequest(paramsSchema), detailBoard)
 
