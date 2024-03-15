@@ -4,6 +4,8 @@ import { refreshUpdateDateBoard } from '../../utils/refresh-update-date-board.js
 import { queryDB } from '../../utils/query.js';
 import { handleErrors } from '../../utils/catch-error.js';
 
+import {checkExistence} from '../../utils/checkExistence.js'
+
 const editCard = async (req, res) => {
     const id = req.params.id;
     const { title, board_id, ordenation } = req.body;
@@ -14,8 +16,8 @@ const editCard = async (req, res) => {
             return res.status(404).json({ message: 'Card not found.' });
         }
 
-        const existingBoard = await queryDB('boards', 'select', { id: board_id });
-        if (!existingBoard) {
+        const boardExists = await checkExistence('boards', { id: board_id });
+        if (!boardExists) {
             return res.status(404).json({ message: `Board with board_id = ${board_id} was not found.` });
         }
 

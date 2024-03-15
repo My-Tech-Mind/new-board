@@ -1,6 +1,6 @@
-import { connection as knex } from '../../database/connection.js';
+import { connection as knex } from '../database/connection.js';
 
-const queryDB = async (table, action, params) => {
+const queryDB = async (table, action, params, identifier = 'id') => {
     try {
         let result;
         switch (action) {
@@ -8,13 +8,13 @@ const queryDB = async (table, action, params) => {
                 result = await knex(table).insert(params).returning('*');
                 break;
             case 'update':
-                result = await knex(table).update(params).where('id', params.id).returning('*');
+                result = await knex(table).update(params).where(identifier, params[identifier]).returning('*');
                 break;
             case 'select':
-                result = await knex(table).where('id', params.id).first();
+                result = await knex(table).where(identifier, params[identifier]).first();
                 break;
             case 'delete':
-                result = await knex(table).where('id', params.id).delete();
+                result = await knex(table).where(identifier, params[identifier]).delete();
                 break;
             case 'select_all':
                 result = await knex(table);
@@ -28,5 +28,4 @@ const queryDB = async (table, action, params) => {
     }
 };
 
-
-export {queryDB}
+export { queryDB };

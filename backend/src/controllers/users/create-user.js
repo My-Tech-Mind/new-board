@@ -5,12 +5,16 @@ import { connection as knex } from '../../database/connection.js';
 import { queryDB } from '../../utils/query.js';
 import { handleErrors } from '../../utils/catch-error.js';
 
+import {checkExistence} from '../../utils/checkExistence.js'
+
 
 const createUser = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-        const verifyEmail = await queryDB('users', 'select', { email });
+        const verifyEmail = await checkExistence('users', { email: email });
+
+        console.log(verifyEmail);
 
         if (verifyEmail) {
             return res.status(400).json({ message: 'This email address is already registered.' });

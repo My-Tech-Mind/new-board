@@ -15,7 +15,7 @@ const detailBoard = async (req, res) => {
             return res.status(404).json({ message: 'Board not found' });
         }
 
-        const boardFormateData = formatDate(board);
+        const boardFormattedData = formatDate([board]); 
 
         const cards = await knex('cards').where('board_id', idBoard).orderBy('ordenation', 'asc');
         
@@ -24,9 +24,9 @@ const detailBoard = async (req, res) => {
             card.tasks = tasks;
         }
 
-        boardFormateData[0].cards = cards;
+        boardFormattedData[0].cards = cards;
 
-        return res.status(200).json(boardFormateData[0]);
+        return res.status(200).json(boardFormattedData[0]);
         
     } catch (error) {
         return handleErrors(res, error);

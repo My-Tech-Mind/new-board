@@ -9,26 +9,22 @@ const updateUser = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-        const emailValidationUpdate = await queryDB('users', 'select', { email });
-
-        if (emailValidationUpdate && emailValidationUpdate.id !== req.user.id) {
+        const emailValidationUpdate = await knex('users').select('email').where({ email }).andWhereNot({ id: req.user.id }).first();
+        if (emailValidationUpdate) {
             return res.status(400).json({ message: 'This email is already registered.' });
         }
 
         const encryptedPassword = await bcrypt.hash(password, 10);
 
-        const updatingUser = await queryDB('users', 'update', {
-            id: req.user.id,
+        const updatingUser = await knex('users').update({
             name,
             email,
             password: encryptedPassword
-        });
+        }).where({ id: req.user.id }).returning(['id', 'name', 'email']);
 
-        const { id, ...userData } = updatingUser[0];
-
-        return res.status(200).json({ id, ...userData });
+        return res.status(200).json(updatingUser[0]);
     } catch (error) {
-        return handleErrors(res, error);
+        return res.status(500).json({ message: 'Internal server error' })
     }
 };
 
