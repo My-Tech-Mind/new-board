@@ -20,7 +20,7 @@ const LoadBoards = ({ setBoards }) => {
 
     const createBoard = (tamanho) => {
         setBoards(prevBoards => {
-            const newBoard = { id: "card_" + tamanho, title: "myBoards" };
+            const newBoard = { id: "board_" + tamanho, title: "myBoards" };
             const updatedBoards = [...prevBoards, newBoard];
             updateLocalStorage(updatedBoards);
             return updatedBoards;

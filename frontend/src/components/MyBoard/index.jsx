@@ -7,7 +7,12 @@ import LoadBoards from '../LoadBoards'
 const MyBoard = () => {
     let [boards, setBoards] = useState([]);
     const [editingBoardId, setEditingBoardId] = useState(null);
+    const [nextBoardId, setNextBoardId] = useState(4);
 
+    const handleCreateBoard = () => {
+        createBoard(nextBoardId);
+        setNextBoardId(prevId => prevId + 1);
+    };
     const setBoardsCallback = useCallback((boards) => {
         setBoards(boards);
     }, []);
@@ -32,7 +37,7 @@ const MyBoard = () => {
         <div className={styles.container}>
             <h1 className={styles.title}>Meus Boards</h1>
             <div className={styles.boards_container}>
-                <div className={styles.add_board_container} onClick={() => createBoard((boards.length) + 1)}>
+                <div className={styles.add_board_container} onClick={() => handleCreateBoard()}>
                     <FontAwesomeIcon icon={faPlus} className={styles.icon_boards_plus} />
                 </div>
                 {boards.map(board => (
