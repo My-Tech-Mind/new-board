@@ -1,23 +1,40 @@
-import board from '../MyBoard/Boads.json';
+import boardsData from '../MyBoard/Boads.json';
 import { useEffect } from 'react';
-const LoadBoards = ({ setBoards, onDeleteBoard }) => {
-    const Myboards = board.Myboards;
 
+const LoadBoards = ({ setBoards }) => {
     useEffect(() => {
-        setBoards(Myboards);
-        return onDeleteBoard;
-    }, [setBoards, onDeleteBoard]);
+        const storedBoards = JSON.parse(localStorage.getItem('boards'));
+        const initialBoards = storedBoards ? storedBoards : boardsData.Myboards;
+        console.log(initialBoards);
+        console.log(storedBoards);
+        setBoards(prevBoards => {
+            if (prevBoards !== initialBoards) {
+                return initialBoards;
+            }
+            return prevBoards;
+        });
 
-    const deleteBoard = (boardsId) => {
-        console.log(`Excluindo o quadro com o ID ${boardsId}`);
+        localStorage.setItem('boards', JSON.stringify(initialBoards));
+    }, [setBoards]);
 
-        const updatedBoards = Myboards.filter(boards => boards.id !== boardsId);
-        setBoards(updatedBoards);
-
+    const deleteBoard = (boardId) => {
+        setBoards(prevBoards => {
+            const updatedBoards = prevBoards.filter(board => board.id !== boardId);
+            localStorage.setItem('boards', JSON.stringify(updatedBoards));
+            return updatedBoards;
+        });
     };
 
-    return deleteBoard;
+    const createBoard = (tamanho) => {
+        setBoards(prevBoards => {
+            const newBoard = { id: "card_" + tamanho, title: "myBoards" };
+            const updatedBoards = [...prevBoards, newBoard];
+            localStorage.setItem('boards', JSON.stringify(updatedBoards));
+            return updatedBoards;
+        });
+    };
 
-
+    return { deleteBoard, createBoard };
 };
+
 export default LoadBoards;

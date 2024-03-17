@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
 import LoadBoards from '../LoadBoards'
 const MyBoard = () => {
-    const [boards, setBoards] = useState([]);
+    let [boards, setBoards] = useState([]);
 
 
     const setBoardsCallback = useCallback((boards) => {
@@ -13,15 +13,11 @@ const MyBoard = () => {
     }, []);
 
 
-    const deleteBoard = LoadBoards({ setBoards: setBoardsCallback });
+    const { deleteBoard, createBoard } = LoadBoards({ setBoards: setBoardsCallback });
+
+
     useEffect(() => {
     }, [boards]);
-
-    const createBoards = () => {
-
-
-        console.log(boards);
-    }
 
     const handleBoardTitleChange = (e, boardId) => {
 
@@ -30,14 +26,14 @@ const MyBoard = () => {
         <div className={styles.container}>
             <h1 className={styles.title}>Meus Boards</h1>
             <div className={styles.boards_container}>
-                <div className={styles.add_board_container} onClick={createBoards}>
+                <div className={styles.add_board_container} onClick={() => createBoard((boards.length) + 1)}>
                     <FontAwesomeIcon icon={faPlus} className={styles.icon_boards_plus} />
                 </div>
                 {boards.map((boards) => (
                     <div key={boards.id} className={styles.boards}>
                         <input type="text" className={styles.boards_name} value={boards.title} onChange={(e) => handleBoardTitleChange(e, boards.id)} />
                         <FontAwesomeIcon icon={faStar} className={styles.icon_boards_star} />
-                        <MenuCrud boardsId={boards.id} onDelete={() => deleteBoard(boards.id)} />
+                        <MenuCrud boardsId={boards.id} onUpdate={() => deleteBoard(boards.id)} />
                     </div>
                 ))}
             </div>

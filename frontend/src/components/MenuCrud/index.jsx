@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis, faClone, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import styles from './index.module.css';
 import { useState } from 'react';
-const MenuCrud = ({ boardsId, onDelete }) => {
+const MenuCrud = ({ boardsId, onUpdate }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => {
         setMenuOpen(!menuOpen)
@@ -18,7 +18,7 @@ const MenuCrud = ({ boardsId, onDelete }) => {
 
     const deleteBoard = () => {
         console.log(boardsId);
-        onDelete(boardsId);
+        onUpdate(boardsId);
         toggleMenu();
     };
     return (
