@@ -32,13 +32,13 @@
     border: none;
     text-align: center;
     outline: none;
-    font-weight: 600;
+    font-weight: 700;
     font-size: large;
     color: var(--background-color);
 }
 
 .boards_name::placeholder {
-    font-weight: 600;
+    font-weight: 700;
     font-size: large;
     color: var(--background-color);
     opacity: 1.5;

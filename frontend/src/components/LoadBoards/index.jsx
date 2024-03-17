@@ -5,22 +5,15 @@ const LoadBoards = ({ setBoards }) => {
     useEffect(() => {
         const storedBoards = JSON.parse(localStorage.getItem('boards'));
         const initialBoards = storedBoards ? storedBoards : boardsData.Myboards;
-        console.log(initialBoards);
-        console.log(storedBoards);
-        setBoards(prevBoards => {
-            if (prevBoards !== initialBoards) {
-                return initialBoards;
-            }
-            return prevBoards;
-        });
 
+        setBoards(initialBoards);
         localStorage.setItem('boards', JSON.stringify(initialBoards));
     }, [setBoards]);
 
     const deleteBoard = (boardId) => {
         setBoards(prevBoards => {
             const updatedBoards = prevBoards.filter(board => board.id !== boardId);
-            localStorage.setItem('boards', JSON.stringify(updatedBoards));
+            updateLocalStorage(updatedBoards);
             return updatedBoards;
         });
     };
@@ -29,12 +22,26 @@ const LoadBoards = ({ setBoards }) => {
         setBoards(prevBoards => {
             const newBoard = { id: "card_" + tamanho, title: "myBoards" };
             const updatedBoards = [...prevBoards, newBoard];
-            localStorage.setItem('boards', JSON.stringify(updatedBoards));
+            updateLocalStorage(updatedBoards);
             return updatedBoards;
         });
     };
 
-    return { deleteBoard, createBoard };
+    const updateBoardTitle = (boardId, newTitle) => {
+        setBoards(prevBoards => {
+            const updatedBoards = prevBoards.map(board =>
+                board.id === boardId ? { ...board, title: newTitle } : board
+            );
+            updateLocalStorage(updatedBoards);
+            return updatedBoards;
+        });
+    };
+
+    const updateLocalStorage = (boards) => {
+        localStorage.setItem('boards', JSON.stringify(boards));
+    };
+
+    return { deleteBoard, createBoard, updateBoardTitle };
 };
 
 export default LoadBoards;
