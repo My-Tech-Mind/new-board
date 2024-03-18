@@ -44,6 +44,8 @@ router.delete('/user', deleteUser);
 router.post('/board', validationBodyRequest(schemaBoard), createBoard);
 router.put('/board/:id', validationParamsRequest(paramsSchema), validationBodyRequest(schemaBoard), editBoard);
 router.get('/board', validationQueryRequest(querySchema), listBoards);
+router.put('/card/ordenation', ordenationCards);
+router.put('/task/ordenation', ordenationTask);
 router.put('/card/:id', validationParamsRequest(paramsSchema), validationBodyRequest(cardSchema), editCard);
 router.delete('/card/:id', validationParamsRequest(paramsSchema), deleteCard);
 router.post('/task', validationBodyRequest(taskSchema), createTask);
@@ -52,8 +54,6 @@ router.put('/task/:id', validationParamsRequest(paramsSchema), validationBodyReq
 router.delete('/task/:id', validationParamsRequest(paramsSchema), deleteTask);
 
 router.get('/task/:id', validationParamsRequest(paramsSchema), detailTask);
-router.put('/cards/ordenation', ordenationCards);
-router.put('/task/ordenation', ordenationTask)
 
 
 export { router };
