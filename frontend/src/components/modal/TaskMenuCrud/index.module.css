@@ -27,7 +27,7 @@
 }
 
 .ellipsis {
-    color: #ffffff;
+    color: var(--color-icons);
     padding: 2px;
 }
 

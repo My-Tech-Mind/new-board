@@ -5,7 +5,8 @@ import Tasks from '../Tasks';
 import { FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
 import CardBox from '../modal/CardBox';
-import MenuCrud from '../modal/MenuCrud';
+import MenuCrud from '../modal/CardMenuCrud';
+import { v4 as uuidv4} from 'uuid';
 
 const Cards = () => {
 
@@ -34,7 +35,7 @@ const Cards = () => {
         },
     ];   
 
-    const [cards, setCards] = useState(initialCards);
+    let [cards, setCards] = useState(initialCards);
     const [movedPosition, setMovedPosition] = useState({})
 
     const onDragEnd = (result) => {
@@ -75,8 +76,6 @@ const Cards = () => {
 
             const sourceCard = cards.find((card) => card.id === source.droppableId);
             const destinationCard = cards.find((card) => card.id === destination.droppableId);
-
-            
 
             if (sourceCard === destinationCard) {
                 const newTasks = Array.from(sourceCard.tasks);
@@ -124,13 +123,18 @@ const Cards = () => {
         return setOpenMenuCardId(cardId === openMenuCardId ? null : cardId);
     }
 
-    const [idCard, setidCard] = useState('a')
+    const initialId = uuidv4().slice(0,3)
+
+    const [newId, setNewId] = useState(initialId)
 
     const handleDuplicateCard = (card) => {
-        setidCard(idCard + '1')
+        setNewId(uuidv4().slice(0,3))
         const copyTitle = card.title + ` (copy)`
-        const {id, title, index, ...newCard} = card
-        const createdCard = { id: idCard, title: copyTitle, ...newCard }
+        const newTasks = card.tasks.map((task) => {
+            const { id, ...rest } = task
+            return {id: uuidv4().slice(0, 3), ...rest}
+        })
+        const createdCard = { id: newId, title: copyTitle, tasks: newTasks }
         cards.splice(card.index + 1, 0, createdCard)
         setCards(cards)
         
@@ -143,9 +147,9 @@ const Cards = () => {
     }
 
     const handleCreateCard = (title) => {
-        setidCard(idCard + '2')
+        setNewId(uuidv4().slice(0,3))
         const newCard = {
-            id: idCard,
+            id: newId,
             title,
             tasks: []
         }
@@ -172,29 +176,6 @@ const Cards = () => {
         console.log("title", title)
     }
 
-    // const handleEditTitle2 = (title) => {
-    //     const updatedCard = {
-    //         title,
-    //         ...cardToBeEdited
-    //     }
-    //     const cardsCopy = [...cards]
-    //     cardsCopy.splice(cardToBeEdited.index, 1, updatedCard)
-    //     setCards(cardsCopy)
-    // }
-
-    // const handleEditCard = (card) => {
-    //     const {title, index, ...newCard} = card
-    //     const editCard = { id: idCard, title: card.title, ...newCard }
-    //     cards.splice(card.index, 1, editCard)
-    //     setCards(cards)
-    // }
-
-    // const [titleCardUpdated, setTitleCardUpdated] = useState()
-
-    // const handleEditTitleCard = (title) => {
-    //     setTitleCardUpdated(title)
-    // }
-
     const handleSaveCard = (save) => {
         setOpenEditCardBox(!save)
         setOpenCreateCardBox(!save)
@@ -213,7 +194,7 @@ const Cards = () => {
         setOpenEditCardBox(!openEditCardBox)
     }
 
-    console.log(cardToBeEdited)
+    console.log("CARDS:", cards)
 
     return (
         <>
@@ -262,9 +243,12 @@ const Cards = () => {
                                             <Droppable droppableId={card.id} key={card.id} type="task">
                                                                                                                                                            {(provided) => (
                                                     <div ref={provided.innerRef} {...provided.droppableProps} className={styles.task_container}>
-                                                        <Tasks tasks={card.tasks} />
-                                                    </div>
-                                                )}
+                                                            <Tasks tasks={card.tasks} card={card} cards={cards} />
+                                                            {provided.placeholder}
+                                                        </div>
+                                                        
+                                                    )}
+                                                    
                                             </Droppable>
                                         </div>
                                     )}

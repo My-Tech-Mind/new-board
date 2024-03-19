@@ -66,11 +66,11 @@
     margin-left: 20px;
 }
 
-li {
+.menu_items li {
     display: flex;
-    align-items: end;
+    align-items: center;
+    justify-content: start;
     list-style-type: none;
     margin-bottom: 10px;
-    
 }
 
