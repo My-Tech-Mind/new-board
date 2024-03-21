@@ -1,13 +1,13 @@
 import joi from 'joi';
 
-const taskCreationSchema = joi.object({
+const taskCreateSchema = joi.object({
     title: joi.string().max(50).required().messages({
         'any.required': 'The title field is required.',
         'string.empty': 'The title field cannot be empty.',
         'string.base': 'The title field must be a text.',
         'string.max': 'The title field must be at most {#limit} characters long.'
     }),
-    description: joi.string().optional().max(1000).messages({
+    description: joi.string().max(1000).optional().messages({
         'string.empty': 'The description field cannot be empty.',
         'string.base': 'The description field must be a text.',
         'string.max': 'The description field must be at most {#limit} characters long.'
@@ -20,4 +20,4 @@ const taskCreationSchema = joi.object({
     })
 });
 
-export { taskCreationSchema };
+export { taskCreateSchema };

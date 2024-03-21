@@ -5,14 +5,14 @@ const createTask = async (req, res) => {
     const { title, description, card_id } = req.body;
 
     try {
-        const card = await knex('cards').select('*').where({ id: card_id }).first();
+        const card = await knex('cards').where({ id: card_id }).first();
         if (!card) {
             return res.status(404).json({ message: `Card with card_id = ${card_id} was not found.` });
         }
 
-        const numberOfTasks = await knex('tasks').select('*').where({ card_id });
+        const numberOfTasks = await knex('tasks').where({ card_id });
         if (numberOfTasks.length >= 20) {
-            return res.status(403).json({ message: 'You can only have 20 tasks created in a card.' })
+            return res.status(403).json({ message: 'You can only have 20 tasks in a card.' })
         }
 
         const creatingTask = await knex('tasks').insert({

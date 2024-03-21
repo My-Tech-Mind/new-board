@@ -5,21 +5,25 @@ const createCard = async (req, res) => {
     const { title, board_id } = req.body;
 
     try {
-        const boardExists = await knex('boards').where('id', board_id).first();
-        if (!boardExists) {
-            return res.status(404).json({ message: 'Board not found' });
+        const board = await knex('boards').where({ id: board_id }).first();
+        if (!board) {
+            return res.status(404).json({ message: `Board with board_id = ${board_id} was not found.` });
         }
 
-        const boardCards = await knex('cards').where('board_id', board_id);
-        if (boardCards.length >= 10) {
-            return res.status(403).json({ message: 'Maximum number of cards per board reached' });
+        const numberOfCards = await knex('cards').where({ board_id });
+        if (numberOfCards.length >= 10) {
+            return res.status(403).json({ message: 'You can only have 10 cards in a board.' });
         }
 
-        const newCard = await knex('cards').insert({ title, board_id, ordenation: boardCards.length + 1 }).returning('*');
+        const creatingCard = await knex('cards').insert({
+            title,
+            board_id,
+            ordenation: numberOfCards.length + 1
+        }).returning('*');
 
         await refreshUpdateDateBoard(board_id);
 
-        return res.status(201).json(newCard[0]);
+        return res.status(201).json(creatingCard[0]);
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error' });
     }

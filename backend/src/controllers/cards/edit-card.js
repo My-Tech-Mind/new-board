@@ -2,21 +2,26 @@ import { connection as knex } from '../../database/connection.js';
 import { refreshUpdateDateBoard } from '../../utils/refresh-update-date-board.js';
 
 const editCard = async (req, res) => {
-    const id = req.params.id;
     const { title, board_id, ordenation } = req.body;
+    const id = req.params.id;
 
     try {
-        const card = await knex('cards').select('*').where({ id }).first();
+        const card = await knex('cards').where({ id }).first();
         if (!card) {
             return res.status(404).json({ message: 'Card not found.' });
         }
 
-        const existingBoard = await knex('boards').select('id').where({ id: board_id }).first();
-        if (!existingBoard) {
+        const board = await knex('boards').where({ id: board_id }).first();
+        if (!board) {
             return res.status(404).json({ message: `Board with board_id = ${board_id} was not found.` });
         }
 
-        const cardEdit = await knex('cards').update({
+        const numberOfCards = await knex('cards').where({ board_id });
+        if (numberOfCards.length >= 10) {
+            return res.status(403).json({ message: 'You can only have 10 cards in a board.' });
+        }
+
+        const editingCard = await knex('cards').update({
             title,
             board_id,
             ordenation
@@ -24,7 +29,7 @@ const editCard = async (req, res) => {
 
         refreshUpdateDateBoard(board_id);
 
-        return res.status(200).json(cardEdit[0]);
+        return res.status(200).json(editingCard[0]);
     } catch (error) {
         return res.status(500).json({ message: ' Internal server error' });
     }

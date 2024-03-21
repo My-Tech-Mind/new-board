@@ -1,4 +1,4 @@
-const validationQueryRequest = joiSchema => async (req, res, next) => {
+const validateQueryRequest = joiSchema => async (req, res, next) => {
     try {
         await joiSchema.validateAsync(req.query);
 
@@ -8,4 +8,4 @@ const validationQueryRequest = joiSchema => async (req, res, next) => {
     }
 };
 
-export { validationQueryRequest };
+export { validateQueryRequest };

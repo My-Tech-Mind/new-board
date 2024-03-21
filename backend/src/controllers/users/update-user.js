@@ -5,8 +5,8 @@ const updateUser = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-        const emailValidationUpdate = await knex('users').select('email').where({ email }).andWhereNot({ id: req.user.id }).first();
-        if (emailValidationUpdate) {
+        const verifyEmail = await knex('users').select('email').where({ email }).andWhereNot({ id: req.user.id }).first();
+        if (verifyEmail) {
             return res.status(400).json({ message: 'This email is already registered.' });
         }
 
@@ -20,7 +20,7 @@ const updateUser = async (req, res) => {
 
         return res.status(200).json(updatingUser[0]);
     } catch (error) {
-        return res.status(500).json({ message: 'Internal server error' })
+        return res.status(500).json({ message: 'Internal server error' });
     }
 };
 
