@@ -38,7 +38,7 @@ const ordenationCards = async (req, res) => {
 				.update({ ordenation: cardIdDestinationPosition });
 			}
 			refreshUpdateDateBoard(card.board_id)
-			return res.status(200).json();
+			return res.status(204).json();
 		});
 	}catch(error){
 		return res.status(500).json({ message: 'Internal server error' });

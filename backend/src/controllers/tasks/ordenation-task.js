@@ -16,13 +16,6 @@ const ordenationTask = async (req, res) => {
 			await knex('tasks').where({ id: taskId }).update({card_id: cardIdDestination});
 		}
 
-		if (cardIdSource !== cardIdDestination) {
-			const card = await knex('cards').where({id: cardIdDestination}).first();
-			if (!card) {
-				return res.status(404).json({ message: 'Card not found'})
-			}
-			await knex('tasks').where({ id: taskId }).update({card_id: cardIdDestination});
-		}
 		await knex.transaction(async trx => {
 			if (taskSourceDestination < taskSourcePosition) {
 				const limitEditIncrement = Number(taskSourcePosition) - 1;
@@ -59,7 +52,7 @@ const ordenationTask = async (req, res) => {
 				.update({ ordenation: taskSourceDestination });
 			}
 			refreshUpdateDateBoard(card.board_id);
-			return res.status(200).json();
+			return res.status(204).json();
 		});
 	}catch(error){
 		return res.status(500).json({ message: 'Internal server error' });
