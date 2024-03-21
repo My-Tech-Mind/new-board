@@ -15,11 +15,11 @@ const createCard = async (req, res) => {
             return res.status(403).json({ message: 'Maximum number of cards per board reached' });
         }
 
-        await refreshUpdateDateBoard(board_id);
-
         const newCard = await knex('cards').insert({ title, board_id, ordenation: boardCards.length + 1 }).returning('*');
 
-        return res.status(201).json(newCard);
+        await refreshUpdateDateBoard(board_id);
+
+        return res.status(201).json(newCard[0]);
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error' });
     }

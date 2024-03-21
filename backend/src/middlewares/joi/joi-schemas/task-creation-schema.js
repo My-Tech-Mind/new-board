@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-const taskSchema = joi.object({
+const taskCreationSchema = joi.object({
     title: joi.string().max(50).required().messages({
         'any.required': 'The title field is required.',
         'string.empty': 'The title field cannot be empty.',
@@ -17,13 +17,7 @@ const taskSchema = joi.object({
         'number.base': 'The card_id field must be a number.',
         'number.positive': 'The card_id field must be a positive number',
         'number.integer': 'The card_id field must be an integer number'
-    }),
-    ordenation: joi.number().positive().integer().required().messages({
-        'any.required': 'The ordenation field is required.',
-        'number.base': 'The ordenation field must be a number.',
-        'number.positive': 'The ordenation field must be a positive number',
-        'number.integer': 'The ordenation field must be an integer number'
     })
 });
 
-export { taskSchema };
+export { taskCreationSchema };

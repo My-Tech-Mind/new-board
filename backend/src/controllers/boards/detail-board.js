@@ -5,7 +5,7 @@ import { formatDate } from '../../utils/format-date.js';
 const detailBoard = async (req, res) => {
     const idBoard = req.params.id;
     try {
-        const board = await knex('boards').where('id', idBoard).first();
+        const board = await knex('boards').where('id', idBoard);
 
         if (!board[0]) {
             return res.status(404).json({ message: 'Board not found' });
@@ -14,7 +14,7 @@ const detailBoard = async (req, res) => {
         const boardFormateData = formatDate(board);
 
         const cards = await knex('cards').where('board_id', idBoard).orderBy('ordenation', 'asc');
-        
+
         for (let card of cards) {
             const tasks = await knex('tasks').where('card_id', card.id).orderBy('ordenation', 'asc');
             card.tasks = tasks;

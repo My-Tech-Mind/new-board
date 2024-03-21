@@ -14,9 +14,9 @@ const deleteBoard = async (req, res) => {
         await knex('cards').where('board_id', id).delete();
         await knex('boards').where('id', id).delete();
 
-        return res.sendStatus(200);
+        return res.sendStatus(204);
     } catch (error) {
-        return res.status(500).json({message: 'Internal Server error'});
+        return res.status(500).json({ message: 'Internal Server error' });
     }
 };
 

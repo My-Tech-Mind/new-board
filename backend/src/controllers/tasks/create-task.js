@@ -15,14 +15,11 @@ const createTask = async (req, res) => {
             return res.status(403).json({ message: 'You can only have 20 tasks created in a card.' })
         }
 
-        const maximumOrdenationNumberTasks = await knex('tasks').max('ordenation');
-        const ordenationNumber = maximumOrdenationNumberTasks[0].max + 1;
-
         const creatingTask = await knex('tasks').insert({
             title,
             description,
             card_id,
-            ordenation: ordenationNumber
+            ordenation: numberOfTasks.length + 1
         }).returning('*');
 
         refreshUpdateDateBoard(card.board_id);

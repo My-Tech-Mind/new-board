@@ -27,6 +27,7 @@ import { detailBoard } from './controllers/boards/detail-board.js';
 import { createCard } from './controllers/cards/create-card.js';
 import { deleteBoard } from './controllers/boards/delete-board.js';
 import { createCardSchema } from './middlewares/joi/joi-schemas/card-create-schema.js';
+import { taskCreationSchema } from './middlewares/joi/joi-schemas/task-creation-schema.js';
 
 const router = express.Router();
 
@@ -49,7 +50,7 @@ router.put('/board/:id', validationParamsRequest(paramsSchema), validationBodyRe
 router.get('/board', validationQueryRequest(querySchema), listBoards);
 router.put('/card/:id', validationParamsRequest(paramsSchema), validationBodyRequest(cardSchema), editCard);
 router.delete('/card/:id', validationParamsRequest(paramsSchema), deleteCard);
-router.post('/task', validationBodyRequest(taskSchema), createTask);
+router.post('/task', validationBodyRequest(taskCreationSchema), createTask);
 router.put('/task/:id', validationParamsRequest(paramsSchema), validationBodyRequest(taskSchema), editTask);
 
 router.delete('/task/:id', validationParamsRequest(paramsSchema), deleteTask);
@@ -60,7 +61,7 @@ router.post('/card', validationBodyRequest(createCardSchema), createCard)
 
 router.get('/board/:id', validationParamsRequest(paramsSchema), detailBoard)
 
-router.delete('/board/:id',validationParamsRequest(paramsSchema) ,deleteBoard)
+router.delete('/board/:id', validationParamsRequest(paramsSchema), deleteBoard)
 
 
 

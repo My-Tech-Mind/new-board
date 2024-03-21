@@ -3,13 +3,13 @@ import bcrypt from 'bcrypt';
 import { connection as knex } from '../../database/connection.js';
 
 const createUser = async (req, res) => {
-    const {name, email, password} = req.body;
+    const { name, email, password } = req.body;
 
     try {
-        const verifyEmail = await knex('users').select('email').where({email});
+        const verifyEmail = await knex('users').select('email').where({ email });
 
         if (verifyEmail.length > 0) {
-            return res.status(400).json({message: 'This email address is already registered.'});
+            return res.status(400).json({ message: 'This email address is already registered.' });
         }
 
         const encryptedPassword = await bcrypt.hash(password, 10);
@@ -20,19 +20,13 @@ const createUser = async (req, res) => {
                 email,
                 password: encryptedPassword
             }
-        ).returning(
-            [
-                'id',
-                'name',
-                'email'
-            ]
-        );
+        ).returning(['id', 'name', 'email']);
 
-        return res.status(201).json(creatingUser);
+        return res.status(201).json(creatingUser[0]);
 
     } catch (error) {
-        return res.status(500).json({message: 'internal server error'});
+        return res.status(500).json({ message: 'internal server error' });
     }
 };
 
-export {createUser};
+export { createUser };
