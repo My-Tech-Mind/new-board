@@ -16,6 +16,8 @@ import { createTask } from './controllers/tasks/create-task.js';
 import { editTask } from './controllers/tasks/edit-task.js';
 import { detailTask } from './controllers/tasks/detail-task.js';
 import { deleteTask } from './controllers/tasks/delete-task.js';
+import { ordenateCards } from './controllers/cards/ordenate-cards.js';
+import { ordenateTasks } from './controllers/tasks/ordenate-tasks.js';
 import { validateBodyRequest } from './middlewares/joi/joi-validations/validate-body-request.js';
 import { validateParamsRequest } from './middlewares/joi/joi-validations/validate-params-request.js';
 import { validateQueryRequest } from './middlewares/joi/joi-validations/validate-query-request.js';
@@ -24,6 +26,8 @@ import { userSchema } from './middlewares/joi/joi-schemas/user-schema.js';
 import { loginSchema } from './middlewares/joi/joi-schemas/login-schema.js';
 import { validateLogin } from './middlewares/validations/validate-token.js'
 import { boardSchema } from './middlewares/joi/joi-schemas/board-schema.js';
+import { ordenateCardsSchema } from './middlewares/joi/joi-schemas/ordenate-cards-schema.js';
+import { ordenateTasksSchema } from './middlewares/joi/joi-schemas/ordenate-tasks-schema.js';
 import { cardCreateSchema } from './middlewares/joi/joi-schemas/card-create-schema.js';
 import { cardSchema } from './middlewares/joi/joi-schemas/card-schema.js';
 import { taskCreateSchema } from './middlewares/joi/joi-schemas/task-create-schema.js';
@@ -48,6 +52,8 @@ router.put('/board/:id', validateParamsRequest(paramsSchema), validateBodyReques
 router.get('/board/:id', validateParamsRequest(paramsSchema), detailBoard);
 router.get('/board', validateQueryRequest(querySchema), listBoards);
 router.delete('/board/:id', validateParamsRequest(paramsSchema), deleteBoard);
+router.put('/card/ordenation', validateBodyRequest(ordenateCardsSchema), ordenateCards);
+router.put('/task/ordenation', validateBodyRequest(ordenateTasksSchema), ordenateTasks);
 router.post('/card', validateBodyRequest(cardCreateSchema), createCard);
 router.put('/card/:id', validateParamsRequest(paramsSchema), validateBodyRequest(cardSchema), editCard);
 router.delete('/card/:id', validateParamsRequest(paramsSchema), deleteCard);
