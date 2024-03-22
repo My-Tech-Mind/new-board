@@ -11,6 +11,9 @@ const CardBox = ({ title, card, buttonName, onCreateOrEdit, onSave, create}) => 
     const handleTitleCardValue = (event) => {
         setTitleCard(event.target.value) 
     }
+    
+    
+    
 
     const handleCreateOrEdit = () => {         
             onCreateOrEdit(titleCard)

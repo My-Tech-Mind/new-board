@@ -31,9 +31,9 @@ const Board = () => {
                 {openBoardTitleBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={editBoardTitle} />
-                        <CardBox title='Board title' buttonName='Save' />
-                        {/* onSave={handleSaveCard} */}
-                        {/* onCreate={handleEditTitle} */}
+                        <CardBox title='Board title' buttonName='Save' onSave={handleSaveCard}
+                        onCreateOrEdit={handleEditTitle} />
+                        
                     </>
                 )}
                 <div className={styles.board_header}>
@@ -41,7 +41,6 @@ const Board = () => {
                         <h1 className={styles.board_title}>{titleBoard}</h1>
                         <FaPen className={styles.icons} onClick={editBoardTitle} />
                     </div>
-                    <Button href='#' title='Save changes' style='board_button' />
                 </div>
 
                 <div className={styles.board_container}>

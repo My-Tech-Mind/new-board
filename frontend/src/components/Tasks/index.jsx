@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { FaEllipsisV, FaPlus, FaTimes } from 'react-icons/fa';
+import { FaPlus, FaTimes } from 'react-icons/fa';
 import Button from '../../components/Button';
 import styles from './index.module.css';
 import TaskMenuCrud from '../modal/TaskMenuCrud';
 import { v4 as uuidv4 } from 'uuid';
-import CardBox from '../modal/CardBox';
+import TaskBox from '../modal/TaskBox';
 
 const Tasks = ({ tasks, card, cards }) => {
 
   const [idTask, setIdTask] = useState(uuidv4().slice(0, 3))
   // const [newCards, setNewCards] = useState(cards)
-
 
   const handleDuplicateTask = (data) => {
 
@@ -50,8 +49,9 @@ const Tasks = ({ tasks, card, cards }) => {
     // console.log("title", title)
   }
   
-  const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
+  // const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
   const [openEditCardBox, setOpenEditCardBox] = useState(false)
+  const [openTaskBox, setOpenTaskBox] = useState(false)
   // let [cards, setCards] = useState(initialCards);
 
   // const [cardToBeEdited, setCardToBeEdited] = useState({})
@@ -83,12 +83,16 @@ const Tasks = ({ tasks, card, cards }) => {
     }
 
 
-  const openCloseCardBox = () => {
-    setOpenCreateCardBox(!openCreateCardBox)
+  const openCloseTaskBox = () => {
+    setOpenTaskBox(!openTaskBox)
 }
 
 const openEditTitleCard = () => {
-    // setOpenEditCardBox(!openEditCardBox)
+    setOpenEditCardBox(!openEditCardBox)
+  }
+  
+  const handleOpenTaskBox = () => {
+  setOpenTaskBox(true)
 }
 
   return (
@@ -102,16 +106,25 @@ const openEditTitleCard = () => {
                 )
             } */}
 
-            {
+            {/* {
                 openEditCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={openEditTitleCard} />
-            < CardBox title='Card title' buttonName='Save' onEdit={handleEditCard} />
-            {/* onCreateOrEdit={handleEditTitle} onSave={ handleSaveCard } */}
+                        < CardBox title='Card title' buttonName='Save' onEdit={handleEditCard} />
+                        onCreateOrEdit={handleEditTitle} onSave={ handleSaveCard }
                         
                     </>
                 )
-            }
+              } */}
+      
+      {
+        openTaskBox && (
+          <>
+            <FaTimes className={styles.close_icon} onClick={openCloseTaskBox} />
+            <TaskBox />
+          </>
+        )
+      }
       {tasks.map((task, index) => (
         <Draggable key={`task_${task.id}`} draggableId={`task_${task.id}`} index={index}>
           {(provided) => (
@@ -132,7 +145,7 @@ const openEditTitleCard = () => {
         <Button
           title={
             <div className={styles.add_task_container}>
-              <FaPlus className={styles.icon_task_plus} />
+              <FaPlus className={styles.icon_task_plus} onClick={handleOpenTaskBox} />
             </div>
           }
           href='#' style='task_button'

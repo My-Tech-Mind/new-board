@@ -1,13 +1,14 @@
-import styles from './index.module.css'
+import styles from './index.module.css';
+import { Link } from 'react-router-dom';
 
 const Button = ({ title, style, href }) => {
     return (
         <>
-            <a href={href}>
+            <Link to={href}>
                 <button className={styles[`${style}`]}>
                     {title}
                 </button>
-            </a>
+            </Link>
         </>
     );
 }

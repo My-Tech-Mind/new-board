@@ -6,7 +6,7 @@ import EmailInput from '../../components/Input/EmailInput';
 import ilustrationLogin from '../../assets/ilustrationLogin.png';
 import logoLight from '../../assets/logo-light.png';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
@@ -52,7 +52,7 @@ const SignUp = () => {
                         <div className={styles.container_buttons}>
                             <Button type='submit' title='Continue' style='default' />
                         </div>
-                        <a className={styles.container_account} href="/login">Back to login</a>
+                        <Link className={styles.container_account} to="/login">Back to login</Link>
                     </div>
                 </form>
                 <img className={styles.container_image} src={ilustrationLogin} alt='Ilustration' />

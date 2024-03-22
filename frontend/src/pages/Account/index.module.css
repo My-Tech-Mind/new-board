@@ -23,7 +23,7 @@ h2 {
     margin-right: 10px;
 }
 
-label {
+.label {
     margin-left: 21px;
     font-weight: 600;
     font-size: 12px;
@@ -88,7 +88,7 @@ label {
         padding: 350px 0 50px 0;
     }
 
-    label {
+    .label {
         margin-left: 102px;
     }
     

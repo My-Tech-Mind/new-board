@@ -88,3 +88,19 @@
     color: #fff;
     font-size: 12pt;
 }
+
+.close_icon {
+    position: absolute;
+    top: calc(50% - 160px);
+    left: calc(50% + 160px);
+    color: var(--color-icons);
+    cursor: pointer;
+    z-index: 1003;
+}
+
+@media screen and (min-width: 768px) {
+    .close_icon {
+        left: calc(50% + 260px);
+    }
+    
+}
