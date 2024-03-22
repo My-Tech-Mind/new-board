@@ -6,11 +6,11 @@ const listBoards = async (req, res) => {
 
 	try {
 		if (favorited) {
-			const boards = await knex('boards').where({ favorited: true });
+			const boards = await knex('boards').where({ user_id: req.user.id }).andWhere({ favorited: true });
 			return res.status(200).json(formatReturnDateBoard(boards));
 		}
 
-		const boards = await knex('boards');
+		const boards = await knex('boards').where({ user_id: req.user.id });
 
 		return res.status(200).json(formatReturnDateBoard(boards));
 	} catch (error) {

@@ -11,6 +11,16 @@ const editCard = async (req, res) => {
             return res.status(404).json({ message: 'Card not found.' });
         }
 
+        const cardAndBoardOwner = await knex('cards')
+            .join('boards', 'boards.id', '=', 'cards.board_id')
+            .select('user_id as boardOwner')
+            .where('cards.id', id)
+            .first();
+
+        if (cardAndBoardOwner.boardOwner != req.user.id) {
+            return res.status(403).json({ message: 'Denied access.' });
+        }
+
         const board = await knex('boards').where({ id: board_id }).first();
         if (!board) {
             return res.status(404).json({ message: `Board with board_id = ${board_id} was not found.` });
@@ -34,6 +44,7 @@ const editCard = async (req, res) => {
 
         return res.status(200).json(editingCard[0]);
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ message: ' Internal server error' });
     }
 };

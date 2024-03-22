@@ -12,6 +12,10 @@ const editBoard = async (req, res) => {
 			return res.status(404).json({ message: 'Board not found.' });
 		}
 
+		if (board.user_id != req.user.id) {
+			return res.status(403).json({ message: 'Denied access.' });
+		}
+
 		const editingBoard = await knex('boards').update({
 			title,
 			favorited,

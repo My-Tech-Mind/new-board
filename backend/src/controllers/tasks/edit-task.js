@@ -11,6 +11,17 @@ const editTask = async (req, res) => {
 			return res.status(404).json({ message: 'Task not found.' });
 		}
 
+		const taskAndCardAndBoardOwner = await knex('tasks')
+			.join('cards', 'cards.id', '=', 'tasks.card_id')
+			.join('boards', 'boards.id', '=', 'cards.board_id')
+			.select('boards.user_id as boardOwner')
+			.where('tasks.id', id)
+			.first();
+
+		if (taskAndCardAndBoardOwner.boardOwner != req.user.id) {
+			return res.status(403).json({ message: 'Denied access.' });
+		}
+
 		const card = await knex('cards').where({ id: card_id }).first();
 		if (!card) {
 			return res.status(404).json({ message: `Card with card_id = ${card_id} was not found.` });

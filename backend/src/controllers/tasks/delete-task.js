@@ -7,12 +7,17 @@ const deleteTask = async (req, res) => {
 	try {
 		const taskAndBoardData = await knex('tasks')
 			.join('cards', 'cards.id', '=', 'tasks.card_id')
-			.select('board_id', 'tasks.id')
+			.join('boards', 'boards.id', '=', 'cards.board_id')
+			.select('board_id', 'boards.user_id as boardOwner', 'tasks.id')
 			.where('tasks.id', id)
 			.first();
 
 		if (!taskAndBoardData) {
 			return res.status(404).json({ message: 'Task not found.' });
+		}
+
+		if (taskAndBoardData.boardOwner != req.user.id) {
+			return res.status(403).json({ message: 'Denied access.' });
 		}
 
 		const { board_id } = taskAndBoardData;

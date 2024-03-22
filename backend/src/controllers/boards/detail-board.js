@@ -10,6 +10,10 @@ const detailBoard = async (req, res) => {
             return res.status(404).json({ message: 'Board not found.' });
         }
 
+        if (board[0].user_id != req.user.id) {
+            return res.status(403).json({ message: 'Denied access.' });
+        }
+
         const boardFormattedDate = formatReturnDateBoard(board);
 
         const cards = await knex('cards').where({ board_id: id }).orderBy('ordenation', 'asc');

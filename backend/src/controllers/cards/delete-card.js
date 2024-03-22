@@ -10,6 +10,16 @@ const deleteCard = async (req, res) => {
             return res.status(404).json({ message: 'Card not found.' });
         }
 
+        const cardAndBoardOwner = await knex('cards')
+            .join('boards', 'boards.id', '=', 'cards.board_id')
+            .select('user_id as boardOwner')
+            .where('cards.id', id)
+            .first();
+
+        if (cardAndBoardOwner.boardOwner != req.user.id) {
+            return res.status(403).json({ message: 'Denied access.' });
+        }
+
         await knex('tasks').where({ card_id: id }).delete();
         const { board_id } = card
         await knex('cards').where({ id }).delete();
