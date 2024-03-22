@@ -12,7 +12,10 @@ const createTask = async (req, res) => {
 
         const numberOfTasks = await knex('tasks').where({ card_id });
         if (numberOfTasks.length >= 20) {
-            return res.status(403).json({ message: 'You can only have 20 tasks in a card.' })
+            return res.status(403).json({
+                message: `Alert: The maximum number of tasks (20) for this card has been reached.
+                New tasks cannot be added to this card due to this limit.`
+            });
         }
 
         const creatingTask = await knex('tasks').insert({

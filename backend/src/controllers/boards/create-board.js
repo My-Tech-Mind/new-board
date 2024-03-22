@@ -8,7 +8,10 @@ const createBoard = async (req, res) => {
     try {
         const numberOfBoards = await knex('boards');
         if (numberOfBoards.length >= 5) {
-            return res.status(403).json({ message: 'You can only have 5 boards.' });
+            return res.status(403).json({
+                message: `Alert: The maximum number of boards (5) per user has been reached.
+                New boards cannot be created due to this limit.`
+            });
         }
 
         const creatingBoard = await knex('boards').insert({
