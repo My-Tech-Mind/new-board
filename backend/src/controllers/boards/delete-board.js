@@ -1,22 +1,27 @@
 import { connection as knex } from '../../database/connection.js';
 
 const deleteBoard = async (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
 
     try {
-        const existingBoard = await knex('boards').where('id', id).first();
-
-        if (!existingBoard) {
-            return res.status(404).json({ message: 'Board not found' });
+        const board = await knex('boards').where({ id }).first();
+        if (!board) {
+            return res.status(404).json({ message: 'Board not found.' });
         }
 
-        await knex('tasks').where('card_id', knex('cards').select('id').where('board_id', id)).delete();
+        if (board.user_id != req.user.id) {
+            return res.status(403).json({ message: 'Denied access.' });
+        }
+
+        await knex('tasks').whereIn('card_id', function () {
+            this.select('id').from('cards').where('board_id', id);
+        }).delete();
         await knex('cards').where('board_id', id).delete();
         await knex('boards').where('id', id).delete();
 
-        return res.sendStatus(200);
+        return res.sendStatus(204);
     } catch (error) {
-        return res.status(500).json({message: 'Internal Server error'});
+        return res.status(500).json({ message: 'Internal Server error' });
     }
 };
 

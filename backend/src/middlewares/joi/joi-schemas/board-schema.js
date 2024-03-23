@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-const schemaBoard = joi.object({
+const boardSchema = joi.object({
     title: joi.string().max(20).required().messages({
         'any.required': 'The title field is required.',
         'string.empty': 'The title field cannot be empty.',
@@ -11,4 +11,4 @@ const schemaBoard = joi.object({
     })
 });
 
-export { schemaBoard };
+export { boardSchema };

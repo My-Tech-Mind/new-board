@@ -4,9 +4,9 @@ import format from 'date-fns/format';
 const refreshUpdateDateBoard = async (boardId) => {
 	const refreshingUpdateDateBoard = await knex('boards').update({
 		update_date: format(new Date(), 'yyyy-MM-dd kk:mm:ss')
-	}).where({ id: boardId })
+	}).where({ id: boardId });
 
 	return refreshingUpdateDateBoard;
-}
+};
 
 export { refreshUpdateDateBoard };

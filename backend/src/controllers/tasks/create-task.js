@@ -5,24 +5,24 @@ const createTask = async (req, res) => {
     const { title, description, card_id } = req.body;
 
     try {
-        const card = await knex('cards').select('*').where({ id: card_id }).first();
+        const card = await knex('cards').where({ id: card_id }).first();
         if (!card) {
             return res.status(404).json({ message: `Card with card_id = ${card_id} was not found.` });
         }
 
-        const numberOfTasks = await knex('tasks').select('*').where({ card_id });
+        const numberOfTasks = await knex('tasks').where({ card_id });
         if (numberOfTasks.length >= 20) {
-            return res.status(403).json({ message: 'You can only have 20 tasks created in a card.' })
+            return res.status(403).json({
+                message: `Alert: The maximum number of tasks (20) for this card has been reached. ` +
+                    `New tasks cannot be added to this card due to this limit.`
+            });
         }
-
-        const maximumOrdenationNumberTasks = await knex('tasks').max('ordenation');
-        const ordenationNumber = maximumOrdenationNumberTasks[0].max + 1;
 
         const creatingTask = await knex('tasks').insert({
             title,
             description,
             card_id,
-            ordenation: ordenationNumber
+            ordenation: numberOfTasks.length + 1
         }).returning('*');
 
         refreshUpdateDateBoard(card.board_id);

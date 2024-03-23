@@ -1,24 +1,23 @@
-import  jwt  from 'jsonwebtoken'
-import { connection as knex } from '../../database/connection.js'
+import jwt from 'jsonwebtoken';
+import { connection as knex } from '../../database/connection.js';
 
+const passwording = process.env.PASSWORD_HASH;
 
 const validateLogin = async (req, res, next) => {
-    const {authorization} = req.headers;
+    const { authorization } = req.headers;
 
-    const passwording = process.env.PASSWORD_HASH;
-
-    if(!authorization){
-        return res.status(401).json({message: 'Unauthorized'});
+    if (!authorization) {
+        return res.status(401).json({ message: 'Unauthorized' });
     }
 
     try {
-        const token = authorization.replace('Bearer ', ''); 
+        const token = authorization.replace('Bearer ', '');
 
-        
-        const decodedToken = jwt.verify(token, passwording); 
+        const { id } = jwt.verify(token, passwording);
 
-        
-        const { id } = decodedToken;
+        if (!id) {
+            return res.status(400).json({ message: 'Invalid token' });
+        }
 
         const userFound = await knex('users').where({ id }).first();
 
@@ -26,13 +25,12 @@ const validateLogin = async (req, res, next) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        const { senha, ...user } = userFound;
+        const { password, ...user } = userFound;
         req.user = user;
 
         next();
     } catch (error) {
-    
-        return res.status(500).json({message: 'Internal server error'});
+        return res.status(401).json({ message: 'Unauthorized' });
     }
 }
 
