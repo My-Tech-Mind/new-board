@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { connection as knex } from '../../database/connection.js';
 
 const passwording = process.env.PASSWORD_HASH;
 
