@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { connection as knex } from '../../database/connection.js';
 
 const passwording = process.env.PASSWORD_HASH;
 
@@ -19,14 +18,7 @@ const validateLogin = async (req, res, next) => {
             return res.status(400).json({ message: 'Invalid token' });
         }
 
-        const userFound = await knex('users').where({ id }).first();
-
-        if (!userFound) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        const { password, ...user } = userFound;
-        req.user = user;
+        req.user = { id };
 
         next();
     } catch (error) {
