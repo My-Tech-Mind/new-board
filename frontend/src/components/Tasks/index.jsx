@@ -49,21 +49,36 @@ const Tasks = ({ tasks, card, cards }) => {
     // console.log("title", title)
   }
   
-  // const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
+  const [openEditTaskBox, setOpenEditTaskBox] = useState(false)
   const [openEditCardBox, setOpenEditCardBox] = useState(false)
   const [openTaskBox, setOpenTaskBox] = useState(false)
   // let [cards, setCards] = useState(initialCards);
 
-  // const [cardToBeEdited, setCardToBeEdited] = useState({})
+  const [TaskToBeEdited, setTaskToBeEdited] = useState({})
+  const [CardToBeEdited, setCardToBeEdited] = useState({})
 
-  const handleCreateCard = () => {
-    setOpenEditCardBox(true)
+  const handleCreateTask = (card, title, description) => {
+    const newId = uuidv4().slice(0, 4)
+    const newTask = {
+      id: newId,
+      title,
+      description
+    }
+
+    card.tasks.push(newTask)
+
+    console.log(card, title, description)
   }
 
-    const handleEditCard = (card) => {
+  const handleEditTask = (cardAndTask) => {
+    const { card, task } = cardAndTask
+    setCardToBeEdited(card)
+    setTaskToBeEdited(task)
+    setOpenEditTaskBox(true)
+      
         // setOpenEditCardBox(true)
         // setCardToBeEdited(card)
-    }
+  }
 
     const handleEditTitle = (newTitle) => {
         // const { title, index, ...cardWithoutTitleIndex } = cardToBeEdited
@@ -93,35 +108,48 @@ const openEditTitleCard = () => {
   
   const handleOpenTaskBox = () => {
   setOpenTaskBox(true)
-}
+  }
+
+  const handleCloseCreateTaskBox = (status) => {
+    setOpenTaskBox(status)
+  }
+  
+  const handleCloseEditTaskBox = (status) => {
+    setOpenEditTaskBox(status)
+  }
+
+  const handleCloseTask = () => {
+    setOpenEditTaskBox(false)
+    setOpenTaskBox(false)
+  }
+
 
   return (
     <div>
-            {/* {
-                openCreateCardBox && (
-                    <>
-                        <FaTimes className={styles.close_icon} onClick={openCloseCardBox} />
-                        < CardBox title='Card title' buttonName='Create' onCreateOrEdit={handleCreateCard} onSave={ handleSaveCard } />
-                    </>
-                )
-            } */}
+      {/* {
+          openCreateCardBox && (
+              <>
+                  <FaTimes className={styles.close_icon} onClick={openCloseCardBox} />
+                  < CardBox title='Card title' buttonName='Create' onCreateOrEdit={handleCreateCard} onSave={ handleSaveCard } />
+              </>
+          )
+      } */}
 
-            {/* {
-                openEditCardBox && (
-                    <>
-                        <FaTimes className={styles.close_icon} onClick={openEditTitleCard} />
-                        < CardBox title='Card title' buttonName='Save' onEdit={handleEditCard} />
-                        onCreateOrEdit={handleEditTitle} onSave={ handleSaveCard }
-                        
-                    </>
-                )
-              } */}
+      {
+          openEditTaskBox && (
+              <>
+                  <FaTimes className={styles.close_icon} onClick={handleCloseTask} />
+                  < TaskBox onCreateTask={handleEditTask} card={card} closeBox={handleCloseEditTaskBox} title="Edit Task" buttonName="Edit" />
+                  {/* onCreateOrEdit={handleEditTitle} onSave={ handleSaveCard }    */}
+              </>
+          )
+        }
       
       {
         openTaskBox && (
           <>
-            <FaTimes className={styles.close_icon} onClick={openCloseTaskBox} />
-            <TaskBox />
+            <FaTimes className={styles.close_icon} onClick={handleCloseTask} />
+            <TaskBox onCreateTask={handleCreateTask} card={card} closeBox={handleCloseCreateTaskBox} title="Create Task" buttonName="Create" />
           </>
         )
       }
@@ -134,9 +162,9 @@ const openEditTitleCard = () => {
               {...provided.dragHandleProps}
               className={styles.task}
             >
-              <h3 className={styles.task_title}>{task.title}</h3>
+              <h3 className={styles.task_title} onClick={handleOpenTaskBox}>{task.title}</h3>
               {/* <FaEllipsisV className={styles.icons} onClick={() => console.log('você clicou na task:', task)} /> */}
-              <TaskMenuCrud task={task} taskIndex={index} card={ card } onDuplicateTask={handleDuplicateTask} onDeleteTask={handleDeleteTask} onEditTask={handleEditCard}  />
+              <TaskMenuCrud task={task} taskIndex={index} card={ card } onDuplicateTask={handleDuplicateTask} onDeleteTask={handleDeleteTask} onEditTask={handleEditTask} />
             </div>
           )}
         </Draggable>
@@ -145,7 +173,7 @@ const openEditTitleCard = () => {
         <Button
           title={
             <div className={styles.add_task_container}>
-              <FaPlus className={styles.icon_task_plus} onClick={handleOpenTaskBox} />
+              <FaPlus className={styles.icon_task_plus} onClick={handleOpenTaskBox}  />
             </div>
           }
           href='#' style='task_button'

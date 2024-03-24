@@ -35,7 +35,6 @@ const MenuCrud = ({card, index, onDuplicate, onEdit, onDelete}) => {
         setMenuOpen(true)
     };
 
-
     return (
             <div className={styles.menu_icons_container}>
             <FaEllipsisV className={`${styles.ellipsis} ${styles.icon}`} onClick={toggleMenu} />

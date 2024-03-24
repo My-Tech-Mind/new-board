@@ -194,8 +194,6 @@ const Cards = () => {
         setOpenEditCardBox(!openEditCardBox)
     }
 
-    console.log("CARDS:", cards)
-
     return (
         <>
             {
@@ -237,7 +235,7 @@ const Cards = () => {
                                                     <h2 className={styles.card_title} onClick={openEditTitleCard} onMouseDown={() => setCardToBeEdited({ index, ...card })}>{card.title}</h2>
                                                     
 
-                                                    <MenuCrud card={card} index={index} onDuplicate={handleDuplicateCard} onDelete={handleDeleteCard} onEdit={handleEditCard} onEditTile={handleEditTitle} />          
+                                                    <MenuCrud card={card} index={index} onDuplicate={handleDuplicateCard} onDelete={handleDeleteCard} onEdit={handleEditCard} onEditTitle={handleEditTitle} />          
                                             </div>
                                                 
                                             <Droppable droppableId={card.id} key={card.id} type="task">
