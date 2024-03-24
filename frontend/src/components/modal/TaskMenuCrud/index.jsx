@@ -33,45 +33,86 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
         if (event.clientX > 0.80 * window.innerWidth) {
             rightPosition = '20px'
             xPosition = 'none'
-            setMenuPosition({ x: xPosition, y: event.clientY, r: rightPosition })
+            setMenuPosition({
+                x: xPosition,
+                y: event.clientY,
+                r: rightPosition
+            })
         } else {
-            setMenuPosition({ x: xPosition, y: event.clientY, r: rightPosition })
+            setMenuPosition({
+                x: xPosition,
+                y: event.clientY,
+                r: rightPosition
+            })
         }
         setMenuOpen(true)
     };
 
-
     return (
-            <div className={styles.menu_icons_container}>
-            <FaEllipsisV className={`${styles.ellipsis} ${styles.icon}`} onClick={toggleMenu} />
+        <div className={styles.menu_icons_container}>
+            <FaEllipsisV
+                className={`${styles.ellipsis} ${styles.icon}`}
+                onClick={toggleMenu}
+            />
             {
                 (menuOpen) && (
-                    <nav className={styles.menu_open} ref={menuRef} style={{ top: menuPosition.y, left: menuPosition.x, right: menuPosition.r }}>
-                                <ul className={styles.menu_items}>
-                                    <li>
-                                        <div className={styles.crud_option} onMouseDown={() => onDuplicateTask(taskWithPosition)} onClick={() => {setMenuOpen(false)}} >
-                                            <FaRegClone className={`${styles.crud_icons} ${styles.icon}`} />
+                    <nav
+                        className={styles.menu_open}
+                        ref={menuRef}
+                        style={{
+                                top: menuPosition.y,
+                                left: menuPosition.x,
+                                right: menuPosition.r
+                        }}
+                    >
+                        <ul className={styles.menu_items}>
+                            <li>
+                                <div
+                                    className={styles.crud_option}
+                                    onMouseDown={() => onDuplicateTask(taskWithPosition)}
+                                    onClick={() => { setMenuOpen(false) }}
+                                >
+                                    <FaRegClone
+                                        className={`${styles.crud_icons} ${styles.icon}`} />
                                             <p className={styles.menu_crud_title}>Duplicar</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={styles.crud_option} onMouseDown={() => onEditTask(taskWithPosition)} onClick={() => {setMenuOpen(false)}}>
-                                        
-                                            <FaEdit className={`${styles.crud_icons} ${styles.icon}`}></FaEdit>
-                                            <p className={styles.menu_crud_title}>Editar</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={styles.crud_option} onMouseDown={() => onDeleteTask(taskWithPosition)} onClick={() => {setMenuOpen(false)}}>
-                                            <FaRegTrashAlt className={` ${styles.trash}`} />
-                                            <p className={`${styles.menu_crud_title} ${styles.text}`} >Excluir</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </nav>               
+                                </div>
+                            </li>
+                    
+                            <li>
+                                <div
+                                    className={styles.crud_option}
+                                    onMouseDown={() => onEditTask(taskWithPosition)}
+                                    onClick={() => { setMenuOpen(false) }}
+                                >
+                                
+                                    <FaEdit
+                                        className={`${styles.crud_icons} ${styles.icon}`}
+                                    />
+                                    <p className={styles.menu_crud_title}>
+                                        Editar
+                                    </p>
+                                </div>
+                            </li>
+                    
+                            <li>
+                                <div
+                                    className={styles.crud_option}
+                                    onMouseDown={() => onDeleteTask(taskWithPosition)}
+                                    onClick={() => { setMenuOpen(false) }}
+                                >
+                                    <FaRegTrashAlt
+                                        className={` ${styles.trash}`}
+                                    />
+                                    <p className={`${styles.menu_crud_title} ${styles.text}`}>
+                                        Excluir
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>               
                 )
             }
-        </div >       
+        </div>       
     );
 };
 

@@ -37,6 +37,11 @@ const Cards = () => {
 
     let [cards, setCards] = useState(initialCards);
     const [movedPosition, setMovedPosition] = useState({})
+    const initialId = uuidv4().slice(0,3)
+    const [newId, setNewId] = useState(initialId)
+    const [cardToBeEdited, setCardToBeEdited] = useState({})
+    const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
+    const [openEditCardBox, setOpenEditCardBox] = useState(false)
 
     const onDragEnd = (result) => {
         
@@ -80,6 +85,7 @@ const Cards = () => {
             if (sourceCard === destinationCard) {
                 const newTasks = Array.from(sourceCard.tasks);
                 const [movedTask] = newTasks.splice(source.index, 1);
+
                 newTasks.splice(destination.index, 0, movedTask);
 
                 const newCard = {
@@ -110,7 +116,9 @@ const Cards = () => {
                 };
 
                 const newCards = cards.map((card) =>
-                    card.id === sourceCard.id ? newSourceCard : card.id === destinationCard.id ? newDestinationCard : card
+                    card.id === sourceCard.id ?
+                        newSourceCard : card.id === destinationCard.id ?
+                            newDestinationCard : card
                 );
 
                 setCards(newCards);
@@ -119,29 +127,25 @@ const Cards = () => {
         }
     };
 
-    const toggleMenu = (cardId) => {
-        return setOpenMenuCardId(cardId === openMenuCardId ? null : cardId);
-    }
-
-    const initialId = uuidv4().slice(0,3)
-
-    const [newId, setNewId] = useState(initialId)
-
     const handleDuplicateCard = (card) => {
-        setNewId(uuidv4().slice(0,3))
+
+        setNewId(uuidv4().slice(0, 3))
+        
         const copyTitle = card.title + ` (copy)`
         const newTasks = card.tasks.map((task) => {
             const { id, ...rest } = task
             return {id: uuidv4().slice(0, 3), ...rest}
         })
+
         const createdCard = { id: newId, title: copyTitle, tasks: newTasks }
+
         cards.splice(card.index + 1, 0, createdCard)
-        setCards(cards)
-        
+        setCards(cards)   
     }
 
     const handleDeleteCard = (index) => {
         const cardsCopy = [...cards]
+
         cardsCopy.splice(index, 1)
         setCards(cardsCopy)
     }
@@ -153,11 +157,10 @@ const Cards = () => {
             title,
             tasks: []
         }
+
         cards.push(newCard)
         setCards(cards)  
     }
-
-    const [cardToBeEdited, setCardToBeEdited] = useState({})
 
     const handleEditCard = (card) => {
         setOpenEditCardBox(true)
@@ -171,20 +174,15 @@ const Cards = () => {
             ...cardWithoutTitleIndex
         }
         const cardsCopy = [...cards]
+
         cardsCopy.splice(cardToBeEdited.index, 1, updatedCard)
         setCards(cardsCopy)
-        console.log("title", title)
     }
 
     const handleSaveCard = (save) => {
         setOpenEditCardBox(!save)
         setOpenCreateCardBox(!save)
     }
-
- 
-    const [openMenuCardId, setOpenMenuCardId] = useState(null);
-    const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
-    const [openEditCardBox, setOpenEditCardBox] = useState(false)
 
     const openCloseCardBox = () => {
         setOpenCreateCardBox(!openCreateCardBox)
@@ -224,7 +222,11 @@ const Cards = () => {
                         >
                             {cards.map((card, index) => (
                                 <div>
-                                    <Draggable key={card.id} draggableId={card.id} index={index}>
+                                    <Draggable
+                                        key={card.id}
+                                        draggableId={card.id}
+                                        index={index}
+                                    >
                                     {(provided) => (
                                         <div
                                             ref={provided.innerRef}
@@ -232,20 +234,40 @@ const Cards = () => {
                                             className={styles.card}
                                         >
                                             <div className={styles.card_title_container} {...provided.dragHandleProps}>
-                                                    <h2 className={styles.card_title} onClick={openEditTitleCard} onMouseDown={() => setCardToBeEdited({ index, ...card })}>{card.title}</h2>
+                                                    <h2
+                                                        className={styles.card_title}
+                                                        onClick={openEditTitleCard}
+                                                        onMouseDown={() => setCardToBeEdited({ index, ...card })}
+                                                    >
+                                                        {card.title}
+                                                    </h2>
                                                     
-
-                                                    <MenuCrud card={card} index={index} onDuplicate={handleDuplicateCard} onDelete={handleDeleteCard} onEdit={handleEditCard} onEditTitle={handleEditTitle} />          
+                                                    <MenuCrud
+                                                        card={card}
+                                                        index={index}
+                                                        onDuplicate={handleDuplicateCard}
+                                                        onDelete={handleDeleteCard}
+                                                        onEdit={handleEditCard}
+                                                        onEditTitle={handleEditTitle} />          
                                             </div>
                                                 
-                                            <Droppable droppableId={card.id} key={card.id} type="task">
-                                                                                                                                                           {(provided) => (
-                                                    <div ref={provided.innerRef} {...provided.droppableProps} className={styles.task_container}>
-                                                            <Tasks tasks={card.tasks} card={card} cards={cards} />
+                                                <Droppable
+                                                    droppableId={card.id}
+                                                    key={card.id}
+                                                    type="task"
+                                                >
+                                                {(provided) => (
+                                                        <div
+                                                            ref={provided.innerRef}
+                                                            {...provided.droppableProps}
+                                                            className={styles.task_container}>
+                                                            <Tasks
+                                                                tasks={card.tasks}
+                                                                card={card}
+                                                            />
                                                             {provided.placeholder}
-                                                        </div>
-                                                        
-                                                    )}
+                                                        </div>   
+                                                )}
                                                     
                                             </Droppable>
                                         </div>
@@ -257,9 +279,13 @@ const Cards = () => {
                             <div>
                                 <Button
                                     title={
-                                        <div className={styles.add_card_container} onClick={openCloseCardBox}>
+                                        <div
+                                            className={styles.add_card_container}
+                                            onClick={openCloseCardBox}>
                                             <FaPlus className={styles.icon_card_plus} />
-                                            <h1 className={styles.card_title}>Add Card</h1>
+                                            <h1 className={styles.card_title}>
+                                                Add Card
+                                            </h1>
                                         </div>
                                     }
                                     href='#' style='card_button'
