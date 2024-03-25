@@ -6,7 +6,7 @@ import NameInput from '../../components/Input/NameInput';
 import EmailInput from '../../components/Input/EmailInput';
 import PasswordInput from '../../components/Input/PasswordInput';
 import Button from '../../components/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
 const Account = () => {
@@ -35,7 +35,7 @@ const Account = () => {
                     <form onSubmit={handleSubmit(handleUpdateAccount)} className={styles.account_form}>
                         <h2>Theme</h2>
                         <div>
-                            <label>
+                            <label className={styles.label}>
                                 <input
                                     className={styles.checkbox}
                                     type="radio"
@@ -46,7 +46,7 @@ const Account = () => {
                                 Light
                             </label>
 
-                            <label>
+                            <label className={styles.label}>
                                 <input
                                     className={styles.checkbox}
                                     type="radio"
@@ -55,7 +55,7 @@ const Account = () => {
                                     onChange={handleChange}
                                 />
                                 Dark
-                            </label>
+                            </label >
                         </div>
                     
                         <div className={styles.line}>
@@ -64,10 +64,10 @@ const Account = () => {
                         
                         <div className={styles.title_setting}>
                             <h2>Update account</h2>
-                            <FontAwesomeIcon icon={['fa', 'edit']} className={styles.icon} />
+                            {/* <FontAwesomeIcon icon={['fa', 'edit']} className={styles.icon} /> */}
                         </div>
 
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name" className={styles.label}>Name</label>
                         
                         <div className={styles.input_container}>
                             <NameInput
@@ -77,7 +77,7 @@ const Account = () => {
                                 errors={errors}
                             />
                         </div>
-                        <label htmlFor="email">E-mail</label>
+                        <label htmlFor="email" className={styles.label}>E-mail</label>
                         <div className={styles.input_container}>
                             <EmailInput
                                 name="email"
@@ -88,7 +88,7 @@ const Account = () => {
                         </div>
                     
                         <h2>Change password</h2>
-                        <label htmlFor="password">Current Password</label>
+                        <label htmlFor="password" className={styles.label}>Current Password</label>
                         <div className={styles.input_container}>
                             <PasswordInput
                                 name="password"
@@ -98,7 +98,7 @@ const Account = () => {
                                 watch={watch}
                             />
                         </div>
-                        <label htmlFor="new password">New password</label>
+                        <label htmlFor="new password" className={styles.label}>New password</label>
                         <div className={styles.input_container}>
                             <PasswordInput
                                 name="password"
@@ -117,7 +117,7 @@ const Account = () => {
                         </div>
                         
                         <h2>Delete account</h2>
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password" className={styles.label}>Password</label>
                         <div className={styles.input_container}>
                             <PasswordInput
                                 name="password"
