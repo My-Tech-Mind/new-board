@@ -17,7 +17,7 @@ const Cards = () => {
             tasks: [
                 {
                     id: '1',
-                    title: 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
+                    title: 'task 1',
                     description: 'description 1'
                 }
             ]

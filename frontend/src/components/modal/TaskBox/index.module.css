@@ -15,10 +15,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
 }
 
-.input_container {
+.form_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,6 +36,15 @@
 .input {
     width: 250px;
     height: 30px;
+}
+
+.caracteres_message {
+    font-size: 10px;
+    text-align: left;
+    width: 400px;
+    color: var(--color-negative);
+    margin-top: 5px;
+    padding: 0;
 }
 
 .create_button {
@@ -58,10 +67,10 @@
 
 @media  screen and (min-width: 768px) {
     .edit_box_container {
-        top: calc(50% - 175px);
+        top: calc(50% - 225px);
         left: calc(50% - 250px);
         width: 500px;
-        height: 350px;
+        height: 450px;
     }
 
     .label {
@@ -75,7 +84,7 @@
 
     .textarea {
         width: 400px;
-        height: 100px;
+        height: 180px;
     }
 }
 

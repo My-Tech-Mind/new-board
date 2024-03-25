@@ -147,11 +147,9 @@ const Tasks = ({ tasks, card }) => {
               {...provided.dragHandleProps}
               className={styles.task}
             >
-              <div className={styles.teste}>
                 <h3 className={styles.task_title} onClick={() => handleEditTaskBoxFromTitle(card, task, index)}>
                   {task.title}
                 </h3>
-              </div>
 
               <TaskMenuCrud
                 task={task}

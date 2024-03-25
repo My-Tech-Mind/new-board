@@ -41,15 +41,12 @@
     margin: 10px;
 }
 
-.teste {
-    width: 200px;
-}
-
 .task_title {
     font-size: 10pt;
     font-weight: 600;
     margin: 0 5px;
-    width: 200px;
+    width: 180px;
+    word-wrap: break-word;
 }
 
 .task_scroll {
