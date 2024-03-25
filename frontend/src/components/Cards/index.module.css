@@ -98,7 +98,7 @@
 
 .close_icon {
     position: absolute;
-    top: calc(50% - 85px);
+    top: calc(50% - 100px);
     left: calc(50% + 160px);
     color: var(--color-icons);
     cursor: pointer;

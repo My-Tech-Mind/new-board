@@ -1,6 +1,7 @@
 import { FaUser, FaUserCircle, FaHome, FaSignOutAlt, FaTimes } from 'react-icons/fa';
 import styles from './index.module.css';
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const Menu = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -24,9 +25,9 @@ const Menu = () => {
     };
     return (
         <div className={styles.menu_icons_container}>
-            <a href="/boards" className={styles.link}>
+            <Link to="/boards" className={styles.link}>
                 <FaHome className={styles.icons} />
-            </a>
+            </Link>
             
             <FaUserCircle className={styles.user_circle} onClick={toggleMenu} />
 
@@ -38,30 +39,30 @@ const Menu = () => {
                         </div>
                         <ul className={styles.menu_items}>
                             <li>
-                                <a href="/account" className={styles.link}>
+                                <Link to="/account" className={styles.link}>
                                     <FaUser className={styles.icons} />
-                                </a>
-                                <a href="/account" className={styles.link}>
+                                </Link>
+                                <Link to="/account" className={styles.link}>
                                     My account
-                                </a>
+                                </Link>
                             </li>
                                 
                             <li>
-                                <a href="/boards" className={styles.link}>
+                                <Link to="/boards" className={styles.link}>
                                     <FaHome className={styles.icons} />
-                                </a>
-                                <a href="/boards" className={styles.link}>
+                                </Link>
+                                <Link to="/boards" className={styles.link}>
                                     Home
-                                </a>
+                                </Link>
                             </li>
                             
                             <li>
-                                <a href="/" className={styles.link}>
+                                <Link to="/" className={styles.link}>
                                     <FaSignOutAlt className={styles.icons} />
-                                </a>
-                                <a href="/" className={styles.link}>
+                                </Link>
+                                <Link to="/" className={styles.link}>
                                     Sign out
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </nav>

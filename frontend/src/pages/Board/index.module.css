@@ -7,10 +7,9 @@
     overflow: auto;
     overflow-y: hidden;
     -ms-overflow-style: none;
-    scrollbar-color: transparent transparent;
     background-color: var(--color5);
-    height: 78vh;
-    padding: 10px;
+    height: 100%;
+    margin-bottom: 10px;
 }
 
 .board_container::-webkit-scrollbar {
@@ -42,7 +41,7 @@
 
 .close_icon {
     position: absolute;
-    top: calc(50% - 85px);
+    top: calc(50% - 100px);
     left: calc(50% + 160px);
     color: var(--color-icons);
     cursor: pointer;
@@ -52,7 +51,7 @@
 @media screen and (min-width: 768px){
     .board_container{
         overflow: auto;
-        /* overflow-y: hidden; */
+        overflow-y: hidden;
         -ms-overflow-style: none;
         scrollbar-color: #000;
     }
@@ -64,10 +63,5 @@
         background-color: rgba(128, 128, 128, 0.473);
         border-radius: 5px;
         height: 5px;
-    }
-    
-    .board_container::-ms-scrollbar {
-        background-color: yellow ;
-        color: black ;
     }
 }

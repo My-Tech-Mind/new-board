@@ -9,6 +9,7 @@ html {
   box-sizing: border-box;
   font-family: Poppins, sans-serif;
   background-color: var(--background-color);
+  overflow: hidden;
 }
 
 :root {

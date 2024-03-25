@@ -52,8 +52,8 @@
 .task_scroll {
     overflow-y: auto !important;
     overflow-x: hidden;
-    max-height: 350px;
-    margin: 10px 0 10px 0;
+    max-height: 55vh;
+    margin-top: 10px;
 }
 
 .task_scroll::-webkit-scrollbar {
@@ -109,7 +109,7 @@
 
 .close_icon {
     position: absolute;
-    top: calc(50% - 160px);
+    top: calc(50% - 210px);
     left: calc(50% + 160px);
     color: var(--color-icons);
     cursor: pointer;
