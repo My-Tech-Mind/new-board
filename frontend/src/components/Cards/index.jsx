@@ -17,7 +17,7 @@ const Cards = () => {
             tasks: [
                 {
                     id: '1',
-                    title: 'task 1',
+                    title: 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
                     description: 'description 1'
                 }
             ]
@@ -129,7 +129,8 @@ const Cards = () => {
 
     const handleDuplicateCard = (card) => {
 
-        setNewId(uuidv4().slice(0, 3))
+        if (cards.length < 10) {
+            setNewId(uuidv4().slice(0, 3))
         
         const copyTitle = card.title + ` (copy)`
         const newTasks = card.tasks.map((task) => {
@@ -140,7 +141,10 @@ const Cards = () => {
         const createdCard = { id: newId, title: copyTitle, tasks: newTasks }
 
         cards.splice(card.index + 1, 0, createdCard)
-        setCards(cards)   
+        setCards(cards) 
+        } else {
+            console.log("erro: não pode criar mais cards")
+        }
     }
 
     const handleDeleteCard = (index) => {
@@ -151,15 +155,19 @@ const Cards = () => {
     }
 
     const handleCreateCard = (title) => {
-        setNewId(uuidv4().slice(0,3))
-        const newCard = {
-            id: newId,
-            title,
-            tasks: []
+        if (cards.length < 10) {
+            setNewId(uuidv4().slice(0,3))
+            const newCard = {
+                id: newId,
+                title,
+                tasks: []
+            }
+    
+            cards.push(newCard)
+            setCards(cards) 
+        } else {
+            console.log('erro: não pode criar mais que 5 cards')
         }
-
-        cards.push(newCard)
-        setCards(cards)  
     }
 
     const handleEditCard = (card) => {

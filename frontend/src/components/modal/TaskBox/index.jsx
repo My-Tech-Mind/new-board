@@ -8,11 +8,15 @@ const TaskBox = ({ card, onCreateTask, closeBox, title, buttonName }) => {
     const [descriptionTask, setDescriptionTask] = useState("Empty")
 
     const handleTitleTaskValue = (event) => {
-        setTitleTask(event.target.value) 
+        if (event.target.value.length < 50) {
+            setTitleTask(event.target.value) 
+        }   
     }
 
     const handleDescriptionTaskValue = (event) => {
-        setDescriptionTask(event.target.value) 
+        if (event.target.value.length < 1000) {
+            setDescriptionTask(event.target.value) 
+        }
     }
 
     return ( 

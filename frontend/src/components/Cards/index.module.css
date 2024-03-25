@@ -33,6 +33,11 @@
     cursor: pointer;
 }
 
+/* .task_container {
+    overflow: auto;
+    max-height: 420px;
+} */
+
 .task {
     display: flex;
     justify-content: space-between;

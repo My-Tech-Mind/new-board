@@ -14,9 +14,11 @@ const Tasks = ({ tasks, card }) => {
   const [openTaskBox, setOpenTaskBox] = useState(false)
   const [TaskToBeEdited, setTaskToBeEdited] = useState({})
   const [CardToBeEdited, setCardToBeEdited] = useState({})
+  const limiteTasks = 20
 
   const handleDuplicateTask = (data) => {
-    const { card, task } = data
+    if (tasks.length < limiteTasks) {
+      const { card, task } = data
 
     setIdTask(uuidv4().slice(0, 3))
 
@@ -31,6 +33,9 @@ const Tasks = ({ tasks, card }) => {
       description
     }
     card.tasks.splice(newIndex, 0, duplicatedTask)
+    } else {
+      console.log('erro: não pode criar mais de 20 tasks por card')
+    }
   }
 
   const handleDeleteTask = (data) => {
@@ -40,7 +45,8 @@ const Tasks = ({ tasks, card }) => {
   }
 
   const handleCreateTask = (card, title, description) => {
-    const newId = uuidv4().slice(0, 4)
+    if (tasks.length < limiteTasks) {
+      const newId = uuidv4().slice(0, 4)
     const newTask = {
       id: newId,
       title,
@@ -48,6 +54,9 @@ const Tasks = ({ tasks, card }) => {
     }
 
     card.tasks.push(newTask)
+    } else {
+      console.log('erro: não pode criar mais que 20 tasks')
+    }
   }
 
   const handleEditTask = (cardAndTask) => {
@@ -128,6 +137,7 @@ const Tasks = ({ tasks, card }) => {
           </>
         )
       }
+      <div className={styles.task_scroll}>
       {tasks.map((task, index) => (
         <Draggable key={`task_${task.id}`} draggableId={`task_${task.id}`} index={index}>
           {(provided) => (
@@ -137,9 +147,11 @@ const Tasks = ({ tasks, card }) => {
               {...provided.dragHandleProps}
               className={styles.task}
             >
-              <h3 className={styles.task_title} onClick={() => handleEditTaskBoxFromTitle(card, task, index)}>
-                {task.title}
-              </h3>
+              <div className={styles.teste}>
+                <h3 className={styles.task_title} onClick={() => handleEditTaskBoxFromTitle(card, task, index)}>
+                  {task.title}
+                </h3>
+              </div>
 
               <TaskMenuCrud
                 task={task}
@@ -153,6 +165,7 @@ const Tasks = ({ tasks, card }) => {
           )}
         </Draggable>
       ))}
+      </div>
       <div>
         <Button
           title={

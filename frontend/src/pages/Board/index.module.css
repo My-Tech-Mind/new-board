@@ -5,22 +5,22 @@
 .board_container {
     display: flex;
     overflow: auto;
-    overflow-y: hidden !important;
+    overflow-y: hidden;
     -ms-overflow-style: none;
-    scrollbar-color: transparent transparent !important;
+    scrollbar-color: transparent transparent;
     background-color: var(--color5);
     height: 78vh;
     padding: 10px;
 }
 
 .board_container::-webkit-scrollbar {
-    background-color: transparent !important;
-    color: transparent !important;
+    background-color: transparent;
+    color: transparent;
 }
 
 .board_container::-ms-scrollbar {
-    background-color: transparent !important;
-    color: transparent !important;
+    background-color: transparent ;
+    color: transparent ;
 }
 
 .board_header {
@@ -49,21 +49,25 @@
     z-index: 1003;
 }
 
-/* @media screen and (max-width: 768px){
+@media screen and (min-width: 768px){
     .board_container{
         overflow: auto;
-        overflow-y: hidden !important;
+        /* overflow-y: hidden; */
         -ms-overflow-style: none;
-        scrollbar-color: transparent transparent !important;
+        scrollbar-color: #000;
     }
-
     .board_container::-webkit-scrollbar {
-        background-color: transparent !important;
-        color: transparent !important;
+        background-color: var(--color5);
+        height: 10px;
     }
-
+    .board_container::-webkit-scrollbar-thumb {
+        background-color: rgba(128, 128, 128, 0.473);
+        border-radius: 5px;
+        height: 5px;
+    }
+    
     .board_container::-ms-scrollbar {
-        background-color: transparent !important;
-        color: transparent !important;
+        background-color: yellow ;
+        color: black ;
     }
-} */
+}

@@ -31,7 +31,7 @@ const Board = () => {
                 {openBoardTitleBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={editBoardTitle} />
-                        <CardBox title='Board title' buttonName='Save' onSave={handleSaveCard}
+                        <CardBox title='Change board name' buttonName='Save' onSave={handleSaveCard}
                         onCreateOrEdit={handleEditTitle} />
                         
                     </>

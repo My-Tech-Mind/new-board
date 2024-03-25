@@ -41,11 +41,32 @@
     margin: 10px;
 }
 
+.teste {
+    width: 200px;
+}
+
 .task_title {
     font-size: 10pt;
     font-weight: 600;
     margin: 0 5px;
     width: 200px;
+}
+
+.task_scroll {
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    max-height: 350px;
+    margin: 10px 0 10px 0;
+}
+
+.task_scroll::-webkit-scrollbar {
+    width: 10px !important;
+    border-radius: 10px !important;
+}
+
+.task_scroll::-webkit-scrollbar-thumb {
+    background-color: #0040406e !important;
+    border-radius: 5px;
 }
 
 .add_task_container {
