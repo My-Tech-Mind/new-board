@@ -12,7 +12,7 @@
 
 .menu_icons_container {
     top: 0px;
-    left: 175px;
+    left: 160px;
     position: absolute;
     display: flex;
 }
@@ -30,6 +30,7 @@
 .menu_open {
     width: 150px;
     transition: ease-in;
+    margin-left: 20px;
     background-color: var(--background-color);
     border: solid 2px rgba(0, 0, 0, 0.2);
     z-index: 1;

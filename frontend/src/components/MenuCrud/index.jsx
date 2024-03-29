@@ -4,7 +4,7 @@ import styles from './index.module.css';
 import Modal from '../Modal';
 import { useState } from 'react';
 
-const MenuCrud = ({ boardsId, onUpdate, onEdit }) => {
+const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuEditOpen, setEditMenuOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
@@ -32,6 +32,9 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit }) => {
         onUpdate(boardsId);
         toggleMenu();
     };
+    const duplicateBoard = () => {
+        onDuplicate(boardsId);
+    }
 
     return (
         <>
@@ -42,7 +45,7 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit }) => {
                     (menuOpen) && (
                         <nav className={styles.menu_open}>
                             <ul className={styles.menu_items}>
-                                <li >
+                                <li onClick={duplicateBoard}>
                                     <a >
                                         <FontAwesomeIcon icon={faClone} className={styles.icon} />
                                         <p className={styles.descriptions}>Duplicar</p>

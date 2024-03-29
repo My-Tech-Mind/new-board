@@ -48,16 +48,12 @@ const MyBoard = () => {
 
     }, [boards]);
 
-    const handleBoardTitleChange = (e, boardId) => {
-        updateBoardTitle(boardId, e.target.value);
-    };
-    const editingBoard = (id, text) => {
-        updateBoardTitle(id, text);
-    };
-
-    const handleBoardTitleDoubleClick = (boardId) => {
-        setEditingBoardId(boardId);
-    };
+    const duplicateBoard = (boardId) => {
+        const name = boards.filter(board => board.id === boardId)[0]?.title;
+        createBoard(nextBoardId, name + "(1)");
+        console.log(boards);
+        setNextBoardId(prevId => prevId + 1);
+    }
 
     const handleBoardTitleBlur = () => {
         setEditingBoardId(null);
@@ -82,12 +78,15 @@ const MyBoard = () => {
                             type="text"
                             className={styles.boards_name}
                             value={board.title}
-                            onChange={(e) => handleBoardTitleChange(e, board.id)}
+                            onChange={(e) => updateBoardTitle(board.id, e.target.value)}
                             onBlur={handleBoardTitleBlur}
                             autoFocus
                         />
                         <FontAwesomeIcon icon={faStar} className={board.favorito ? styles.icon_boards_star_active : styles.icon_boards_star_inactive} onClick={() => favoriteBoard(board.id)} />
-                        <MenuCrud boardsId={board.id} onEdit={(text) => editingBoard(board.id, text)} onUpdate={() => deleteBoard(board.id)} />
+                        <MenuCrud boardsId={board.id}
+                            onEdit={(text) => updateBoardTitle(board.id, text)}
+                            onUpdate={() => deleteBoard(board.id)}
+                            onDuplicate={() => duplicateBoard(board.id)} />
                     </div>
                 ))}
             </div>
@@ -100,31 +99,39 @@ const MyBoard = () => {
                     {boards.map(board => (
                         <div key={board.id} className={styles.boards}>
                             {editingBoardId === board.id ? (
-
                                 < input
                                     type="text"
                                     className={styles.boards_name}
                                     value={board.title}
-                                    onChange={(e) => handleBoardTitleChange(e, board.id)}
+                                    onChange={(e) => updateBoardTitle(board.id, e.target.value)}
                                     onBlur={handleBoardTitleBlur}
                                     autoFocus
                                 />
                             ) : (
                                 <div
                                     className={styles.boards_name}
-                                    onDoubleClick={() => handleBoardTitleDoubleClick(board.id)}
+                                    onDoubleClick={() => setEditingBoardId(board.id)}
                                 >
                                     {board.title}
                                 </div>
                             )}
-                            <FontAwesomeIcon icon={faStar} className={board.favorito ? styles.icon_boards_star_active : styles.icon_boards_star_inactive} onClick={() => favoriteBoard(board.id)} />
-                            <MenuCrud boardsId={board.id} onEdit={(text) => editingBoard(board.id, text)} onUpdate={() => deleteBoard(board.id)} />
+                            <FontAwesomeIcon
+                                icon={faStar}
+                                className={board.favorito ? styles.icon_boards_star_active : styles.icon_boards_star_inactive}
+                                onClick={() => favoriteBoard(board.id)} />
+                            <MenuCrud boardsId={board.id}
+                                onEdit={(text) => updateBoardTitle(board.id, text)}
+                                onUpdate={() => deleteBoard(board.id)}
+                                onDuplicate={() => duplicateBoard(board.id)} />
                         </div>
 
                     ))}
                     {
                         isModalOpen && (
-                            <Modal Edition={Edition} handleInputChange={handleInputChange} inputValue={inputValue} />
+                            <Modal
+                                Edition={Edition}
+                                handleInputChange={handleInputChange}
+                                inputValue={inputValue} />
                         )}
                 </div>
             </div>

@@ -26,11 +26,10 @@
 }
 
 .boards {
-    width: 175px;
+    width: 160px;
     height: 110px;
     margin: 10px 25px 10px 0px;
     display: flex;
-
     justify-content: center;
     position: relative;
     align-items: center;
@@ -59,10 +58,10 @@
 }
 
 .add_board_container {
-    width: 112px;
+    width: 160px;
     height: 110px;
     display: flex;
-    margin: 10px 10px 10px 0px;
+    margin: 10px 20px 10px 0px;
     justify-content: center;
     align-items: center;
     background-color: var(--color-avatar-circle);
