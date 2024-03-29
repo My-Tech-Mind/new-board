@@ -2,15 +2,18 @@
     "Myboards": [
         {
             "id": "board_1",
-            "title": "Work"
+            "title": "Work",
+            "favorito": true
         },
         {
             "id": "board_2",
-            "title": "Gym"
+            "title": "Gym",
+            "favorito": false
         },
         {
             "id": "board_3",
-            "title": "House"
+            "title": "House",
+            "favorito": false
         }
     ]
 }

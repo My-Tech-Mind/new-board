@@ -1,4 +1,4 @@
-import boardsData from '../MyBoard/Boads.json';
+import boardsData from '../../Boads.json';
 import { useEffect } from 'react';
 
 const LoadBoards = ({ setBoards }) => {

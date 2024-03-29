@@ -3,22 +3,34 @@
     justify-content: left;
     align-items: left;
     flex-direction: column;
+    width: 100%;
     margin: 10px;
     bottom: 10px;
     z-index: 2;
+}
+
+.MyBoards,
+.MyFavoriteBoards {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    align-items: left;
+    flex-direction: row;
 }
 
 .boards_container {
     display: flex;
     justify-content: left;
     align-items: left;
+    flex-wrap: wrap;
 }
 
 .boards {
     width: 175px;
     height: 110px;
-    margin: 10px 20px 10px 10px;
+    margin: 10px 25px 10px 0px;
     display: flex;
+
     justify-content: center;
     position: relative;
     align-items: center;
@@ -62,7 +74,16 @@
     color: var(--shadow);
 }
 
-.icon_boards_star {
+.icon_boards_star_active {
+    font-size: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: yellow;
+    cursor: pointer;
+}
+
+.icon_boards_star_inactive {
     font-size: 20px;
     position: absolute;
     top: 10px;
