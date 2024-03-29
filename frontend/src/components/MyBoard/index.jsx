@@ -5,12 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
 import LoadBoards from '../LoadBoards';
 import Modal from '../Modal';
+import ModalDelete from '../ModalDelete';
 const MyBoard = () => {
     let [boards, setBoards] = useState([]);
     const [editingBoardId, setEditingBoardId] = useState(null);
     const [nextBoardId, setNextBoardId] = useState(4);
     const [inputValue, setInputValue] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+    const [boardIdToDelete, setBoardIdToDelete] = useState(null);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -50,9 +53,10 @@ const MyBoard = () => {
 
     const duplicateBoard = (boardId) => {
         const name = boards.filter(board => board.id === boardId)[0]?.title;
-        createBoard(nextBoardId, name + "(1)");
-        console.log(boards);
+        createBoard(nextBoardId, name);
         setNextBoardId(prevId => prevId + 1);
+        console.log(nextBoardId);
+        console.log(boards);
     }
 
     const handleBoardTitleBlur = () => {
@@ -68,6 +72,18 @@ const MyBoard = () => {
         setBoards(updatedBoards);
     }
 
+    const Delete = (action, boardId) => {
+        if (action === 'finish') {
+            deleteBoard(boardId);
+            setIsModalDeleteOpen(false);
+        } else {
+            setIsModalDeleteOpen(false);
+        }
+    };
+    const handleDeleteBoard = (boardId) => {
+        setIsModalDeleteOpen(true);
+        setBoardIdToDelete(boardId);
+    }
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Meus favoritos</h1>
@@ -85,7 +101,7 @@ const MyBoard = () => {
                         <FontAwesomeIcon icon={faStar} className={board.favorito ? styles.icon_boards_star_active : styles.icon_boards_star_inactive} onClick={() => favoriteBoard(board.id)} />
                         <MenuCrud boardsId={board.id}
                             onEdit={(text) => updateBoardTitle(board.id, text)}
-                            onUpdate={() => deleteBoard(board.id)}
+                            onUpdate={() => handleDeleteBoard(board.id)}
                             onDuplicate={() => duplicateBoard(board.id)} />
                     </div>
                 ))}
@@ -121,7 +137,7 @@ const MyBoard = () => {
                                 onClick={() => favoriteBoard(board.id)} />
                             <MenuCrud boardsId={board.id}
                                 onEdit={(text) => updateBoardTitle(board.id, text)}
-                                onUpdate={() => deleteBoard(board.id)}
+                                onUpdate={() => handleDeleteBoard(board.id)}
                                 onDuplicate={() => duplicateBoard(board.id)} />
                         </div>
 
@@ -133,6 +149,14 @@ const MyBoard = () => {
                                 handleInputChange={handleInputChange}
                                 inputValue={inputValue} />
                         )}
+
+                    {
+                        isModalDeleteOpen && (
+                            <ModalDelete
+                                Delete={Delete} boardId={boardIdToDelete}
+                            />
+                        )
+                    }
                 </div>
             </div>
         </div >
