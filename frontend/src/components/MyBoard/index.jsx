@@ -3,28 +3,34 @@ import MenuCrud from '../MenuCrud';
 import styles from './index.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
-import LoadBoards from '../LoadBoards'
+import LoadBoards from '../LoadBoards';
 const MyBoard = () => {
     let [boards, setBoards] = useState([]);
     const [editingBoardId, setEditingBoardId] = useState(null);
     const [nextBoardId, setNextBoardId] = useState(4);
-
     const handleCreateBoard = () => {
         createBoard(nextBoardId);
         setNextBoardId(prevId => prevId + 1);
     };
+
     const setBoardsCallback = useCallback((boards) => {
         setBoards(boards);
     }, []);
 
     const { deleteBoard, createBoard, updateBoardTitle } = LoadBoards({ setBoards: setBoardsCallback });
 
+
     useEffect(() => {
+
     }, [boards]);
 
     const handleBoardTitleChange = (e, boardId) => {
         updateBoardTitle(boardId, e.target.value);
     };
+    const editingBoard = (id, text) => {
+        updateBoardTitle(id, text);
+    };
+
     const handleBoardTitleDoubleClick = (boardId) => {
         setEditingBoardId(boardId);
     };
@@ -32,6 +38,9 @@ const MyBoard = () => {
     const handleBoardTitleBlur = () => {
         setEditingBoardId(null);
     };
+    const favoriteBoard = (id) => {
+        console.log('oi');
+    }
 
     return (
         <div className={styles.container}>
@@ -43,7 +52,8 @@ const MyBoard = () => {
                 {boards.map(board => (
                     <div key={board.id} className={styles.boards}>
                         {editingBoardId === board.id ? (
-                            <input
+
+                            < input
                                 type="text"
                                 className={styles.boards_name}
                                 value={board.title}
@@ -59,8 +69,8 @@ const MyBoard = () => {
                                 {board.title}
                             </div>
                         )}
-                        <FontAwesomeIcon icon={faStar} className={styles.icon_boards_star} />
-                        <MenuCrud boardsId={board.id} onUpdate={() => deleteBoard(board.id)} />
+                        <FontAwesomeIcon icon={faStar} className={styles.icon_boards_star} onClick={() => favoriteBoard(board.id)} />
+                        <MenuCrud boardsId={board.id} onEdit={(text) => editingBoard(board.id, text)} onUpdate={() => deleteBoard(board.id)} />
                     </div>
                 ))}
             </div>

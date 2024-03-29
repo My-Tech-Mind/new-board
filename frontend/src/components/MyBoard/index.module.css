@@ -4,6 +4,8 @@
     align-items: left;
     flex-direction: column;
     margin: 10px;
+    bottom: 10px;
+    z-index: 2;
 }
 
 .boards_container {
