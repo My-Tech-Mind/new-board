@@ -59,7 +59,7 @@
 }
 
 .add_board_container {
-    width: 175px;
+    width: 112px;
     height: 110px;
     display: flex;
     margin: 10px 10px 10px 0px;
@@ -90,4 +90,15 @@
     right: 10px;
     color: var(--shadow);
     cursor: pointer;
+}
+
+.containerModal {
+    z-index: 1;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

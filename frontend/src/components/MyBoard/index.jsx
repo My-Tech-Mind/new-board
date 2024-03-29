@@ -4,23 +4,46 @@ import styles from './index.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
 import LoadBoards from '../LoadBoards';
+import Modal from '../Modal';
 const MyBoard = () => {
     let [boards, setBoards] = useState([]);
     const [editingBoardId, setEditingBoardId] = useState(null);
     const [nextBoardId, setNextBoardId] = useState(4);
+    const [inputValue, setInputValue] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+    };
+
     const handleCreateBoard = () => {
+        setIsModalOpen(true);
+    };
+    const Edition = (action) => {
+        if (action === 'finish') {
+            createNewBoard(inputValue);
+            setIsModalOpen(false);
+            setInputValue('');
+        } else {
+            setIsModalOpen(false);
+            setInputValue('');
+        }
+    };
+    const createNewBoard = (boardTitle) => {
         if (boards.length <= 4) {
-            createBoard(nextBoardId);
+            createBoard(nextBoardId, boardTitle);
             setNextBoardId(prevId => prevId + 1);
         } else {
-            console.log("Não se pode criar mais que 5 boards meu amigo!");
+            alert("Sua conta só permite a criação de 5 boards");
         }
-
     };
+
     const setBoardsCallback = useCallback((boards) => {
         setBoards(boards);
     }, []);
+
     const { deleteBoard, createBoard, updateBoardTitle } = LoadBoards({ setBoards: setBoardsCallback });
+
     useEffect(() => {
 
     }, [boards]);
@@ -97,10 +120,15 @@ const MyBoard = () => {
                             <FontAwesomeIcon icon={faStar} className={board.favorito ? styles.icon_boards_star_active : styles.icon_boards_star_inactive} onClick={() => favoriteBoard(board.id)} />
                             <MenuCrud boardsId={board.id} onEdit={(text) => editingBoard(board.id, text)} onUpdate={() => deleteBoard(board.id)} />
                         </div>
+
                     ))}
+                    {
+                        isModalOpen && (
+                            <Modal Edition={Edition} handleInputChange={handleInputChange} inputValue={inputValue} />
+                        )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

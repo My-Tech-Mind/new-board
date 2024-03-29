@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis, faClone, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import styles from './index.module.css';
+import Modal from '../Modal';
 import { useState } from 'react';
 
 const MenuCrud = ({ boardsId, onUpdate, onEdit }) => {
@@ -14,13 +15,15 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit }) => {
         setEditMenuOpen(!menuEditOpen);
         toggleMenu();
     };
-    const cancelEdition = () => {
-        setEditMenuOpen(!menuEditOpen);
+    const Edition = (value) => {
+        if (value == 'cancel') {
+            setEditMenuOpen(!menuEditOpen);
+        } else {
+            onEdit(inputValue);
+            setEditMenuOpen(!menuEditOpen)
+        }
     };
-    const finishEdition = () => {
-        onEdit(inputValue);
-        setEditMenuOpen(!menuEditOpen);
-    }
+
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
 
@@ -62,21 +65,10 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit }) => {
                     )
                 }
             </div>
-            <div className={styles.container}>
-                {
-                    (menuEditOpen) && (
-                        <div className={styles.menuEdit}>
-                            <div className={styles.itemsEdit}>
-                                <p className={styles.tituloEdit}>Boards Title</p>
-                                <input type="text" value={inputValue} onChange={handleInputChange} />
-                                <div>
-                                    <button onClick={finishEdition}>Ok</button>
-                                    <button onClick={cancelEdition}>Cancelar</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-            </div>
+            {
+                (menuEditOpen) && (
+                    <Modal Edition={Edition} inputValue={inputValue} handleInputChange={handleInputChange} />
+                )}
         </>
     );
 };
