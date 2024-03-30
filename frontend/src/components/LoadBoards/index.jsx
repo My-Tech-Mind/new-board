@@ -37,11 +37,21 @@ const LoadBoards = ({ setBoards }) => {
         });
     };
 
+    const toggleFavorite = (boardId) => {
+        setBoards(prevBoards => {
+            const updatedBoards = prevBoards.map(board =>
+                board.id === boardId ? { ...board, favorito: !board.favorito } : board
+            );
+            updateLocalStorage(updatedBoards);
+            return updatedBoards;
+        });
+    };
+
     const updateLocalStorage = (boards) => {
         localStorage.setItem('boards', JSON.stringify(boards));
     };
 
-    return { deleteBoard, createBoard, updateBoardTitle };
+    return { toggleFavorite, deleteBoard, createBoard, updateBoardTitle };
 };
 
 export default LoadBoards;

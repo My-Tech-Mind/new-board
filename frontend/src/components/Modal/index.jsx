@@ -6,10 +6,10 @@ const Modal = ({ Edition, handleInputChange, inputValue }) => {
             <div className={styles.menu}>
                 <div className={styles.items}>
                     <p className={styles.titulo}>Boards Title</p>
-                    <input type="text" value={inputValue} onChange={handleInputChange} />
-                    <div>
-                        <button onClick={() => Edition('finish')}>Ok</button>
-                        <button onClick={() => Edition('cancel')}>Cancelar</button>
+                    <input className={styles.input} type="text" value={inputValue} onChange={handleInputChange} />
+                    <div className={styles.divButton}>
+                        <button className={styles.confirmButton} onClick={() => Edition('finish')}>Ok</button>
+                        <button className={styles.denyButton} onClick={() => Edition('cancel')}>Cancelar</button>
                     </div>
                 </div>
             </div>

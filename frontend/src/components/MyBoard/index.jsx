@@ -45,7 +45,7 @@ const MyBoard = () => {
         setBoards(boards);
     }, []);
 
-    const { deleteBoard, createBoard, updateBoardTitle } = LoadBoards({ setBoards: setBoardsCallback });
+    const { toggleFavorite, deleteBoard, createBoard, updateBoardTitle } = LoadBoards({ setBoards: setBoardsCallback });
 
     useEffect(() => {
 
@@ -55,22 +55,10 @@ const MyBoard = () => {
         const name = boards.filter(board => board.id === boardId)[0]?.title;
         createBoard(nextBoardId, name);
         setNextBoardId(prevId => prevId + 1);
-        console.log(nextBoardId);
-        console.log(boards);
     }
-
     const handleBoardTitleBlur = () => {
         setEditingBoardId(null);
     };
-    const favoriteBoard = (id) => {
-        const updatedBoards = boards.map(board => {
-            if (board.id === id) {
-                return { ...board, favorito: !board.favorito };
-            }
-            return board;
-        });
-        setBoards(updatedBoards);
-    }
 
     const Delete = (action, boardId) => {
         if (action === 'finish') {
@@ -90,15 +78,23 @@ const MyBoard = () => {
             <div className={styles.MyFavoriteBoards}>
                 {boards.filter(board => board.favorito).map(board => (
                     <div key={board.id} className={styles.boards}>
-                        <input
-                            type="text"
-                            className={styles.boards_name}
-                            value={board.title}
-                            onChange={(e) => updateBoardTitle(board.id, e.target.value)}
-                            onBlur={handleBoardTitleBlur}
-                            autoFocus
-                        />
-                        <FontAwesomeIcon icon={faStar} className={board.favorito ? styles.icon_boards_star_active : styles.icon_boards_star_inactive} onClick={() => favoriteBoard(board.id)} />
+                        {editingBoardId === board.id ? (
+                            < textarea
+                                type="text"
+                                className={styles.boards_name}
+                                value={board.title}
+                                onChange={(e) => updateBoardTitle(board.id, e.target.value)}
+                                onBlur={handleBoardTitleBlur}
+                            />
+                        ) : (
+                            <div
+                                className={styles.boards_name}
+                                onDoubleClick={() => setEditingBoardId(board.id)}
+                            >
+                                {board.title}
+                            </div>
+                        )}
+                        <FontAwesomeIcon icon={faStar} className={board.favorito ? styles.icon_boards_star_active : styles.icon_boards_star_inactive} onClick={() => toggleFavorite(board.id)} />
                         <MenuCrud boardsId={board.id}
                             onEdit={(text) => updateBoardTitle(board.id, text)}
                             onUpdate={() => handleDeleteBoard(board.id)}
@@ -115,13 +111,12 @@ const MyBoard = () => {
                     {boards.map(board => (
                         <div key={board.id} className={styles.boards}>
                             {editingBoardId === board.id ? (
-                                < input
+                                < textarea
                                     type="text"
                                     className={styles.boards_name}
                                     value={board.title}
                                     onChange={(e) => updateBoardTitle(board.id, e.target.value)}
                                     onBlur={handleBoardTitleBlur}
-                                    autoFocus
                                 />
                             ) : (
                                 <div
@@ -134,7 +129,7 @@ const MyBoard = () => {
                             <FontAwesomeIcon
                                 icon={faStar}
                                 className={board.favorito ? styles.icon_boards_star_active : styles.icon_boards_star_inactive}
-                                onClick={() => favoriteBoard(board.id)} />
+                                onClick={() => toggleFavorite(board.id)} />
                             <MenuCrud boardsId={board.id}
                                 onEdit={(text) => updateBoardTitle(board.id, text)}
                                 onUpdate={() => handleDeleteBoard(board.id)}

@@ -2,7 +2,7 @@
     z-index: 1;
     align-items: center;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -22,7 +22,9 @@
 
 .items {
     display: flex;
-    align-items: center;
+    width: 300px;
+    height: 170px;
+    align-items: left;
     justify-content: space-around;
     flex-direction: column;
 
@@ -30,4 +32,44 @@
 
 .items .titulo {
     font-weight: bold;
+}
+
+.divButton {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.input {
+    width: 100%;
+}
+
+.denyButton {
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    width: 90px;
+    padding: 5px;
+    color: #F2F2F2;
+    background-color: var(--color-negative);
+}
+
+.denyButton:hover {
+    background-color: var(--color-negative-hover);
+}
+
+.confirmButton {
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    width: 90px;
+    padding: 5px;
+    color: #F2F2F2;
+    background-color: #039f03;
+}
+
+.confirmButton:hover {
+    background-color: #039f03c9;
 }
