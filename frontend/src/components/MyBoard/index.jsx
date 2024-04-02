@@ -4,8 +4,9 @@ import styles from './index.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
 import LoadBoards from '../LoadBoards';
-import Modal from '../Modal';
-import ModalDelete from '../ModalDelete';
+import Modal from '../modalComponents/Boards/ModalEditBoard';
+import ModalDelete from '../modalComponents/Boards/ModalDelete';
+
 const MyBoard = () => {
     let [boards, setBoards] = useState([]);
     const [editingBoardId, setEditingBoardId] = useState(null);
@@ -36,6 +37,7 @@ const MyBoard = () => {
         if (boards.length <= 4) {
             createBoard(nextBoardId, boardTitle);
             setNextBoardId(prevId => prevId + 1);
+            
         } else {
             alert("Sua conta só permite a criação de 5 boards");
         }
@@ -53,9 +55,10 @@ const MyBoard = () => {
 
     const duplicateBoard = (boardId) => {
         const name = boards.filter(board => board.id === boardId)[0]?.title;
-        createBoard(nextBoardId, name);
         setNextBoardId(prevId => prevId + 1);
+        createBoard(nextBoardId, name);  
     }
+
     const handleBoardTitleBlur = () => {
         setEditingBoardId(null);
     };
@@ -68,6 +71,7 @@ const MyBoard = () => {
             setIsModalDeleteOpen(false);
         }
     };
+    
     const handleDeleteBoard = (boardId) => {
         setIsModalDeleteOpen(true);
         setBoardIdToDelete(boardId);

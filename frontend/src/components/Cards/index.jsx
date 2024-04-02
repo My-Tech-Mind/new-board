@@ -4,8 +4,8 @@ import Button from '../../components/Button';
 import Tasks from '../Tasks';
 import { FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
-import CardBox from '../modalComponents/CardBox';
-import MenuCrud from '../modalComponents/CardMenuCrud';
+import CardBox from '../modalComponents/Board/CardBox';
+import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
 import { v4 as uuidv4} from 'uuid';
 
 const Cards = () => {
@@ -250,7 +250,7 @@ const Cards = () => {
                                                         {card.title}
                                                     </h2>
                                                     
-                                                    <MenuCrud
+                                                    <CardMenuCrud
                                                         card={card}
                                                         index={index}
                                                         onDuplicate={handleDuplicateCard}

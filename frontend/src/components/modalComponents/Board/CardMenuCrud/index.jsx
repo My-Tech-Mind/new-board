@@ -2,7 +2,7 @@ import styles from './index.module.css';
 import { useState, useEffect, useRef } from 'react';
 import { FaEllipsisV, FaRegTrashAlt, FaEdit, FaRegClone } from 'react-icons/fa';
 
-const MenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
+const CardMenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
     
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null)
@@ -110,4 +110,4 @@ const MenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
     );
 };
 
-export default MenuCrud;
+export default CardMenuCrud;

@@ -1,13 +1,31 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis, faClone, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import styles from './index.module.css';
-import Modal from '../Modal';
-import { useState } from 'react';
+import Modal from '../modalComponents/Boards/ModalEditBoard';
+import { useEffect, useRef, useState } from 'react';
 
 const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
+
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuEditOpen, setEditMenuOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const menuRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setMenuOpen(false)
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
+
+    console.log(menuOpen)
+
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
     };
@@ -26,15 +44,19 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
-
     };
+
     const deleteBoard = () => {
         onUpdate(boardsId);
         toggleMenu();
     };
+
     const duplicateBoard = () => {
         onDuplicate(boardsId);
+        toggleMenu();
     }
+
+
 
     return (
         <>
@@ -43,7 +65,7 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
                 <FontAwesomeIcon icon={faEllipsis} className={styles.ellipsis} onClick={toggleMenu} />
                 {
                     (menuOpen) && (
-                        <nav className={styles.menu_open}>
+                        <nav className={styles.menu_open} ref={menuRef}>
                             <ul className={styles.menu_items}>
                                 <li onClick={duplicateBoard} className={styles.menu_item}>
                                     <a className={styles.link} >

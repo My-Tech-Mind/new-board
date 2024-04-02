@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Input from '../../Input';
+import Input from '../../../Input';
 import styles from './index.module.css';
 
 const TaskBox = ({ card, onCreateTask, closeBox, title, buttonName }) => {

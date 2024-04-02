@@ -3,9 +3,9 @@ import { Draggable } from 'react-beautiful-dnd';
 import { FaPlus, FaTimes } from 'react-icons/fa';
 import Button from '../../components/Button';
 import styles from './index.module.css';
-import TaskMenuCrud from '../modalComponents/TaskMenuCrud';
+import TaskMenuCrud from '../modalComponents/Board/TaskMenuCrud';
 import { v4 as uuidv4 } from 'uuid';
-import TaskBox from '../modalComponents/TaskBox';
+import TaskBox from '../modalComponents/Board/TaskBox';
 
 const Tasks = ({ tasks, card }) => {
 

@@ -1,8 +1,6 @@
 import { useState } from 'react';
-// import Button from '../Button';
-import Input from '../../Input';
+import Input from '../../../Input';
 import styles from './index.module.css';
-
 
 const CardBox = ({ title, buttonName, onCreateOrEdit, onSave}) => {
     const [titleCard, setTitleCard] = useState('untitled')
