@@ -4,8 +4,8 @@ import Button from '../../components/Button';
 import Tasks from '../Tasks';
 import { FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
-import CardBox from '../modal/CardBox';
-import MenuCrud from '../modal/CardMenuCrud';
+import CardBox from '../modalComponents/CardBox';
+import MenuCrud from '../modalComponents/CardMenuCrud';
 import { v4 as uuidv4} from 'uuid';
 
 const Cards = () => {

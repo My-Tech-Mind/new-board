@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 import { FaPen } from "react-icons/fa";
 import styles from './index.module.css';
 import Cards from '../../components/Cards';
-import CardBox from '../../components/modal/CardBox';
+import CardBox from '../../components/modalComponents/CardBox';
 import {FaTimes} from 'react-icons/fa'
 
 const Board = () => {
