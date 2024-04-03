@@ -2,7 +2,7 @@ import { connection as knex } from '../../database/connection.js';
 import { refreshUpdateDateBoard } from '../../utils/refresh-update-date-board.js';
 
 const editCard = async (req, res) => {
-    const { title, board_id, ordenation } = req.body;
+    const { title, board_id } = req.body;
     const id = req.params.id;
 
     try {
@@ -36,8 +36,7 @@ const editCard = async (req, res) => {
 
         const editingCard = await knex('cards').update({
             title,
-            board_id,
-            ordenation
+            board_id
         }).where({ id }).returning('*');
 
         refreshUpdateDateBoard(board_id);
