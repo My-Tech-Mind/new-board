@@ -22,7 +22,7 @@ const createTask = async (req, res) => {
             title,
             description,
             card_id,
-            ordenation: numberOfTasks.length + 1
+            ordenation: numberOfTasks.length
         }).returning('*');
 
         refreshUpdateDateBoard(card.board_id);
