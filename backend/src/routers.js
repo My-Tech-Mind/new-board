@@ -28,9 +28,7 @@ import { validateLogin } from './middlewares/validations/validate-token.js'
 import { boardSchema } from './middlewares/joi/joi-schemas/board-schema.js';
 import { ordenateCardsSchema } from './middlewares/joi/joi-schemas/ordenate-cards-schema.js';
 import { ordenateTasksSchema } from './middlewares/joi/joi-schemas/ordenate-tasks-schema.js';
-import { cardCreateSchema } from './middlewares/joi/joi-schemas/card-create-schema.js';
 import { cardSchema } from './middlewares/joi/joi-schemas/card-schema.js';
-import { taskCreateSchema } from './middlewares/joi/joi-schemas/task-create-schema.js';
 import { taskSchema } from './middlewares/joi/joi-schemas/task-schema.js';
 
 const router = express.Router();
@@ -54,10 +52,10 @@ router.get('/board', validateQueryRequest(querySchema), listBoards);
 router.delete('/board/:id', validateParamsRequest(paramsSchema), deleteBoard);
 router.put('/card/ordenation', validateBodyRequest(ordenateCardsSchema), ordenateCards);
 router.put('/task/ordenation', validateBodyRequest(ordenateTasksSchema), ordenateTasks);
-router.post('/card', validateBodyRequest(cardCreateSchema), createCard);
+router.post('/card', validateBodyRequest(cardSchema), createCard);
 router.put('/card/:id', validateParamsRequest(paramsSchema), validateBodyRequest(cardSchema), editCard);
 router.delete('/card/:id', validateParamsRequest(paramsSchema), deleteCard);
-router.post('/task', validateBodyRequest(taskCreateSchema), createTask);
+router.post('/task', validateBodyRequest(taskSchema), createTask);
 router.put('/task/:id', validateParamsRequest(paramsSchema), validateBodyRequest(taskSchema), editTask);
 router.get('/task/:id', validateParamsRequest(paramsSchema), detailTask);
 router.delete('/task/:id', validateParamsRequest(paramsSchema), deleteTask);
