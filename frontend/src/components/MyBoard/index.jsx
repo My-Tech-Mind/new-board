@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import MenuCrud from '../MenuCrud';
 import styles from './index.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
 import LoadBoards from '../LoadBoards';
 import Modal from '../modalComponents/Boards/ModalEditBoard';
 import ModalDelete from '../modalComponents/Boards/ModalDelete';
@@ -98,7 +98,7 @@ const MyBoard = () => {
                                 {board.title}
                             </div>
                         )}
-                        <FontAwesomeIcon icon={faStar} className={board.favorito ? styles.icon_boards_star_active : styles.icon_boards_star_inactive} onClick={() => toggleFavorite(board.id)} />
+                        {/* <FontAwesomeIcon icon={faStar} className={board.favorito ? styles.icon_boards_star_active : styles.icon_boards_star_inactive} onClick={() => toggleFavorite(board.id)} /> */}
                         <MenuCrud boardsId={board.id}
                             onEdit={(text) => updateBoardTitle(board.id, text)}
                             onUpdate={() => handleDeleteBoard(board.id)}
@@ -109,7 +109,7 @@ const MyBoard = () => {
             <h1 className={styles.title}>Meus Boards</h1>
             <div className={styles.MyBoards}>
                 <div className={styles.add_board_container} onClick={() => handleCreateBoard()}>
-                    <FontAwesomeIcon icon={faPlus} className={styles.icon_boards_plus} />
+                    {/* <FontAwesomeIcon icon={faPlus} className={styles.icon_boards_plus} /> */}
                 </div>
                 <div className={styles.boards_container}>
                     {boards.map(board => (
@@ -130,10 +130,10 @@ const MyBoard = () => {
                                     {board.title}
                                 </div>
                             )}
-                            <FontAwesomeIcon
+                            {/* <FontAwesomeIcon
                                 icon={faStar}
                                 className={board.favorito ? styles.icon_boards_star_active : styles.icon_boards_star_inactive}
-                                onClick={() => toggleFavorite(board.id)} />
+                                onClick={() => toggleFavorite(board.id)} /> */}
                             <MenuCrud boardsId={board.id}
                                 onEdit={(text) => updateBoardTitle(board.id, text)}
                                 onUpdate={() => handleDeleteBoard(board.id)}
