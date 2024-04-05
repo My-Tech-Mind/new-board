@@ -1,32 +1,53 @@
+import { useState } from 'react';
 import Header from '../../components/Header';
-import styles from './index.module.css'
-import { FaEllipsisV } from "react-icons/fa";
-
+import { FaPen } from "react-icons/fa";
+import styles from './index.module.css';
+import Cards from '../../components/Cards';
+import CardBox from '../../components/modalComponents/Board/CardBox';
+import {FaTimes} from 'react-icons/fa'
 
 const Board = () => {
-    return ( 
+    const [openBoardTitleBox, setOpenBoardTitleBox] = useState(false)
+    const [titleBoard, setTitleBoard] = useState('Untitled')
+
+    const editBoardTitle = () => {
+        setOpenBoardTitleBox(!openBoardTitleBox)
+    }
+
+    const handleEditTitle = (title) => {
+        setTitleBoard(title)
+    }
+
+    const handleSaveCard = (save) => {
+        setOpenBoardTitleBox(!save)
+    }
+
+    return (
         <>
             <Header logged={true} />
+
             <div className={styles.main_board}>
-                <div>
-                    <h1 className={styles.board_title}>Board title</h1>
-                    {/* <button></button> */}
-                </div>
-                <div className={styles.board_container}>
-                    <div className={styles.card}>
-                        <div>
-                            <h2 className={styles.card_title}>Card title</h2>
-                            {/* icon */}
-                        </div>
-                        <div className={styles.task}>
-                            <h3 className={styles.task_title}>Task title Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure doloribus modi unde recusandae officiis mollitia tenetur. Numquam fugiat explicabo, repellendus aliquid blanditiis ex, nostrum, voluptatum doloremque eum tempora repudiandae repellat. </h3>
-                            <FaEllipsisV className={styles.icons} />
-                        </div>
+                {openBoardTitleBox && (
+                    <>
+                        <FaTimes className={styles.close_icon} onClick={editBoardTitle} />
+                        <CardBox title='Change board name' buttonName='Save' onSave={handleSaveCard}
+                        onCreateOrEdit={handleEditTitle} />
+                        
+                    </>
+                )}
+                <div className={styles.board_header}>
+                    <div className={styles.board_title_icon}>
+                        <h1 className={styles.board_title}>{titleBoard}</h1>
+                        <FaPen className={styles.icons} onClick={editBoardTitle} />
                     </div>
                 </div>
+
+                <div className={styles.board_container}>
+                    <Cards />
+                </div>
             </div>
-        </>
-     );
-}
- 
+</>
+);
+};
+
 export default Board;

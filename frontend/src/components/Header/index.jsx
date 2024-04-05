@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './index.module.css';
 import logo from '../../assets/logo-light.png';
 import Button from '../Button';
-import Menu from '../Menu';
+import Menu from '../modalComponents/Board/Menu';
 
 const Header = ({ logged }) => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
