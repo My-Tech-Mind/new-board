@@ -21,7 +21,7 @@ const createCard = async (req, res) => {
         const creatingCard = await knex('cards').insert({
             title,
             board_id,
-            ordenation: numberOfCards.length + 1
+            ordenation: numberOfCards.length
         }).returning('*');
 
         await refreshUpdateDateBoard(board_id);
