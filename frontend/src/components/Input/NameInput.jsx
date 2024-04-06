@@ -2,7 +2,7 @@
 import React from 'react';
 import Input from '../../components/Input/index';
 import styles from './index.module.css';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaRegUser } from "react-icons/fa";
 
 const NameInput = ({ name, placeholder, register, errors }) => {
     return (
@@ -15,7 +15,7 @@ const NameInput = ({ name, placeholder, register, errors }) => {
                     })
                 }
                 type='text' placeholder={placeholder} style={errors[name]?.message ? 'input_error' : 'input_default'} />
-            {/* <FontAwesomeIcon icon={['fa', 'user']} className={styles.icon} /> */}
+                <FaRegUser className={styles.icon} />
             <p className={styles.message_error}>{errors[name]?.message}</p>
         </div>
     );

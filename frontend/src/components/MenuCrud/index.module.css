@@ -20,7 +20,6 @@
 .ellipsis {
     color: var(--color-icons);
     font-size: 30px;
-    transform: rotate(90deg);
     cursor: pointer;
     position: absolute;
 }

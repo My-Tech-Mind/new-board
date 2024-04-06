@@ -1,5 +1,5 @@
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faEllipsis, faClone, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FaEllipsisVertical } from 'react-icons/fa6';
+import { FaRegClone, FaEdit, FaRegTrashAlt } from 'react-icons/fa';
 import styles from './index.module.css';
 import Modal from '../modalComponents/Boards/ModalEditBoard';
 import { useEffect, useRef, useState } from 'react';
@@ -59,27 +59,26 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
     return (
         <>
             <div className={styles.menu_icons_container}>
-
-                {/* <FontAwesomeIcon icon={faEllipsis} className={styles.ellipsis} onClick={toggleMenu} /> */}
+                <FaEllipsisVertical className={styles.ellipsis} onClick={toggleMenu} />
                 {
                     (menuOpen) && (
                         <nav className={styles.menu_open} ref={menuRef}>
                             <ul className={styles.menu_items}>
                                 <li onClick={duplicateBoard} className={styles.menu_item}>
                                     <a className={styles.link} >
-                                        {/* <FontAwesomeIcon icon={faClone} className={styles.icon} /> */}
+                                        <FaRegClone className={styles.icon} />
                                         <p className={styles.descriptions}>Duplicar</p>
                                     </a>
                                 </li>
                                 <li onClick={toggleEditMenu} className={styles.menu_item}>
                                     <a className={styles.link} >
-                                        {/* <FontAwesomeIcon icon={faEdit} className={styles.icon} /> */}
+                                        <FaEdit className={styles.icon} />
                                         <p className={styles.descriptions}>Editar</p>
                                     </a>
                                 </li>
                                 <li onClick={deleteBoard} className={styles.menu_item}>
                                     <a className={styles.link} >
-                                        {/* <FontAwesomeIcon icon={faTrash} className={styles.icon} /> */}
+                                        <FaRegTrashAlt className={styles.icon} />
                                         <p className={`${styles.descriptions} ${styles.text}`} >Excluir</p>
                                     </a>
                                 </li>

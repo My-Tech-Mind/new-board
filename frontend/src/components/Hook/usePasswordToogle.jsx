@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {FaEye} from 'react-icons/fa'
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const usePasswordToggle = () => {
     const [visible, setVisibility] = useState(true);

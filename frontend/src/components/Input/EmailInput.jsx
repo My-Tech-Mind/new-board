@@ -2,7 +2,7 @@
 import React from 'react';
 import Input from '../../components/Input/index';
 import styles from './index.module.css';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {SlEnvolope} from "react-icons/sl"
 
 const EmailInput = ({ name, placeholder, register, errors }) => {
     return (
@@ -15,7 +15,7 @@ const EmailInput = ({ name, placeholder, register, errors }) => {
                     })
                 }
                 type='email' placeholder={placeholder} style={errors[name]?.message ? 'input_error' : 'input_default'} />
-            {/* <FontAwesomeIcon icon={['fa', 'envelope']} className={styles.icon} /> */}
+            <SlEnvolope className={styles.icon} />
             <p className={styles.message_error}>{errors[name]?.message}</p>
         </div>
     );

@@ -6,8 +6,8 @@ import NameInput from '../../components/Input/NameInput';
 import EmailInput from '../../components/Input/EmailInput';
 import PasswordInput from '../../components/Input/PasswordInput';
 import Button from '../../components/Button';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
+import { FaEdit } from 'react-icons/fa';
 
 const Account = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
@@ -64,7 +64,7 @@ const Account = () => {
                         
                         <div className={styles.title_setting}>
                             <h2>Update account</h2>
-                            {/* <FontAwesomeIcon icon={['fa', 'edit']} className={styles.icon} /> */}
+                            <FaEdit className={styles.icon} />
                         </div>
 
                         <label htmlFor="name" className={styles.label}>Name</label>
