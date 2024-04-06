@@ -109,7 +109,7 @@ const Account = () => {
                             />
                         </div>
                         <div className={styles.container_button}>
-                            <Button title="Save" style="default" />
+                            <Button buttonType="submit" title="Save" style="default" />
                         </div>
 
                         <div className={styles.line}>

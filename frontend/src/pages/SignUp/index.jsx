@@ -50,7 +50,7 @@ const SignUp = () => {
                             watch={watch}
                         />
                         <div className={styles.container_buttons}>
-                            <Button type='submit' title='Continue' style='default' />
+                            <Button buttonType='submit' title='Continue' style='default' />
                         </div>
                         <Link className={styles.container_account} to="/login">Back to login</Link>
                     </div>

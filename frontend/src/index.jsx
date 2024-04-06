@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App.jsx';
-// import "./components/FontAwesomeIcons"
 
 ReactDOM.render(
   <React.StrictMode>
