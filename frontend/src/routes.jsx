@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Boards from './pages/Boards'
 import Board from './pages/Board'
+import Teste from './pages/Teste'
 
 
 const PagesNavigation = () => {
@@ -17,6 +18,7 @@ const PagesNavigation = () => {
                 <Route path='/boards' element={<Boards />} />
                 <Route path='/board' element={<Board />} />
                 <Route path='/account' element={<Account />} />
+                <Route path='/teste' element={<Teste />} />
             </Routes>
         </BrowserRouter>
     );
