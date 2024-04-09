@@ -435,7 +435,7 @@ Return data: N/A
 ##### Example of Body Request (JSON)
 
 ```javascript
-// DELETE/user
+// DELETE/board/1
 // No content in the request body
 ```
 
