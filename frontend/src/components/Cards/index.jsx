@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Button from '../../components/Button';
 import Tasks from '../Tasks';
@@ -6,7 +6,9 @@ import { FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
 import CardBox from '../modalComponents/Board/CardBox';
 import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
-import { v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
+import { createCard } from '../../services/api/card/card'
+import { api } from '../../services/api/api';
 
 const Cards = () => {
 
@@ -42,6 +44,7 @@ const Cards = () => {
     const [cardToBeEdited, setCardToBeEdited] = useState({})
     const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
     const [openEditCardBox, setOpenEditCardBox] = useState(false)
+    const [response, setResponse] = useState({})
 
     const onDragEnd = (result) => {
         
@@ -154,21 +157,31 @@ const Cards = () => {
         setCards(cardsCopy)
     }
 
-    const handleCreateCard = (title) => {
-        if (cards.length < 10) {
-            setNewId(uuidv4().slice(0,3))
-            const newCard = {
-                id: newId,
-                title,
-                tasks: []
+        const handleCreateCard = async (title1) => {
+            if (cards.length < 10) {
+                // localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyNjY3MzEyLCJleHAiOjE3MTI3NTM3MTJ9.I5pgyfSoI900N_k3l22CqwBWvARytZ6Lazi0MFOLFXY')
+
+               const result = await api.post('/card', { title: title1, board_id: "5" })
+                    .then(response => {
+                        console.log(response.data)
+                        setResponse(response.data)
+                        
+                        return response.data
+                    }).catch(error => error.data)
+                    
+                    const { id, title, ...rest } = result
+                    const card = { id: `${id}`, title, tasks: [] }
+                    console.log('card', card)
+                    console.log('result', result)
+                    cards.push(card)
+                    setCards(cards)
+                    
+            } else {
+                console.log('erro: não pode criar mais que 5 cards')
             }
-    
-            cards.push(newCard)
-            setCards(cards) 
-        } else {
-            console.log('erro: não pode criar mais que 5 cards')
         }
-    }
+
+    // console.log('response', response)
 
     const handleEditCard = (card) => {
         setOpenEditCardBox(true)
