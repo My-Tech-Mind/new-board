@@ -8,7 +8,6 @@ import CardBox from '../modalComponents/Board/CardBox';
 import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
 import { v4 as uuidv4 } from 'uuid';
 import { createCard } from '../../services/api/card/card'
-import { api } from '../../services/api/api';
 
 const Cards = () => {
 
@@ -159,29 +158,20 @@ const Cards = () => {
 
         const handleCreateCard = async (title1) => {
             if (cards.length < 10) {
-                // localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyNjY3MzEyLCJleHAiOjE3MTI3NTM3MTJ9.I5pgyfSoI900N_k3l22CqwBWvARytZ6Lazi0MFOLFXY')
-
-               const result = await api.post('/card', { title: title1, board_id: "5" })
-                    .then(response => {
-                        console.log(response.data)
-                        setResponse(response.data)
-                        
-                        return response.data
-                    }).catch(error => error.data)
-                    
-                    const { id, title, ...rest } = result
-                    const card = { id: `${id}`, title, tasks: [] }
-                    console.log('card', card)
-                    console.log('result', result)
-                    cards.push(card)
-                    setCards(cards)
-                    
-            } else {
-                console.log('erro: não pode criar mais que 5 cards')
+                // localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyNzU0MTMzLCJleHAiOjE3MTI4NDA1MzN9.QCux2fBardpO3L0HvAqHYCwMQr9DhM51WieXH-5IQ9I')
+            try {
+                const response = await createCard({ title: title1, board_id: "5" })
+                const { id, title } = response
+                const card = { id: `${id}`, title, tasks: [] }
+                setCards([...cards, card])                    
+            } catch (error) {
+                console.log('erro:',error.message)
             }
-        }
-
-    // console.log('response', response)
+                                 
+            } else {
+                console.log(`error: It's not allowed to create more than 10 cards.`)
+            }
+    }
 
     const handleEditCard = (card) => {
         setOpenEditCardBox(true)
