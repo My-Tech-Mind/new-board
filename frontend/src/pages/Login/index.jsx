@@ -4,20 +4,38 @@ import PasswordInput from '../../components/Input/PasswordInput';
 import EmailInput from '../../components/Input/EmailInput';
 import ilustrationLogin from '../../assets/ilustrationLogin.png';
 import logoLight from '../../assets/logo-light.png';
+import loadingLogin from '../../assets/loading-login.gif';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { login } from '../../services/api/auth';
 
 
 const Login = () => {
+    const [ loading, setLoading ] = useState(false);
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
-    const navigate = useNavigate();
-    function handleLogin(data, event) {
-        console.log(data);
-        event.preventDefault();
-        navigate('/boards');
+    async function handleLogin(data, event) {
+        try{
+            setLoading(true)
+            event.preventDefault();
+            const register = await login(data);
+            if(register?.token){
+                await localStorage.setItem('token', register.token);
+                const logged = localStorage.getItem("token");
+                if(logged){
+                    setLoading(false)
+                    window.location = "/boards";
+                }
+            }else{
+                setLoading(false)
+            }
+        }catch(error){
+           
+        }
     }
     return (
         <>
+            {loading && <span  className={styles.login}><img src={loadingLogin} alt="Loading..."/></span>}
             <main>
                 <div className={styles.container_image}>
                     <img src={ilustrationLogin} alt='Ilustration' />
