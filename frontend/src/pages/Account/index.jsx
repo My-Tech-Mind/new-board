@@ -28,12 +28,12 @@ const Account = () => {
     return (
         <>
             <Header logged={true} />
-            <main>
+            <main className = {styles.main}>
                 <div className={styles.form_container}>
                     
-                    <h1>My account</h1>
+                    <h1 className={styles.h1}>My account</h1>
                     <form onSubmit={handleSubmit(handleUpdateAccount)} className={styles.account_form}>
-                        <h2>Theme</h2>
+                        <h2 className={styles.h2}>Theme</h2>
                         <div>
                             <label className={styles.label}>
                                 <input
@@ -87,7 +87,7 @@ const Account = () => {
                             />
                         </div>
                     
-                        <h2>Change password</h2>
+                        <h2 className={styles.h2}>Change password</h2>
                         <label htmlFor="password" className={styles.label}>Current Password</label>
                         <div className={styles.input_container}>
                             <PasswordInput

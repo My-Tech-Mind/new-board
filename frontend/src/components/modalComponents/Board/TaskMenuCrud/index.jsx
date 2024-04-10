@@ -66,7 +66,7 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
                         }}
                     >
                         <ul className={styles.menu_items}>
-                            <li>
+                            <li className={styles.item}>
                                 <div
                                     className={styles.crud_option}
                                     onMouseDown={() => onDuplicateTask(taskWithPosition)}
@@ -78,7 +78,7 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
                                 </div>
                             </li>
                     
-                            <li>
+                            <li className={styles.item}>
                                 <div
                                     className={styles.crud_option}
                                     onMouseDown={() => onEditTask(taskWithPosition)}
@@ -94,7 +94,7 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
                                 </div>
                             </li>
                     
-                            <li>
+                            <li className={styles.item}>
                                 <div
                                     className={styles.crud_option}
                                     onMouseDown={() => onDeleteTask(taskWithPosition)}

@@ -5,6 +5,7 @@ import styles from './index.module.css';
 import Cards from '../../components/Cards';
 import CardBox from '../../components/modalComponents/Board/CardBox';
 import {FaTimes} from 'react-icons/fa'
+import LimitError from '../../components/modalComponents/LimitError';
 
 const Board = () => {
     const [openBoardTitleBox, setOpenBoardTitleBox] = useState(false)
@@ -25,7 +26,7 @@ const Board = () => {
     return (
         <>
             <Header logged={true} />
-
+            <LimitError />
             <div className={styles.main_board}>
                 {openBoardTitleBox && (
                     <>
