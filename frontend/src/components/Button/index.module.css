@@ -9,6 +9,7 @@
     font-size: 16px;
     text-decoration: none;
     cursor: pointer;
+    margin: 10px;
 }
 
 .default:hover {
@@ -32,7 +33,7 @@
     background-color: var(--color-negative-hover);
 }
 
-.login {
+.outline {
     width: var(--button-width-mobile);
     height: var(--button-height-mobile);
     border-radius: 20px;
@@ -43,9 +44,10 @@
     font-size: 16px;
     text-decoration: none;
     cursor: pointer;
+    margin: 10px;
 }
 
-.login:hover {
+.outline:hover {
     background-color: var(--color-hover-login);
 }
 
@@ -96,10 +98,9 @@
         height: var(--button-height-desktop);
     }
 
-    .login {
-        margin: 20px;
-        width: 100px;
-        height: 40px;
+    .outline {
+        width: var(--button-width-desktop);
+        height: var(--button-height-desktop);
     }
 
     .negative {

@@ -27,6 +27,10 @@
     justify-content: space-between;
 }
 
+.board_title {
+    font-size: 14pt;
+}
+
 .board_title_icon {
     display: flex;
     align-items: center;

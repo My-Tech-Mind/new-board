@@ -28,7 +28,7 @@ const CardBox = ({ title, buttonName, onCreateOrEdit, onSave}) => {
                 <div className={styles.form_container}>
                     <label className={styles.label}>Board title</label>
                     <Input className={styles.input} onChange={handleTitleCardValue} />
-                    {caracteresOver && <p className={styles.caracteres_message}>Máximo de 20 caracteres</p>}
+                    {caracteresOver && <p className={styles.caracteres_message}>Maximum of 20 characters</p>}
                 </div>
                 <button onClick={handleCreateOrEdit} className={styles.save_button}>{buttonName}</button>
             </div>

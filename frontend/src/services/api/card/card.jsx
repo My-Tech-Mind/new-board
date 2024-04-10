@@ -9,35 +9,41 @@ const createCard = async (card) => {
     } catch (error) {
         console.log(error.message)
     }
-    
-        // .then(response => {
-        //     console.log(response.data)
-        //     return response.data
-        // }).catch(error => error.data)
 }
 
-const updateCard = async (card) => {
-    await api.put(`/card/${card.id}`, card)
-        .then(response => {
-            console.log(response.data)
-            return response.data
-    }).catch(error => console.log(error))
+const updateCard = async (id, card) => {
+    try {
+        const response = await api.put(`/card/${id}`, card)
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 const deleteCard = async (id) => {
-    await api.delete('/card/id')
-        .then(response => {
-            console.log(response.data)
-            return response.data
-    }).catch(error => console.log(error))
+    try {
+        const response = await api.delete(`/card/${id}`)
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 const ordenateCard = async (card) => {
-    await api.put('/card/ordenation', card)
-        .then(response => {
-            console.log(response.data)
-            return response.data
-    }).catch(error => console.log(error))
+    try {
+        const response = await api.put('/card/ordenation', card)
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        console.log(error.message)
+    }
+    // await api.put('/card/ordenation', card)
+    //     .then(response => {
+    //         console.log(response.data)
+    //         return response.data
+    // }).catch(error => console.log(error))
 }
 
 export {

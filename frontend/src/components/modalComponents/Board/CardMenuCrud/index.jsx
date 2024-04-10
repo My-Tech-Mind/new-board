@@ -62,7 +62,7 @@ const CardMenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
                         }}
                     >
                         <ul className={styles.menu_items}>
-                            <li>
+                            <li className={styles.item}>
                                 <div
                                     className={styles.crud_option}
                                     onMouseDown={() => onDuplicate(cardWithPosition)}
@@ -77,7 +77,7 @@ const CardMenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
                                     </p>
                                 </div>
                             </li>
-                            <li>
+                            <li className={styles.item}>
                                 <div
                                     className={styles.crud_option}
                                     onMouseDown={() => onEdit(cardWithPosition)}
@@ -91,10 +91,10 @@ const CardMenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
                                     </p>
                                 </div>
                             </li>
-                            <li>
+                            <li className={styles.item}>
                                 <div
                                     className={styles.crud_option}
-                                    onClick={() => onDelete(index)}
+                                    onClick={() => onDelete(card.id, index)}
                                 >
                                     <FaRegTrashAlt className={` ${styles.trash}`} />
                                     <p className={`${styles.menu_crud_title} ${styles.text}`}>
