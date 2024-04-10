@@ -30,8 +30,8 @@ html {
   --background-color-dark: #171717;
   --background-color-header-dark: #1e1e1e;
   --shadow: #00000075;
-  --button-width-desktop: 280px;
-  --button-width-mobile: 200px;
+  --button-width-desktop: 180px;
+  --button-width-mobile: 150px;
   --button-height-desktop: 40px;
   --button-height-mobile: 40px;
 }

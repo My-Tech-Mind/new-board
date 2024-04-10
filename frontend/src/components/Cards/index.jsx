@@ -7,7 +7,7 @@ import styles from './index.module.css';
 import CardBox from '../modalComponents/Board/CardBox';
 import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
 import { v4 as uuidv4 } from 'uuid';
-import { createCard } from '../../services/api/card/card'
+import { createCard, deleteCard, ordenateCard, updateCard } from '../../services/api/card/card'
 
 const Cards = () => {
 
@@ -62,11 +62,12 @@ const Cards = () => {
 
             const cardMoved = {
                 cardId: draggableId,
-                cardSourcePosition: source.index,
-                cardDestinationPosition: destination.index,
+                cardIdSourcePosition: source.index,
+                cardIdDestinationPosition: destination.index,
             }
 
             setMovedPosition(cardMoved)
+            handleOrdenateCard(cardMoved)
             
             
         } else if (type === 'task') {
@@ -80,6 +81,7 @@ const Cards = () => {
             }
 
             setMovedPosition(taskMoved)
+            // handleOrdenateCard()
 
             const sourceCard = cards.find((card) => card.id === source.droppableId);
             const destinationCard = cards.find((card) => card.id === destination.droppableId);
@@ -129,6 +131,8 @@ const Cards = () => {
         }
     };
 
+    console.log(movedPosition)
+
     const handleDuplicateCard = (card) => {
 
         if (cards.length < 10) {
@@ -145,31 +149,33 @@ const Cards = () => {
         cards.splice(card.index + 1, 0, createdCard)
         setCards(cards) 
         } else {
-            console.log("erro: não pode criar mais cards")
+            window.alert("error: It is not allowed to create more then 10 cards")
         }
     }
 
-    const handleDeleteCard = (index) => {
-        const cardsCopy = [...cards]
-
-        cardsCopy.splice(index, 1)
-        setCards(cardsCopy)
+    const handleDeleteCard = async (id, index) => {
+        try {
+            await deleteCard(id)
+            const cardsCopy = [...cards]
+            cardsCopy.splice(index, 1)
+            setCards(cardsCopy)
+        } catch (error) {
+            console.log(error.message)
+        }  
     }
 
-        const handleCreateCard = async (title1) => {
+        const handleCreateCard = async (cardTitle) => {
             if (cards.length < 10) {
                 // localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyNzU0MTMzLCJleHAiOjE3MTI4NDA1MzN9.QCux2fBardpO3L0HvAqHYCwMQr9DhM51WieXH-5IQ9I')
             try {
-                const response = await createCard({ title: title1, board_id: "5" })
+                const response = await createCard({ title: cardTitle, board_id: "5" })
                 const { id, title } = response
                 const card = { id: `${id}`, title, tasks: [] }
                 setCards([...cards, card])                    
             } catch (error) {
-                console.log('erro:',error.message)
-            }
-                                 
-            } else {
-                console.log(`error: It's not allowed to create more than 10 cards.`)
+                console.log(error.message)
+            }} else {
+                window.alert(`error: It's not allowed to create more than 10 cards.`)
             }
     }
 
@@ -178,16 +184,28 @@ const Cards = () => {
         setCardToBeEdited(card)
     }
 
-    const handleEditTitle = (newTitle) => {
-        const { title, index, ...cardWithoutTitleIndex } = cardToBeEdited
-        const updatedCard = {
-            title: newTitle,
-            ...cardWithoutTitleIndex
-        }
-        const cardsCopy = [...cards]
+    const handleEditTitle = async (newTitle) => {
+        const card = {title: newTitle, board_id: "5"}
+        try {
+            const response = await updateCard(cardToBeEdited.id, card)
+            const { id, title } = response
+            const updatedCard = { id: `${id}`, title, tasks: cardToBeEdited.tasks }
+            const cardsCopy = [...cards]
+            cardsCopy.splice(cardToBeEdited.index, 1, updatedCard)
+            setCards(cardsCopy)
 
-        cardsCopy.splice(cardToBeEdited.index, 1, updatedCard)
-        setCards(cardsCopy)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    const handleOrdenateCard = async (ordenation) => {
+        try {
+            const response = await ordenateCard(ordenation)
+            return response
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 
     const handleSaveCard = (save) => {
