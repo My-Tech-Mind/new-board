@@ -1,13 +1,19 @@
 import { api } from "../api"
 
 const createCard = async (card) => {
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyNjY3MzEyLCJleHAiOjE3MTI3NTM3MTJ9.I5pgyfSoI900N_k3l22CqwBWvARytZ6Lazi0MFOLFXY')
-
-    await api.post('/card', card)
-        .then(response => {
-            console.log(response.data)
-            return response.data
-        }).catch(error => error.data)
+    // localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyNjY3MzEyLCJleHAiOjE3MTI3NTM3MTJ9.I5pgyfSoI900N_k3l22CqwBWvARytZ6Lazi0MFOLFXY')
+    try {
+        const response = await api.post('/card', card)
+        console.log('resp', response.data)
+        return response.data
+    } catch (error) {
+        console.log(error.message)
+    }
+    
+        // .then(response => {
+        //     console.log(response.data)
+        //     return response.data
+        // }).catch(error => error.data)
 }
 
 const updateCard = async (card) => {
