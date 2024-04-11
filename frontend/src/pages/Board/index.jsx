@@ -26,7 +26,7 @@ const Board = () => {
     return (
         <>
             <Header logged={true} />
-            <LimitError />
+            {/* <LimitError /> */}
             <div className={styles.main_board}>
                 {openBoardTitleBox && (
                     <>

@@ -8,6 +8,7 @@ import CardBox from '../modalComponents/Board/CardBox';
 import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
 import { v4 as uuidv4 } from 'uuid';
 import { createCard, deleteCard, ordenateCard, updateCard } from '../../services/api/card/card'
+import LimitError from '../modalComponents/LimitError';
 
 const Cards = () => {
 
@@ -43,7 +44,7 @@ const Cards = () => {
     const [cardToBeEdited, setCardToBeEdited] = useState({})
     const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
     const [openEditCardBox, setOpenEditCardBox] = useState(false)
-    const [response, setResponse] = useState({})
+    const [limitPlan, setLimitPlan] = useState(false)
 
     const onDragEnd = (result) => {
         
@@ -81,7 +82,6 @@ const Cards = () => {
             }
 
             setMovedPosition(taskMoved)
-            // handleOrdenateCard()
 
             const sourceCard = cards.find((card) => card.id === source.droppableId);
             const destinationCard = cards.find((card) => card.id === destination.droppableId);
@@ -149,7 +149,7 @@ const Cards = () => {
         cards.splice(card.index + 1, 0, createdCard)
         setCards(cards) 
         } else {
-            window.alert("error: It is not allowed to create more then 10 cards")
+            setLimitPlan(true)
         }
     }
 
@@ -166,7 +166,7 @@ const Cards = () => {
 
         const handleCreateCard = async (cardTitle) => {
             if (cards.length < 10) {
-                // localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyNzU0MTMzLCJleHAiOjE3MTI4NDA1MzN9.QCux2fBardpO3L0HvAqHYCwMQr9DhM51WieXH-5IQ9I')
+                localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyODQ4NjQyLCJleHAiOjE3MTI5MzUwNDJ9.CE9bwFgDcESm6U48sw9IBuK8prN5ShzsZvUACoRv2Fs')
             try {
                 const response = await createCard({ title: cardTitle, board_id: "5" })
                 const { id, title } = response
@@ -175,7 +175,8 @@ const Cards = () => {
             } catch (error) {
                 console.log(error.message)
             }} else {
-                window.alert(`error: It's not allowed to create more than 10 cards.`)
+                console.log(`error: it's not allowed to create more than 10 card in the free plan.`)
+                setLimitPlan(true)
             }
     }
 
@@ -227,7 +228,7 @@ const Cards = () => {
                 openCreateCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={openCloseCardBox} />
-                        < CardBox title='Card title' buttonName='Create' onCreateOrEdit={handleCreateCard} onSave={ handleSaveCard } />
+                        < CardBox title='Create card' buttonName='Create' onCreateOrEdit={handleCreateCard} onSave={ handleSaveCard } />
                     </>
                 )
             }
@@ -236,10 +237,13 @@ const Cards = () => {
                 openEditCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={openEditTitleCard} />
-                        < CardBox title='Card title' buttonName='Save' onEdit={handleEditCard} onCreateOrEdit={handleEditTitle} onSave={ handleSaveCard }/>
+                        < CardBox title='Edit card' buttonName='Save' onEdit={handleEditCard} onCreateOrEdit={handleEditTitle} onSave={ handleSaveCard }/>
                         
                     </>
                 )
+            }
+            {
+                limitPlan && (<LimitError/>)
             }
             <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="all-cards" direction="horizontal" type='card' key= "all-cards">
