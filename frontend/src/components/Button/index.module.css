@@ -38,7 +38,7 @@
     height: var(--button-height-mobile);
     border-radius: 20px;
     border: solid var(--color3) 2px;
-    background-color: var(--background-color);
+    background-color: transparent;
     color: var(--color3);
     font-weight: 600;
     font-size: 16px;
