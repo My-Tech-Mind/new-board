@@ -166,7 +166,7 @@ const Cards = () => {
 
         const handleCreateCard = async (cardTitle) => {
             if (cards.length < 10) {
-                localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyODQ4NjQyLCJleHAiOjE3MTI5MzUwNDJ9.CE9bwFgDcESm6U48sw9IBuK8prN5ShzsZvUACoRv2Fs')
+                localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyOTQ0MTYwLCJleHAiOjE3MTMwMzA1NjB9.GB5KLt5lei-Z1ohhHSvrQi8GbYTyQQcZbxG1WAPHhuU')
             try {
                 const response = await createCard({ title: cardTitle, board_id: "5" })
                 const { id, title } = response
@@ -175,7 +175,7 @@ const Cards = () => {
             } catch (error) {
                 console.log(error.message)
             }} else {
-                console.log(`error: it's not allowed to create more than 10 card in the free plan.`)
+                // console.log(`error: it's not allowed to create more than 10 card in the free plan.`)
                 setLimitPlan(true)
             }
     }
