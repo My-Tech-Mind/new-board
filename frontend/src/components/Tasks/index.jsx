@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { FaPlus, FaTimes } from 'react-icons/fa';
 import Button from '../../components/Button';
@@ -6,7 +6,14 @@ import styles from './index.module.css';
 import TaskMenuCrud from '../modalComponents/Board/TaskMenuCrud';
 import { v4 as uuidv4 } from 'uuid';
 import TaskBox from '../modalComponents/Board/TaskBox';
-
+import {
+  deleteTask,
+  createTask,
+  updateTask,
+  ordenateTask,
+  getTask
+} from '../../services/api/task/task';
+import { updateCard } from '../../services/api/card/card';
 const Tasks = ({ tasks, card }) => {
 
   const [idTask, setIdTask] = useState(uuidv4().slice(0, 3))
@@ -14,6 +21,7 @@ const Tasks = ({ tasks, card }) => {
   const [openTaskBox, setOpenTaskBox] = useState(false)
   const [TaskToBeEdited, setTaskToBeEdited] = useState({})
   const [CardToBeEdited, setCardToBeEdited] = useState({})
+  const [updatedCard, setUpdatedCard] = useState(card)
   const limiteTasks = 20
 
   const handleDuplicateTask = (data) => {
@@ -38,24 +46,40 @@ const Tasks = ({ tasks, card }) => {
     }
   }
 
-  const handleDeleteTask = (data) => {
-    setIdTask(uuidv4().slice(0, 3))
-    const {card, task} = data
-    card.tasks.splice(task.taskIndex, 1)
+  const handleDeleteTask = async (data) => {
+    // setIdTask(uuidv4().slice(0, 3))
+    const {task} = data
+    try {
+      const response = await deleteTask(task.id)
+      card.tasks.splice(task.taskIndex, 1)
+      console.log(response)
+      return task
+    } catch (error) {
+      console.log(error.message)
+    }    
+    // card.tasks.splice(task.taskIndex, 1)
   }
 
-  const handleCreateTask = (card, title, description) => {
-    if (tasks.length < limiteTasks) {
-      const newId = uuidv4().slice(0, 4)
-    const newTask = {
-      id: newId,
-      title,
-      description
-    }
+  // handleDeleteTask().then((resp) => {
+  //   card.tasks.splice(resp.taskIndex, 1)
+  // })
 
-    card.tasks.push(newTask)
+  const handleCreateTask = async (card, title, description) => {
+    if (tasks.length < limiteTasks) {
+      try {
+        const task = {card_id: card.id, title, description}
+        const response = await createTask(task)
+        card.tasks.push(response)
+        setUpdatedCard(card)
+        card = updatedCard
+                
+        console.log(response)
+      } catch (error) {
+        console.log(error.message)
+      }
+      // card.tasks.push(newTask)
     } else {
-      console.log('erro: não pode criar mais que 20 tasks')
+      window.alert(`You can't create more tha 20 tasks`)
     }
   }
 
