@@ -1,0 +1,109 @@
+.default {
+    width: var(--button-width-mobile);
+    height: var(--button-height-mobile);
+    border-radius: 20px;
+    border: none;
+    background-color: var(--color1);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.default:hover {
+    background-color: var(--color-hover);
+}
+
+.negative {
+    width: var(--button-width-mobile);
+    height: var(--button-height-mobile);
+    border-radius: 20px;
+    border: none;
+    background-color: var(--color-negative);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.negative:hover {
+    background-color: var(--color-negative-hover);
+}
+
+.login {
+    width: var(--button-width-mobile);
+    height: var(--button-height-mobile);
+    border-radius: 20px;
+    border: solid var(--color3) 2px;
+    background-color: var(--background-color);
+    color: var(--color3);
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.login:hover {
+    background-color: var(--color-hover-login);
+}
+
+.board_button {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--color2);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 11pt;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.card_button {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--color1);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.task_button {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--color1);
+    color: #000;
+    font-weight: 600;
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+@media screen and (min-width: 768px) {
+    .default {
+        width: var(--button-width-desktop);
+        height: var(--button-height-desktop);
+    }
+
+    .login {
+        margin: 20px;
+        width: 100px;
+        height: 40px;
+    }
+
+    .negative {
+        width: var(--button-width-desktop);
+        height: var(--button-height-desktop);
+    }
+}

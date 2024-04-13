@@ -1,0 +1,104 @@
+.container {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-direction: column;
+    width: 100%;
+    margin: 10px;
+    bottom: 10px;
+    z-index: 2;
+}
+
+.MyBoards,
+.MyFavoriteBoards {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    align-items: left;
+    flex-direction: row;
+}
+
+.boards_container {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-wrap: wrap;
+}
+
+.boards {
+    width: 160px;
+    height: 110px;
+    margin: 10px 25px 10px 0px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    background-color: var(--color1);
+    cursor: pointer;
+}
+
+.boards_name {
+    width: 102px;
+    height: auto;
+    background-color: var(--color1);
+    border: none;
+    text-align: center;
+    outline: none;
+    font-weight: 700;
+    font-size: large;
+    resize: none;
+    color: var(--background-color);
+    overflow-wrap: break-word;
+}
+
+.boards_name::placeholder {
+    font-weight: 700;
+    font-size: large;
+    color: var(--background-color);
+    opacity: 1.5;
+}
+
+.add_board_container {
+    width: 160px;
+    height: 110px;
+    display: flex;
+    margin: 10px 26px 10px 0px;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-avatar-circle);
+    cursor: pointer;
+}
+
+.icon_boards_plus {
+    font-size: 40px;
+    color: var(--shadow);
+}
+
+.icon_boards_star_active {
+    font-size: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: yellow;
+    cursor: pointer;
+}
+
+.icon_boards_star_inactive {
+    font-size: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--shadow);
+    cursor: pointer;
+}
+
+.containerModal {
+    z-index: 1;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
