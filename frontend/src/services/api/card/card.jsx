@@ -7,7 +7,7 @@ const createCard = async (card) => {
         console.log('resp', response.data)
         return response.data
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
     }
 }
 
