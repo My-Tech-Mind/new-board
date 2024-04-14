@@ -65,18 +65,10 @@ const LoadBoards = () => {
             console.error('Erro ao alternar favorito do board:', error);
         }
     };
-    const detailBoard = async (boardId) => {
-        try {
-            console.log(boardId)
-            await detailBoards(boardId);
-        } catch (error) {
-            console.error('Erro ao listar os cards:', error);
-        }
-
-    }
 
 
-    return { boards, toggleFavorite, deleteBoard, createBoard, updateBoardTitle, detailBoard };
+
+    return { boards, toggleFavorite, deleteBoard, createBoard, updateBoardTitle };
 };
 
 export default LoadBoards;
