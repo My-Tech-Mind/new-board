@@ -42,23 +42,11 @@ const deleteBoards = async (id) => {
     }
 }
 
-const detailBoards = async (id) => {
-
-    try {
-        const response = await api.get(`/board/${id}`);
-        return response.data;
-    } catch (error) {
-        console.log(error.message)
-    }
-
-}
-
 export {
     createBoards,
     updateBoards,
     deleteBoards,
-    listBoards,
-    detailBoards
+    listBoards
     //,
     // ordenateCard
 }

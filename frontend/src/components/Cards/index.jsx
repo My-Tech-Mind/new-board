@@ -7,7 +7,7 @@ import styles from './index.module.css';
 import CardBox from '../modalComponents/Board/CardBox';
 import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
 import { v4 as uuidv4 } from 'uuid';
-import { createCard, deleteCard, ordenateCard, updateCard } from '../../services/api/card/card'
+import { createCard, deleteCard, ordenateCard, updateCard } from '../../services/api/card/card';
 import LimitError from '../modalComponents/LimitError';
 
 const Cards = () => {
@@ -35,11 +35,11 @@ const Cards = () => {
                 }
             ]
         },
-    ];   
+    ];
 
     let [cards, setCards] = useState(initialCards);
     const [movedPosition, setMovedPosition] = useState({})
-    const initialId = uuidv4().slice(0,3)
+    const initialId = uuidv4().slice(0, 3)
     const [newId, setNewId] = useState(initialId)
     const [cardToBeEdited, setCardToBeEdited] = useState({})
     const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
@@ -47,7 +47,7 @@ const Cards = () => {
     const [limitPlan, setLimitPlan] = useState(false)
 
     const onDragEnd = (result) => {
-        
+
         const { draggableId, destination, source, type } = result;
 
         if (!destination) {
@@ -58,7 +58,7 @@ const Cards = () => {
             const newCards = Array.from(cards);
             const [movedCard] = newCards.splice(source.index, 1);
             newCards.splice(destination.index, 0, movedCard);
-        
+
             setCards(newCards);
 
             const cardMoved = {
@@ -69,8 +69,8 @@ const Cards = () => {
 
             setMovedPosition(cardMoved)
             handleOrdenateCard(cardMoved)
-            
-            
+
+
         } else if (type === 'task') {
 
             const taskMoved = {
@@ -137,17 +137,17 @@ const Cards = () => {
 
         if (cards.length < 10) {
             setNewId(uuidv4().slice(0, 3))
-        
-        const copyTitle = card.title + ` (copy)`
-        const newTasks = card.tasks.map((task) => {
-            const { id, ...rest } = task
-            return {id: uuidv4().slice(0, 3), ...rest}
-        })
 
-        const createdCard = { id: newId, title: copyTitle, tasks: newTasks }
+            const copyTitle = card.title + ` (copy)`
+            const newTasks = card.tasks.map((task) => {
+                const { id, ...rest } = task
+                return { id: uuidv4().slice(0, 3), ...rest }
+            })
 
-        cards.splice(card.index + 1, 0, createdCard)
-        setCards(cards) 
+            const createdCard = { id: newId, title: copyTitle, tasks: newTasks }
+
+            cards.splice(card.index + 1, 0, createdCard)
+            setCards(cards)
         } else {
             setLimitPlan(true)
         }
@@ -161,23 +161,24 @@ const Cards = () => {
             setCards(cardsCopy)
         } catch (error) {
             console.log(error.message)
-        }  
+        }
     }
 
-        const handleCreateCard = async (cardTitle) => {
-            if (cards.length < 10) {
-                localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyOTQ0MTYwLCJleHAiOjE3MTMwMzA1NjB9.GB5KLt5lei-Z1ohhHSvrQi8GbYTyQQcZbxG1WAPHhuU')
+    const handleCreateCard = async (cardTitle) => {
+        if (cards.length < 10) {
+            localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyOTQ0MTYwLCJleHAiOjE3MTMwMzA1NjB9.GB5KLt5lei-Z1ohhHSvrQi8GbYTyQQcZbxG1WAPHhuU')
             try {
                 const response = await createCard({ title: cardTitle, board_id: "5" })
                 const { id, title } = response
                 const card = { id: `${id}`, title, tasks: [] }
-                setCards([...cards, card])                    
+                setCards([...cards, card])
             } catch (error) {
                 console.log(error.message)
-            }} else {
-                // console.log(`error: it's not allowed to create more than 10 card in the free plan.`)
-                setLimitPlan(true)
             }
+        } else {
+            // console.log(`error: it's not allowed to create more than 10 card in the free plan.`)
+            setLimitPlan(true)
+        }
     }
 
     const handleEditCard = (card) => {
@@ -186,7 +187,7 @@ const Cards = () => {
     }
 
     const handleEditTitle = async (newTitle) => {
-        const card = {title: newTitle, board_id: "5"}
+        const card = { title: newTitle, board_id: "5" }
         try {
             const response = await updateCard(cardToBeEdited.id, card)
             const { id, title } = response
@@ -228,7 +229,7 @@ const Cards = () => {
                 openCreateCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={openCloseCardBox} />
-                        < CardBox title='Create card' buttonName='Create' onCreateOrEdit={handleCreateCard} onSave={ handleSaveCard } />
+                        < CardBox title='Create card' buttonName='Create' onCreateOrEdit={handleCreateCard} onSave={handleSaveCard} />
                     </>
                 )
             }
@@ -237,16 +238,16 @@ const Cards = () => {
                 openEditCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={openEditTitleCard} />
-                        < CardBox title='Edit card' buttonName='Save' onEdit={handleEditCard} onCreateOrEdit={handleEditTitle} onSave={ handleSaveCard }/>
-                        
+                        < CardBox title='Edit card' buttonName='Save' onEdit={handleEditCard} onCreateOrEdit={handleEditTitle} onSave={handleSaveCard} />
+
                     </>
                 )
             }
             {
-                limitPlan && (<LimitError/>)
+                limitPlan && (<LimitError />)
             }
             <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="all-cards" direction="horizontal" type='card' key= "all-cards">
+                <Droppable droppableId="all-cards" direction="horizontal" type='card' key="all-cards">
                     {(provided) => (
                         <div
                             ref={provided.innerRef}
@@ -260,13 +261,13 @@ const Cards = () => {
                                         draggableId={card.id}
                                         index={index}
                                     >
-                                    {(provided) => (
-                                        <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            className={styles.card}
-                                        >
-                                            <div className={styles.card_title_container} {...provided.dragHandleProps}>
+                                        {(provided) => (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                className={styles.card}
+                                            >
+                                                <div className={styles.card_title_container} {...provided.dragHandleProps}>
                                                     <h2
                                                         className={styles.card_title}
                                                         onClick={openEditTitleCard}
@@ -274,22 +275,22 @@ const Cards = () => {
                                                     >
                                                         {card.title}
                                                     </h2>
-                                                    
+
                                                     <CardMenuCrud
                                                         card={card}
                                                         index={index}
                                                         onDuplicate={handleDuplicateCard}
                                                         onDelete={handleDeleteCard}
                                                         onEdit={handleEditCard}
-                                                        onEditTitle={handleEditTitle} />          
-                                            </div>
-                                                
+                                                        onEditTitle={handleEditTitle} />
+                                                </div>
+
                                                 <Droppable
                                                     droppableId={card.id}
                                                     key={card.id}
                                                     type="task"
                                                 >
-                                                {(provided) => (
+                                                    {(provided) => (
                                                         <div
                                                             ref={provided.innerRef}
                                                             {...provided.droppableProps}
@@ -299,12 +300,12 @@ const Cards = () => {
                                                                 card={card}
                                                             />
                                                             {provided.placeholder}
-                                                        </div>   
-                                                )}
-                                                    
-                                            </Droppable>
-                                        </div>
-                                    )}
+                                                        </div>
+                                                    )}
+
+                                                </Droppable>
+                                            </div>
+                                        )}
                                     </Draggable>
                                 </div>
                             ))}
