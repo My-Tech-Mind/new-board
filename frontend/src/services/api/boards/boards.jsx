@@ -1,11 +1,10 @@
-import { api } from "../api"
-
+import { api } from "../api";
 
 const listBoards = async () => {
     localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzMTEzNDU0LCJleHAiOjE3MTMxOTk4NTR9.tkEDMcW2fObTqdzfgWreOBWL5YvvlUddpPyTJo2Av7A');
     try {
-        let boards = await api.get('./board');
-        return boards.data;
+        let response = await api.get('./board');
+        return response.data;
     } catch (error) {
         console.log(error.message)
     }
@@ -39,31 +38,27 @@ const deleteBoards = async (id) => {
         console.log(response.data)
         return response.data
     } catch (error) {
-        console.log(error.message)
+
     }
 }
 
+const detailBoards = async (id) => {
 
-// const ordenateBoards = async (card) => {
-//     try {
-//         const response = await api.put('/card/ordenation', card)
-//         console.log(response.data)
-//         return response.data
-//     } catch (error) {
-//         console.log(error.message)
-//     }
-// await api.put('/card/ordenation', card)
-//     .then(response => {
-//         console.log(response.data)
-//         return response.data
-// }).catch(error => console.log(error))
-//}
+    try {
+        const response = await api.get(`/board/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log(error.message)
+    }
+
+}
 
 export {
     createBoards,
     updateBoards,
     deleteBoards,
-    listBoards
+    listBoards,
+    detailBoards
     //,
     // ordenateCard
 }
