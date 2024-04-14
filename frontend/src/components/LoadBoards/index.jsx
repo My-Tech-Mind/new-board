@@ -1,57 +1,74 @@
-import boardsData from '../../Boards.json';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { listBoards, createBoards, deleteBoards, updateBoards } from '../../services/api/boards/boards';
 
-const LoadBoards = ({ setBoards }) => {
+const LoadBoards = () => {
+    const [boards, setBoards] = useState([]);
+
     useEffect(() => {
-        const storedBoards = JSON.parse(localStorage.getItem('boards'));
-        const initialBoards = storedBoards ? storedBoards : boardsData.Myboards;
+        const fetchBoards = async () => {
+            try {
+                const fetchedBoards = await listBoards();
+                setBoards(fetchedBoards);
+            } catch (error) {
+                console.error('Erro ao carregar boards:', error);
+            }
+        };
+        fetchBoards();
+    }, []);
 
-        setBoards(initialBoards);
-        localStorage.setItem('boards', JSON.stringify(initialBoards));
-    }, [setBoards]);
-
-    const deleteBoard = (boardId) => {
-        setBoards(prevBoards => {
-            const updatedBoards = prevBoards.filter(board => board.id !== boardId);
-            updateLocalStorage(updatedBoards);
-            return updatedBoards;
-        });
+    const deleteBoard = async (boardId) => {
+        try {
+            await deleteBoards(boardId);
+            setBoards(prevBoards => prevBoards.filter(board => board.id !== boardId));
+        } catch (error) {
+            console.error('Erro ao excluir board:', error);
+        }
     };
 
-    const createBoard = (tamanho, nome) => {
-        setBoards(prevBoards => {
-            const newBoard = { id: "board_" + tamanho, title: nome, favorito: false };
-            const updatedBoards = [...prevBoards, newBoard];
-            updateLocalStorage(updatedBoards);
-            return updatedBoards;
-        });
+    const createBoard = async (title) => {
+        try {
+            const newBoard = await createBoards({ title });
+            setBoards(prevBoards => [...prevBoards, newBoard]);
+        } catch (error) {
+            console.error('Erro ao criar board:', error);
+        }
     };
 
-    const updateBoardTitle = (boardId, newTitle) => {
-        setBoards(prevBoards => {
-            const updatedBoards = prevBoards.map(board =>
-                board.id === boardId ? { ...board, title: newTitle } : board
-            );
-            updateLocalStorage(updatedBoards);
-            return updatedBoards;
-        });
+    const updateBoardTitle = async (boardId, newTitle) => {
+        try {
+            await updateBoards(boardId, { title: newTitle });
+            setBoards(prevBoards => prevBoards.map(board => board.id === boardId ? { ...board, title: newTitle } : board));
+        } catch (error) {
+            console.error('Erro ao atualizar título do board:', error);
+        }
     };
 
-    const toggleFavorite = (boardId) => {
-        setBoards(prevBoards => {
-            const updatedBoards = prevBoards.map(board =>
-                board.id === boardId ? { ...board, favorito: !board.favorito } : board
-            );
-            updateLocalStorage(updatedBoards);
-            return updatedBoards;
-        });
+    const toggleFavorite = async (boardId) => {
+        try {
+            // Encontra o board pelo ID
+            const targetBoard = boards.find(board => board.id === boardId);
+
+            if (targetBoard) {
+                const newFavoriteValue = !targetBoard.favorited;
+
+                // Atualiza o board localmente com o novo valor do favorito
+                setBoards(prevBoards => prevBoards.map(board => {
+                    if (board.id === boardId) {
+                        return { ...board, favorited: newFavoriteValue };
+                    }
+                    return board;
+                }));
+
+                // Atualiza o board no servidor para refletir a mudança
+                await updateBoards(boardId, { title: targetBoard.title, favorited: newFavoriteValue });
+            }
+        } catch (error) {
+            console.error('Erro ao alternar favorito do board:', error);
+        }
     };
 
-    const updateLocalStorage = (boards) => {
-        localStorage.setItem('boards', JSON.stringify(boards));
-    };
 
-    return { toggleFavorite, deleteBoard, createBoard, updateBoardTitle };
+    return { boards, toggleFavorite, deleteBoard, createBoard, updateBoardTitle };
 };
 
 export default LoadBoards;
