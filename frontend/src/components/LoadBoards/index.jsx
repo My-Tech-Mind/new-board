@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { listBoards, createBoards, deleteBoards, updateBoards } from '../../services/api/boards/boards';
+import { listBoards, createBoards, deleteBoards, updateBoards, detailBoards } from '../../services/api/boards/boards';
 
 const LoadBoards = () => {
     const [boards, setBoards] = useState([]);
-
     useEffect(() => {
         const fetchBoards = async () => {
             try {
@@ -66,9 +65,18 @@ const LoadBoards = () => {
             console.error('Erro ao alternar favorito do board:', error);
         }
     };
+    const detailBoard = async (boardId) => {
+        try {
+            console.log(boardId)
+            await detailBoards(boardId);
+        } catch (error) {
+            console.error('Erro ao listar os cards:', error);
+        }
+
+    }
 
 
-    return { boards, toggleFavorite, deleteBoard, createBoard, updateBoardTitle };
+    return { boards, toggleFavorite, deleteBoard, createBoard, updateBoardTitle, detailBoard };
 };
 
 export default LoadBoards;
