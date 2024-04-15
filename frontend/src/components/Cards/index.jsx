@@ -9,35 +9,12 @@ import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
 import { v4 as uuidv4 } from 'uuid';
 import { createCard, deleteCard, ordenateCard, updateCard } from '../../services/api/card/card';
 import LimitError from '../modalComponents/LimitError';
+import detailBoard from '../../services/api/board/board';
+import { useParams } from 'react-router-dom';
 
 const Cards = () => {
 
-    const initialCards = [
-        {
-            id: '1',
-            title: 'card 1',
-            tasks: [
-                {
-                    id: '1',
-                    title: 'task 1',
-                    description: 'description 1'
-                }
-            ]
-        },
-        {
-            id: '2',
-            title: 'card 2',
-            tasks: [
-                {
-                    id: '2',
-                    title: 'task 2',
-                    description: 'description 2'
-                }
-            ]
-        },
-    ];
-
-    let [cards, setCards] = useState(initialCards);
+    let [cards, setCards] = useState([]);
     const [movedPosition, setMovedPosition] = useState({})
     const initialId = uuidv4().slice(0, 3)
     const [newId, setNewId] = useState(initialId)
@@ -46,6 +23,21 @@ const Cards = () => {
     const [openEditCardBox, setOpenEditCardBox] = useState(false)
     const [limitPlan, setLimitPlan] = useState(false)
     const [cardWithTask, setCardWithTask] = useState(null)
+    const {boardId} = useParams()
+
+    useEffect(() => {
+        const handleGetBoard = async () => {
+            try {
+                const response = await detailBoard(boardId)
+                setCards(response.cards)
+                console.log(response)
+                return response
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
+        handleGetBoard()
+    }, [])
 
     const onDragEnd = (result) => {
 
@@ -169,7 +161,7 @@ const Cards = () => {
         if (cards.length < 10) {
             localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyOTQ0MTYwLCJleHAiOjE3MTMwMzA1NjB9.GB5KLt5lei-Z1ohhHSvrQi8GbYTyQQcZbxG1WAPHhuU')
             try {
-                const response = await createCard({ title: cardTitle, board_id: "5" })
+                const response = await createCard({ title: cardTitle, board_id: boardId })
                 const { id, title } = response
                 const card = { id: `${id}`, title, tasks: [] }
                 setCards([...cards, card])

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import { FaPen } from "react-icons/fa";
 import styles from './index.module.css';
@@ -6,10 +6,24 @@ import Cards from '../../components/Cards';
 import CardBox from '../../components/modalComponents/Board/CardBox';
 import {FaTimes} from 'react-icons/fa'
 import LimitError from '../../components/modalComponents/LimitError';
+import detailBoard from '../../services/api/board/board';
+import { useParams } from 'react-router-dom';
 
 const Board = () => {
     const [openBoardTitleBox, setOpenBoardTitleBox] = useState(false)
-    const [titleBoard, setTitleBoard] = useState('Untitled')
+    const [titleBoard, setTitleBoard] = useState('')
+    const {boardId} = useParams()
+    useEffect(() => {
+        const handleGetTitleBoard = async () => {
+            try {
+                const response = await detailBoard(boardId)
+                setTitleBoard(response.title)
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
+        handleGetTitleBoard()
+    }, [])
 
     const editBoardTitle = () => {
         setOpenBoardTitleBox(!openBoardTitleBox)
