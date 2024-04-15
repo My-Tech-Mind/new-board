@@ -263,11 +263,11 @@ Return data: N/A
 
 #### Create board route: `[POST]/board`
 
-Description: This route is used to create a board for the logged-in user in the application.
+Description: This route is used to create a board, with the initial cards cards (to, doing, done), for the logged-in user in the application.
 
 Sent data: title, favorited
 
-Return data: id, title, favorited, user_id, creation_date, update_date
+Return data: id, title, favorited, user_id, creation_date, update_date, cards (to, doing, done) with tasks
 
 ##### Example of Body Request (JSON)
 
@@ -284,12 +284,35 @@ Return data: id, title, favorited, user_id, creation_date, update_date
 ```javascript
 // HTTP Status 201
 {
-    "id": 1,
-    "title": "Week tasks",
-    "favorited": "false",
-    "user_id": 2,
-    "creation_date": "2024-03-23 15:21:57",
-    "update_date": "2024-03-23 15:21:57"
+	"id": 62,
+	"title": "Week tasks",
+	"favorited": false,
+	"user_id": 9,
+	"creation_date": "2024-04-15 20:37:47",
+	"update_date": "2024-04-15 20:37:47",
+	"cards": [
+		{
+			"id": 90,
+			"title": "to do",
+			"board_id": 62,
+			"ordenation": 1,
+			"tasks": []
+		},
+		{
+			"id": 91,
+			"title": "doing",
+			"board_id": 62,
+			"ordenation": 2,
+			"tasks": []
+		},
+		{
+			"id": 92,
+			"title": "done",
+			"board_id": 62,
+			"ordenation": 3,
+			"tasks": []
+		}
+	]
 }
 ```
 
@@ -331,7 +354,7 @@ Description: This route is used to show the data of a board owned by the logged-
 
 Sent data: N/A
 
-Return data: id, title, favorited, user_id, creation_date, update_date
+Return data: id, title, favorited, user_id, creation_date, update_date, cards (id, title, board_id, ordenation) with tasks (id, title, description, card_id, ordenation)
 
 ##### Example of Body Request (JSON)
 
