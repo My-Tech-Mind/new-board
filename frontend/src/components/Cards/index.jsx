@@ -45,6 +45,7 @@ const Cards = () => {
     const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
     const [openEditCardBox, setOpenEditCardBox] = useState(false)
     const [limitPlan, setLimitPlan] = useState(false)
+    const [cardWithTask, setCardWithTask] = useState(null)
 
     const onDragEnd = (result) => {
 
@@ -223,6 +224,20 @@ const Cards = () => {
         setOpenEditCardBox(!openEditCardBox)
     }
 
+    const handleUpdateCards = (card) => {
+        if(cardWithTask) {
+            setCardWithTask(card)
+            setCards([...cards, cardWithTask])
+        }
+        
+        console.log('card do componente filho', card)
+    }
+
+    useEffect(() => {
+            handleUpdateCards(cardWithTask)
+            // setCards([...cards, cardWithTask])
+    }, [cardWithTask])
+
     return (
         <>
             {
@@ -298,6 +313,7 @@ const Cards = () => {
                                                             <Tasks
                                                                 tasks={card.tasks}
                                                                 card={card}
+                                                                onUpdatedCard={handleUpdateCards}
                                                             />
                                                             {provided.placeholder}
                                                         </div>

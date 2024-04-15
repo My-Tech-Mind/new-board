@@ -39,11 +39,6 @@ const ordenateCard = async (card) => {
     } catch (error) {
         console.log(error.message)
     }
-    // await api.put('/card/ordenation', card)
-    //     .then(response => {
-    //         console.log(response.data)
-    //         return response.data
-    // }).catch(error => console.log(error))
 }
 
 export {
