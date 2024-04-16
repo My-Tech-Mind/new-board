@@ -6,37 +6,35 @@ import { FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
 import CardBox from '../modalComponents/Board/CardBox';
 import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
-import { v4 as uuidv4 } from 'uuid';
 import { createCard, deleteCard, ordenateCard, updateCard } from '../../services/api/card/card';
 import LimitError from '../modalComponents/LimitError';
 import detailBoard from '../../services/api/board/board';
 import { useParams } from 'react-router-dom';
+import { createTask } from '../../services/api/task/task';
 
 const Cards = () => {
 
     let [cards, setCards] = useState([]);
-    const [movedPosition, setMovedPosition] = useState({})
-    const initialId = uuidv4().slice(0, 3)
-    const [newId, setNewId] = useState(initialId)
-    const [cardToBeEdited, setCardToBeEdited] = useState({})
-    const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
-    const [openEditCardBox, setOpenEditCardBox] = useState(false)
-    const [limitPlan, setLimitPlan] = useState(false)
-    const [cardWithTask, setCardWithTask] = useState(null)
-    const {boardId} = useParams()
+    const [movedPosition, setMovedPosition] = useState({});
+    const [cardToBeEdited, setCardToBeEdited] = useState({});
+    const [openCreateCardBox, setOpenCreateCardBox] = useState(false);
+    const [openEditCardBox, setOpenEditCardBox] = useState(false);
+    const [limitPlan, setLimitPlan] = useState(false);
+    const [cardWithTask, setCardWithTask] = useState(null);
+    const { boardId } = useParams();
 
     useEffect(() => {
         const handleGetBoard = async () => {
             try {
-                const response = await detailBoard(boardId)
-                setCards(response.cards)
-                console.log(response)
-                return response
+                const response = await detailBoard(boardId);
+                setCards(response.cards);
+                console.log(response);
+                return response;
             } catch (error) {
-                console.log(error.message)
+                console.log(error.message);
             }
         }
-        handleGetBoard()
+        handleGetBoard();
     }, [])
 
     const onDragEnd = (result) => {
@@ -126,21 +124,68 @@ const Cards = () => {
 
     console.log(movedPosition)
 
-    const handleDuplicateCard = (card) => {
-
+        
+    const handleDuplicateCard = async (card) => {
         if (cards.length < 10) {
-            setNewId(uuidv4().slice(0, 3))
+                try {
+                    const newTitle = card.title + ' (copy)'
+                    const cardCopy = {title: newTitle, board_id: boardId}
+                    const responseCard = await createCard(cardCopy)
 
-            const copyTitle = card.title + ` (copy)`
-            const newTasks = card.tasks.map((task) => {
-                const { id, ...rest } = task
-                return { id: uuidv4().slice(0, 3), ...rest }
-            })
+                    card.tasks.map((task, index) => {
+                        const req = {title: task.title, card_id: responseCard.id}
+                        const handleCreateTask = async () => {
+                            try {
+                                const responseTask = await createTask(req)
+                                console.log(`task ${index} criada:`, responseTask)
+                                return responseTask;
+                            } catch (error) {
+                                console.log('erro na criação da task', error.message)
+                            }
+                        }
+                        handleCreateTask()
+                    })
 
-            const createdCard = { id: newId, title: copyTitle, tasks: newTasks }
+                    const handleGetBoard = async () => {
+                        try {
+                            const response = await detailBoard(boardId)
+                            console.log('detalhamento do board dentro:', response)
+                            const cardDuplicated = response.cards.filter((theCard) => {
+                                return theCard.id == responseCard.id
+                            })
+                            console.log('card duplicado:',cardDuplicated)
+                            return response
+                        } catch (error) {
+                            console.log('erro no detalhamento do board', error.message)
+                        }
+                    }
+                    handleGetBoard()
+                    
+                } catch (error) {
+                    console.log('erro na criação do card',error.message)
+                }
+            
+            // console.log('todos os cards:', board.cards)
+            // const cardDuplicated = board.cards.filter((theCard) => {
+            //     return theCard.id == card.id
+            // })
 
-            cards.splice(card.index + 1, 0, createdCard)
-            setCards(cards)
+            // console.log('card duplicado:', cardDuplicated)
+            // return cardDuplicated
+
+
+            // setNewId(uuidv4().slice(0, 3))
+
+            // const copyTitle = card.title + ` (copy)`
+            // const newTasks = card.tasks.map((task) => {
+            //     const { id, ...rest } = task
+            //     return { id: uuidv4().slice(0, 3), ...rest }
+            // })
+
+            // const createdCard = { id: newId, title: copyTitle, tasks: newTasks }
+
+            // cards.splice(card.index + 1, 0, createdCard)
+            // setCards(cards)
         } else {
             setLimitPlan(true)
         }
@@ -159,7 +204,7 @@ const Cards = () => {
 
     const handleCreateCard = async (cardTitle) => {
         if (cards.length < 10) {
-            localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEyOTQ0MTYwLCJleHAiOjE3MTMwMzA1NjB9.GB5KLt5lei-Z1ohhHSvrQi8GbYTyQQcZbxG1WAPHhuU')
+            localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEzMjkxNzA5LCJleHAiOjE3MTMzNzgxMDl9.vTekjqZwdxAS-UCUXNCpqVeCo4q9FkJBz5RuPukIqps')
             try {
                 const response = await createCard({ title: cardTitle, board_id: boardId })
                 const { id, title } = response
