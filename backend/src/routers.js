@@ -11,6 +11,7 @@ import { listBoards } from './controllers/boards/list-boards.js';
 import { deleteBoard } from './controllers/boards/delete-board.js';
 import { createCard } from './controllers/cards/create-card.js';
 import { editCard } from './controllers/cards/edit-card.js';
+import { detailCard } from './controllers/cards/detail-card.js';
 import { deleteCard } from './controllers/cards/delete-card.js';
 import { createTask } from './controllers/tasks/create-task.js';
 import { editTask } from './controllers/tasks/edit-task.js';
@@ -54,6 +55,7 @@ router.put('/card/ordenation', validateBodyRequest(ordenateCardsSchema), ordenat
 router.put('/task/ordenation', validateBodyRequest(ordenateTasksSchema), ordenateTasks);
 router.post('/card', validateBodyRequest(cardSchema), createCard);
 router.put('/card/:id', validateParamsRequest(paramsSchema), validateBodyRequest(cardSchema), editCard);
+router.get('/card/:id', validateParamsRequest(paramsSchema), detailCard);
 router.delete('/card/:id', validateParamsRequest(paramsSchema), deleteCard);
 router.post('/task', validateBodyRequest(taskSchema), createTask);
 router.put('/task/:id', validateParamsRequest(paramsSchema), validateBodyRequest(taskSchema), editTask);
