@@ -74,7 +74,7 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
                                 >
                                     <FaRegClone
                                         className={`${styles.crud_icons} ${styles.icon}`} />
-                                            <p className={styles.menu_crud_title}>Duplicar</p>
+                                            <p className={styles.menu_crud_title}>Duplicate</p>
                                 </div>
                             </li>
                     
@@ -89,7 +89,7 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
                                         className={`${styles.crud_icons} ${styles.icon}`}
                                     />
                                     <p className={styles.menu_crud_title}>
-                                        Editar
+                                        Edit
                                     </p>
                                 </div>
                             </li>
@@ -104,7 +104,7 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
                                         className={` ${styles.trash}`}
                                     />
                                     <p className={`${styles.menu_crud_title} ${styles.text}`}>
-                                        Excluir
+                                        Delete
                                     </p>
                                 </div>
                             </li>
