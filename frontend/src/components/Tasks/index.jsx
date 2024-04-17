@@ -50,8 +50,8 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
     const {task} = data
     try {
       const response = await deleteTask(task.id)
-      const cardWithoutTask = card.tasks.splice(task.taskIndex, 1)
-      onUpdatedCard(cardWithoutTask)
+      card.tasks.splice(task.taskIndex, 1)
+      onUpdatedCard(card)
       return response
     } catch (error) {
       console.log(error.message)

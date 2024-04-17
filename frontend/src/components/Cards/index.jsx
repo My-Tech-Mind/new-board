@@ -135,42 +135,50 @@ const Cards = () => {
         
     const handleDuplicateCard = async (card) => {
         if (cards.length < 10) {
-                try {
-                    const newTitle = card.title + ' (copy)'
-                    const cardCopy = {title: newTitle, board_id: boardId}
-                    const responseCard = await createCard(cardCopy)
+            const newTitle = card.title + ' (copy)'
+            const cardCopy = { title: newTitle, board_id: boardId }
 
-                    card.tasks.map((task, index) => {
-                        const req = {title: task.title, card_id: responseCard.id}
-                        const handleCreateTask = async () => {
-                            try {
-                                const responseTask = await createTask(req)
-                                console.log(`task ${index} criada:`, responseTask)
-                                return responseTask;
-                            } catch (error) {
-                                console.log('erro na criação da task', error.message)
-                            }
-                        }
-                        handleCreateTask()
-                    })
+            try {
+              const responseCard = await createCard(cardCopy)
+            
+              const createTasks = card.tasks.map(async (task, index) => {
+                const req = { title: task.title, card_id: responseCard.id }
+                try {
+                  const responseTask = await createTask(req)
+                  console.log(`task ${index} criada:`, responseTask)
+                  return responseTask
+                } catch (error) {
+                  console.log(error.message)
+                }
+              })
+            
+              await Promise.all(createTasks)
 
                     const handleGetBoard = async () => {
                         try {
                             const response = await detailBoard(boardId)
-                            console.log('detalhamento do board dentro:', response)
-                            const cardDuplicated = response.cards.filter((theCard) => {
+                            const responseStringIds = response.cards.map((theCard) => {
+                                return {
+                                    ...theCard,
+                                    id: String(theCard.id)
+                                }
+                            })
+
+                            console.log('resp id string',responseStringIds)
+                            const cardDuplicated = responseStringIds.filter((theCard) => {
                                 return theCard.id == responseCard.id
                             })
-                            console.log('card duplicado:',cardDuplicated)
-                            return response
+
+                            setCards([...cards, cardDuplicated[0]])
+                            
                         } catch (error) {
-                            console.log('erro no detalhamento do board', error.message)
+                            console.log(error.message)
                         }
                     }
                     handleGetBoard()
                     
                 } catch (error) {
-                    console.log('erro na criação do card',error.message)
+                    console.log(error.message)
                 }
             
             // console.log('todos os cards:', board.cards)
