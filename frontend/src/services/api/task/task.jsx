@@ -32,7 +32,7 @@ const ordenateTask = async (taskOrdenation) => {
         const response = await api.put(`task/ordenation`, taskOrdenation)
         return response.data
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
 }
 

@@ -16,7 +16,7 @@ import {
 import { updateCard } from '../../services/api/card/card';
 const Tasks = ({ tasks, card, onUpdatedCard }) => {
 
-  const [idTask, setIdTask] = useState(uuidv4().slice(0, 3))
+  // const [idTask, setIdTask] = useState(uuidv4().slice(0, 3))
   const [openEditTaskBox, setOpenEditTaskBox] = useState(false)
   const [openTaskBox, setOpenTaskBox] = useState(false)
   const [TaskToBeEdited, setTaskToBeEdited] = useState({})
@@ -24,23 +24,21 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
   const [updatedCard, setUpdatedCard] = useState(null)
   const limiteTasks = 20
 
-  const handleDuplicateTask = (data) => {
+  const handleDuplicateTask = async (data) => {
     if (tasks.length < limiteTasks) {
       const { card, task } = data
+      console.log('data:', data)
+      try {
+        const req = {title: task.title, card_id: card.id}
+        const response = await createTask(req)
+        const {id, title, description} = response
+        const newTask = { id: `${id}`, title, description }
+        card.tasks.splice(task.taskIndex + 1, 0, newTask)
+        onUpdatedCard(card)
+      } catch (error) {
+        console.log(error.message)
+      }
 
-    setIdTask(uuidv4().slice(0, 3))
-
-    const copyTitle = task.title + ` (copy)`
-    const newIndex = task.taskIndex + 1
-    const { id, title, taskIndex, ...description } = task
-    
-    const duplicatedTask = {
-      id: idTask,
-      title: copyTitle,
-      taskindex: newIndex,
-      description
-    }
-    card.tasks.splice(newIndex, 0, duplicatedTask)
     } else {
       console.log('erro: não pode criar mais de 20 tasks por card')
     }

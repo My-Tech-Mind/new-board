@@ -10,12 +10,11 @@ import { createCard, deleteCard, ordenateCard, updateCard } from '../../services
 import LimitError from '../modalComponents/LimitError';
 import detailBoard from '../../services/api/board/board';
 import { useParams } from 'react-router-dom';
-import { createTask } from '../../services/api/task/task';
+import { createTask, ordenateTask } from '../../services/api/task/task';
 
 const Cards = () => {
 
     let [cards, setCards] = useState([]);
-    const [movedPosition, setMovedPosition] = useState({});
     const [cardToBeEdited, setCardToBeEdited] = useState({});
     const [openCreateCardBox, setOpenCreateCardBox] = useState(false);
     const [openEditCardBox, setOpenEditCardBox] = useState(false);
@@ -65,22 +64,11 @@ const Cards = () => {
                 cardIdSourcePosition: source.index,
                 cardIdDestinationPosition: destination.index,
             }
+            console.log(result)
 
-            setMovedPosition(cardMoved)
             handleOrdenateCard(cardMoved)
 
-
         } else if (type === 'task') {
-
-            const taskMoved = {
-                taskId: draggableId[5],
-                taskSourcePosition: source.index,
-                taskDestinationPosition: destination.index,
-                cardIdSource: source.droppableId,
-                cardIdDestination: destination.droppableId,
-            }
-
-            setMovedPosition(taskMoved)
 
             const sourceCard = cards.find((card) => card.id === source.droppableId);
             const destinationCard = cards.find((card) => card.id === destination.droppableId);
@@ -125,13 +113,20 @@ const Cards = () => {
                 );
 
                 setCards(newCards);
-
+                console.log('result', result)
             }
+
+            const taskMoved = {
+                taskId: draggableId.slice(5, draggableId.length),
+                taskSourcePosition: source.index,
+                taskSourceDestination: destination.index,
+                cardIdSource: source.droppableId,
+                cardIdDestination: destination.droppableId,
+            }
+
+            handleOrdenateTask(taskMoved)
         }
     };
-
-    console.log(movedPosition)
-
         
     const handleDuplicateCard = async (card) => {
         if (cards.length < 10) {
@@ -181,27 +176,6 @@ const Cards = () => {
                     console.log(error.message)
                 }
             
-            // console.log('todos os cards:', board.cards)
-            // const cardDuplicated = board.cards.filter((theCard) => {
-            //     return theCard.id == card.id
-            // })
-
-            // console.log('card duplicado:', cardDuplicated)
-            // return cardDuplicated
-
-
-            // setNewId(uuidv4().slice(0, 3))
-
-            // const copyTitle = card.title + ` (copy)`
-            // const newTasks = card.tasks.map((task) => {
-            //     const { id, ...rest } = task
-            //     return { id: uuidv4().slice(0, 3), ...rest }
-            // })
-
-            // const createdCard = { id: newId, title: copyTitle, tasks: newTasks }
-
-            // cards.splice(card.index + 1, 0, createdCard)
-            // setCards(cards)
         } else {
             setLimitPlan(true)
         }
@@ -230,7 +204,6 @@ const Cards = () => {
                 console.log(error.message)
             }
         } else {
-            // console.log(`error: it's not allowed to create more than 10 card in the free plan.`)
             setLimitPlan(true)
         }
     }
@@ -264,6 +237,16 @@ const Cards = () => {
         }
     }
 
+    const handleOrdenateTask = async (ordenation) => {
+        try {
+            const response = await ordenateTask(ordenation)
+            console.log('ord', response)
+            return response
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const handleSaveCard = (save) => {
         setOpenEditCardBox(!save)
         setOpenCreateCardBox(!save)
@@ -276,15 +259,6 @@ const Cards = () => {
     const openEditTitleCard = () => {
         setOpenEditCardBox(!openEditCardBox)
     }
-
-    // const handleUpdateCards = (card) => {
-    //     if(cardWithTask) {
-    //         setCardWithTask(card)
-    //         setCards([...cards, cardWithTask])
-    //     }
-        
-    //     console.log('card do componente filho', card)
-    // }
 
     const handleUpdateCards = (card) => {
         const updatedCards = cards.map((theCard) => {

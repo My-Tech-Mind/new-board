@@ -73,7 +73,7 @@ const CardMenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
                                     ${styles.icon}`}
                                     />
                                     <p className={styles.menu_crud_title}>
-                                        Duplicar
+                                        Duplicate
                                     </p>
                                 </div>
                             </li>
@@ -87,7 +87,7 @@ const CardMenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
                                         className={`${styles.crud_icons} ${styles.icon}`}
                                     />
                                     <p className={styles.menu_crud_title}>
-                                        Editar
+                                        Edit
                                     </p>
                                 </div>
                             </li>
@@ -98,7 +98,7 @@ const CardMenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
                                 >
                                     <FaRegTrashAlt className={` ${styles.trash}`} />
                                     <p className={`${styles.menu_crud_title} ${styles.text}`}>
-                                        Excluir
+                                        Delete
                                     </p>
                                 </div>
                             </li>
