@@ -47,49 +47,37 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
   }
 
   const handleDeleteTask = async (data) => {
-    // setIdTask(uuidv4().slice(0, 3))
     const {task} = data
     try {
       const response = await deleteTask(task.id)
-      card.tasks.splice(task.taskIndex, 1)
-      console.log(response)
-      return task
+      const cardWithoutTask = card.tasks.splice(task.taskIndex, 1)
+      onUpdatedCard(cardWithoutTask)
+      return response
     } catch (error) {
       console.log(error.message)
     }    
-    // card.tasks.splice(task.taskIndex, 1)
   }
-
-  // handleDeleteTask().then((resp) => {
-  //   card.tasks.splice(resp.taskIndex, 1)
-  // })
 
   const handleCreateTask = async (card, title1, description1) => {
     if (tasks.length < limiteTasks) {
       try {
-        const task = {card_id: card.id, title: title1, description: description1}
-        const response = await createTask(task)
-        const { id, title, description } = response
-        const taskCreated = {id: `${id}`, title, description}
-        card.tasks.push(taskCreated)
-        console.log('card criado:', card)
-        setUpdatedCard(card)
-        // onUpdatedCard(card)
-                
-        console.log(response)
+        const task = {
+          card_id: card.id,
+          title: title1,
+          description: description1
+        };
+        const response = await createTask(task);
+        const { id, title, description } = response;
+        const taskCreated = { id: `${id}`, title, description };
+        card.tasks.push(taskCreated);
+        onUpdatedCard(card);
       } catch (error) {
         console.log(error.message)
       }
-      // card.tasks.push(newTask)
     } else {
-      window.alert(`You can't create more tha 20 tasks`)
+      window.alert(`You can't create more than 20 tasks`)
     }
   }
-console.log("updatedCard batata", updatedCard)
-  useEffect(() => {
-      onUpdatedCard(updatedCard)
-    
-}, [updatedCard])
 
   const handleEditTask = (cardAndTask) => {
     const { card, task } = cardAndTask
@@ -98,15 +86,32 @@ console.log("updatedCard batata", updatedCard)
     setOpenEditTaskBox(true)
   }
 
-  const handleEditTitleTask = (card, titleTask, descriptionTask) => {
-    const {title, description, ...taskWithoutTitleDescription} = TaskToBeEdited
-    const newTask = {
-      title: titleTask,
-      description: descriptionTask,
-      ...taskWithoutTitleDescription
+  const handleEditTitleTask = async (card, titleTask, descriptionTask) => {
+
+    try {
+      const {id, taskIndex} = TaskToBeEdited
+      const newTask = {
+        card_id: `${card.id}`,
+        title: titleTask,
+        description: descriptionTask,
+      }
+
+      const response = await updateTask(id, newTask)
+
+      const taskUpdated = {
+        id: `${response.id}`,
+        title: response.title,
+        description: response.description
+      }
+
+      card.tasks.splice(taskIndex, 1, taskUpdated)
+      console.log("card com task atualizada", card)
+      onUpdatedCard(card);
+      return response
+
+    } catch (error) {
+      console.log(error.message)
     }
-    const taskIndex = TaskToBeEdited.taskIndex
-    card.tasks.splice(taskIndex, 1, newTask)
     }
 
   const handleEditTaskBoxFromTitle = (card, task, index) => {

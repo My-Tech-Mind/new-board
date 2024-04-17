@@ -27,9 +27,17 @@ const Cards = () => {
         const handleGetBoard = async () => {
             try {
                 const response = await detailBoard(boardId);
-                setCards(response.cards);
-                console.log(response);
-                return response;
+                const updateCardsId = response.cards.map((card) => {
+                    return {
+                        ...card,
+                        id: String(card.id),
+                    }
+                })
+                console.log(updateCardsId)
+                setCards(updateCardsId);
+                const { cards, ...rest } = response
+                const boardUpdated = {rest, cards: updateCardsId}
+                return boardUpdated;
             } catch (error) {
                 console.log(error.message);
             }
@@ -204,7 +212,7 @@ const Cards = () => {
 
     const handleCreateCard = async (cardTitle) => {
         if (cards.length < 10) {
-            localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEzMjkxNzA5LCJleHAiOjE3MTMzNzgxMDl9.vTekjqZwdxAS-UCUXNCpqVeCo4q9FkJBz5RuPukIqps')
+            localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEzMzU4OTUxLCJleHAiOjE3MTM0NDUzNTF9.6kLbyhW7GQmrfCgGq8rtAttScdznCDCBOIfLdSY_vJI')
             try {
                 const response = await createCard({ title: cardTitle, board_id: boardId })
                 const { id, title } = response
@@ -261,18 +269,24 @@ const Cards = () => {
         setOpenEditCardBox(!openEditCardBox)
     }
 
-    const handleUpdateCards = (card) => {
-        if(cardWithTask) {
-            setCardWithTask(card)
-            setCards([...cards, cardWithTask])
-        }
+    // const handleUpdateCards = (card) => {
+    //     if(cardWithTask) {
+    //         setCardWithTask(card)
+    //         setCards([...cards, cardWithTask])
+    //     }
         
-        console.log('card do componente filho', card)
-    }
+    //     console.log('card do componente filho', card)
+    // }
+
+    const handleUpdateCards = (card) => {
+        const updatedCards = cards.map((theCard) => {
+            return theCard.id == card.id ? card : theCard
+        });
+        setCards(updatedCards);
+      };
 
     useEffect(() => {
             handleUpdateCards(cardWithTask)
-            // setCards([...cards, cardWithTask])
     }, [cardWithTask])
 
     return (
