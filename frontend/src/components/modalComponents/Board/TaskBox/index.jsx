@@ -42,6 +42,10 @@ const TaskBox = ({ card, onCreateTask, closeBox, title, buttonName }) => {
                     <Input
                         className={styles.input}
                         onChange={handleTitleTaskValue}
+                        onEnterPress={() => {
+                            closeBox(false)
+                            onCreateTask(card, titleTask, descriptionTask)
+                        }}
                     />
                     {caracteresTitleOver && <p className={styles.caracteres_message}>Máximo de 50 caracteres</p>}
                 </div>
