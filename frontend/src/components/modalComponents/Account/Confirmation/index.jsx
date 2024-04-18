@@ -5,37 +5,41 @@ import PasswordInput from '../../../Input/PasswordInput';
 import Button from '../../../Button';
 import { useForm } from 'react-hook-form';
 
-const Confirmation = ({type, onCloseModal}) => {
+const Confirmation = ({type, onCloseModal, req}) => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
-    const [closeModal, setCloseModal] = useState(false)
-    const [isOpen, setIsOpen] = useState(true);
+    const [currentPassword, setCurrentPassword] = useState({})
 
+    const handleVerifyAccount = (password, event) => {
+        event.preventDefault();
+        const reqUpdate = {
+            ...req,
+            ...password,
+        }
+        
+    console.log("reqUpdate", reqUpdate)
 
-    const handleCloseModal = () => {
-        setCloseModal(true)
+        setCurrentPassword(data)
     }
-
 
     return ( 
         <>
-            {!closeModal && (
                 <div className={styles.main_container}>
                     <FaTimes className={styles.close_icon} onClick={onCloseModal} />
                    
                     {type === 'delete' ? (
-                        <form className={styles.form_container}>
+                        <form className={styles.form_container} onSubmit={handleSubmit(handleVerifyAccount)} >
                         <h1 className={styles.title}>
                             Are you sure that you want to delete your account?
                         </h1>  
                         <div className={styles.input_container}>
-                            <label htmlFor="delete-password" className={styles.label}>Password</label>
+                            <label htmlFor="password" className={styles.label}>Password</label>
                                 <PasswordInput
-                                    name="delete-password"
+                                    name="password"
                                     placeholder="Enter your password"
                                     register={register}
                                     errors={errors}
                                     watch={watch}
-                                    NoValidation={true}
+                                    // NoValidation={true}
                                 />
                         </div>
                         <div className={styles.warning_container}>
@@ -43,32 +47,31 @@ const Confirmation = ({type, onCloseModal}) => {
                             <p className={styles.warning_text}>I am aware that my account, along with all my created boards will be permanently deleted.</p>
                         </div>
                         <div className={styles.container_button}>
-                            <Button title="Delete" style="negative" />
+                            <Button buttonType='submit' title="Delete" style="negative" />
                         </div>
                     </form>
                     ) : (
-                        <form className={styles.form_container}>
+                        <form className={styles.form_container} onSubmit={handleSubmit(handleVerifyAccount)}>
                         <h1 className={styles.title}>
                             Are you sure that you want to update your account?
                         </h1>  
                         <div className={styles.input_container}>
-                            <label htmlFor="update-password" className={styles.label}>Password</label>
+                            <label htmlFor="password" className={styles.label}>Password</label>
                                 <PasswordInput
-                                    name="update-password"
+                                    name="password"
                                     placeholder="Enter your current password"
                                     register={register}
                                     errors={errors}
                                     watch={watch}
-                                    NoValidation={true}
+                                    // NoValidation={true}
                                 />
                         </div>
                         <div className={styles.container_button}>
-                            <Button title="Save changes" style="default" />
+                            <Button buttonType='submit' title="Save changes" style="default" />
                         </div>
                     </form>
                     )}
                 </div>
-            )}
         </>
      );
 }

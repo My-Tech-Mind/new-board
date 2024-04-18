@@ -13,8 +13,9 @@ const Account = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const [mode, setMode] = useState('')
     const [showModal, setShowModal] = useState(false); 
-    const [modalType, setModalType] = useState(''); 
-    
+    const [modalType, setModalType] = useState('');
+    const [reqUpdate, setReqUpdate] = useState({})
+
     const handleShowModal = (type) => {
         setShowModal(true);
         setModalType(type);
@@ -31,6 +32,7 @@ const Account = () => {
     const handleUpdateAccount = (data, event) => {
         handleShowModal('update')
         event.preventDefault();
+        setReqUpdate(data)
         console.log(data);
     };
 
@@ -40,7 +42,7 @@ const Account = () => {
             <main className={styles.main}>
                
                  {showModal && (
-                    <Confirmation type={modalType} onCloseModal={handleCloseModal} />
+                    <Confirmation type={modalType} onCloseModal={handleCloseModal} req={reqUpdate} />
                 )}
                 <div className={styles.form_container}>
                     
