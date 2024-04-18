@@ -5,7 +5,6 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Boards from './pages/Boards'
 import Board from './pages/Board'
-<<<<<<< HEAD
 import { isAuthenticated } from './services/api/auth'
 
 const PrivateRoute = ({ children, authVerify, redirectTo = '/login' }) => {
@@ -15,8 +14,6 @@ const PrivateRoute = ({ children, authVerify, redirectTo = '/login' }) => {
     } 
     return children;
 };
-=======
->>>>>>> fa4cdfb (deleted the teste component)
 
 const PagesNavigation = () => {
     return (
@@ -26,7 +23,7 @@ const PagesNavigation = () => {
                 <Route path='/login' element={ <PrivateRoute authVerify={!isAuthenticated()} redirectTo="/boards"> <Login /> </PrivateRoute> } />
                 <Route path='/signup' element={ <PrivateRoute authVerify={!isAuthenticated()} redirectTo="/boards"> <SignUp /> </PrivateRoute> } />
                 <Route path='/boards' element={<PrivateRoute authVerify={isAuthenticated()}> <Boards /> </PrivateRoute> }/>
-                <Route path='/board' element={<PrivateRoute authVerify={isAuthenticated()}> <Board /> </PrivateRoute>} />
+                <Route path='/board:boardId' element={<PrivateRoute authVerify={isAuthenticated()}> <Board /> </PrivateRoute>} />
                 <Route path='/account' element={<PrivateRoute authVerify={isAuthenticated()}> <Account /> </PrivateRoute>} />
             </Routes>
         </BrowserRouter>
