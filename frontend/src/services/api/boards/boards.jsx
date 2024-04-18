@@ -1,7 +1,7 @@
 import { api } from "../api";
 
 const listBoards = async () => {
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEzMjA3Mzc3LCJleHAiOjE3MTMyOTM3Nzd9.oJRZx25YpvP_I_ayhS9I1FQNBGrRPHasttYTFKCPAHA');
+    // localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEzMjA3Mzc3LCJleHAiOjE3MTMyOTM3Nzd9.oJRZx25YpvP_I_ayhS9I1FQNBGrRPHasttYTFKCPAHA');
     try {
         let response = await api.get('/board');
         return response.data;

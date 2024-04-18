@@ -23,7 +23,7 @@ const PagesNavigation = () => {
                 <Route path='/login' element={ <PrivateRoute authVerify={!isAuthenticated()} redirectTo="/boards"> <Login /> </PrivateRoute> } />
                 <Route path='/signup' element={ <PrivateRoute authVerify={!isAuthenticated()} redirectTo="/boards"> <SignUp /> </PrivateRoute> } />
                 <Route path='/boards' element={<PrivateRoute authVerify={isAuthenticated()}> <Boards /> </PrivateRoute> }/>
-                <Route path='/board:boardId' element={<PrivateRoute authVerify={isAuthenticated()}> <Board /> </PrivateRoute>} />
+                <Route path='/board/:boardId' element={<PrivateRoute authVerify={isAuthenticated()}> <Board /> </PrivateRoute>} />
                 <Route path='/account' element={<PrivateRoute authVerify={isAuthenticated()}> <Account /> </PrivateRoute>} />
             </Routes>
         </BrowserRouter>

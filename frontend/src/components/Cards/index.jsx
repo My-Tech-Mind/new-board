@@ -194,7 +194,7 @@ const Cards = () => {
 
     const handleCreateCard = async (cardTitle) => {
         if (cards.length < 10) {
-            localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEzMzU4OTUxLCJleHAiOjE3MTM0NDUzNTF9.6kLbyhW7GQmrfCgGq8rtAttScdznCDCBOIfLdSY_vJI')
+            // localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEzMzU4OTUxLCJleHAiOjE3MTM0NDUzNTF9.6kLbyhW7GQmrfCgGq8rtAttScdznCDCBOIfLdSY_vJI')
             try {
                 const response = await createCard({ title: cardTitle, board_id: boardId })
                 const { id, title } = response
