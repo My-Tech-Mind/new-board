@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Boards from './pages/Boards'
 import Board from './pages/Board'
+<<<<<<< HEAD
 import { isAuthenticated } from './services/api/auth'
 
 const PrivateRoute = ({ children, authVerify, redirectTo = '/login' }) => {
@@ -14,6 +15,8 @@ const PrivateRoute = ({ children, authVerify, redirectTo = '/login' }) => {
     } 
     return children;
 };
+=======
+>>>>>>> fa4cdfb (deleted the teste component)
 
 const PagesNavigation = () => {
     return (
