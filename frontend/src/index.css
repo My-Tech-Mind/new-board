@@ -12,6 +12,10 @@ html {
   overflow-x: hidden;
 }
 
+.sn-notifications-container{
+  width: auto !important;
+}
+
 :root {
   --color0: #00fcfc;
   --color1: #00a6a6;
