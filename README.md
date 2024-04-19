@@ -662,7 +662,7 @@ Description: This is the route that will be used to edit a card.
  board_id: 1
  sort: 1
  }
-```
+``` 
 
 ### Ordenate Cards: `[PUT]/card/ordenation`
 
