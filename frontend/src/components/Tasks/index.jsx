@@ -16,12 +16,10 @@ import {
 import { updateCard } from '../../services/api/card/card';
 const Tasks = ({ tasks, card, onUpdatedCard }) => {
 
-  // const [idTask, setIdTask] = useState(uuidv4().slice(0, 3))
   const [openEditTaskBox, setOpenEditTaskBox] = useState(false)
   const [openTaskBox, setOpenTaskBox] = useState(false)
   const [TaskToBeEdited, setTaskToBeEdited] = useState({})
   const [CardToBeEdited, setCardToBeEdited] = useState({})
-  const [updatedCard, setUpdatedCard] = useState(null)
   const limiteTasks = 20
 
   const handleDuplicateTask = async (data) => {

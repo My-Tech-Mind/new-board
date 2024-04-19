@@ -13,7 +13,7 @@ const Account = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const modeMemory = localStorage.getItem('darkMode')
     console.log('modo escuro?',modeMemory)
-    const [darkMode, setDarkMode] = useState(modeMemory)
+    const [darkMode, setDarkMode] = useState(!!modeMemory)
     const [showModal, setShowModal] = useState(false); 
     const [modalType, setModalType] = useState('');
     const [reqUpdate, setReqUpdate] = useState({})
@@ -41,7 +41,6 @@ const Account = () => {
     };
 
     useEffect(() => {
-        // setDarkMode(modeMemory)
         if (darkMode) {
             document.documentElement.classList.add('dark')
         } else {

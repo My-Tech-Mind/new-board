@@ -3,6 +3,7 @@
     background-color: var(--color5);
     height: 78vh;
     padding: 10px;
+    
 }
 
 .card {
@@ -39,6 +40,7 @@
     padding: 10px;
     border-radius: 5px;
     margin: 10px;
+    color: #000;
 }
 
 .task_title {
@@ -47,6 +49,7 @@
     margin: 0 5px;
     width: 180px;
     word-wrap: break-word;
+    
 }
 
 .task_scroll {
@@ -89,7 +92,7 @@
 }
 
 .icon_task_plus {
-    color: var(--color-icons);
+    color: #7a7a7a;
     cursor: pointer;
     font-size: 12pt;
     padding: 5px ;
