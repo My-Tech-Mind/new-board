@@ -18,7 +18,7 @@ const Confirmation = ({type, onCloseModal, req}) => {
         
     console.log("reqUpdate", reqUpdate)
 
-        setCurrentPassword(data)
+        setCurrentPassword(password)
     }
 
     return ( 

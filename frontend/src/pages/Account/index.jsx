@@ -5,13 +5,15 @@ import NameInput from '../../components/Input/NameInput';
 import EmailInput from '../../components/Input/EmailInput';
 import PasswordInput from '../../components/Input/PasswordInput';
 import Button from '../../components/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import Confirmation from '../../components/modalComponents/Account/Confirmation';
 
 const Account = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
-    const [mode, setMode] = useState('')
+    const modeMemory = localStorage.getItem('darkMode')
+    console.log('modo escuro?',modeMemory)
+    const [darkMode, setDarkMode] = useState(modeMemory)
     const [showModal, setShowModal] = useState(false); 
     const [modalType, setModalType] = useState('');
     const [reqUpdate, setReqUpdate] = useState({})
@@ -26,7 +28,9 @@ const Account = () => {
     };
     
     const handleChange = (event) => {
-        setMode(event.target.value)
+        const isDarkMode = event.target.value === 'dark'
+        setDarkMode(isDarkMode)
+        localStorage.setItem('darkMode', isDarkMode )
     }
 
     const handleUpdateAccount = (data, event) => {
@@ -35,6 +39,15 @@ const Account = () => {
         setReqUpdate(data)
         console.log(data);
     };
+
+    useEffect(() => {
+        // setDarkMode(modeMemory)
+        if (darkMode) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    }, [darkMode])
 
     return (
         <>
@@ -56,7 +69,7 @@ const Account = () => {
                                         className={styles.checkbox}
                                         type="radio"
                                         value='light'
-                                        checked={mode === 'light'}
+                                        checked={!darkMode}
                                         onChange={handleChange}
                                     />
                                     Light
@@ -66,7 +79,7 @@ const Account = () => {
                                         className={styles.checkbox}
                                         type="radio"
                                         value='dark'
-                                        checked={mode === 'dark'}
+                                        checked={darkMode}
                                         onChange={handleChange}
                                     />
                                     Dark
