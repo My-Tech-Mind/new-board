@@ -39,3 +39,27 @@ html {
   --button-height-desktop: 40px;
   --button-height-mobile: 40px;
 }
+
+.dark {
+  --color0: #000;
+  --color1: #2a2b2b;
+  --color2: #003131;
+  --color3: #061111;
+  --color4: #001c1c;
+  --color5: #000000;
+  --color-negative:#A60000;
+  --color-negative-hover:#c70000;
+  --color-icons: #7a7a7a;
+  --color-avatar-circle: #833c3c;
+  --color-hover: #00c2c2;
+  --color-hover-login: #fff;
+  --background-color: #606060;
+  --background-color-header: #212121;
+  --background-color-dark: #171717;
+  --background-color-header-dark: #1e1e1e;
+  --shadow: #00000075;
+  --button-width-desktop: 180px;
+  --button-width-mobile: 150px;
+  --button-height-desktop: 40px;
+  --button-height-mobile: 40px;
+}
