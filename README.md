@@ -645,7 +645,7 @@ Description: This is the route that will be used to edit a card.
 
 **Input:**
 
-```javascript=
+```javascript
  {
  board_id: 1,
  title: Card 1
@@ -654,7 +654,7 @@ Description: This is the route that will be used to edit a card.
 
 **Exit:**
 
-```javascript=
+```javascript
  //status code 200
  {
  id: 1,
@@ -733,14 +733,14 @@ Description: This is the route that will be used to delete a card.
 
 **Input:**
 
-```javascript=
+```javascript
  //Id of card passed by Params query
  // DELETE /card/1
 ```
 
 **Output:**
 
-```javascript=
+```javascript
  // 204 (No Content) = successful request, no content in the response body
 ```
 
@@ -788,7 +788,7 @@ Description: This is the route that will be used to create a task on the card.
 
 **Input
 
-```javascript=
+```javascript
  // POST /task
  {
  title: Task 1,
@@ -798,7 +798,7 @@ Description: This is the route that will be used to create a task on the card.
 
 **Exit:**
 
-```javascript=
+```javascript
  //status code 201
  {
  id: 1,
@@ -911,7 +911,7 @@ Description: This is the route that will be used to edit a task on the card.
 
 **Input:**
 
-```javascript=
+```javascript
  //ID passed by query params
  // /task/1
  {
@@ -923,7 +923,7 @@ Description: This is the route that will be used to edit a task on the card.
 
 **Exit:**
 
-```javascript=
+```javascript
  {
  id: 1,
  title: Task 1 updated,
@@ -960,13 +960,13 @@ Description: This is the route that will be used to detail/access a task on the 
 
 **Input:**
 
-```javascript=
+```javascript
  //Id passed by query params
 ```
 
 **Output:**
 
-```javascript=
+```javascript
  {
  id: 1,
  title: Task 1 updated,
