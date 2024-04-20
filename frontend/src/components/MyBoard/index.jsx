@@ -6,9 +6,10 @@ import { FaPlus, FaStar } from 'react-icons/fa';
 import LoadBoards from '../LoadBoards';
 import Modal from '../modalComponents/Boards/ModalEditBoard';
 import ModalDelete from '../modalComponents/Boards/ModalDelete';
+import Loading from '../../components/Loading/index';
 
 const MyBoard = () => {
-    const { boards, createBoard, toggleFavorite, deleteBoard, updateBoardTitle } = LoadBoards();
+    const { loading, boards, createBoard, toggleFavorite, deleteBoard, updateBoardTitle } = LoadBoards();
 
     const [editingBoardId, setEditingBoardId] = useState(null);
     const [inputValue, setInputValue] = useState('');
@@ -70,6 +71,8 @@ const MyBoard = () => {
         setBoardIdToDelete(boardId);
     };
     return (
+        <>
+        {loading && <Loading/>}
         <div className={styles.container}>
             <h1 className={styles.title}>Meus favoritos</h1>
             <div className={styles.MyFavoriteBoards}>
@@ -156,6 +159,7 @@ const MyBoard = () => {
                 </div>
             </div>
         </div >
+        </>
     );
 };
 

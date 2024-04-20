@@ -3,13 +3,16 @@ import { listBoards, createBoards, deleteBoards, updateBoards, detailBoards } fr
 
 const LoadBoards = () => {
     const [boards, setBoards] = useState([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         const fetchBoards = async () => {
             try {
                 const fetchedBoards = await listBoards();
                 setBoards(fetchedBoards);
+                setLoading(false);
             } catch (error) {
                 console.error('Erro ao carregar boards:', error);
+                setLoading(false);
             }
         };
         fetchBoards();
@@ -68,7 +71,7 @@ const LoadBoards = () => {
 
 
 
-    return { boards, toggleFavorite, deleteBoard, createBoard, updateBoardTitle };
+    return { loading, boards, toggleFavorite, deleteBoard, createBoard, updateBoardTitle };
 };
 
 export default LoadBoards;
