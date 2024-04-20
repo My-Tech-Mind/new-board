@@ -8,18 +8,22 @@ import {FaTimes} from 'react-icons/fa'
 import LimitError from '../../components/modalComponents/LimitError';
 import detailBoard from '../../services/api/board/board';
 import { useParams } from 'react-router-dom';
+import Loading from '../../components/Loading/index';
 
 const Board = () => {
     const [openBoardTitleBox, setOpenBoardTitleBox] = useState(false)
     const [titleBoard, setTitleBoard] = useState('')
+    const [loading, setLoading] = useState(true);
     const {boardId} = useParams()
     useEffect(() => {
         const handleGetTitleBoard = async () => {
             try {
                 const response = await detailBoard(boardId)
                 setTitleBoard(response.title)
+                setLoading(false);
             } catch (error) {
                 console.log(error.message)
+                setLoading(false);
             }
         }
         handleGetTitleBoard()
@@ -38,7 +42,8 @@ const Board = () => {
     }
 
     return (
-        <>
+        <>  
+            {loading && <Loading/>}
             <Header logged={true} />
             {/* <LimitError /> */}
             <div className={styles.main_board}>
