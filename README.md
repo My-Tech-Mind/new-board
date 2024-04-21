@@ -481,17 +481,17 @@ Return data: N/A
 
 
 
-#### **Input**
+#### **Example of Body Request (JSON)**
 
-```javascript
+```Json
 // POST/card
 {
- "title": "Make the week's food"
+ "title": "Make the week's food",
  "board_id": 1
 }
 ```
 
-#### **Output**
+##### Example of return
 
 ```javascript
 // HTTP Status Code: 200
@@ -509,9 +509,9 @@ Return data: N/A
 #### Description: This route is used to retrieve details of a card.
 
 
-#### **Input**
+#### **Example of Body Request (JSON)**
 
-```javascript
+```jSON
 // GET/card/1
 {
     "id": 1,
@@ -522,7 +522,7 @@ Return data: N/A
     "updated_at": "2022-04-25T10:15:30.000Z"
 }
 ```
-### **Output**
+### ##### Example of return
 
 ````javascript
 // HTTP Status Code: 404
@@ -542,7 +542,7 @@ Return data: N/A
 Description: This is the route that will be used to edit a card.
 
 
-**Input:**
+##### Example of Body Request (JSON)
 
 ```Json
  {
@@ -551,13 +551,13 @@ Description: This is the route that will be used to edit a card.
  }
 ```
 
-**Exit:**
+##### Example of return
 
 ```Json
  //status code 200
  {
  "id": 1,
- "title": Card 1,
+ "title": "Card 1",
  "board_id": 1,
  "sort": 1
  }
@@ -567,7 +567,7 @@ Description: This is the route that will be used to edit a card.
 
 #### Description: This route is used to update the ordenation of cards on the board.
 
-#### **input**
+##### Example of Body Request (JSON)
 
 ````Json
 {
@@ -579,7 +579,7 @@ Description: This is the route that will be used to edit a card.
 
 ````
 
-#### ** Output **
+##### Example of return
 
 
 ````javaScript
@@ -607,19 +607,19 @@ Description: This is the route that will be used to delete a card.
 - Parameter: route - ID of the card to be deleted
 
 
-#### **Examples of successful requests**
 
-**Input:**
+##### Example of Body Request (JSON)
 
 ```javascript
  //Id of card passed by Params query
  // DELETE /card/1
 ```
 
-**Output:**
+##### Example of return
 
 ```javascript
- // 204 (No Content) = successful request, no content in the response body
+// HTTP Status 204
+// No content in the return
 ```
 
 </details>
@@ -633,28 +633,26 @@ Description: This is the route that will be used to delete a card.
 Description: This is the route that will be used to create a task on the card.
 
 
-#### **Examples of successful requests**
+##### Example of Body Request (JSON)
 
-**Input**
-
-```javascript
+```Json
  // POST /task
  {
- title: Task 1,
- description: Do PR,
+ "title": "Task 1",
+ "description": "Do PR",
  }
 ```
 
-**Output**
+##### Example of return
 
-```javascript
+```Json
  //status code 201
  {
- id: 1,
- title: Task 1,
- description: Make PR,
- card_id: 1
- sort: 1
+ "id": 1,
+ "title": "Task 1",
+ "description": "Make PR",
+ "card_id": 1,
+ "sort": 1
  }
 ```
 
@@ -663,9 +661,9 @@ Description: This is the route that will be used to create a task on the card.
 #### Description: This route is used to reorder tasks within a card.
 
 
-#### **Input**
+##### Example of Body Request (JSON)
 
-```javascript
+```Json
 // PUT/card/ordenation
 {
     "taskSourceDestination": 2,
@@ -676,7 +674,7 @@ Description: This is the route that will be used to create a task on the card.
 }
 ```
 
-### **Output**
+##### Example of return
 
 ````javascript
 
@@ -718,11 +716,11 @@ Description: This is the route that will be used to create a task on the card.
 
 Description: This is the route that will be used to edit a task on the card.
 
-**Input:**
+##### Example of Body Request (JSON)
 
 ```Json
- //ID passed by query params
- // /task/1
+
+ // PUT/task/1
  {
  "title": "Task 1 updated",
  "description": "Do PR",
@@ -730,7 +728,7 @@ Description: This is the route that will be used to edit a task on the card.
  }
 ```
 
-**Output:**
+##### Example of return
 
 ```Json
  {
@@ -746,13 +744,15 @@ Description: This is the route that will be used to edit a task on the card.
 
 Description: This is the route that will be used to detail/access a task on the card.
 
-**Input:**
+##### Example of Body Request (JSON)
 
 ```javascript
- //Id passed by query params
+ // GET/task/1
+ // No content in body
+
 ```
 
-**Output:**
+##### Example of return
 
 ```Json
  {
@@ -773,15 +773,13 @@ Description: This is the route that will be used to delete a task from the card.
 **Input:**
 
 ```javascript
- //Id passed in query params
- // task/1
+
+ // DELETEtask/1
+ // No content in the request body
+
 ```
 
-**Output:**
 
-```javascript
- //No content status code 204
-```
 
 
 
