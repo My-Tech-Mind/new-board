@@ -7,7 +7,7 @@ const createBoard = async (req, res) => {
     const { title, favorited } = req.body;
 
     try {
-        const numberOfBoards = await knex('boards');
+        const numberOfBoards = await knex('boards').where({ user_id: req.user.id });
         if (numberOfBoards.length >= 5) {
             return res.status(403).json({
                 message: `Alert: The maximum number of boards (5) per user has been reached.` +
