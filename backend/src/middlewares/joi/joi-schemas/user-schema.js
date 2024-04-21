@@ -12,7 +12,7 @@ const userSchema = joi.object({
         'string.email': 'The email field must be a valid email address.',
         'string.max': 'The email field must be at most {#limit} characters long.'
     }),
-    password: joi.string().min(8).max(20).required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/).messages({
+    password: joi.string().min(8).max(20).required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-])[A-Za-z\d!@#$%^&*()_+\-]+$/).messages({
         'any.required': 'The password field is required.',
         'string.empty': 'The password field cannot be empty.',
         'string.min': 'The password field must be at least {#limit} characters long.',

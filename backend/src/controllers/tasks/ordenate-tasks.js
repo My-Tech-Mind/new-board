@@ -30,6 +30,7 @@ const ordenateTasks = async (req, res) => {
         await knex.transaction(async trx => {
             if (taskSourceDestination < taskSourcePosition) {
                 const limitEditIncrement = Number(taskSourcePosition) - 1;
+                const limitEditDecrement = Number(taskSourcePosition) + 1;
                 await trx('tasks')
                     .where({ id: taskId })
                     .where({ card_id: cardIdDestination })
@@ -44,8 +45,13 @@ const ordenateTasks = async (req, res) => {
                     .where('ordenation', -1)
                     .where({ card_id: cardIdDestination })
                     .update({ ordenation: taskSourceDestination });
+                    
+                await trx('tasks')
+                    .whereBetween('ordenation', [limitEditDecrement, 20])
+                    .where({ card_id: cardIdSource })
+                    .decrement('ordenation', 1);
 
-            } else if (taskSourceDestination > taskSourcePosition) {
+            } else if (taskSourceDestination > taskSourcePosition && cardIdSource === cardIdDestination) {
                 const limitEditDecrement = Number(taskSourcePosition) + 1;
                 await trx('tasks')
                     .where({ id: taskId })
@@ -61,6 +67,11 @@ const ordenateTasks = async (req, res) => {
                     .where({ id: taskId })
                     .where({ card_id: cardIdDestination })
                     .update({ ordenation: taskSourceDestination });
+
+                await trx('tasks')
+                    .whereBetween('ordenation', [limitEditDecrement, 20])
+                    .where({ card_id: cardIdSource })
+                    .decrement('ordenation', 1);
 
             } else if (cardIdSource !== cardIdDestination && taskSourceDestination === taskSourcePosition) {
                 const limitEditDecrement = Number(taskSourcePosition) + 1;
@@ -84,6 +95,23 @@ const ordenateTasks = async (req, res) => {
                     .where({ card_id: cardIdSource })
                     .decrement('ordenation', 1);
 
+        } else if(cardIdSource !== cardIdDestination && taskSourceDestination > taskSourcePosition){
+            const limitEditDecrement = Number(taskSourceDestination);
+
+                await trx('tasks')
+                    .whereBetween('ordenation', [limitEditDecrement, 20])
+                    .where({ card_id: cardIdDestination })
+                    .increment('ordenation', 1);
+
+                await trx('tasks')
+                    .where({ id: taskId })
+                    .where({ card_id: cardIdDestination })
+                    .update({ ordenation: taskSourceDestination });
+
+                await trx('tasks')
+                    .whereBetween('ordenation', [limitEditDecrement, 20])
+                    .where({ card_id: cardIdSource })
+                    .decrement('ordenation', 1);
         }
 
             refreshUpdateDateBoard(card.board_id);
