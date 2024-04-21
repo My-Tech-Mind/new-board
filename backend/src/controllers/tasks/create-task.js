@@ -10,6 +10,17 @@ const createTask = async (req, res) => {
             return res.status(404).json({ message: `Card with card_id = ${card_id} was not found.` });
         }
 
+        const taskAndCardAndBoardOwner = await knex('tasks')
+            .join('cards', 'cards.id', '=', 'tasks.card_id')
+            .join('boards', 'boards.id', '=', 'cards.board_id')
+            .select('boards.user_id as boardOwner')
+            .where('tasks.id', id)
+            .first();
+
+        if (taskAndCardAndBoardOwner.boardOwner != req.user.id) {
+            return res.status(403).json({ message: 'Denied access.' });
+        }
+
         const numberOfTasks = await knex('tasks').where({ card_id });
         if (numberOfTasks.length >= 20) {
             return res.status(403).json({
