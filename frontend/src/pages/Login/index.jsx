@@ -6,7 +6,6 @@ import ilustrationLogin from '../../assets/ilustrationLogin.png';
 import logoLight from '../../assets/logo-light.png';
 import Loading from '../../components/Loading/index';
 import logoDark from '../../assets/logo-dark.png';
-import loadingLogin from '../../assets/loading-login.gif';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -17,13 +16,15 @@ import { createNotification } from '../../components/Notifications/index';
 const Login = () => {
     const [ loading, setLoading ] = useState(false);
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
+    const mode = localStorage.getItem('mode');
+
     async function handleLogin(data, event) {
         try{
             setLoading(true)
             event.preventDefault();
             const register = await login(data);
             if(register?.token){
-                await localStorage.setItem('token', register.token);
+                localStorage.setItem('token', register.token);
                 const logged = localStorage.getItem("token");
                 if(logged){
                     setLoading(false)
@@ -34,16 +35,15 @@ const Login = () => {
                 setLoading(false)
             }
         }catch(error){
-           setLoading(false)
+            setLoading(false)
            console.log(error)
         }
     }
 
-    const mode = localStorage.getItem('mode')
     return (
         <>
             {loading && <Loading/>}
-            <main>
+            <main className={styles.main}>
                 <div className={styles.container_image}>
                     <img src={ilustrationLogin} alt='Ilustration' />
                 </div>

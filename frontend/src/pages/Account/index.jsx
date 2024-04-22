@@ -36,7 +36,6 @@ const Account = () => {
         handleShowModal('update')
         event.preventDefault();
         setReqUpdate(data)
-        console.log(data);
     };
 
     useEffect(() => {
@@ -55,9 +54,8 @@ const Account = () => {
                  {showModal && (
                     <Confirmation type={modalType} onCloseModal={handleCloseModal} req={reqUpdate} />
                 )}
+                <h1 className={styles.title}>My account</h1>
                 <div className={styles.form_container}>
-                    
-                    <h1 className={styles.title}>My account</h1>
                     <div className={styles.account_form}>
                         <form onSubmit={handleSubmit(handleUpdateAccount)}>
                             <h2 className={styles.subtitle}>Theme</h2>
@@ -122,10 +120,10 @@ const Account = () => {
                                     watch={watch}
                                 />
                             </div>
-                            <label htmlFor="password-confirmation" className={styles.label}>Confirm new password</label>
+                            <label htmlFor="passwordConfirmation" className={styles.label}>Confirm new password</label>
                             <div className={styles.input_container}>
                                 <PasswordInput
-                                    name="password-confirmation"
+                                    name="passwordConfirmation"
                                     placeholder="Confirm your new password"
                                     register={register}
                                     errors={errors}

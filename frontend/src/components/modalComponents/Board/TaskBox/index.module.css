@@ -25,6 +25,10 @@
     align-items: center;
 }
 
+.title {
+ font-size: 14pt;
+}
+
 .label {
     width: 250px;
     text-align: left;

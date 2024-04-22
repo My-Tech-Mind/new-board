@@ -1,9 +1,9 @@
 .main_container {
     position: absolute;
-    top: calc(50vh - 150px);
-    left: calc(50vw - 200px);
-    height: 300px;
-    width: 400px;
+    top: calc(50% - 120px);
+    left: calc(50% - 180px);
+    height: 200px;
+    width: 320px;
     z-index: 999;
     background-color: var(--background-color);
     padding: 20px;
@@ -13,8 +13,8 @@
 
 .close_icon {
     position: absolute;
-    top: calc(50% - 150px);
-    left: calc(50% + 180px);
+    top: calc(50% - 110px);
+    left: calc(50% + 155px);
     color: rgb(111, 111, 111);
     cursor: pointer;
 }
@@ -24,13 +24,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+    height: 200px;
 }
 
 .title {
     font-size: 12pt;
     text-align: center;
-    margin-top: 50px;
+    width: 250px;
 }
 
 .label {
@@ -49,21 +49,31 @@
     display: flex;
     justify-content: center;
     width: 300px;
+    color: var(--color-negative);
 }
 
 .checkbox {
     cursor: pointer;
+    width: 20px;
+}
+
+.checkbox_message {
+    font-weight: 600;
+    font-size: 10pt;
+    padding-left: 10px;
+    color: var(--color-negative);
 }
 
 .warning_text {
-    width: 250px;
+    width: 300px;
     font-weight: 600;
-    font-size: 10px;
+    font-size: 10pt;
     padding-left: 10px;
 }
 
 .container_button {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin: 10px 0 20px 0;
 }

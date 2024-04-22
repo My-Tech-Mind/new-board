@@ -29,6 +29,19 @@
     cursor: pointer;
 }
 
+.disabled {
+    width: var(--button-width-mobile);
+    height: var(--button-height-mobile);
+    border-radius: 20px;
+    border: none;
+    background-color: #7b7b7b;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .negative:hover {
     background-color: var(--color-negative-hover);
 }
@@ -104,6 +117,11 @@
     }
 
     .negative {
+        width: var(--button-width-desktop);
+        height: var(--button-height-desktop);
+    }
+
+    .disabled {
         width: var(--button-width-desktop);
         height: var(--button-height-desktop);
     }

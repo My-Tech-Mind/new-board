@@ -32,7 +32,7 @@ const TaskBox = ({ card, onCreateTask, closeBox, title, buttonName }) => {
     return ( 
         <div className={styles.edit_box_container}>         
             <div className={styles.edit_box}>
-                <h1>{ title }</h1>
+                <h1 className={styles.title}>{ title }</h1>
                 <div className={styles.form_container}>
                     <label
                         htmlFor="title"

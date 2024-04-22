@@ -8,6 +8,7 @@ import NameInput from '../../components/Input/NameInput';
 import EmailInput from '../../components/Input/EmailInput';
 import ilustrationLogin from '../../assets/ilustrationLogin.png';
 import logoLight from '../../assets/logo-light.png';
+import logoDark from '../../assets/logo-dark.png';
 import { useForm } from 'react-hook-form';
 import { createAccount } from '../../services/api/sign-up/index';
 import { Link, useNavigate } from 'react-router-dom';
@@ -16,6 +17,7 @@ const SignUp = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const mode = localStorage.getItem('mode');
     async function handleSignUp(data, event) {
         event.preventDefault();
         try{
@@ -38,10 +40,16 @@ const SignUp = () => {
     return (
         <>  
             { loading && <Loading/> }
-            <main>
+            <main className={styles.main}>
                 <form onSubmit={handleSubmit(handleSignUp)} >
                     <div className={styles.main_container}>
-                        <img className={styles.logo} src={logoLight} alt="Logo" />
+                    {
+                            mode === 'dark' ? (
+                                <img className={styles.logo} src={logoDark} alt="Logo" />
+                            ): (
+                                <img className={styles.logo} src={logoLight} alt="Logo" />
+                            )
+                        }
                         <p className={styles.texto}>SignUp to newBoard</p>
                         <NameInput
                             name="name"

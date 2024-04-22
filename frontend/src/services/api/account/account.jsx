@@ -13,10 +13,9 @@ const getUser = async (user) => {
 const updateUser = async (user) => {
     try {
         const response = await api.put('/user', user)
-        console.log(response.data)
         return response.data
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
 }
 
