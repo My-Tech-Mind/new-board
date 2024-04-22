@@ -11,9 +11,8 @@ import Confirmation from '../../components/modalComponents/Account/Confirmation'
 
 const Account = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
-    const modeMemory = localStorage.getItem('darkMode')
-    console.log('modo escuro?',modeMemory)
-    const [darkMode, setDarkMode] = useState(!!modeMemory)
+    const modeMemory = localStorage.getItem('mode')
+    const [darkMode, setDarkMode] = useState(modeMemory === 'dark' ? true : false)
     const [showModal, setShowModal] = useState(false); 
     const [modalType, setModalType] = useState('');
     const [reqUpdate, setReqUpdate] = useState({})
@@ -28,9 +27,9 @@ const Account = () => {
     };
     
     const handleChange = (event) => {
-        const isDarkMode = event.target.value === 'dark'
-        setDarkMode(isDarkMode)
-        localStorage.setItem('darkMode', isDarkMode )
+        const selectedMode = event.target.value;
+        setDarkMode(selectedMode === 'dark');
+        localStorage.setItem('mode', selectedMode);
     }
 
     const handleUpdateAccount = (data, event) => {

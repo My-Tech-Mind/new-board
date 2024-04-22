@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './index.module.css';
 import logo from '../../assets/logo-light.png';
+import darkLogo from '../../assets/logo-dark.png';
 import Button from '../Button';
 import Menu from '../modalComponents/Board/Menu';
 
@@ -19,17 +20,27 @@ const Header = ({ logged }) => {
         };
     }, []);
 
+    const mode = localStorage.getItem('mode')
+
     return ( 
         <header className={styles.header} id={styles.header_light}>
             <div className={styles.header_container}>
                 <div className={styles.container_image}>
                     {logged ? (
                         <a href="/boards">
-                            <img src={logo} alt="logo" />
+                            {mode === 'dark' ? (
+                                <img src={darkLogo} alt="dark logo" />
+                            ): (
+                                <img src={logo} alt="logo" />
+                            )}    
                         </a>
                     ): (
                         <a href="/#">
-                            <img src={logo} alt="logo" />
+                            {mode === 'dark' ? (
+                                <img src={darkLogo} alt="dark logo" />
+                            ): (
+                                <img src={logo} alt="logo" />
+                            )}
                         </a>  
                     )}
                 </div>

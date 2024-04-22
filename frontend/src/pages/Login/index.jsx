@@ -5,6 +5,7 @@ import EmailInput from '../../components/Input/EmailInput';
 import ilustrationLogin from '../../assets/ilustrationLogin.png';
 import logoLight from '../../assets/logo-light.png';
 import Loading from '../../components/Loading/index';
+import logoDark from '../../assets/logo-dark.png';
 import loadingLogin from '../../assets/loading-login.gif';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
@@ -34,8 +35,11 @@ const Login = () => {
             }
         }catch(error){
            setLoading(false)
+           console.log(error)
         }
     }
+
+    const mode = localStorage.getItem('mode')
     return (
         <>
             {loading && <Loading/>}
@@ -46,7 +50,13 @@ const Login = () => {
 
                 <form onSubmit={handleSubmit(handleLogin)}  >
                     <div className={styles.main_container}>
-                        <img className={styles.logo} src={logoLight} alt="Logo" />
+                        {
+                            mode === 'dark' ? (
+                                <img className={styles.logo} src={logoDark} alt="Logo" />
+                            ): (
+                                <img className={styles.logo} src={logoLight} alt="Logo" />
+                            )
+                        }
                         <p className={styles.texto}>Login to newBoard</p>
                         
                         <EmailInput

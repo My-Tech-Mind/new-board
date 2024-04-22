@@ -44,12 +44,12 @@ html {
 }
 
 .dark {
-  --color0: #00a6a6;
-  --color1: #004040;
+  --color0: #1E1E1E;
+  --color1: #001c1c;
   --color2: #005959;
-  --color3: #061111;
-  --color4: #001c1c;
-  --color5: #1E1E1E;
+  --color3: #00a6a6;
+  --color4: #00a6a6;
+  --color5: #4a4a4a;
   --color6: #ffffff;
   --color7: #000000;
   --color-negative:#A60000;
