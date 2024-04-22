@@ -4,11 +4,13 @@ import PasswordInput from '../../components/Input/PasswordInput';
 import EmailInput from '../../components/Input/EmailInput';
 import ilustrationLogin from '../../assets/ilustrationLogin.png';
 import logoLight from '../../assets/logo-light.png';
+import Loading from '../../components/Loading/index';
 import loadingLogin from '../../assets/loading-login.gif';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { login } from '../../services/api/auth';
+import { createNotification } from '../../components/Notifications/index';
 
 
 const Login = () => {
@@ -27,15 +29,16 @@ const Login = () => {
                     window.location = "/boards";
                 }
             }else{
+                createNotification('error', "Failed to login!", JSON.parse(register.request.response).message);
                 setLoading(false)
             }
         }catch(error){
-           
+           setLoading(false)
         }
     }
     return (
         <>
-            {loading && <span  className={styles.login}><img src={loadingLogin} alt="Loading..."/></span>}
+            {loading && <Loading/>}
             <main>
                 <div className={styles.container_image}>
                     <img src={ilustrationLogin} alt='Ilustration' />
