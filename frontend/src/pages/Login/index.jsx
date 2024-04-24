@@ -31,7 +31,7 @@ const Login = () => {
                     window.location = "/boards";
                 }
             }else{
-                createNotification('error', "Failed to login!", JSON.parse(register.request.response).message);
+                createNotification('error', "Failed to login!", "Cannot login");
                 setLoading(false)
             }
         }catch(error){
@@ -71,6 +71,7 @@ const Login = () => {
                             register={register}
                             errors={errors}
                             watch={watch}
+                            onFormSubmit={handleSubmit(handleLogin)}
                         />
                         <div className={styles.container_buttons}>
                             <Button buttonType='submit' title='Continue' style='default' />

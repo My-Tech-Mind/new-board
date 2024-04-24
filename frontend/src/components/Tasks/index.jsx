@@ -54,14 +54,16 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
     }    
   }
 
-  const handleCreateTask = async (card, title1, description1) => {
+  const handleCreateTask = async (card, taskTitle, description1) => {
     if (tasks.length < limiteTasks) {
+      console.log(card)
       try {
         const task = {
-          card_id: card.id,
-          title: title1,
+          card_id: card.card_id,
+          title: taskTitle,
           description: description1
         };
+        console.log('task',task)
         const response = await createTask(task);
         const { id, title, description } = response;
         const taskCreated = { id: `${id}`, title, description };
@@ -71,7 +73,7 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
         console.log(error.message)
       }
     } else {
-      window.alert(`You can't create more than 20 tasks`)
+      // window.alert(`You can't create more than 20 tasks`)
     }
   }
 

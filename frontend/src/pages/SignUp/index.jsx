@@ -18,8 +18,7 @@ const SignUp = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const mode = localStorage.getItem('mode');
-    async function handleSignUp(data, event) {
-        event.preventDefault();
+    async function handleSignUp(data) {
         try{
             setLoading(true)
             const signup = await createAccount(data);
@@ -69,6 +68,7 @@ const SignUp = () => {
                             register={register}
                             errors={errors}
                             watch={watch}
+                            onFormSubmit={handleSubmit(handleSignUp)}
                         />
                         <PasswordInput
                             name="password_confirmation"
@@ -76,6 +76,7 @@ const SignUp = () => {
                             register={register}
                             errors={errors}
                             watch={watch}
+                            onFormSubmit={handleSubmit(handleSignUp)}
                         />
                         <div className={styles.container_buttons}>
                             <Button buttonType='submit' title='Continue' style='default' />

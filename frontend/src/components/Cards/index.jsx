@@ -6,7 +6,7 @@ import { FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
 import CardBox from '../modalComponents/Board/CardBox';
 import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
-import { createCard, deleteCard, ordenateCard, updateCard } from '../../services/api/card/card';
+import { createCard, deleteCard, detailCard, ordenateCard, updateCard } from '../../services/api/card/card';
 import LimitError from '../modalComponents/LimitError';
 import detailBoard from '../../services/api/board/board';
 import { useParams } from 'react-router-dom';
@@ -30,19 +30,18 @@ const Cards = () => {
                     return {
                         ...card,
                         id: String(card.id),
-                    }
-                })
-                console.log(updateCardsId)
+                    };
+                });
                 setCards(updateCardsId);
-                const { cards, ...rest } = response
-                const boardUpdated = {rest, cards: updateCardsId}
+                const { cards, ...rest } = response;
+                const boardUpdated = { rest, cards: updateCardsId };
                 return boardUpdated;
             } catch (error) {
                 console.log(error.message);
             }
         }
         handleGetBoard();
-    }, [])
+    }, []);
 
     const onDragEnd = (result) => {
 
@@ -64,7 +63,6 @@ const Cards = () => {
                 cardIdSourcePosition: source.index,
                 cardIdDestinationPosition: destination.index,
             }
-            console.log(result)
 
             handleOrdenateCard(cardMoved)
 
@@ -113,7 +111,6 @@ const Cards = () => {
                 );
 
                 setCards(newCards);
-                console.log('result', result)
             }
 
             const taskMoved = {
@@ -122,9 +119,9 @@ const Cards = () => {
                 taskSourceDestination: destination.index,
                 cardIdSource: source.droppableId,
                 cardIdDestination: destination.droppableId,
-            }
+            };
 
-            handleOrdenateTask(taskMoved)
+            handleOrdenateTask(taskMoved);
         }
     };
         
@@ -134,50 +131,65 @@ const Cards = () => {
             const cardCopy = { title: newTitle, board_id: boardId }
 
             try {
-              const responseCard = await createCard(cardCopy)
+                const responseCard = await createCard(cardCopy);
             
-              const createTasks = card.tasks.map(async (task, index) => {
-                const req = { title: task.title, card_id: responseCard.id }
-                try {
-                  const responseTask = await createTask(req)
-                  console.log(`task ${index} criada:`, responseTask)
-                  return responseTask
-                } catch (error) {
-                  console.log(error.message)
-                }
-              })
-            
-              await Promise.all(createTasks)
-
-                    const handleGetBoard = async () => {
-                        try {
-                            const response = await detailBoard(boardId)
-                            const responseStringIds = response.cards.map((theCard) => {
-                                return {
-                                    ...theCard,
-                                    id: String(theCard.id)
-                                }
-                            })
-
-                            console.log('resp id string',responseStringIds)
-                            const cardDuplicated = responseStringIds.filter((theCard) => {
-                                return theCard.id == responseCard.id
-                            })
-
-                            setCards([...cards, cardDuplicated[0]])
-                            
-                        } catch (error) {
-                            console.log(error.message)
-                        }
+                const createTasks = card.tasks.map(async (task, index) => {
+                    const req = {
+                        title: task.title,
+                        card_id: responseCard.id
+                    };
+                    try {
+                        const responseTask = await createTask(req);
+                        return responseTask;
+                    } catch (error) {
+                        console.log(error.message);
                     }
-                    handleGetBoard()
-                    
-                } catch (error) {
-                    console.log(error.message)
+                })
+            
+                await Promise.all(createTasks);
+
+                const handleDetailCard = async () => {
+                    try {
+                        const response = await detailCard(card.id)
+                        const {id, title, tasks} = response
+                        const duplicatedCard = { id: `${id}`, title, tasks }
+                        setCards([...cards, duplicatedCard])
+                    } catch (error) {
+                        console.log(error.message);
+                    }
                 }
+
+                handleDetailCard()
+
+                // const handleGetBoard = async () => {
+                //     try {
+                //         const response = await detailBoard(boardId);
+                //         const responseStringIds = response.cards.map((theCard) => {
+                //             return {
+                //                 ...theCard,
+                //                 id: String(theCard.id)
+                //             };
+                //         });
+
+                //         const cardDuplicated = responseStringIds.filter((theCard) => {
+                //             return theCard.id == responseCard.id
+                //         })
+
+                //         setCards([...cards, cardDuplicated[0]])
+                        
+                //     } catch (error) {
+                //         console.log(error.message);
+                //     }
+                // }
+
+                // handleGetBoard()
+                
+            } catch (error) {
+                console.log(error.message);
+            }
             
         } else {
-            setLimitPlan(true)
+            setLimitPlan(true);
         }
     }
 
