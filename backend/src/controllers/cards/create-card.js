@@ -10,13 +10,13 @@ const createCard = async (req, res) => {
             return res.status(404).json({ message: `Board with board_id = ${board_id} was not found.` });
         }
 
-        const cardAndBoardOwner = await knex('cards')
+        const boardOwner = await knex('cards')
             .join('boards', 'boards.id', '=', 'cards.board_id')
-            .select('user_id as boardOwner')
-            .where('cards.id', id)
+            .select('user_id as owner')
+            .where('boards.id', board_id)
             .first();
 
-        if (cardAndBoardOwner.boardOwner != req.user.id) {
+        if (boardOwner.owner != req.user.id) {
             return res.status(403).json({ message: 'Denied access.' });
         }
 
