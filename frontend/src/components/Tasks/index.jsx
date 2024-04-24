@@ -59,14 +59,15 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
       console.log(card)
       try {
         const task = {
-          card_id: card.card_id,
+          card_id: card.id,
           title: taskTitle,
           description: description1
         };
-        console.log('task',task)
+        console.log('task', task)
         const response = await createTask(task);
         const { id, title, description } = response;
         const taskCreated = { id: `${id}`, title, description };
+        console.log('task', taskCreated)
         card.tasks.push(taskCreated);
         onUpdatedCard(card);
       } catch (error) {

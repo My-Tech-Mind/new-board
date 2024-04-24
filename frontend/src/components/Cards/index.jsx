@@ -132,7 +132,7 @@ const Cards = () => {
 
             try {
                 const responseCard = await createCard(cardCopy);
-            
+                console.log(responseCard)
                 const createTasks = card.tasks.map(async (task, index) => {
                     const req = {
                         title: task.title,
