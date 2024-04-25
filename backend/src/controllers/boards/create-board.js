@@ -24,9 +24,9 @@ const createBoard = async (req, res) => {
         }).returning('*');
 
         await knex('cards').insert([
-            { title: 'to do', board_id: creatingBoard[0].id, ordenation: 1 },
-            { title: 'doing', board_id: creatingBoard[0].id, ordenation: 2 },
-            { title: 'done', board_id: creatingBoard[0].id, ordenation: 3 }
+            { title: 'to do', board_id: creatingBoard[0].id, ordenation: 0 },
+            { title: 'doing', board_id: creatingBoard[0].id, ordenation: 1 },
+            { title: 'done', board_id: creatingBoard[0].id, ordenation: 2 }
         ]);
 
         await refreshUpdateDateBoard(creatingBoard[0].id);
