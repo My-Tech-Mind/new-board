@@ -19,6 +19,9 @@ const detailCard = async (req, res) => {
             return res.status(403).json({ message: 'Denied access.' });
         }
 
+        const tasks = await knex('tasks').where({ card_id: id }).orderBy('ordenation', 'asc');
+        card.tasks = tasks;
+
         return res.status(200).json(card);
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error' });

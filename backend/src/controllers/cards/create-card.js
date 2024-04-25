@@ -36,6 +36,8 @@ const createCard = async (req, res) => {
 
         await refreshUpdateDateBoard(board_id);
 
+        creatingCard[0].tasks = [];
+
         return res.status(201).json(creatingCard[0]);
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error' });
