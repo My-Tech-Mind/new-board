@@ -277,7 +277,7 @@ const Cards = () => {
             return theCard.id == card.id ? card : theCard
         });
         setCards(updatedCards);
-      };
+    };
 
     useEffect(() => {
             handleUpdateCards(cardWithTask)
@@ -304,7 +304,7 @@ const Cards = () => {
                 )
             }
             {
-                limitPlan && (<LimitError />)
+                limitPlan && (<LimitError onOpenModal={(status) => setLimitPlan(status)} />)
             }
             <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="all-cards" direction="horizontal" type='card' key="all-cards">

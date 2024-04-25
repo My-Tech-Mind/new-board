@@ -6,13 +6,14 @@ import { IoMdCloseCircleOutline } from 'react-icons/io';
 import { MdWorkspacePremium } from 'react-icons/md';
 import { FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
-const LimitError = () => {
+const LimitError = ({onOpenModal}) => {
 
     const [closeModal, setCloseModal] = useState(false)
     const [upgradePlan, setUpgradePlan] = useState(false)
 
     const handleCloseModal = () => {
         setCloseModal(true)
+        onOpenModal(false)
     }
 
     const handleUpgradePlan = () => {

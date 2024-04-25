@@ -14,12 +14,14 @@ import {
   getTask
 } from '../../services/api/task/task';
 import { updateCard } from '../../services/api/card/card';
+import LimitError from '../modalComponents/LimitError';
 const Tasks = ({ tasks, card, onUpdatedCard }) => {
 
   const [openEditTaskBox, setOpenEditTaskBox] = useState(false)
   const [openTaskBox, setOpenTaskBox] = useState(false)
   const [TaskToBeEdited, setTaskToBeEdited] = useState({})
   const [CardToBeEdited, setCardToBeEdited] = useState({})
+  const [limitPlan, setLimitPlan] = useState(false);
   const limiteTasks = 20
 
   const handleDuplicateTask = async (data) => {
@@ -38,7 +40,7 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
       }
 
     } else {
-      console.log('erro: não pode criar mais de 20 tasks por card')
+      setLimitPlan(true)
     }
   }
 
@@ -74,7 +76,7 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
         console.log(error.message)
       }
     } else {
-      // window.alert(`You can't create more than 20 tasks`)
+      setLimitPlan(true)
     }
   }
 
@@ -172,6 +174,10 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
               buttonName="Create" />
           </>
         )
+      }
+
+      {
+        limitPlan && (<LimitError onOpenModal={(status) => setLimitPlan(status)} />)
       }
       <div className={styles.task_scroll}>
       {tasks.map((task, index) => (
