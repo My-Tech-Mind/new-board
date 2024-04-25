@@ -1,14 +1,26 @@
 .main_container {
     position: absolute;
-    top: calc(50vh - 300px);
-    left: calc(50vw - 250px);
-    height: 550px;
-    width: 500px;
+    top: calc(50vh - 270px);
+    left: calc(50vw - 170px);
+    height: 500px;
+    width: 300px;
     z-index: 999;
     background-color: var(--background-color-header);
     padding: 20px;
     border: solid rgba(0, 0, 0, 0.266) 1px;
     border-radius: 5px;
+    overflow-y: scroll;
+}
+
+.main_container::-webkit-scrollbar {
+    width: 5px;
+    background-color: var(--color9);
+}
+
+.main_container::-webkit-scrollbar-thumb {
+    width: 5px;
+    background-color: var(--color8);
+    
 }
 
 .content_container {
@@ -24,29 +36,31 @@
 }
 
 .title {
-    font-size: 18pt;
+    font-size: 14pt;
     margin: 0;
 }
 
 .subtitle {
-    font-size: 12pt;
+    font-size: 10pt;
 }
 
 .message {
+    font-size: 10pt;
     margin: 0;
 }
 
 .plans_container {
     display: flex;
-    align-items: start;
+    flex-direction: column-reverse;
+    align-items: center;
     justify-content: center;
     gap: 20px;
-    width: 500px;
+    width: 300px;
 }
 
 .plan {
-    width: 200px;
-    padding: 10px;
+    width: 250px;
+    padding: 5px;
     text-align: center;
     border: solid rgba(0, 0, 0, 0.266) 1px;
     border-radius: 5px;
@@ -60,7 +74,7 @@
 }
 
 #premium_plan {
-    border: solid var(--color1) 1px;
+    border: solid #00a6a6 1px;
 }
 
 .premium_icon {
@@ -100,7 +114,7 @@
 
 .check_icon {
     font-size: 12pt;
-    color: var(--color1);
+    color: #00a6a6;
 }
 
 .limit_icon {
@@ -110,9 +124,9 @@
 
 .close_icon {
     position: absolute;
-    top: calc(50vh - 305px);
-    left: calc(50vw - 175px);
-    color: rgb(111, 111, 111);
+    top: 3%;
+    left: calc(50% + 140px);
+    color: #6f6f6f;
     cursor: pointer;
 }
 
@@ -121,4 +135,58 @@
     font-size: 8pt;
     margin: 0;
     font-weight: 500;
+}
+
+@media screen and (min-width: 768px) {
+    .main_container {
+        position: absolute;
+        top: calc(50vh - 300px);
+        left: calc(50vw - 250px);
+        height: 550px;
+        width: 500px;
+        z-index: 999;
+        background-color: var(--background-color-header);
+        padding: 20px;
+        border: solid rgba(0, 0, 0, 0.266) 1px;
+        border-radius: 5px;
+    }
+
+    .title {
+        font-size: 18pt;
+        margin: 0;
+    }
+    
+    .subtitle {
+        font-size: 12pt;
+    }
+
+    .message {
+        font-size: 12pt;
+        margin: 0;
+    }
+
+    .plans_container {
+        display: flex;
+        flex-direction: row;
+        align-items: start;
+        justify-content: center;
+        gap: 20px;
+        width: 500px;
+    }
+
+    .plan {
+        width: 200px;
+        padding: 10px;
+        text-align: center;
+        border: solid rgba(0, 0, 0, 0.266) 1px;
+        border-radius: 5px;
+    }
+
+    .close_icon {
+        position: absolute;
+        top: 3%;
+        left: calc(50% + 240px);
+        color: #6f6f6f;
+        cursor: pointer;
+    }
 }

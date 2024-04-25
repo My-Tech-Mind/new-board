@@ -9,6 +9,7 @@ import LimitError from '../../components/modalComponents/LimitError';
 import detailBoard from '../../services/api/board/board';
 import { useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/index';
+import { updateBoards } from '../../services/api/boards/boards';
 
 const Board = () => {
     const [openBoardTitleBox, setOpenBoardTitleBox] = useState(false)
@@ -33,8 +34,14 @@ const Board = () => {
         setOpenBoardTitleBox(!openBoardTitleBox)
     }
 
-    const handleEditTitle = (title) => {
-        setTitleBoard(title)
+    const handleEditTitle = async (title) => {
+        try {
+            const response = await updateBoards(boardId, { title })
+            setTitleBoard(title)
+            return response
+        } catch (error) {
+            console(error.message)
+        }   
     }
 
     const handleSaveCard = (save) => {

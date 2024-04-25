@@ -60,8 +60,8 @@ const Cards = () => {
 
             const cardMoved = {
                 cardId: draggableId,
-                cardIdSourcePosition: source.index,
-                cardIdDestinationPosition: destination.index,
+                cardSourcePosition: source.index,
+                cardDestinationPosition: destination.index,
             }
 
             handleOrdenateCard(cardMoved)
@@ -116,7 +116,7 @@ const Cards = () => {
             const taskMoved = {
                 taskId: draggableId.slice(5, draggableId.length),
                 taskSourcePosition: source.index,
-                taskSourceDestination: destination.index,
+                taskDestinationPosition: destination.index,
                 cardIdSource: source.droppableId,
                 cardIdDestination: destination.droppableId,
             };
@@ -127,19 +127,18 @@ const Cards = () => {
         
     const handleDuplicateCard = async (card) => {
         if (cards.length < 10) {
-            const newTitle = card.title + ' (copy)'
-            const cardCopy = { title: newTitle, board_id: boardId }
+            // const newTitle = card.title + ' (copy)'
+            const cardCopy = { title: card.title, board_id: boardId }
 
             try {
                 const responseCard = await createCard(cardCopy);
-                console.log(responseCard)
-                const createTasks = card.tasks.map(async (task, index) => {
-                    const req = {
+                const createTasks = card.tasks.map(async (task) => {
+                    const taskCopy = {
                         title: task.title,
                         card_id: responseCard.id
                     };
                     try {
-                        const responseTask = await createTask(req);
+                        const responseTask = await createTask(taskCopy);
                         return responseTask;
                     } catch (error) {
                         console.log(error.message);
@@ -150,9 +149,9 @@ const Cards = () => {
 
                 const handleDetailCard = async () => {
                     try {
-                        const response = await detailCard(card.id)
+                        const response = await detailCard(responseCard.id)
                         const {id, title, tasks} = response
-                        const duplicatedCard = { id: `${id}`, title, tasks }
+                        const duplicatedCard = { id: `${id}`, title, tasks}
                         setCards([...cards, duplicatedCard])
                     } catch (error) {
                         console.log(error.message);
@@ -160,34 +159,10 @@ const Cards = () => {
                 }
 
                 handleDetailCard()
-
-                // const handleGetBoard = async () => {
-                //     try {
-                //         const response = await detailBoard(boardId);
-                //         const responseStringIds = response.cards.map((theCard) => {
-                //             return {
-                //                 ...theCard,
-                //                 id: String(theCard.id)
-                //             };
-                //         });
-
-                //         const cardDuplicated = responseStringIds.filter((theCard) => {
-                //             return theCard.id == responseCard.id
-                //         })
-
-                //         setCards([...cards, cardDuplicated[0]])
-                        
-                //     } catch (error) {
-                //         console.log(error.message);
-                //     }
-                // }
-
-                // handleGetBoard()
                 
             } catch (error) {
                 console.log(error.message);
-            }
-            
+            }     
         } else {
             setLimitPlan(true);
         }
@@ -206,7 +181,6 @@ const Cards = () => {
 
     const handleCreateCard = async (cardTitle) => {
         if (cards.length < 10) {
-            // localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEzMzU4OTUxLCJleHAiOjE3MTM0NDUzNTF9.6kLbyhW7GQmrfCgGq8rtAttScdznCDCBOIfLdSY_vJI')
             try {
                 const response = await createCard({ title: cardTitle, board_id: boardId })
                 const { id, title } = response
@@ -226,11 +200,12 @@ const Cards = () => {
     }
 
     const handleEditTitle = async (newTitle) => {
-        const card = { title: newTitle, board_id: "5" }
+        const card = { title: newTitle, board_id: boardId }
         try {
             const response = await updateCard(cardToBeEdited.id, card)
-            const { id, title } = response
-            const updatedCard = { id: `${id}`, title, tasks: cardToBeEdited.tasks }
+            const { id, title, tasks } = response
+            const updatedCard = { id: `${id}`, title, tasks }
+            // const updatedCard = { id: `${id}`, title, tasks: cardToBeEdited.tasks }
             const cardsCopy = [...cards]
             cardsCopy.splice(cardToBeEdited.index, 1, updatedCard)
             setCards(cardsCopy)
@@ -243,6 +218,7 @@ const Cards = () => {
     const handleOrdenateCard = async (ordenation) => {
         try {
             const response = await ordenateCard(ordenation)
+            console.log('ordenação', response)
             return response
         } catch (error) {
             console.log(error.message)
