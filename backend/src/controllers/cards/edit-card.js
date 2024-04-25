@@ -41,6 +41,9 @@ const editCard = async (req, res) => {
 
         refreshUpdateDateBoard(board_id);
 
+        const tasks = await knex('tasks').where({ card_id: id }).orderBy('ordenation', 'asc');
+        editingCard[0].tasks = tasks;
+
         return res.status(200).json(editingCard[0]);
     } catch (error) {
         console.log(error)
