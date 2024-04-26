@@ -10,8 +10,18 @@ const createCard = async (req, res) => {
             return res.status(404).json({ message: `Board with board_id = ${board_id} was not found.` });
         }
 
+        const boardOwner = await knex('cards')
+            .join('boards', 'boards.id', '=', 'cards.board_id')
+            .select('user_id as owner')
+            .where('boards.id', board_id)
+            .first();
+
+        if (boardOwner.owner != req.user.id) {
+            return res.status(403).json({ message: 'Denied access.' });
+        }
+
         const numberOfCards = await knex('cards').where({ board_id });
-        if (numberOfCards.length >= 10) {
+        if (numberOfCards.length > 10) {
             return res.status(403).json({
                 message: `Alert: The maximum number of cards (10) for this board has been reached. ` +
                     `New cards cannot be added to this board due to this limit.`
@@ -25,6 +35,8 @@ const createCard = async (req, res) => {
         }).returning('*');
 
         await refreshUpdateDateBoard(board_id);
+
+        creatingCard[0].tasks = [];
 
         return res.status(201).json(creatingCard[0]);
     } catch (error) {

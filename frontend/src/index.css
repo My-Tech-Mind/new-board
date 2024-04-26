@@ -9,7 +9,12 @@ html {
   box-sizing: border-box;
   font-family: Poppins, sans-serif;
   background-color: var(--background-color);
+  color: var(--color6);
   overflow-x: hidden;
+}
+
+.sn-notifications-container{
+  width: auto !important;
 }
 
 :root {
@@ -19,6 +24,11 @@ html {
   --color3: #005959;
   --color4: #001c1c;
   --color5: #d9d9d9;
+  --color6: #000000;
+  --color7: #ffffff;
+  --color8: #353535;
+  --color9: #afafaf;
+  --color-link:#00a6a6;
   --color-negative:#A60000;
   --color-negative-hover:#c70000;
   --color-icons: #7a7a7a;
@@ -30,8 +40,37 @@ html {
   --background-color-dark: #171717;
   --background-color-header-dark: #1e1e1e;
   --shadow: #00000075;
-  --button-width-desktop: 280px;
-  --button-width-mobile: 200px;
+  --button-width-desktop: 180px;
+  --button-width-mobile: 150px;
+  --button-height-desktop: 40px;
+  --button-height-mobile: 40px;
+}
+
+.dark {
+  --color0: #1E1E1E;
+  --color1: #001c1c;
+  --color2: #005959;
+  --color3: #00a6a6;
+  --color4: #00a6a6;
+  --color5: #4a4a4a;
+  --color6: #ffffff;
+  --color7: #000000;
+  --color8: #828282;
+  --color9: #1e1e1e;
+  --color-link:#ffffff;
+  --color-negative:#ee5b5b;
+  --color-negative-hover:#c70000;
+  --color-icons: #d9d9d9;
+  --color-avatar-circle: #7a7a7a;
+  --color-hover: #00c2c2;
+  --color-hover-login: #171717;
+  --background-color: #171717;
+  --background-color-header: #1E1E1E;
+  /* --background-color-dark: #171717; */
+  /* --background-color-header-dark: #1e1e1e; */
+  --shadow: #00000075;
+  --button-width-desktop: 180px;
+  --button-width-mobile: 150px;
   --button-height-desktop: 40px;
   --button-height-mobile: 40px;
 }

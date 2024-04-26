@@ -4,28 +4,59 @@ import PasswordInput from '../../components/Input/PasswordInput';
 import EmailInput from '../../components/Input/EmailInput';
 import ilustrationLogin from '../../assets/ilustrationLogin.png';
 import logoLight from '../../assets/logo-light.png';
+import Loading from '../../components/Loading/index';
+import logoDark from '../../assets/logo-dark.png';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { login } from '../../services/api/auth';
+import { createNotification } from '../../components/Notifications/index';
 
 
 const Login = () => {
+    const [ loading, setLoading ] = useState(false);
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
-    const navigate = useNavigate();
-    function handleLogin(data, event) {
-        console.log(data);
-        event.preventDefault();
-        navigate('/boards');
+    const mode = localStorage.getItem('mode');
+
+    async function handleLogin(data, event) {
+        try{
+            setLoading(true);
+            event.preventDefault();
+            const register = await login(data);
+            if(register?.token){
+                localStorage.setItem('token', register.token);
+                const logged = localStorage.getItem("token");
+                if(logged){
+                    setLoading(false)
+                    window.location = "/boards";
+                }
+            }else{
+                createNotification('error', "Failed to login!", "Cannot login");
+                setLoading(false);
+            }
+        }catch(error){
+            setLoading(false);
+            console.log(error.message);
+        }
     }
+
     return (
         <>
-            <main>
+            {loading && <Loading/>}
+            <main className={styles.main}>
                 <div className={styles.container_image}>
                     <img src={ilustrationLogin} alt='Ilustration' />
                 </div>
 
                 <form onSubmit={handleSubmit(handleLogin)}  >
                     <div className={styles.main_container}>
-                        <img className={styles.logo} src={logoLight} alt="Logo" />
+                        {
+                            mode === 'dark' ? (
+                                <img className={styles.logo} src={logoDark} alt="Logo" />
+                            ): (
+                                <img className={styles.logo} src={logoLight} alt="Logo" />
+                            )
+                        }
                         <p className={styles.texto}>Login to newBoard</p>
                         
                         <EmailInput
@@ -40,6 +71,7 @@ const Login = () => {
                             register={register}
                             errors={errors}
                             watch={watch}
+                            onFormSubmit={handleSubmit(handleLogin)}
                         />
                         <div className={styles.container_buttons}>
                             <Button buttonType='submit' title='Continue' style='default' />

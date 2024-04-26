@@ -9,6 +9,7 @@
     font-size: 16px;
     text-decoration: none;
     cursor: pointer;
+    margin: 10px;
 }
 
 .default:hover {
@@ -28,24 +29,38 @@
     cursor: pointer;
 }
 
-.negative:hover {
-    background-color: var(--color-negative-hover);
-}
-
-.login {
+.disabled {
     width: var(--button-width-mobile);
     height: var(--button-height-mobile);
     border-radius: 20px;
-    border: solid var(--color3) 2px;
-    background-color: var(--background-color);
-    color: var(--color3);
+    border: none;
+    background-color: #7b7b7b;
+    color: #ffffff;
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
     cursor: pointer;
 }
 
-.login:hover {
+.negative:hover {
+    background-color: var(--color-negative-hover);
+}
+
+.outline {
+    width: var(--button-width-mobile);
+    height: var(--button-height-mobile);
+    border-radius: 20px;
+    border: solid var(--color3) 2px;
+    background-color: transparent;
+    color: var(--color3);
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.outline:hover {
     background-color: var(--color-hover-login);
 }
 
@@ -96,13 +111,17 @@
         height: var(--button-height-desktop);
     }
 
-    .login {
-        margin: 20px;
-        width: 100px;
-        height: 40px;
+    .outline {
+        width: var(--button-width-desktop);
+        height: var(--button-height-desktop);
     }
 
     .negative {
+        width: var(--button-width-desktop);
+        height: var(--button-height-desktop);
+    }
+
+    .disabled {
         width: var(--button-width-desktop);
         height: var(--button-height-desktop);
     }

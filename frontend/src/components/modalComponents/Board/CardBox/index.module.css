@@ -17,6 +17,10 @@
     gap: 20px;
 }
 
+.title {
+    font-size: 16pt;
+}
+
 .form_container {
     display: flex;
     flex-direction: column;
@@ -49,6 +53,19 @@
     border-radius: 5px;
     border: none;
     background-color: var(--color2);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 11pt;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.disabled_button {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: #616161;
     color: #ffffff;
     font-weight: 600;
     font-size: 11pt;

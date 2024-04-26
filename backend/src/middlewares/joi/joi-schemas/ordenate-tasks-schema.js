@@ -1,10 +1,10 @@
 import joi from "joi";
 
 const ordenateTasksSchema = joi.object({
-    taskSourceDestination: joi.number().required().messages({
-        'any.required': 'The taskSourceDestination field is required.',
-        'string.empty': 'The taskSourceDestination field cannot be empty.',
-        'number.base': 'The taskSourceDestination field must be a number.',
+    taskDestinationPosition: joi.number().required().messages({
+        'any.required': 'The taskDestinationPosition field is required.',
+        'string.empty': 'The taskDestinationPosition field cannot be empty.',
+        'number.base': 'The taskDestinationPosition field must be a number.',
     }),
     taskSourcePosition: joi.number().required().messages({
         'any.required': 'The taskSourcePosition field is required.',

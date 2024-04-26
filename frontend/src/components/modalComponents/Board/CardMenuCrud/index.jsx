@@ -5,44 +5,44 @@ import { FaEllipsisV, FaRegTrashAlt, FaEdit, FaRegClone } from 'react-icons/fa';
 const CardMenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
     
     const [menuOpen, setMenuOpen] = useState(false);
-    const menuRef = useRef(null)
-    const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 })
-    const cardWithPosition = { index, ...card }
+    const menuRef = useRef(null);
+    const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });;
+    const cardWithPosition = { index, ...card };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setMenuOpen(false)
+                setMenuOpen(false);
             }
-        }
+        };
         document.addEventListener('mousedown', handleClickOutside);
 
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
+            document.removeEventListener('mousedown', handleClickOutside);
         }
     }, [])
 
     const toggleMenu = (event) => {
-        let xPosition = event.clientX
-        let rightPosition = 'none'
+        let xPosition = event.clientX;
+        let rightPosition = 'none';
 
         if (event.clientX > 0.80 * window.innerWidth) {
-            rightPosition = '20px'
-            xPosition = 'none'
+            rightPosition = '20px';
+            xPosition = 'none';
 
             setMenuPosition({
                 x: xPosition,
                 y: event.clientY,
                 r: rightPosition
-            })
+            });
         } else {
             setMenuPosition({
                 x: xPosition,
                 y: event.clientY,
                 r: rightPosition
-            })
+            });
         }
-        setMenuOpen(true)
+        setMenuOpen(true);
     };
 
     return (
@@ -62,7 +62,7 @@ const CardMenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
                         }}
                     >
                         <ul className={styles.menu_items}>
-                            <li>
+                            <li className={styles.item}>
                                 <div
                                     className={styles.crud_option}
                                     onMouseDown={() => onDuplicate(cardWithPosition)}
@@ -73,11 +73,11 @@ const CardMenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
                                     ${styles.icon}`}
                                     />
                                     <p className={styles.menu_crud_title}>
-                                        Duplicar
+                                        Duplicate
                                     </p>
                                 </div>
                             </li>
-                            <li>
+                            <li className={styles.item}>
                                 <div
                                     className={styles.crud_option}
                                     onMouseDown={() => onEdit(cardWithPosition)}
@@ -87,18 +87,18 @@ const CardMenuCrud = ({ card, index, onDuplicate, onEdit, onDelete }) => {
                                         className={`${styles.crud_icons} ${styles.icon}`}
                                     />
                                     <p className={styles.menu_crud_title}>
-                                        Editar
+                                        Edit
                                     </p>
                                 </div>
                             </li>
-                            <li>
+                            <li className={styles.item}>
                                 <div
                                     className={styles.crud_option}
-                                    onClick={() => onDelete(index)}
+                                    onClick={() => onDelete(card.id, index)}
                                 >
                                     <FaRegTrashAlt className={` ${styles.trash}`} />
                                     <p className={`${styles.menu_crud_title} ${styles.text}`}>
-                                        Excluir
+                                        Delete
                                     </p>
                                 </div>
                             </li>
