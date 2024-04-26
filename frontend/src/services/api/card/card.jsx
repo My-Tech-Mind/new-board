@@ -22,7 +22,7 @@ const updateCard = async (id, card) => {
         const response = await api.put(`/card/${id}`, card);
         return response.data;
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
 };
 

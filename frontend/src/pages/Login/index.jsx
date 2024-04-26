@@ -20,7 +20,7 @@ const Login = () => {
 
     async function handleLogin(data, event) {
         try{
-            setLoading(true)
+            setLoading(true);
             event.preventDefault();
             const register = await login(data);
             if(register?.token){
@@ -32,11 +32,11 @@ const Login = () => {
                 }
             }else{
                 createNotification('error', "Failed to login!", "Cannot login");
-                setLoading(false)
+                setLoading(false);
             }
         }catch(error){
-            setLoading(false)
-           console.log(error)
+            setLoading(false);
+            console.log(error.message);
         }
     }
 

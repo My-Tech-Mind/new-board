@@ -2,11 +2,11 @@ import { api } from "../api"
 
 const createTask = async (task) => {
     try {
-        console.log(task)
+        console.log('task',task)
         const response = await api.post('/task', task)
         return response.data
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
 }
 

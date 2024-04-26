@@ -20,9 +20,9 @@ const Header = ({ logged }) => {
         };
     }, []);
 
-    const mode = localStorage.getItem('mode')
+    const mode = localStorage.getItem('mode');
 
-    return ( 
+    return (
         <header className={styles.header} id={styles.header_light}>
             <div className={styles.header_container}>
                 <div className={styles.container_image}>
@@ -30,25 +30,25 @@ const Header = ({ logged }) => {
                         <a href="/boards">
                             {mode === 'dark' ? (
                                 <img src={darkLogo} alt="dark logo" />
-                            ): (
+                            ) : (
                                 <img src={logo} alt="logo" />
-                            )}    
+                            )}
                         </a>
-                    ): (
+                    ) : (
                         <a href="/#">
                             {mode === 'dark' ? (
                                 <img src={darkLogo} alt="dark logo" />
-                            ): (
+                            ) : (
                                 <img src={logo} alt="logo" />
                             )}
-                        </a>  
+                        </a>
                     )}
                 </div>
                 {logged && <Menu />}
                 {windowSize > 768 && !logged && <Button title="Login" style="outline" href="/login" />}
             </div>
         </header>
-     );
-}
+    );
+};
  
 export default Header;

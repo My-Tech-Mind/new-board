@@ -2,23 +2,25 @@ import { useState } from 'react';
 import Input from '../../../Input';
 import styles from './index.module.css';
 
-const CardBox = ({ title, buttonName, onCreateOrEdit, onSave}) => {
-    const [titleCard, setTitleCard] = useState('untitled')
-    const [caracteresOver, setCaracteresOver] = useState(false)
+const CardBox = ({ title, cardTitle, buttonName, onCreateOrEdit, onSave}) => {
+    const [titleCard, setTitleCard] = useState(cardTitle ? cardTitle : '');
+    const [caracteresOver, setCaracteresOver] = useState(false);
 
     const handleTitleCardValue = (event) => {
         if (event.target.value.length < 20) {
-            setTitleCard(event.target.value) 
-            setCaracteresOver(false)
+            setTitleCard(event.target.value);
+            setCaracteresOver(false);
         } else {
-            setCaracteresOver(true)
+            setCaracteresOver(true);
         }
-    }
+    };
     
-    const handleCreateOrEdit = () => {         
-            onCreateOrEdit(titleCard)
-            onSave(true)
-    }
+    const handleCreateOrEdit = () => {
+        if (!caracteresOver) {
+            onCreateOrEdit(titleCard);
+            onSave(true);
+        }
+    };
 
     return ( 
         <div className={styles.edit_box_container}>
@@ -27,10 +29,15 @@ const CardBox = ({ title, buttonName, onCreateOrEdit, onSave}) => {
                 <h1 className={styles.title}>{title}</h1>
                 <div className={styles.form_container}>
                     <label className={styles.label}>Title</label>
-                    <Input className={styles.input} onChange={handleTitleCardValue} onEnterPress={handleCreateOrEdit} />
+                    <Input
+                        className={styles.input}
+                        onChange={handleTitleCardValue}
+                        onEnterPress={handleCreateOrEdit}
+                        defaultValue={titleCard}
+                    />
                     {caracteresOver && <p className={styles.caracteres_message}>Maximum of 20 characters</p>}
                 </div>
-                <button onClick={handleCreateOrEdit} className={styles.save_button}>{buttonName}</button>
+                <button onClick={handleCreateOrEdit} className={caracteresOver ? styles.disabled_button : styles.save_button} disabled={caracteresOver}>{buttonName}</button>
             </div>
         </div>
      );

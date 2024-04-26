@@ -7,24 +7,25 @@ import { logOut } from '../../../../services/api/auth'
 
 const Menu = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const menuRef = useRef(null)
+    const menuRef = useRef(null);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setMenuOpen(false)
+                setMenuOpen(false);
             }
-        }
+        };
         document.addEventListener('mousedown', handleClickOutside);
 
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
+            document.removeEventListener('mousedown', handleClickOutside);
         }
     }, [])
 
     const toggleMenu = () => {
-        setMenuOpen(!menuOpen)
+        setMenuOpen(!menuOpen);
     };
+    
     return (
         <div className={styles.menu_icons_container}>
             <Link to="/boards" className={styles.link}>
