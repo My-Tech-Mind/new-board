@@ -24,8 +24,12 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
     if (tasks.length < limiteTasks) {
       const { card, task } = data;
       try {
-        const req = { title: task.title, card_id: card.id };
-        const response = await createTask(req);
+        const taskCopy = {
+          title: task.title,
+          description: task.description,
+          card_id: card.id
+        };
+        const response = await createTask(taskCopy);
         const { id, title, description } = response;
         const newTask = { id: `${id}`, title, description };
         card.tasks.splice(task.taskIndex + 1, 0, newTask);

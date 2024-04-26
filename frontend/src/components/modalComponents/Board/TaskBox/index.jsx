@@ -30,14 +30,11 @@ const TaskBox = ({ card, onCreateTask, taskTitle, taskDescription, closeBox, tit
     };
     
     const handleEnterPress = () => {
-        console.log(!caracteresDescriptionOver, !caracteresTitleOver)
         if (!caracteresDescriptionOver && !caracteresTitleOver) {
             closeBox(false);
             onCreateTask(card, titleTask, descriptionTask);
         }
     };
-
-    console.log(descriptionTask)
 
     return (
         <div className={styles.edit_box_container}>
