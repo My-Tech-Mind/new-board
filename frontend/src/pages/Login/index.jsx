@@ -4,46 +4,44 @@ import PasswordInput from '../../components/Input/PasswordInput';
 import EmailInput from '../../components/Input/EmailInput';
 import ilustrationLogin from '../../assets/ilustrationLogin.png';
 import logoLight from '../../assets/logo-light.png';
-import Loading from '../../components/Loading/index';
 import logoDark from '../../assets/logo-dark.png';
+import Loading from '../../components/Loading/index';
+import loadingLogin from '../../assets/loading-login.gif';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { login } from '../../services/api/auth';
-import { createNotification } from '../../components/Notifications/index';
-
+import { createNotification } from '../../components/Notifications/index'; 
 
 const Login = () => {
     const [ loading, setLoading ] = useState(false);
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
-    const mode = localStorage.getItem('mode');
-
     async function handleLogin(data, event) {
         try{
             setLoading(true)
             event.preventDefault();
-            const register = await login(data);
-            if(register?.token){
-                localStorage.setItem('token', register.token);
+            const access = await login(data);
+            if(access.data?.token){
+                await localStorage.setItem('token', access.data.token);
                 const logged = localStorage.getItem("token");
                 if(logged){
-                    setLoading(false)
                     window.location = "/boards";
                 }
             }else{
-                createNotification('error', "Failed to login!", JSON.parse(register.request.response).message);
-                setLoading(false)
+                createNotification('error', "Failed to login!", JSON.parse(access.request.response).message);
             }
+            setLoading(false);
         }catch(error){
-            setLoading(false)
-           console.log(error)
+           setLoading(false);
+           createNotification('error', "Failed to login!", "Internal server error.");
         }
     }
 
+    const mode = localStorage.getItem('mode')
     return (
         <>
             {loading && <Loading/>}
-            <main className={styles.main}>
+            <main className={styles.main_login}>
                 <div className={styles.container_image}>
                     <img src={ilustrationLogin} alt='Ilustration' />
                 </div>

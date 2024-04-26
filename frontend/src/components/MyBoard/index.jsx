@@ -70,15 +70,18 @@ const MyBoard = () => {
         setIsModalDeleteOpen(true);
         setBoardIdToDelete(boardId);
     };
+
+    const isFavorited = boards.find(board => board?.favorited);
+
     return (
         <>
         {loading && <Loading/>}
         <div className={styles.container}>
-            <h1 className={styles.title}>Meus favoritos</h1>
+            {isFavorited?.favorited && <h1 className={styles.title}>Meus favoritos</h1>}
             <div className={styles.MyFavoriteBoards}>
-                {boards.filter(board => board.favorited).map(board => (
-                    <div key={board.id} className={styles.boards}>
-                        <Link to={`/board/${board.id}`} className={styles.boardLink}>
+                {boards.filter(board => board?.favorited).map(board => (
+                    <div key={board?.id} className={styles.boards}>
+                        <Link to={`/board/${board?.id}`} className={styles.boardLink}>
                             {editingBoardId === board.id ? (
                                 < textarea
                                     type="text"
@@ -95,12 +98,13 @@ const MyBoard = () => {
                                     {board.title}
                                 </div>
                             )}
-                            <FaStar className={board.favorited ? styles.icon_boards_star_active : styles.icon_boards_star_inactive} onClick={() => toggleFavorite(board.id)} />
-                            <MenuCrud boardsId={board.id}
-                                onEdit={(text) => updateBoardTitle(board.id, text)}
-                                onUpdate={() => handleDeleteBoard(board.id)}
-                                onDuplicate={() => duplicateBoard(board.id)} />
+                            
                         </Link>
+                        <FaStar className={board.favorited ? styles.icon_boards_star_active : styles.icon_boards_star_inactive} onClick={() => toggleFavorite(board.id)} />
+                        <MenuCrud boardsId={board.id}
+                            onEdit={(text) => updateBoardTitle(board.id, text)}
+                            onUpdate={() => handleDeleteBoard(board.id)}
+                            onDuplicate={() => duplicateBoard(board.id)} />
                     </div>
                 ))}
 
@@ -112,32 +116,32 @@ const MyBoard = () => {
                 </div>
                 <div className={styles.boards_container}>
                     {boards.map(board => (
-                        <div key={board.id} className={styles.boards}>
-                            <Link to={`/board/${board.id}`} className={styles.boardLink}>
-                                {editingBoardId === board.id ? (
-                                    < textarea
-                                        type="text"
+                        <div key={board?.id} className={styles.boards}>
+                            <Link to={`/board/${board?.id}`} className={styles.boardLink}>
+                                {editingBoardId === board?.id ? (
+                                    <div
                                         className={styles.boards_name}
-                                        value={board.title}
-                                        onChange={(e) => updateBoardTitle(board.id, e.target.value)}
-                                        onBlur={handleBoardTitleBlur}
-                                    />
+                                        onDoubleClick={() => setEditingBoardId(board?.id)}
+                                    >
+                                        {board?.title}
+                                    </div>
                                 ) : (
                                     <div
                                         className={styles.boards_name}
-                                        onDoubleClick={() => setEditingBoardId(board.id)}
+                                        onDoubleClick={() => setEditingBoardId(board?.id)}
                                     >
-                                        {board.title}
+                                        {board?.title}
                                     </div>
                                 )}
-                                <FaStar className={board.favorited ? styles.icon_boards_star_active : styles.icon_boards_star_inactive}
+                            
+                            </Link>
+                            <FaStar className={board?.favorited ? styles.icon_boards_star_active : styles.icon_boards_star_inactive}
                                     onClick={() => toggleFavorite(board.id)} />
 
-                                <MenuCrud boardsId={board.id}
+                                <MenuCrud boardsId={board?.id}
                                     onEdit={(text) => updateBoardTitle(board.id, text)}
                                     onUpdate={() => handleDeleteBoard(board.id)}
                                     onDuplicate={() => duplicateBoard(board.id)} />
-                            </Link>
                         </div>
                     ))}
                     {

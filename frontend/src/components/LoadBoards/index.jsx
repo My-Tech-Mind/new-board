@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { listBoards, createBoards, deleteBoards, updateBoards, detailBoards } from '../../services/api/boards/boards';
-
+import { createNotification } from '../Notifications/index';
+import LimitError from '../modalComponents/LimitError/index'; 
 const LoadBoards = () => {
     const [boards, setBoards] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -30,9 +31,16 @@ const LoadBoards = () => {
     const createBoard = async (title) => {
         try {
             const newBoard = await createBoards({ title });
-            setBoards(prevBoards => [...prevBoards, newBoard]);
+            if(newBoard.request.status === 201){
+                setBoards(prevBoards => [...prevBoards, newBoard.data]);
+            } else if(newBoard.request.status === 403){
+                <LimitError/>
+                createNotification('error', "Failed to create board!", JSON.parse(newBoard.request.response).message);
+            }
+            
         } catch (error) {
             console.error('Erro ao criar board:', error);
+            createNotification('error', "Failed to create board!", "Internal server error.");
         }
     };
 
