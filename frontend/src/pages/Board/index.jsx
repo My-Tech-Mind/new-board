@@ -1,31 +1,62 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import { FaPen } from "react-icons/fa";
 import styles from './index.module.css';
 import Cards from '../../components/Cards';
 import CardBox from '../../components/modalComponents/Board/CardBox';
-import {FaTimes} from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa';
+import detailBoard from '../../services/api/board/board';
+import { useParams } from 'react-router-dom';
+import Loading from '../../components/Loading/index';
+import { updateBoards } from '../../services/api/boards/boards';
+import ServerError from '../../components/modalComponents/ServerError';
 
 const Board = () => {
-    const [openBoardTitleBox, setOpenBoardTitleBox] = useState(false)
-    const [titleBoard, setTitleBoard] = useState('Untitled')
+    const [openBoardTitleBox, setOpenBoardTitleBox] = useState(false);
+    const [titleBoard, setTitleBoard] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [serverError, setServerError] = useState(false);
+    const { boardId } = useParams();
+    useEffect(() => {
+        const handleGetTitleBoard = async () => {
+            try {
+                const response = await detailBoard(boardId);
+                setTitleBoard(response.title);
+                setLoading(false);
+            } catch (error) {
+                console.log(error.message);
+                setLoading(false);
+                setServerError(true);
+            }
+        }
+        handleGetTitleBoard();
+    }, [])
 
     const editBoardTitle = () => {
-        setOpenBoardTitleBox(!openBoardTitleBox)
+        setOpenBoardTitleBox(!openBoardTitleBox);
     }
 
-    const handleEditTitle = (title) => {
-        setTitleBoard(title)
+    const handleEditTitle = async (title) => {
+        try {
+            const response = await updateBoards(boardId, { title });
+            setTitleBoard(title);
+            return response;
+        } catch (error) {
+            console(error.message);
+        }   
     }
 
     const handleSaveCard = (save) => {
-        setOpenBoardTitleBox(!save)
+        setOpenBoardTitleBox(!save);
     }
 
     return (
-        <>
+        <>  
+            {loading && <Loading />}
+            {serverError && <ServerError/>}
+            
             <Header logged={true} />
-
+            {/* <LimitError /> */}
             <div className={styles.main_board}>
                 {openBoardTitleBox && (
                     <>

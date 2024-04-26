@@ -8,6 +8,7 @@ import NameInput from '../../components/Input/NameInput';
 import EmailInput from '../../components/Input/EmailInput';
 import ilustrationLogin from '../../assets/ilustrationLogin.png';
 import logoLight from '../../assets/logo-light.png';
+import logoDark from '../../assets/logo-dark.png';
 import { useForm } from 'react-hook-form';
 import { createAccount } from '../../services/api/sign-up/index';
 import { Link, useNavigate } from 'react-router-dom';
@@ -16,32 +17,40 @@ const SignUp = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    async function handleSignUp(data, event) {
-        event.preventDefault();
+    const mode = localStorage.getItem('mode');
+
+    async function handleSignUp(data) {
         try{
-            setLoading(true)
+            setLoading(true);
             const signup = await createAccount(data);
+
             if(signup.request.status < 300){
                 createNotification('success', "Account created successfully!", "Log in to continue!");
-                setLoading(false)
+                setLoading(false);
                 setTimeout(() => {
                   navigate('/login');
                 }, 1500);
             } else if(signup.request.status >= 300){
                 createNotification('error', "Account not created!", JSON.parse(signup.request.response).message);
-                setLoading(false)
+                setLoading(false);
             }
         } catch(error){
-            setLoading(false)
+            setLoading(false);
         }
     }
     return (
         <>  
             { loading && <Loading/> }
-            <main>
+            <main className={styles.main}>
                 <form onSubmit={handleSubmit(handleSignUp)} >
                     <div className={styles.main_container}>
-                        <img className={styles.logo} src={logoLight} alt="Logo" />
+                    {
+                            mode === 'dark' ? (
+                                <img className={styles.logo} src={logoDark} alt="Logo" />
+                            ): (
+                                <img className={styles.logo} src={logoLight} alt="Logo" />
+                            )
+                        }
                         <p className={styles.texto}>SignUp to newBoard</p>
                         <NameInput
                             name="name"
@@ -61,6 +70,7 @@ const SignUp = () => {
                             register={register}
                             errors={errors}
                             watch={watch}
+                            onFormSubmit={handleSubmit(handleSignUp)}
                         />
                         <PasswordInput
                             name="password_confirmation"
@@ -68,6 +78,7 @@ const SignUp = () => {
                             register={register}
                             errors={errors}
                             watch={watch}
+                            onFormSubmit={handleSubmit(handleSignUp)}
                         />
                         <div className={styles.container_buttons}>
                             <Button buttonType='submit' title='Continue' style='default' />

@@ -2,7 +2,7 @@ import { connection as knex } from '../../database/connection.js';
 import { refreshUpdateDateBoard } from '../../utils/refresh-update-date-board.js';
 
 const ordenateCards = async (req, res) => {
-    const { cardIdSourcePosition, cardIdDestinationPosition, cardId } = req.body;
+    const { cardSourcePosition, cardDestinationPosition, cardId } = req.body;
 
     try {
         const card = await knex('cards').where({ id: cardId }).first();
@@ -11,33 +11,33 @@ const ordenateCards = async (req, res) => {
         }
 
         await knex.transaction(async trx => {
-            if (cardIdDestinationPosition < cardIdSourcePosition) {
-                const limitEditIncrement = Number(cardIdSourcePosition) - 1;
+            if (cardDestinationPosition < cardSourcePosition) {
+                const limitEditIncrement = Number(cardSourcePosition) - 1;
                 await trx('cards')
                     .where({ id: cardId })
                     .update({ ordenation: -1 });
 
                 await trx('cards')
-                    .whereBetween('ordenation', [cardIdDestinationPosition, limitEditIncrement])
+                    .whereBetween('ordenation', [cardDestinationPosition, limitEditIncrement])
                     .increment('ordenation', 1);
 
                 await trx('cards')
                     .where({ id: cardId })
-                    .update({ ordenation: cardIdDestinationPosition });
+                    .update({ ordenation: cardDestinationPosition });
 
-            } else if (cardIdDestinationPosition > cardIdSourcePosition) {
-                const limitEditDecrement = Number(cardIdSourcePosition) + 1;
+            } else if (cardDestinationPosition > cardSourcePosition) {
+                const limitEditDecrement = Number(cardSourcePosition) + 1;
                 await trx('cards')
-                    .where('ordenation', cardIdSourcePosition)
+                    .where('ordenation', cardSourcePosition)
                     .update({ ordenation: -1 });
 
                 await trx('cards')
-                    .whereBetween('ordenation', [limitEditDecrement, cardIdDestinationPosition])
+                    .whereBetween('ordenation', [limitEditDecrement, cardDestinationPosition])
                     .decrement('ordenation', 1);
 
                 await trx('cards')
                     .where('ordenation', -1)
-                    .update({ ordenation: cardIdDestinationPosition });
+                    .update({ ordenation: cardDestinationPosition });
             }
 
             refreshUpdateDateBoard(card.board_id);

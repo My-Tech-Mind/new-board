@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Button from '../../components/Button';
 import Tasks from '../Tasks';
@@ -6,45 +6,45 @@ import { FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
 import CardBox from '../modalComponents/Board/CardBox';
 import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
-import { v4 as uuidv4} from 'uuid';
+import { createCard, deleteCard, detailCard, ordenateCard, updateCard } from '../../services/api/card/card';
+import LimitError from '../modalComponents/LimitError';
+import detailBoard from '../../services/api/board/board';
+import { useParams } from 'react-router-dom';
+import { createTask, ordenateTask } from '../../services/api/task/task';
 
 const Cards = () => {
 
-    const initialCards = [
-        {
-            id: '1',
-            title: 'card 1',
-            tasks: [
-                {
-                    id: '1',
-                    title: 'task 1',
-                    description: 'description 1'
-                }
-            ]
-        },
-        {
-            id: '2',
-            title: 'card 2',
-            tasks: [
-                {
-                    id: '2',
-                    title: 'task 2',
-                    description: 'description 2'
-                }
-            ]
-        },
-    ];   
+    let [cards, setCards] = useState([]);
+    const [cardToBeEdited, setCardToBeEdited] = useState({});
+    const [openCreateCardBox, setOpenCreateCardBox] = useState(false);
+    const [openEditCardBox, setOpenEditCardBox] = useState(false);
+    const [limitPlan, setLimitPlan] = useState(false);
+    const [cardWithTask, setCardWithTask] = useState(null);
+    const { boardId } = useParams();
 
-    let [cards, setCards] = useState(initialCards);
-    const [movedPosition, setMovedPosition] = useState({})
-    const initialId = uuidv4().slice(0,3)
-    const [newId, setNewId] = useState(initialId)
-    const [cardToBeEdited, setCardToBeEdited] = useState({})
-    const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
-    const [openEditCardBox, setOpenEditCardBox] = useState(false)
+    useEffect(() => {
+        const handleGetBoard = async () => {
+            try {
+                const response = await detailBoard(boardId);
+                const updateCardsId = response.cards.map((card) => {
+                    return {
+                        ...card,
+                        id: String(card.id),
+                    };
+                });
+                setCards(updateCardsId);
+                const { cards, ...rest } = response;
+                const boardUpdated = { rest, cards: updateCardsId };
+                return boardUpdated;
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+        handleGetBoard();
+    }, []);
 
     const onDragEnd = (result) => {
-        
+
         const { draggableId, destination, source, type } = result;
 
         if (!destination) {
@@ -55,29 +55,18 @@ const Cards = () => {
             const newCards = Array.from(cards);
             const [movedCard] = newCards.splice(source.index, 1);
             newCards.splice(destination.index, 0, movedCard);
-        
+
             setCards(newCards);
 
             const cardMoved = {
                 cardId: draggableId,
                 cardSourcePosition: source.index,
                 cardDestinationPosition: destination.index,
-            }
+            };
 
-            setMovedPosition(cardMoved)
-            
-            
+            handleOrdenateCard(cardMoved);
+
         } else if (type === 'task') {
-
-            const taskMoved = {
-                taskId: draggableId[5],
-                taskSourcePosition: source.index,
-                taskDestinationPosition: destination.index,
-                cardIdSource: source.droppableId,
-                cardIdDestination: destination.droppableId,
-            }
-
-            setMovedPosition(taskMoved)
 
             const sourceCard = cards.find((card) => card.id === source.droppableId);
             const destinationCard = cards.find((card) => card.id === destination.droppableId);
@@ -122,83 +111,148 @@ const Cards = () => {
                 );
 
                 setCards(newCards);
-
             }
+
+            const taskMoved = {
+                taskId: draggableId.slice(5, draggableId.length),
+                taskSourcePosition: source.index,
+                taskDestinationPosition: destination.index,
+                cardIdSource: source.droppableId,
+                cardIdDestination: destination.droppableId,
+            };
+
+            handleOrdenateTask(taskMoved);
+        }
+    };
+        
+    const handleDuplicateCard = async (card) => {
+        if (cards.length < 10) {
+            const cardCopy = { title: card.title, board_id: boardId };
+            try {
+                const responseCard = await createCard(cardCopy);
+                const createTasks = card.tasks.map(async (task) => {
+                    const taskCopy = {
+                        title: task.title,
+                        card_id: responseCard.id
+                    };
+                    try {
+                        const responseTask = await createTask(taskCopy);
+                        return responseTask;
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                });
+            
+                await Promise.all(createTasks);
+
+                const handleDetailCard = async () => {
+                    try {
+                        const response = await detailCard(responseCard.id)
+                        const { id, title, tasks } = response
+                        const duplicatedCard = { id: `${id}`, title, tasks }
+                        setCards([...cards, duplicatedCard])
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                };
+
+                handleDetailCard();
+                
+            } catch (error) {
+                console.log(error.message);
+            }
+        } else {
+            setLimitPlan(true);
         }
     };
 
-    const handleDuplicateCard = (card) => {
-
-        if (cards.length < 10) {
-            setNewId(uuidv4().slice(0, 3))
-        
-        const copyTitle = card.title + ` (copy)`
-        const newTasks = card.tasks.map((task) => {
-            const { id, ...rest } = task
-            return {id: uuidv4().slice(0, 3), ...rest}
-        })
-
-        const createdCard = { id: newId, title: copyTitle, tasks: newTasks }
-
-        cards.splice(card.index + 1, 0, createdCard)
-        setCards(cards) 
-        } else {
-            console.log("erro: não pode criar mais cards")
+    const handleDeleteCard = async (id, index) => {
+        try {
+            await deleteCard(id);
+            const cardsCopy = [...cards];
+            cardsCopy.splice(index, 1);
+            setCards(cardsCopy);
+        } catch (error) {
+            console.log(error.message);
         }
-    }
+    };
 
-    const handleDeleteCard = (index) => {
-        const cardsCopy = [...cards]
-
-        cardsCopy.splice(index, 1)
-        setCards(cardsCopy)
-    }
-
-    const handleCreateCard = (title) => {
+    const handleCreateCard = async (cardTitle) => {
         if (cards.length < 10) {
-            setNewId(uuidv4().slice(0,3))
-            const newCard = {
-                id: newId,
-                title,
-                tasks: []
+            try {
+                const response = await createCard({ title: cardTitle, board_id: boardId });
+                const { id, title } = response;
+                const card = { id: `${id}`, title, tasks: [] };
+                setCards([...cards, card]);
+            } catch (error) {
+                console.log(error.message);
             }
-    
-            cards.push(newCard)
-            setCards(cards) 
         } else {
-            console.log('erro: não pode criar mais que 5 cards')
+            setLimitPlan(true);
         }
-    }
+    };
 
     const handleEditCard = (card) => {
-        setOpenEditCardBox(true)
-        setCardToBeEdited(card)
-    }
+        setOpenEditCardBox(true);
+        setCardToBeEdited(card);
+    };
 
-    const handleEditTitle = (newTitle) => {
-        const { title, index, ...cardWithoutTitleIndex } = cardToBeEdited
-        const updatedCard = {
-            title: newTitle,
-            ...cardWithoutTitleIndex
+    const handleEditTitle = async (newTitle) => {
+        const card = { title: newTitle, board_id: boardId };
+        try {
+            const response = await updateCard(cardToBeEdited.id, card);
+            const { id, title, tasks } = response;
+            const updatedCard = { id: `${id}`, title, tasks };
+            const cardsCopy = [...cards];
+            cardsCopy.splice(cardToBeEdited.index, 1, updatedCard);
+            setCards(cardsCopy);
+
+        } catch (error) {
+            console.log(error.message);
         }
-        const cardsCopy = [...cards]
+    };
 
-        cardsCopy.splice(cardToBeEdited.index, 1, updatedCard)
-        setCards(cardsCopy)
-    }
+    const handleOrdenateCard = async (ordenation) => {
+        try {
+            const response = await ordenateCard(ordenation);
+            return response;
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    const handleOrdenateTask = async (ordenation) => {
+        try {
+            const response = await ordenateTask(ordenation);
+            return response;
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
 
     const handleSaveCard = (save) => {
-        setOpenEditCardBox(!save)
-        setOpenCreateCardBox(!save)
-    }
+        setOpenEditCardBox(!save);
+        setOpenCreateCardBox(!save);
+    };
 
     const openCloseCardBox = () => {
-        setOpenCreateCardBox(!openCreateCardBox)
-    }
+        setOpenCreateCardBox(!openCreateCardBox);
+    };
 
     const openEditTitleCard = () => {
-        setOpenEditCardBox(!openEditCardBox)
-    }
+        setOpenEditCardBox(!openEditCardBox);
+    };
+
+    const handleUpdateCards = (card) => {
+        const updatedCards = cards.map((theCard) => {
+            return theCard.id == card.id ? card : theCard
+        });
+        setCards(updatedCards);
+    };
+
+    useEffect(() => {
+        handleUpdateCards(cardWithTask);
+    }, [cardWithTask]);
 
     return (
         <>
@@ -206,7 +260,7 @@ const Cards = () => {
                 openCreateCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={openCloseCardBox} />
-                        < CardBox title='Card title' buttonName='Create' onCreateOrEdit={handleCreateCard} onSave={ handleSaveCard } />
+                        < CardBox title='Create card' buttonName='Create' onCreateOrEdit={handleCreateCard} onSave={handleSaveCard} />
                     </>
                 )
             }
@@ -215,13 +269,16 @@ const Cards = () => {
                 openEditCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={openEditTitleCard} />
-                        < CardBox title='Card title' buttonName='Save' onEdit={handleEditCard} onCreateOrEdit={handleEditTitle} onSave={ handleSaveCard }/>
-                        
+                        < CardBox title='Edit card' buttonName='Save' onEdit={handleEditCard} onCreateOrEdit={handleEditTitle} onSave={handleSaveCard} cardTitle={cardToBeEdited.title} />
+
                     </>
                 )
             }
+            {
+                limitPlan && (<LimitError onOpenModal={(status) => setLimitPlan(status)} />)
+            }
             <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="all-cards" direction="horizontal" type='card' key= "all-cards">
+                <Droppable droppableId="all-cards" direction="horizontal" type='card' key="all-cards">
                     {(provided) => (
                         <div
                             ref={provided.innerRef}
@@ -235,13 +292,13 @@ const Cards = () => {
                                         draggableId={card.id}
                                         index={index}
                                     >
-                                    {(provided) => (
-                                        <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            className={styles.card}
-                                        >
-                                            <div className={styles.card_title_container} {...provided.dragHandleProps}>
+                                        {(provided) => (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                className={styles.card}
+                                            >
+                                                <div className={styles.card_title_container} {...provided.dragHandleProps}>
                                                     <h2
                                                         className={styles.card_title}
                                                         onClick={openEditTitleCard}
@@ -249,22 +306,22 @@ const Cards = () => {
                                                     >
                                                         {card.title}
                                                     </h2>
-                                                    
+
                                                     <CardMenuCrud
                                                         card={card}
                                                         index={index}
                                                         onDuplicate={handleDuplicateCard}
                                                         onDelete={handleDeleteCard}
                                                         onEdit={handleEditCard}
-                                                        onEditTitle={handleEditTitle} />          
-                                            </div>
-                                                
+                                                        onEditTitle={handleEditTitle} />
+                                                </div>
+
                                                 <Droppable
                                                     droppableId={card.id}
                                                     key={card.id}
                                                     type="task"
                                                 >
-                                                {(provided) => (
+                                                    {(provided) => (
                                                         <div
                                                             ref={provided.innerRef}
                                                             {...provided.droppableProps}
@@ -272,14 +329,15 @@ const Cards = () => {
                                                             <Tasks
                                                                 tasks={card.tasks}
                                                                 card={card}
+                                                                onUpdatedCard={handleUpdateCards}
                                                             />
                                                             {provided.placeholder}
-                                                        </div>   
-                                                )}
-                                                    
-                                            </Droppable>
-                                        </div>
-                                    )}
+                                                        </div>
+                                                    )}
+
+                                                </Droppable>
+                                            </div>
+                                        )}
                                     </Draggable>
                                 </div>
                             ))}

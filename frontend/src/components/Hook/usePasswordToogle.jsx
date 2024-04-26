@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {FaEye} from 'react-icons/fa'
+import { FaEye } from 'react-icons/fa';
 
 const usePasswordToggle = () => {
     const [visible, setVisibility] = useState(true);
@@ -10,7 +10,7 @@ const usePasswordToggle = () => {
     )
     const InputType = visible ? "password" : "text";
 
-    return [InputType, Icon]
+    return [InputType, Icon];
 }
 
 export default usePasswordToggle;

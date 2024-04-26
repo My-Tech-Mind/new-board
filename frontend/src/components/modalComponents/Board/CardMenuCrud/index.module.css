@@ -58,16 +58,13 @@ a .menu_crud_title {
     width: 100%;
     height: 30px;
     margin-left: 10px;
-    color: black;
+    color: var(--color6);
     font-size: 14px;
     cursor: pointer;
 }
 
-ul {
-    margin: 0;
-}
 
-li {
+.item {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,7 +75,7 @@ li {
     border-bottom: solid 1px rgba(0, 0, 0, 0.3);
 }
 
-li:last-child {
+.item:last-child {
     border-bottom: none;
 }
 

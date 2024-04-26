@@ -13,7 +13,7 @@ const createNotification = (type, title, text) => {
 			showIcon: true,
 			showCloseButton: true,
 			autoclose: true,
-			autotimeout: 3000,
+			autotimeout: 5000,
 			notificationsGap: null,
 			notificationsPadding: null,
 			type: 'outline',

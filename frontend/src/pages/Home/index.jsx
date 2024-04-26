@@ -12,12 +12,13 @@ const Home = () => {
             setWindowSize(window.innerWidth);
         };
 
-        window.addEventListener('resize', handleResize)
+        window.addEventListener('resize', handleResize);
 
         return () => {
-            window.removeEventListener('resize', handleResize)
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
+    
     return (
         <>
             <Header logged={false} />
@@ -35,7 +36,7 @@ const Home = () => {
                             <Button title='Sign up' style='default' href='/signup' />
                             {
                                 windowSize < 768 && (
-                                    <Button title='Login' style='login' href='/login' />
+                                    <Button title='Login' style='outline' href='/login' />
                                 )
                             }
                         </div>
