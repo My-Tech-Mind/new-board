@@ -7,7 +7,7 @@ const createBoard = async (req, res) => {
     const { title, favorited } = req.body;
 
     try {
-        const numberOfBoards = await knex('boards');
+        const numberOfBoards = await knex('boards').where({ user_id: req.user.id });
         if (numberOfBoards.length >= 5) {
             return res.status(403).json({
                 message: `Alert: The maximum number of boards (5) per user has been reached.` +
@@ -24,9 +24,9 @@ const createBoard = async (req, res) => {
         }).returning('*');
 
         await knex('cards').insert([
-            { title: 'to do', board_id: creatingBoard[0].id, ordenation: 1 },
-            { title: 'doing', board_id: creatingBoard[0].id, ordenation: 2 },
-            { title: 'done', board_id: creatingBoard[0].id, ordenation: 3 }
+            { title: 'to do', board_id: creatingBoard[0].id, ordenation: 0 },
+            { title: 'doing', board_id: creatingBoard[0].id, ordenation: 1 },
+            { title: 'done', board_id: creatingBoard[0].id, ordenation: 2 }
         ]);
 
         await refreshUpdateDateBoard(creatingBoard[0].id);
