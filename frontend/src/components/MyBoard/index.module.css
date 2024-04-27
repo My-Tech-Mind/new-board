@@ -25,6 +25,10 @@
     flex-wrap: wrap;
 }
 
+.title {
+    font-size: 16pt;
+}
+
 .boards {
     width: 180px;
     height: 120px;
@@ -47,7 +51,7 @@
     font-weight: 600;
     font-size: 12pt;
     resize: none;
-    color: var(--color6);
+    color: #fff;
     overflow-wrap: break-word;
 }
 
