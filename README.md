@@ -809,7 +809,7 @@ Return data: N/A
 
 ```javascript
 // DELETE/task/78
-// No content in the request body
+// No content in the request body 
 ```
 
 ##### Example of return
