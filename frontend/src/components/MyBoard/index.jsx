@@ -7,9 +7,10 @@ import LoadBoards from '../LoadBoards';
 import Modal from '../modalComponents/Boards/ModalEditBoard';
 import ModalDelete from '../modalComponents/Boards/ModalDelete';
 import Loading from '../../components/Loading/index';
+import ServerError from '../../components/modalComponents/ServerError';
 
 const MyBoard = () => {
-    const { loading, boards, createBoard, toggleFavorite, deleteBoard, updateBoardTitle } = LoadBoards();
+    const { serverError, loading, boards, createBoard, toggleFavorite, deleteBoard, updateBoardTitle } = LoadBoards();
 
     const [editingBoardId, setEditingBoardId] = useState(null);
     const [inputValue, setInputValue] = useState('');
@@ -76,6 +77,7 @@ const MyBoard = () => {
     return (
         <>
         {loading && <Loading/>}
+        {serverError && <ServerError/>}
         <div className={styles.container}>
             {isFavorited?.favorited && <h1 className={styles.title}>Meus favoritos</h1>}
             <div className={styles.MyFavoriteBoards}>

@@ -5,15 +5,17 @@ import LimitError from '../modalComponents/LimitError/index';
 const LoadBoards = () => {
     const [boards, setBoards] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [serverError, setServerError] = useState(false);
     useEffect(() => {
         const fetchBoards = async () => {
             try {
                 const fetchedBoards = await listBoards();
-                setBoards(fetchedBoards);
+                setBoards(fetchedBoards.data);
                 setLoading(false);
             } catch (error) {
                 console.error('Erro ao carregar boards:', error);
                 setLoading(false);
+                setServerError(true);
             }
         };
         fetchBoards();
@@ -23,8 +25,10 @@ const LoadBoards = () => {
         try {
             await deleteBoards(boardId);
             setBoards(prevBoards => prevBoards.filter(board => board.id !== boardId));
+            createNotification('success', "Board deleted!", "Board was successfully deleted.");
         } catch (error) {
             console.error('Erro ao excluir board:', error);
+            createNotification('error', "Failed to delete board!", "Internal server error.");
         }
     };
 
@@ -33,6 +37,7 @@ const LoadBoards = () => {
             const newBoard = await createBoards({ title });
             if(newBoard.request.status === 201){
                 setBoards(prevBoards => [...prevBoards, newBoard.data]);
+                createNotification('success', "Board created!", "Board was successfully created.");
             } else if(newBoard.request.status === 403){
                 <LimitError/>
                 createNotification('error', "Failed to create board!", JSON.parse(newBoard.request.response).message);
@@ -48,8 +53,10 @@ const LoadBoards = () => {
         try {
             await updateBoards(boardId, { title: newTitle });
             setBoards(prevBoards => prevBoards.map(board => board.id === boardId ? { ...board, title: newTitle } : board));
+            createNotification('success', "Updated board title!", "The board title was updated successfully."); //verificar Status Code
         } catch (error) {
             console.error('Erro ao atualizar título do board:', error);
+            createNotification('error', "Failed to update board!", "Internal server error.");
         }
     };
 
@@ -71,15 +78,17 @@ const LoadBoards = () => {
 
                 // Atualiza o board no servidor para refletir a mudança
                 await updateBoards(boardId, { title: targetBoard.title, favorited: newFavoriteValue });
+                createNotification('success', `${newFavoriteValue? 'Bord saved as favorite':'Bord removed from favorites'}`, `${newFavoriteValue?'Board was successfully favored':'Board has been successfully removed from favorites'}`);
             }
         } catch (error) {
             console.error('Erro ao alternar favorito do board:', error);
+            createNotification('error', "Failed to favorite board!", "Internal server error.");
         }
     };
 
 
 
-    return { loading, boards, toggleFavorite, deleteBoard, createBoard, updateBoardTitle };
+    return { serverError, loading, boards, toggleFavorite, deleteBoard, createBoard, updateBoardTitle };
 };
 
 export default LoadBoards;

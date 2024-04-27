@@ -112,7 +112,7 @@
 
 .close_icon {
     position: absolute;
-    top: calc(50% - 210px);
+    top: calc(50% - 160px);
     left: calc(50% + 160px);
     color: var(--color-icons);
     cursor: pointer;
@@ -122,6 +122,7 @@
 @media screen and (min-width: 768px) {
     .close_icon {
         left: calc(50% + 260px);
+        top: calc(50% - 210px);
     }
     
 }

@@ -20,6 +20,6 @@ const Button = ({ buttonType, disabled, title, style, href }) => {
             
         </>
     );
-}
+};
 
 export default Button;

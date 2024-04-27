@@ -18,8 +18,8 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     async function handleLogin(data, event) {
         try{
-            setLoading(true)
-            event.preventDefault();
+            setLoading(true);
+            event?.preventDefault();
             const access = await login(data);
             if(access.data?.token){
                 await localStorage.setItem('token', access.data.token);
@@ -69,6 +69,7 @@ const Login = () => {
                             register={register}
                             errors={errors}
                             watch={watch}
+                            onFormSubmit={handleSubmit(handleLogin)}
                         />
                         <div className={styles.container_buttons}>
                             <Button buttonType='submit' title='Continue' style='default' />

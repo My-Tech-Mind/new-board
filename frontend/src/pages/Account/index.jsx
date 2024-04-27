@@ -11,11 +11,11 @@ import Confirmation from '../../components/modalComponents/Account/Confirmation'
 
 const Account = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
-    const modeMemory = localStorage.getItem('mode')
-    const [darkMode, setDarkMode] = useState(modeMemory === 'dark' ? true : false)
+    const modeMemory = localStorage.getItem('mode');
+    const [darkMode, setDarkMode] = useState(modeMemory === 'dark' ? true : false);
     const [showModal, setShowModal] = useState(false); 
     const [modalType, setModalType] = useState('');
-    const [reqUpdate, setReqUpdate] = useState({})
+    const [reqUpdate, setReqUpdate] = useState({});
 
     const handleShowModal = (type) => {
         setShowModal(true);
@@ -33,18 +33,18 @@ const Account = () => {
     }
 
     const handleUpdateAccount = (data, event) => {
-        handleShowModal('update')
+        handleShowModal('update');
         event.preventDefault();
-        setReqUpdate(data)
+        setReqUpdate(data);
     };
 
     useEffect(() => {
         if (darkMode) {
-            document.documentElement.classList.add('dark')
+            document.documentElement.classList.add('dark');
         } else {
-            document.documentElement.classList.remove('dark')
+            document.documentElement.classList.remove('dark');
         }
-    }, [darkMode])
+    }, [darkMode]);
 
     return (
         <>

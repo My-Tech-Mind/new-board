@@ -1,4 +1,4 @@
-import limitError from '../../../assets/limit-error.png'
+import limitError from '../../../assets/limit-error.png';
 import Button from '../../Button';
 import styles from './index.module.css'
 import { FaRegCheckCircle } from 'react-icons/fa';
@@ -6,17 +6,18 @@ import { IoMdCloseCircleOutline } from 'react-icons/io';
 import { MdWorkspacePremium } from 'react-icons/md';
 import { FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
-const LimitError = () => {
+const LimitError = ({onOpenModal}) => {
 
-    const [closeModal, setCloseModal] = useState(false)
-    const [upgradePlan, setUpgradePlan] = useState(false)
+    const [closeModal, setCloseModal] = useState(false);
+    const [upgradePlan, setUpgradePlan] = useState(false);
 
     const handleCloseModal = () => {
-        setCloseModal(true)
+        setCloseModal(true);
+        onOpenModal(false);
     }
 
     const handleUpgradePlan = () => {
-        setUpgradePlan(true)
+        setUpgradePlan(true);
     }
     return ( 
         <>

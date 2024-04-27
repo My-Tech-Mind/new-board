@@ -6,7 +6,7 @@ import { FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
 import CardBox from '../modalComponents/Board/CardBox';
 import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
-import { createCard, deleteCard, ordenateCard, updateCard } from '../../services/api/card/card';
+import { createCard, deleteCard, detailCard, ordenateCard, updateCard } from '../../services/api/card/card';
 import LimitError from '../modalComponents/LimitError';
 import detailBoard from '../../services/api/board/board';
 import { useParams } from 'react-router-dom';
@@ -26,23 +26,22 @@ const Cards = () => {
         const handleGetBoard = async () => {
             try {
                 const response = await detailBoard(boardId);
-                const updateCardsId = response.cards.map((card) => {
+                const updateCardsId = response.data.cards.map((card) => {
                     return {
                         ...card,
                         id: String(card.id),
-                    }
-                })
-                console.log(updateCardsId)
+                    };
+                });
                 setCards(updateCardsId);
-                const { cards, ...rest } = response
-                const boardUpdated = {rest, cards: updateCardsId}
+                const { cards, ...rest } = response.data;
+                const boardUpdated = { rest, cards: updateCardsId };
                 return boardUpdated;
             } catch (error) {
                 console.log(error.message);
             }
         }
         handleGetBoard();
-    }, [])
+    }, []);
 
     const onDragEnd = (result) => {
 
@@ -61,12 +60,11 @@ const Cards = () => {
 
             const cardMoved = {
                 cardId: draggableId,
-                cardIdSourcePosition: source.index,
-                cardIdDestinationPosition: destination.index,
-            }
-            console.log(result)
+                cardSourcePosition: source.index,
+                cardDestinationPosition: destination.index,
+            };
 
-            handleOrdenateCard(cardMoved)
+            handleOrdenateCard(cardMoved);
 
         } else if (type === 'task') {
 
@@ -113,163 +111,148 @@ const Cards = () => {
                 );
 
                 setCards(newCards);
-                console.log('result', result)
             }
 
             const taskMoved = {
                 taskId: draggableId.slice(5, draggableId.length),
                 taskSourcePosition: source.index,
-                taskSourceDestination: destination.index,
+                taskDestinationPosition: destination.index,
                 cardIdSource: source.droppableId,
                 cardIdDestination: destination.droppableId,
-            }
+            };
 
-            handleOrdenateTask(taskMoved)
+            handleOrdenateTask(taskMoved);
         }
     };
         
     const handleDuplicateCard = async (card) => {
         if (cards.length < 10) {
-            const newTitle = card.title + ' (copy)'
-            const cardCopy = { title: newTitle, board_id: boardId }
-
+            const cardCopy = { title: card.title, board_id: boardId };
             try {
-              const responseCard = await createCard(cardCopy)
-            
-              const createTasks = card.tasks.map(async (task, index) => {
-                const req = { title: task.title, card_id: responseCard.id }
-                try {
-                  const responseTask = await createTask(req)
-                  console.log(`task ${index} criada:`, responseTask)
-                  return responseTask
-                } catch (error) {
-                  console.log(error.message)
-                }
-              })
-            
-              await Promise.all(createTasks)
-
-                    const handleGetBoard = async () => {
-                        try {
-                            const response = await detailBoard(boardId)
-                            const responseStringIds = response.cards.map((theCard) => {
-                                return {
-                                    ...theCard,
-                                    id: String(theCard.id)
-                                }
-                            })
-
-                            console.log('resp id string',responseStringIds)
-                            const cardDuplicated = responseStringIds.filter((theCard) => {
-                                return theCard.id == responseCard.id
-                            })
-
-                            setCards([...cards, cardDuplicated[0]])
-                            
-                        } catch (error) {
-                            console.log(error.message)
-                        }
+                const responseCard = await createCard(cardCopy);
+                const createTasks = card.tasks.map(async (task) => {
+                    const taskCopy = {
+                        title: task.title,
+                        card_id: responseCard.id
+                    };
+                    try {
+                        const responseTask = await createTask(taskCopy);
+                        return responseTask;
+                    } catch (error) {
+                        console.log(error.message);
                     }
-                    handleGetBoard()
-                    
-                } catch (error) {
-                    console.log(error.message)
-                }
+                });
             
+                await Promise.all(createTasks);
+
+                const handleDetailCard = async () => {
+                    try {
+                        const response = await detailCard(responseCard.id)
+                        const { id, title, tasks } = response
+                        const duplicatedCard = { id: `${id}`, title, tasks }
+                        setCards([...cards, duplicatedCard])
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                };
+
+                handleDetailCard();
+                
+            } catch (error) {
+                console.log(error.message);
+            }
         } else {
-            setLimitPlan(true)
+            setLimitPlan(true);
         }
-    }
+    };
 
     const handleDeleteCard = async (id, index) => {
         try {
-            await deleteCard(id)
-            const cardsCopy = [...cards]
-            cardsCopy.splice(index, 1)
-            setCards(cardsCopy)
+            await deleteCard(id);
+            const cardsCopy = [...cards];
+            cardsCopy.splice(index, 1);
+            setCards(cardsCopy);
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }
+    };
 
     const handleCreateCard = async (cardTitle) => {
         if (cards.length < 10) {
-            // localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzEzMzU4OTUxLCJleHAiOjE3MTM0NDUzNTF9.6kLbyhW7GQmrfCgGq8rtAttScdznCDCBOIfLdSY_vJI')
             try {
-                const response = await createCard({ title: cardTitle, board_id: boardId })
-                const { id, title } = response
-                const card = { id: `${id}`, title, tasks: [] }
-                setCards([...cards, card])
+                const response = await createCard({ title: cardTitle, board_id: boardId });
+                const { id, title } = response;
+                const card = { id: `${id}`, title, tasks: [] };
+                setCards([...cards, card]);
             } catch (error) {
-                console.log(error.message)
+                console.log(error.message);
             }
         } else {
-            setLimitPlan(true)
+            setLimitPlan(true);
         }
-    }
+    };
 
     const handleEditCard = (card) => {
-        setOpenEditCardBox(true)
-        setCardToBeEdited(card)
-    }
+        setOpenEditCardBox(true);
+        setCardToBeEdited(card);
+    };
 
     const handleEditTitle = async (newTitle) => {
-        const card = { title: newTitle, board_id: "5" }
+        const card = { title: newTitle, board_id: boardId };
         try {
-            const response = await updateCard(cardToBeEdited.id, card)
-            const { id, title } = response
-            const updatedCard = { id: `${id}`, title, tasks: cardToBeEdited.tasks }
-            const cardsCopy = [...cards]
-            cardsCopy.splice(cardToBeEdited.index, 1, updatedCard)
-            setCards(cardsCopy)
+            const response = await updateCard(cardToBeEdited.id, card);
+            const { id, title, tasks } = response;
+            const updatedCard = { id: `${id}`, title, tasks };
+            const cardsCopy = [...cards];
+            cardsCopy.splice(cardToBeEdited.index, 1, updatedCard);
+            setCards(cardsCopy);
 
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }
+    };
 
     const handleOrdenateCard = async (ordenation) => {
         try {
-            const response = await ordenateCard(ordenation)
-            return response
+            const response = await ordenateCard(ordenation);
+            return response;
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }
+    };
 
     const handleOrdenateTask = async (ordenation) => {
         try {
-            const response = await ordenateTask(ordenation)
-            console.log('ord', response)
-            return response
+            const response = await ordenateTask(ordenation);
+            return response;
         } catch (error) {
-            console.log(error)
+            console.log(error.message);
         }
-    }
+    };
 
     const handleSaveCard = (save) => {
-        setOpenEditCardBox(!save)
-        setOpenCreateCardBox(!save)
-    }
+        setOpenEditCardBox(!save);
+        setOpenCreateCardBox(!save);
+    };
 
     const openCloseCardBox = () => {
-        setOpenCreateCardBox(!openCreateCardBox)
-    }
+        setOpenCreateCardBox(!openCreateCardBox);
+    };
 
     const openEditTitleCard = () => {
-        setOpenEditCardBox(!openEditCardBox)
-    }
+        setOpenEditCardBox(!openEditCardBox);
+    };
 
     const handleUpdateCards = (card) => {
         const updatedCards = cards.map((theCard) => {
             return theCard.id == card.id ? card : theCard
         });
         setCards(updatedCards);
-      };
+    };
 
     useEffect(() => {
-            handleUpdateCards(cardWithTask)
-    }, [cardWithTask])
+        handleUpdateCards(cardWithTask);
+    }, [cardWithTask]);
 
     return (
         <>
@@ -286,13 +269,13 @@ const Cards = () => {
                 openEditCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={openEditTitleCard} />
-                        < CardBox title='Edit card' buttonName='Save' onEdit={handleEditCard} onCreateOrEdit={handleEditTitle} onSave={handleSaveCard} />
+                        < CardBox title='Edit card' buttonName='Save' onEdit={handleEditCard} onCreateOrEdit={handleEditTitle} onSave={handleSaveCard} cardTitle={cardToBeEdited.title} />
 
                     </>
                 )
             }
             {
-                limitPlan && (<LimitError />)
+                limitPlan && (<LimitError onOpenModal={(status) => setLimitPlan(status)} />)
             }
             <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="all-cards" direction="horizontal" type='card' key="all-cards">

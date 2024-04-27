@@ -2,37 +2,44 @@ import { useState } from 'react';
 import Input from '../../../Input';
 import styles from './index.module.css';
 
-const TaskBox = ({ card, onCreateTask, closeBox, title, buttonName }) => {
+const TaskBox = ({ card, onCreateTask, taskTitle, taskDescription, closeBox, title, buttonName }) => {
     
-    const [titleTask, setTitleTask] = useState("untitled")
-    const [descriptionTask, setDescriptionTask] = useState("Empty")
-    const [caracteresTitleOver, setTitleCaracteresOver] = useState(false)
-    const [caracteresDescriptionOver, setDescriptionCaracteresOver] = useState(false)
-    const maxTitle = 50
-    const maxDescription = 1000
+    const [titleTask, setTitleTask] = useState(taskTitle);
+    const [descriptionTask, setDescriptionTask] = useState(taskDescription);
+    const [caracteresTitleOver, setTitleCaracteresOver] = useState(false);
+    const [caracteresDescriptionOver, setDescriptionCaracteresOver] = useState(false);
+    const maxTitle = 50;
+    const maxDescription = 1000;
 
     const handleTitleTaskValue = (event) => {
         if (event.target.value.length < maxTitle) {
-            setTitleTask(event.target.value)
-            setTitleCaracteresOver(false)
+            setTitleTask(event.target.value);
+            setTitleCaracteresOver(false);
         } else {
-            setTitleCaracteresOver(true)
+            setTitleCaracteresOver(true);
         }
-    }
+    };
 
     const handleDescriptionTaskValue = (event) => {
         if (event.target.value.length < maxDescription) {
-            setDescriptionTask(event.target.value)
-            setDescriptionCaracteresOver(false)
+            setDescriptionTask(event.target.value);
+            setDescriptionCaracteresOver(false);
         } else {
-            setDescriptionCaracteresOver(true)
+            setDescriptionCaracteresOver(true);
         }
-    }
+    };
+    
+    const handleEnterPress = () => {
+        if (!caracteresDescriptionOver && !caracteresTitleOver) {
+            closeBox(false);
+            onCreateTask(card, titleTask, descriptionTask);
+        }
+    };
 
-    return ( 
-        <div className={styles.edit_box_container}>         
+    return (
+        <div className={styles.edit_box_container}>
             <div className={styles.edit_box}>
-                <h1 className={styles.title}>{ title }</h1>
+                <h1 className={styles.title}>{title}</h1>
                 <div className={styles.form_container}>
                     <label
                         htmlFor="title"
@@ -42,10 +49,8 @@ const TaskBox = ({ card, onCreateTask, closeBox, title, buttonName }) => {
                     <Input
                         className={styles.input}
                         onChange={handleTitleTaskValue}
-                        onEnterPress={() => {
-                            closeBox(false)
-                            onCreateTask(card, titleTask, descriptionTask)
-                        }}
+                        onEnterPress={handleEnterPress}
+                        defaultValue={taskTitle}
                     />
                     {caracteresTitleOver && <p className={styles.caracteres_message}>Máximo de 50 caracteres</p>}
                 </div>
@@ -58,19 +63,21 @@ const TaskBox = ({ card, onCreateTask, closeBox, title, buttonName }) => {
                     <textarea
                         className={styles.textarea}
                         onChange={handleDescriptionTaskValue}
+                        defaultValue={taskDescription}
                     />
                     {caracteresDescriptionOver && <p className={styles.caracteres_message}>Máximo de 1000 caracteres</p>}
                 </div>
                 <button
-                    className={styles.create_button}
+                    className={(!caracteresTitleOver && !caracteresDescriptionOver) ? styles.create_button : styles.disabled_button}
                     onMouseDown={() => onCreateTask(card, titleTask, descriptionTask)}
                     onClick={() => closeBox(false)}
+                    disabled={(caracteresTitleOver || caracteresDescriptionOver)}
                 >
                     {buttonName}
                 </button>
             </div>
         </div>
-     );
-}
+    );
+};
  
 export default TaskBox;

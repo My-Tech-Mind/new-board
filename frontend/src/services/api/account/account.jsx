@@ -4,7 +4,7 @@ const getUser = async (user) => {
     try {
         const response = await api.get('/user', user)
         console.log(response.data)
-        return response.data
+        return response;
     } catch (error) {
         console.log(error.message)
     }
@@ -13,7 +13,7 @@ const getUser = async (user) => {
 const updateUser = async (user) => {
     try {
         const response = await api.put('/user', user)
-        return response.data
+        return response
     } catch (error) {
         console.log(error)
     }
@@ -23,7 +23,7 @@ const deleteUser = async () => {
     try {
         const response = await api.delete('/user')
         console.log(response.data)
-        return response.data
+        return response;
     } catch (error) {
         console.log(error.message)
     }
