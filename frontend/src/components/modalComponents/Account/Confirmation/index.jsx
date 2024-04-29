@@ -18,14 +18,14 @@ const Confirmation = ({type, onCloseModal, req}) => {
             setLoading(true)
             const response = await updateUser(reqUpdate)
             onCloseModal(true)
-            if (response) {
+            if (response.data) {
                 setLoading(false)
                 createNotification('success', 'Updated account', 'Your account was successfully updated')
             } else {
                 setLoading(false)
-                createNotification('error', 'Error', 'Your account could not be updated')
+                createNotification('error', 'Error', JSON.parse(response.request.response).message);
             }
-            return response
+            return response;
             
         } catch (error) {   
             setLoading(false)
@@ -43,8 +43,8 @@ const Confirmation = ({type, onCloseModal, req}) => {
             window.location = "/";
             setLoading(false)
             createNotification('success', 'Deleted account successfully', 'Your account was deleted!')
-            console.log(response)
-            return response
+            console.log(response.data)
+            return response.data;
             
         } catch (error) {   
             setLoading(false)

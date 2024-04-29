@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/index';
 import { updateBoards } from '../../services/api/boards/boards';
 import ServerError from '../../components/modalComponents/ServerError';
+import { createNotification } from '../../components/Notifications/index'; 
 
 const Board = () => {
     const [openBoardTitleBox, setOpenBoardTitleBox] = useState(false);
@@ -21,7 +22,8 @@ const Board = () => {
         const handleGetTitleBoard = async () => {
             try {
                 const response = await detailBoard(boardId);
-                setTitleBoard(response.title);
+                console.log(response)
+                setTitleBoard(response.data.title);
                 setLoading(false);
             } catch (error) {
                 console.log(error.message);
@@ -40,9 +42,11 @@ const Board = () => {
         try {
             const response = await updateBoards(boardId, { title });
             setTitleBoard(title);
+            createNotification('success', "Updated board title!", "The board title was updated successfully.");
             return response;
         } catch (error) {
             console(error.message);
+            setServerError(true);
         }   
     }
 

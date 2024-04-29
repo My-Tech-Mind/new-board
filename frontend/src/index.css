@@ -17,6 +17,10 @@ html {
   width: auto !important;
 }
 
+a{
+  text-decoration: none;
+}
+
 :root {
   --color0: #00fcfc;
   --color1: #00a6a6;
@@ -48,11 +52,11 @@ html {
 
 .dark {
   --color0: #1E1E1E;
-  --color1: #001c1c;
+  --color1: #00A6A6;
   --color2: #005959;
   --color3: #00a6a6;
   --color4: #00a6a6;
-  --color5: #4a4a4a;
+  --color5: #1E1E1E;
   --color6: #ffffff;
   --color7: #000000;
   --color8: #828282;

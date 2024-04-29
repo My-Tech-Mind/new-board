@@ -2,8 +2,9 @@ import { api } from './api';
 
 const login = async (data) =>{
 	try{
-		const logged = await api.post('/login', {email: data.email, password: data.password});
-		return logged.data;
+		return await api.post('/login', {email: data.email, password: data.password});
+		// alert(logged)
+		// return logged;
 	}catch(error){
 		return error;
 	}
