@@ -131,7 +131,7 @@ const Account = () => {
                                 />
                             </div>
                             <div className={styles.container_button}>
-                                <Button buttonType="submit" title="Save" style="default" />
+                                <Button buttonType="submit" title="Save" style="default" size='size_default'/>
                             </div>
                         </form>
                         <div className={styles.line}>
@@ -141,7 +141,7 @@ const Account = () => {
                         <h2 className={styles.subtitle}>Delete account</h2>
                             
                             <div onClick={() => handleShowModal('delete')} className={styles.container_button}>
-                                <Button  title="Delete" style="negative" />
+                                <Button  title="Delete" style="negative" size='size_default' />
                             </div>
                         </form>
                     </div>

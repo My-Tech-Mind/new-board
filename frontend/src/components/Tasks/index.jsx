@@ -217,7 +217,7 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
               />
             </div>
           }
-          href='#' style='task_button'
+          style='task_button'
         />
       </div>
     </div>

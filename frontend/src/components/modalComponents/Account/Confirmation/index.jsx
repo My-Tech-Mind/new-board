@@ -79,7 +79,7 @@ const Confirmation = ({type, onCloseModal, req}) => {
                         {/* {!isChecked && (
                                 <p className={styles.checkbox_message}>Active the checkbox to confirm.</p>
                             )} */}
-                            <Button disabled={!isChecked} buttonType='submit' title="Delete" style={isChecked ? "negative" : "disabled"} />
+                            <Button disabled={!isChecked} buttonType='submit' title="Delete" style={isChecked ? "negative" : "disabled"} size='size_default' />
                         </div>
                         </form>
                     ) : (
@@ -88,7 +88,7 @@ const Confirmation = ({type, onCloseModal, req}) => {
                             Are you sure that you want to update your account?
                         </h1>  
                         <div className={styles.container_button}>
-                            <Button buttonType='submit' title="Save changes" style="default" />
+                            <Button buttonType='submit' title="Save changes" style="default" size='size_default' />
                         </div>
                     </form>
                     )}

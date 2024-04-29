@@ -47,7 +47,7 @@ const LimitError = ({onOpenModal}) => {
                                     <p>Limit of 20 tasks;</p>
                                 </li>
                                     <div onClick={handleCloseModal}>
-                                    <Button title="Free Plan" style="outline" className={ styles.button} />
+                                    <Button title="Free Plan" style="outline" size='size_default' className={ styles.button} />
                                     </div>
                             </ul>
                         </div>

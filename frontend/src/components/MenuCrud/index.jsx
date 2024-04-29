@@ -63,26 +63,28 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
                 {
                     (menuOpen) && (
                         <nav className={styles.menu_open} ref={menuRef}>
-                            <ul className={styles.menu_items}>
-                                <li onClick={duplicateBoard} className={styles.menu_item}>
-                                    <a className={styles.link} >
-                                        <FaRegClone className={styles.icon} />
-                                        <p className={styles.descriptions}>Duplicate</p>
-                                    </a>
-                                </li>
-                                <li onClick={toggleEditMenu} className={styles.menu_item}>
-                                    <a className={styles.link} >
-                                        <FaEdit className={styles.icon} />
-                                        <p className={styles.descriptions}>Edit</p>
-                                    </a>
-                                </li>
-                                <li onClick={deleteBoard} className={styles.menu_item}>
-                                    <a className={styles.link} >
-                                        <FaRegTrashAlt className={styles.icon} />
-                                        <p className={`${styles.descriptions} ${styles.text}`} >Delete</p>
-                                    </a>
-                                </li>
-                            </ul>
+                            <div className={styles.teste}>
+                                <ul className={styles.menu_items}>
+                                    <li onClick={duplicateBoard} className={styles.menu_item}>
+                                        <a className={styles.link} >
+                                            <FaRegClone className={styles.icon} />
+                                            <p className={styles.descriptions}>Duplicate</p>
+                                        </a>
+                                    </li>
+                                    <li onClick={toggleEditMenu} className={styles.menu_item}>
+                                        <a className={styles.link} >
+                                            <FaEdit className={styles.icon} />
+                                            <p className={styles.descriptions}>Edit</p>
+                                        </a>
+                                    </li>
+                                    <li onClick={deleteBoard} className={styles.menu_item}>
+                                        <a className={styles.link} >
+                                            <FaRegTrashAlt className={styles.icon} />
+                                            <p className={`${styles.descriptions} ${styles.text}`} >Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </nav>
                     )
                 }
