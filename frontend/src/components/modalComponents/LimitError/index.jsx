@@ -6,6 +6,7 @@ import { IoMdCloseCircleOutline } from 'react-icons/io';
 import { MdWorkspacePremium } from 'react-icons/md';
 import { FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
+
 const LimitError = ({onOpenModal}) => {
 
     const [closeModal, setCloseModal] = useState(false);
@@ -70,7 +71,13 @@ const LimitError = ({onOpenModal}) => {
                                     <p>Tasks unlimited;</p>
                                 </li>
                                 <p className={styles.price}><strong>$ 4.99/ month</strong></p>
-                                    <div onClick={handleUpgradePlan}><Button title="Upgrade" style="default" className={styles.button} /></div>
+                                    <div onClick={handleUpgradePlan}>
+                                        <Button
+                                            title="Upgrade"
+                                            style="default"
+                                            size="size_default"
+                                            className={styles.button} />
+                                    </div>
                                     {upgradePlan && (
                                         <p className={styles.upgrade_message}>Sorry! We're developing the premium plan! That will be available soon.</p>
                                     )}

@@ -12,10 +12,19 @@ const Modal = ({ Edition, handleInputChange, inputValue }) => {
                     <FaTimes className={styles.close_icon} onClick={() => Edition('cancel')} />
                     <div className={styles.input_container}>
                         <label className={styles.label}>Title board</label>
-                        <Input className={styles.input} defaultValue={inputValue} style='input_default' onChange={handleInputChange} />
+                        <Input
+                            className={styles.input}
+                            defaultValue={inputValue}
+                            style='input_default'
+                            onChange={handleInputChange}
+                            onEnterPress={() => Edition('finish')}
+                            
+                        />
                     </div>
                     <div className={styles.divButton}>
-                        <div onClick={() => Edition('finish')}><Button style='default' size='size_default' title="Create" /></div>
+                        <div onClick={() => Edition('finish')}>
+                            <Button style='default' size='size_default' title="Create" />
+                        </div>
                     </div>
                 </div>
             </div>

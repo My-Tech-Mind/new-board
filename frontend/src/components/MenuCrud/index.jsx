@@ -24,8 +24,6 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
         }
     }, [])
 
-    console.log(menuOpen)
-
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
     };
