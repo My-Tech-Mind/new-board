@@ -27,7 +27,7 @@ const editCard = async (req, res) => {
         }
 
         const numberOfCards = await knex('cards').where({ board_id });
-        if (numberOfCards.length >= 10) {
+        if (numberOfCards.length > 10) {
             return res.status(403).json({
                 message: `Alert: The maximum number of cards (10) for this board has been reached. ` +
                     `New cards cannot be added to this board due to this limit.`
