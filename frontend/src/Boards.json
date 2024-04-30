@@ -1,0 +1,19 @@
+{
+    "Myboards": [
+        {
+            "id": "board_1",
+            "title": "Work",
+            "favorito": true
+        },
+        {
+            "id": "board_2",
+            "title": "Gym",
+            "favorito": false
+        },
+        {
+            "id": "board_3",
+            "title": "House",
+            "favorito": false
+        }
+    ]
+}

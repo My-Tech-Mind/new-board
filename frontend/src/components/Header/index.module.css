@@ -1,0 +1,40 @@
+.container_image {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+
+.container_image > a > img {
+    width: 80px; 
+    height: 30px;
+}
+
+.header {
+    display: flex;
+    align-items: start;
+    height: 60px;
+    padding: 10px;
+}
+
+#header_light {
+    background-color: var(--background-color-header);
+}
+
+#header_dark {
+    background-color: black;
+}
+
+.header_container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    
+}
+
+@media screen and (min-width: 768px) {
+    .container_image > a > img {
+        width: 100px;
+        height: 35px; 
+    }  
+}
