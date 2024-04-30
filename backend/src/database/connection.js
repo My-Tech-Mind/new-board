@@ -8,7 +8,7 @@ const connection = knex({
 		port: DB_PORT,
 		user: DB_USER,
 		password: DB_PASSWORD,
-		database: DATABASE
+		database: DATABASE,
 		ssl: { rejectUnauthorized: true }
 	}
 });
