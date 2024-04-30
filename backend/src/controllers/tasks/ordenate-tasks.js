@@ -2,7 +2,7 @@ import { connection as knex } from '../../database/connection.js';
 import { refreshUpdateDateBoard } from '../../utils/refresh-update-date-board.js';
 
 const ordenateTasks = async (req, res) => {
-    const { taskDestinationPosition, taskSourcePosition, cardIdSource, cardIdDestination, taskId } = req.body;
+    const { taskSourcePosition, taskDestinationPosition, cardIdDestination, cardIdSource, taskId } = req.body;
 
     try {
         const task = await knex('tasks').where({ id: taskId }).first();
@@ -16,10 +16,10 @@ const ordenateTasks = async (req, res) => {
         }
 
         const numberOfTasks = await knex('tasks').where({ card_id: cardIdDestination });
-        if (numberOfTasks.length >= 20) {
+        if (numberOfTasks.length > 20) {
             return res.status(403).json({
-                message: `Alert: The maximum number of tasks (20) for this card has been reached.` +
-                    `New tasks cannot be added to this card due to this limit.`
+                message: `Alert: The maximum number of tasks (20) for this card has been reached.
+                New tasks cannot be added to this card due to this limit.`
             });
         }
 
@@ -28,9 +28,8 @@ const ordenateTasks = async (req, res) => {
         }
 
         await knex.transaction(async trx => {
-            if (taskDestinationPosition < taskSourcePosition) {
+            if (taskDestinationPosition < taskSourcePosition && cardIdSource === cardIdDestination) {
                 const limitEditIncrement = Number(taskSourcePosition) - 1;
-                const limitEditDecrement = Number(taskSourcePosition) + 1;
                 await trx('tasks')
                     .where({ id: taskId })
                     .where({ card_id: cardIdDestination })
@@ -45,7 +44,24 @@ const ordenateTasks = async (req, res) => {
                     .where('ordenation', -1)
                     .where({ card_id: cardIdDestination })
                     .update({ ordenation: taskDestinationPosition });
-                    
+
+            } else if (taskDestinationPosition < taskSourcePosition && cardIdSource !== cardIdDestination) {
+                const limitEditDecrement = Number(taskSourcePosition) + 1;
+                await trx('tasks')
+                    .where({ id: taskId })
+                    .where({ card_id: cardIdDestination })
+                    .update({ ordenation: -1 });
+
+                await trx('tasks')
+                    .whereBetween('ordenation', [taskDestinationPosition, 20])
+                    .where({ card_id: cardIdDestination })
+                    .increment('ordenation', 1);
+
+                await trx('tasks')
+                    .where('ordenation', -1)
+                    .where({ card_id: cardIdDestination })
+                    .update({ ordenation: taskDestinationPosition });
+
                 await trx('tasks')
                     .whereBetween('ordenation', [limitEditDecrement, 20])
                     .where({ card_id: cardIdSource })
@@ -68,11 +84,6 @@ const ordenateTasks = async (req, res) => {
                     .where({ card_id: cardIdDestination })
                     .update({ ordenation: taskDestinationPosition });
 
-                await trx('tasks')
-                    .whereBetween('ordenation', [limitEditDecrement, 20])
-                    .where({ card_id: cardIdSource })
-                    .decrement('ordenation', 1);
-
             } else if (cardIdSource !== cardIdDestination && taskDestinationPosition === taskSourcePosition) {
                 const limitEditDecrement = Number(taskSourcePosition) + 1;
                 await trx('tasks')
@@ -81,7 +92,7 @@ const ordenateTasks = async (req, res) => {
                     .update({ ordenation: -1 });
 
                 await trx('tasks')
-                    .whereBetween('ordenation', [ taskSourcePosition, 20 ])
+                    .whereBetween('ordenation', [taskSourcePosition, 20])
                     .where({ card_id: cardIdDestination })
                     .increment('ordenation', 1);
 
@@ -95,9 +106,8 @@ const ordenateTasks = async (req, res) => {
                     .where({ card_id: cardIdSource })
                     .decrement('ordenation', 1);
 
-        } else if(cardIdSource !== cardIdDestination && taskDestinationPosition > taskSourcePosition){
-            const limitEditDecrement = Number(taskDestinationPosition);
-
+            } else if (cardIdSource !== cardIdDestination && taskDestinationPosition > taskSourcePosition) {
+                const limitEditDecrement = Number(taskDestinationPosition);
                 await trx('tasks')
                     .whereBetween('ordenation', [limitEditDecrement, 20])
                     .where({ card_id: cardIdDestination })
@@ -112,7 +122,12 @@ const ordenateTasks = async (req, res) => {
                     .whereBetween('ordenation', [limitEditDecrement, 20])
                     .where({ card_id: cardIdSource })
                     .decrement('ordenation', 1);
-        }
+
+                await trx('tasks')
+                    .whereBetween('ordenation', [Number(taskSourcePosition) +1, 20])
+                    .where({ card_id: cardIdSource })
+                    .decrement('ordenation', 1);
+            }
 
             refreshUpdateDateBoard(card.board_id);
 

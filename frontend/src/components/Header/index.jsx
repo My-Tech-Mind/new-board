@@ -45,7 +45,7 @@ const Header = ({ logged }) => {
                     )}
                 </div>
                 {logged && <Menu />}
-                {windowSize > 768 && !logged && <Button title="Login" style="outline" href="/login" />}
+                {windowSize > 768 && !logged && <Button title="Login" style="outline" href="/login" size='size_small' />}
             </div>
         </header>
     );

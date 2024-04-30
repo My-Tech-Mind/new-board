@@ -72,7 +72,7 @@ const Login = () => {
                             onFormSubmit={handleSubmit(handleLogin)}
                         />
                         <div className={styles.container_buttons}>
-                            <Button buttonType='submit' title='Continue' style='default' />
+                            <Button buttonType='submit' title='Continue' style='default' size='size_default' />
                         </div>
                         <Link className={styles.container_account}  to="/signup">
                             Create an account
