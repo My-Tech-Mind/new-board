@@ -41,7 +41,7 @@ const LoadBoards = () => {
                 createNotification('success', "Board created!", "Board was successfully created.");
             } else if (newBoard.request.status === 403) {
                 return true
-            } else if (newBoard.response.status === 400) {
+            } else if (newBoard.response?.status === 400) {
                 return createNotification('error', "Cannot create this board!", "You can not create a empty board or more than 20 characteres.");
             }
             
@@ -54,13 +54,13 @@ const LoadBoards = () => {
     const updateBoardTitle = async (boardId, newTitle) => {
         try {
             const updateBoard = await updateBoards(boardId, { title: newTitle });
-            if (updateBoard.response.status === 400) {
+            if (updateBoard.response?.status === 400) {
                 return createNotification('error', "Cannot updated this board!", "You can not create a empty board or more than 20 characteres.");
             }
-            setBoards(prevBoards => prevBoards.map(board => board.id === boardId ? { ...board, title: newTitle } : board));
+            setBoards(prevBoards => prevBoards.map(board => board.id == boardId ? { ...board, title: newTitle } : board));
             createNotification('success', "Updated board title!", "The board title was updated successfully.");
         } catch (error) {
-            console.error('Error to favorite the board:', error);
+            console.log('Error to update the board:', error);
             createNotification('error', "Failed to update board!", "Internal server error.");
         }
     };

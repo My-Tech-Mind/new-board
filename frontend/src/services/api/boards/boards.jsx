@@ -13,7 +13,6 @@ const listBoards = async () => {
 const createBoards = async (boards) => {
     try {
         const response = await api.post('/board', boards)
-        console.log('resp', response);
         return response;
     } catch (error) {
         console.log(error.message)
@@ -23,7 +22,6 @@ const createBoards = async (boards) => {
 const updateBoards = async (id, boards) => {
     try {
         const response = await api.put(`/board/${id}`, boards)
-        console.log(response.data)
         return response;
     } catch (error) {
         console.log(error.message)
@@ -33,10 +31,9 @@ const updateBoards = async (id, boards) => {
 const deleteBoards = async (id) => {
     try {
         const response = await api.delete(`/board/${id}`)
-        console.log(response.data)
         return response;
     } catch (error) {
-
+        console.log(error.message)
     }
 }
 
@@ -45,6 +42,4 @@ export {
     updateBoards,
     deleteBoards,
     listBoards
-    //,
-    // ordenateCard
 }

@@ -29,7 +29,6 @@ const MyBoard = () => {
             setCaracteresOver(true)
         }
     };
-    console.log('caracteres over', caracteresOver)
 
     const handleCreateBoard = () => {
         setIsModalOpen(true);
@@ -66,7 +65,6 @@ const MyBoard = () => {
         } catch (error) {
             console.error('Erro ao criar board:', error);
         }
-
     };
 
     const handleBoardTitleBlur = () => {
@@ -96,7 +94,7 @@ const MyBoard = () => {
     }
 
     const isFavorited = boards.find(board => board?.favorited);
-
+    
     return (
         <>
             {loading && <Loading/>}
