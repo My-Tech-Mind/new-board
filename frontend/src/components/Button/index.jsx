@@ -11,7 +11,7 @@ const Button = ({ buttonType, disabled, title, style, size, href }) => {
                     </button>
                 ) : (
                     <Link to={href}>
-                        <button className={`${styles[`${style}`]} ${styles[`${size}`]}`}>
+                        <button disabled={disabled} className={`${styles[`${style}`]} ${styles[`${size}`]}`}>
                             {title}
                         </button>
                     </Link>

@@ -4,11 +4,12 @@ import styles from './index.module.css';
 import Modal from '../modalComponents/Boards/ModalEditBoard';
 import { useEffect, useRef, useState } from 'react';
 
-const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
+const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate, onLimitCaracteres }) => {
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuEditOpen, setEditMenuOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const [caracteresOver, setCaracteresOver] = useState(false)
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -26,6 +27,14 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
+        if (e.target.value.length === 0) {
+            setCaracteresOver(true)
+        }
+        else if (e.target.value.length > 20) {
+            setCaracteresOver(true)
+        } else {
+            setCaracteresOver(false)
+        }
     };
     const toggleEditMenu = () => {
         setEditMenuOpen(!menuEditOpen);
@@ -89,7 +98,12 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
             </div>
             {
                 (menuEditOpen) && (
-                    <Modal Edition={Edition} inputValue={inputValue} handleInputChange={handleInputChange} />
+                    <Modal
+                        Edition={Edition}
+                        inputValue={inputValue}
+                        handleInputChange={handleInputChange}
+                        limitCaracteres={caracteresOver}
+                    />
                 )}
         </>
     );

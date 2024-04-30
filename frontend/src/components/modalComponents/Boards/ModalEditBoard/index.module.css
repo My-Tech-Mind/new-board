@@ -71,6 +71,13 @@
     height: 30px;
 }
 
+.caracteres_message {
+    font-size: 10px;
+    color: var(--color-negative);
+    margin-top: 5px;
+    padding: 0;
+}
+
 .divButton {
     display: flex;
     align-items: center;

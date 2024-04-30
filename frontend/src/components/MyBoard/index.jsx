@@ -19,10 +19,17 @@ const MyBoard = () => {
     const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
     const [boardIdToDelete, setBoardIdToDelete] = useState(null);
     const [limitPlan, setLimitPlan] = useState(false)
+    const [caracteresOver, setCaracteresOver] = useState(false);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
+        if (e.target.value.length < 20) {
+            setCaracteresOver(false)
+        } else {
+            setCaracteresOver(true)
+        }
     };
+    console.log('caracteres over', caracteresOver)
 
     const handleCreateBoard = () => {
         setIsModalOpen(true);
@@ -30,9 +37,9 @@ const MyBoard = () => {
 
     const Edition = (action) => {
         if (action === 'finish') {
-            createNewBoard(inputValue);
-            setIsModalOpen(false);
-            setInputValue('');
+                createNewBoard(inputValue);
+                setIsModalOpen(false);
+                setInputValue('');   
         } else {
             setIsModalOpen(false);
             setInputValue('');
@@ -84,6 +91,10 @@ const MyBoard = () => {
         setLimitPlan(status)
     }
 
+    const handleCaracteresEdit = (status) => {
+        setCaracteresOver(status)
+    }
+
     const isFavorited = boards.find(board => board?.favorited);
 
     return (
@@ -93,7 +104,7 @@ const MyBoard = () => {
             {limitPlan && (<LimitError onOpenModal={handleLimitPlan} />)}
             <div className={styles.container}>
                 {isFavorited?.favorited &&
-                    <h1 className={styles.title}>Favorites</h1>
+                    <h1 className={styles.title}>Favorite</h1>
                 }
                 <div className={styles.MyFavoriteBoards}>
                     {boards.filter(board => board?.favorited).map(board => (
@@ -121,7 +132,10 @@ const MyBoard = () => {
                             <MenuCrud boardsId={board.id}
                                 onEdit={(text) => updateBoardTitle(board.id, text)}
                                 onUpdate={() => handleDeleteBoard(board.id)}
-                                onDuplicate={() => duplicateBoard(board.id)} />
+                                onDuplicate={() => duplicateBoard(board.id)}
+                                onLimitCaracteres={handleCaracteresEdit}
+                                handleInputChange={handleInputChange}
+                            />
                         </div>
                     ))}
 
@@ -158,7 +172,10 @@ const MyBoard = () => {
                                     <MenuCrud boardsId={board?.id}
                                         onEdit={(text) => updateBoardTitle(board.id, text)}
                                         onUpdate={() => handleDeleteBoard(board.id)}
-                                        onDuplicate={() => duplicateBoard(board.id)} />
+                                        onDuplicate={() => duplicateBoard(board.id)}
+                                        onLimitCaracteres={handleCaracteresEdit}
+                                        handleInputChange={handleInputChange}
+                                />
                             </div>
                         ))}
                         {
@@ -166,7 +183,9 @@ const MyBoard = () => {
                                 <Modal
                                     Edition={Edition}
                                     handleInputChange={handleInputChange}
-                                    inputValue={inputValue} />
+                                    inputValue={inputValue}
+                                    limitCaracteres = {caracteresOver}
+                                />
                             )}
 
                         {
