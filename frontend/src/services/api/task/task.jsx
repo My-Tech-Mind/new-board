@@ -2,7 +2,6 @@ import { api } from "../api"
 
 const createTask = async (task) => {
     try {
-        console.log('task',task)
         const response = await api.post('/task', task)
         return response.data
     } catch (error) {
@@ -22,6 +21,7 @@ const deleteTask = async (id) => {
 const updateTask = async (id, task) => {
     try {
         const response = await api.put(`task/${id}`, task)
+        console.log(response)
         return response.data
     } catch (error) {
         console.log(error.message)

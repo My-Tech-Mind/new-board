@@ -26,7 +26,7 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
       try {
         const taskCopy = {
           title: task.title,
-          description: task.description,
+          description: task.description === null ? '' : task.description,
           card_id: card.id
         };
         const response = await createTask(taskCopy);
@@ -90,7 +90,7 @@ const Tasks = ({ tasks, card, onUpdatedCard }) => {
       const newTask = {
         card_id: `${card.id}`,
         title: titleTask,
-        description: descriptionTask,
+        description: descriptionTask === null ? '' : descriptionTask
       };
 
       const response = await updateTask(id, newTask);
