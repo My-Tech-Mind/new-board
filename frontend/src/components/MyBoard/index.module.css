@@ -25,10 +25,14 @@
     flex-wrap: wrap;
 }
 
+.title {
+    font-size: 16pt;
+}
+
 .boards {
-    width: 160px;
-    height: 110px;
-    margin: 10px 25px 10px 0px;
+    width: 180px;
+    height: 120px;
+    margin: 0 30px 20px 0;
     display: flex;
     justify-content: center;
     position: relative;
@@ -38,16 +42,16 @@
 }
 
 .boards_name {
-    width: 102px;
+    width: 120px;
     height: auto;
     background-color: var(--color1);
     border: none;
     text-align: center;
     outline: none;
-    font-weight: 700;
-    font-size: large;
+    font-weight: 600;
+    font-size: 12pt;
     resize: none;
-    color: var(--background-color);
+    color: #fff;
     overflow-wrap: break-word;
 }
 
@@ -58,20 +62,24 @@
     opacity: 1.5;
 }
 
+.board_link {
+    text-decoration: none;
+}
+
 .add_board_container {
-    width: 160px;
-    height: 110px;
+    width: 180px;
+    height: 120px;
     display: flex;
-    margin: 10px 26px 10px 0px;
+    margin: 0 20px 20px 10px;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-avatar-circle);
+    background-color: var(--color9);
     cursor: pointer;
 }
 
 .icon_boards_plus {
     font-size: 40px;
-    color: var(--shadow);
+    color: var(--color8);
 }
 
 .icon_boards_star_active {
@@ -79,7 +87,7 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    color: yellow;
+    color: #6cfcfc;
     cursor: pointer;
 }
 
@@ -102,3 +110,4 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+

@@ -2,7 +2,7 @@ import { connection as knex } from '../../database/connection.js';
 import { refreshUpdateDateBoard } from '../../utils/refresh-update-date-board.js';
 
 const ordenateCards = async (req, res) => {
-    const { cardSourcePosition, cardDestinationPosition, cardId } = req.body;
+    const { cardId, cardSourcePosition, cardDestinationPosition } = req.body;
 
     try {
         const card = await knex('cards').where({ id: cardId }).first();

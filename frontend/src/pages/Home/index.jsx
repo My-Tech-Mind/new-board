@@ -33,10 +33,10 @@ const Home = () => {
                             Collaborate, manage projects and reach new peaks in productivity. From skyscrapers to home offices, the way your team works is unique - do it all in a new way with New Board.
                         </p>
                         <div className={styles.container_buttons}>
-                            <Button title='Sign up' style='default' href='/signup' />
+                            <Button title='Sign up' style='default' href='/signup' size='size_default' />
                             {
                                 windowSize < 768 && (
-                                    <Button title='Login' style='outline' href='/login' />
+                                    <Button title='Login' style='outline' href='/login' size='size_small' />
                                 )
                             }
                         </div>

@@ -1,3 +1,12 @@
+.close_icon {
+    position: absolute;
+    top: calc(50% - 90px);
+    left: calc(50% + 150px);
+    color: var(--color-icons);
+    cursor: pointer;
+    z-index: 1003;
+}
+
 .containerModal {
     z-index: 1;
     align-items: center;
@@ -15,7 +24,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #F2F2F2;
+    background-color: var(--background-color-header);
     border-radius: 2px;
     border: solid 1px rgba(0, 0, 0, 0.355);
 }
@@ -29,43 +38,21 @@
 
 }
 
-.items .titulo {
-    color: var(--color-negative);
-    font-weight: bold;
+.items {
+    color: var(--color-06);
+    font-size: 14pt;
+}
+.title {
+    color: var(--color-06);
+    font-size: 14pt;
+    text-align: center;
+    margin: 10px;
 }
 
-.divButton {
+.button_container {
     display: flex;
     align-items: center;
     padding-top: 20px;
     width: 100%;
     justify-content: space-around;
-}
-
-.denyButton {
-    font-weight: bold;
-    border-radius: 5px;
-    border: none;
-    width: 90px;
-    padding: 5px;
-    color: #F2F2F2;
-    background-color: var(--color-negative);
-}
-
-.denyButton:hover {
-    background-color: var(--color-negative-hover);
-}
-
-.confirmButton {
-    font-weight: bold;
-    border-radius: 5px;
-    border: none;
-    width: 90px;
-    padding: 5px;
-    color: #F2F2F2;
-    background-color: #039f03;
-}
-
-.confirmButton:hover {
-    background-color: #039f03c9;
 }

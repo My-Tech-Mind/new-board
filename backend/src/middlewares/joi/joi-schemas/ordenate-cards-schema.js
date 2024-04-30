@@ -4,7 +4,7 @@ const ordenateCardsSchema = joi.object({
     cardSourcePosition: joi.number().required().messages({
         'any.required': 'The cardSourcePosition field is required.',
         'string.empty': 'The cardSourcePosition field cannot be empty.',
-        'number.base': 'The cardIdSourcePosition field must be a number.',
+        'number.base': 'The cardSourcePosition field must be a number.',
     }),
     cardDestinationPosition: joi.number().required().messages({
         'any.required': 'The cardDestinationPosition field is required.',

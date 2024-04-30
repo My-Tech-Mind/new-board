@@ -26,14 +26,14 @@ const Cards = () => {
         const handleGetBoard = async () => {
             try {
                 const response = await detailBoard(boardId);
-                const updateCardsId = response.cards.map((card) => {
+                const updateCardsId = response.data.cards.map((card) => {
                     return {
                         ...card,
                         id: String(card.id),
                     };
                 });
                 setCards(updateCardsId);
-                const { cards, ...rest } = response;
+                const { cards, ...rest } = response.data;
                 const boardUpdated = { rest, cards: updateCardsId };
                 return boardUpdated;
             } catch (error) {
