@@ -6,7 +6,6 @@
     width: 100%;
     margin: 10px;
     bottom: 10px;
-    z-index: 2;
 }
 
 .MyBoards,
@@ -109,5 +108,21 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 768px)  {
+    .add_board_container {
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        z-index: 2;
+    }
+
+    .icon_boards_plus {
+        font-size: 25px;
+    }
 }
 
