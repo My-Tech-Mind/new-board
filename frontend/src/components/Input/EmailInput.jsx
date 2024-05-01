@@ -3,7 +3,7 @@ import Input from '../../components/Input/index';
 import styles from './index.module.css';
 import {SlEnvolope} from "react-icons/sl"
 
-const EmailInput = ({ name, placeholder, register, errors }) => {
+const EmailInput = ({ name, placeholder, register, errors, onFormSubmit }) => {
     return (
         <div className={styles.input_email}>
             <Input
@@ -13,7 +13,11 @@ const EmailInput = ({ name, placeholder, register, errors }) => {
                         pattern: { value: /\S+@\S+\.\S+/, message: 'Invalid email' }
                     })
                 }
-                type='email' placeholder={placeholder} style={errors[name]?.message ? 'input_error' : 'input_default'} />
+                type='email'
+                placeholder={placeholder}
+                style={errors[name]?.message ? 'input_error' : 'input_default'}
+                onEnterPress={onFormSubmit}
+            />
             <SlEnvolope className={styles.icon} />
             <p className={styles.message_error}>{errors[name]?.message}</p>
         </div>

@@ -3,7 +3,7 @@ import Input from '../../components/Input/index';
 import styles from './index.module.css';
 import { FaRegUser } from "react-icons/fa";
 
-const NameInput = ({ name, placeholder, register, errors }) => {
+const NameInput = ({ name, placeholder, register, errors, onFormSubmit }) => {
     return (
         <div className={styles.input_name}>
             <Input
@@ -13,7 +13,11 @@ const NameInput = ({ name, placeholder, register, errors }) => {
                         minLength: { value: 3, message: 'Name must have at least 3 characters' },
                     })
                 }
-                type='text' placeholder={placeholder} style={errors[name]?.message ? 'input_error' : 'input_default'} />
+                type='text'
+                placeholder={placeholder}
+                style={errors[name]?.message ? 'input_error' : 'input_default'}
+                onEnterPress={onFormSubmit}
+            />
                 <FaRegUser className={styles.icon} />
             <p className={styles.message_error}>{errors[name]?.message}</p>
         </div>

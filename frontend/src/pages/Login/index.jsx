@@ -6,7 +6,6 @@ import ilustrationLogin from '../../assets/ilustrationLogin.png';
 import logoLight from '../../assets/logo-light.png';
 import logoDark from '../../assets/logo-dark.png';
 import Loading from '../../components/Loading/index';
-import loadingLogin from '../../assets/loading-login.gif';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -62,6 +61,7 @@ const Login = () => {
                             placeholder="Enter your e-mail"
                             register={register}
                             errors={errors}
+                            onFormSubmit={handleSubmit(handleLogin)}
                         />
                         <PasswordInput
                             name="password"

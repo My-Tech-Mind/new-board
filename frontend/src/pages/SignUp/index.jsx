@@ -57,12 +57,14 @@ const SignUp = () => {
                             placeholder="Enter your name"
                             register={register}
                             errors={errors}
+                            onFormSubmit={handleSubmit(handleSignUp)}
                         />
                         <EmailInput
                             name="email"
                             placeholder="Enter your e-mail"
                             register={register}
                             errors={errors}
+                            onFormSubmit={handleSubmit(handleSignUp)}
                         />
                         <PasswordInput
                             name="password"
