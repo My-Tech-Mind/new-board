@@ -3,7 +3,7 @@ import axios from 'axios';
 const token = localStorage.getItem("token");
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: 'https://new-board-54mj.onrender.com',
   headers: {'Authorization': `Bearer ${token}` }
 });
 
