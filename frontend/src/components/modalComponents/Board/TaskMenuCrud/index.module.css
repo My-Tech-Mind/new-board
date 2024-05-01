@@ -1,0 +1,80 @@
+.menu_open {
+    position: absolute;
+    top: 165px;
+    width: 150px;
+    background-color: var(--background-color);
+    border: solid 1px rgba(0, 0, 0, 0.3);
+    transition: 1s ease-in-out;
+}
+
+.menu_items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+    margin-top: 0;
+}
+
+.menu_icons_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon {
+    cursor: pointer;
+    font-size: 12pt;
+}
+
+.ellipsis {
+    color: #7a7a7a;
+    padding: 2px;
+}
+
+.trash {
+    color: var(--color-negative);
+    margin-right: 20px;
+}
+
+.crud_icons {
+    color: var(--color-icons);
+    margin-right: 20px;
+}
+
+a .menu_crud_title {
+    margin: 0;
+    font-weight: 500;
+    padding: 5px 10px 0 20px;
+}
+
+.text {
+    color: var(--color-negative);
+}
+
+.crud_option {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    margin-left: 10px;
+    color: var(--color6);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    list-style-type: none;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.3);
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+

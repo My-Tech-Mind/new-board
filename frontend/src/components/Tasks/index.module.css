@@ -1,0 +1,128 @@
+.board_container {
+    display: flex;
+    background-color: var(--color5);
+    height: 78vh;
+    padding: 10px;
+    
+}
+
+.card {
+    background-color: var(--color1);
+    width: 250px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.card_title_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add_card_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card_title {
+    color: #fff;
+    font-weight: 600;
+    font-size: 12pt;
+    margin: 0 5px;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    color: #000;
+}
+
+.task_title {
+    font-size: 10pt;
+    font-weight: 600;
+    margin: 0 5px;
+    width: 180px;
+    word-wrap: break-word;
+    
+}
+
+.task_scroll {
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    max-height: 55vh;
+    margin-top: 10px;
+}
+
+.task_scroll::-webkit-scrollbar {
+    width: 10px !important;
+    border-radius: 10px !important;
+}
+
+.task_scroll::-webkit-scrollbar-thumb {
+    background-color: #0040406e !important;
+    border-radius: 5px;
+}
+
+.add_task_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: white;
+    width: 40px;
+}
+
+.add_task_title {
+    font-size: 10pt;
+    font-weight: 600;
+    color: rgb(75, 75, 75);
+}
+
+.icons {
+    color: var(--color-icons);
+    cursor: pointer;
+    font-size: 12pt;
+    margin-left: 5px;
+}
+
+.icon_task_plus {
+    color: #7a7a7a;
+    cursor: pointer;
+    font-size: 12pt;
+    padding: 5px ;
+}
+
+.icon_card_plus {
+    color: white;
+    cursor: pointer;
+    font-size: 12pt;
+    padding: 5px ;
+}
+
+.title_card_icon {
+    color: #fff;
+    font-size: 12pt;
+}
+
+.close_icon {
+    position: absolute;
+    top: calc(50% - 160px);
+    left: calc(50% + 160px);
+    color: var(--color-icons);
+    cursor: pointer;
+    z-index: 1003;
+}
+
+@media screen and (min-width: 768px) {
+    .close_icon {
+        left: calc(50% + 260px);
+        top: calc(50% - 210px);
+    }
+    
+}
