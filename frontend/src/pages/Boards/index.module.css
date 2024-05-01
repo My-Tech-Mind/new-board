@@ -3,10 +3,3 @@
     flex-direction: row-reverse;
     justify-content: space-between;
 }
-
-.boards_header {
-    height: 60px;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-}
