@@ -1,6 +1,11 @@
 .main_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--background-color);
     width: 100vw;
     height: 100vh;
+    z-index: 999;
 }
 
 .content_container {
@@ -9,6 +14,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    width: 100vw;
 }
 
 .title {
@@ -25,7 +31,7 @@
 }
 
 .reload {
-    color: #0049da;
+    color: #00a6a6;
     text-decoration: underline;
     cursor: pointer;
 }

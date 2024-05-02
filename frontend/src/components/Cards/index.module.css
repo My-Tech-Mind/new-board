@@ -98,8 +98,8 @@
 
 .close_icon {
     position: absolute;
-    top: calc(50% - 100px);
-    left: calc(50% + 160px);
+    top: calc(50% - 120px);
+    left: calc(50% + 140px);
     color: var(--color-icons);
     cursor: pointer;
     z-index: 1003;

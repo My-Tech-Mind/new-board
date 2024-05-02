@@ -36,7 +36,7 @@ const Home = () => {
                             <Button title='Sign up' style='default' href='/signup' size='size_default' />
                             {
                                 windowSize < 768 && (
-                                    <Button title='Login' style='outline' href='/login' size='size_small' />
+                                    <Button title='Login' style='outline' href='/login' size='size_default' />
                                 )
                             }
                         </div>

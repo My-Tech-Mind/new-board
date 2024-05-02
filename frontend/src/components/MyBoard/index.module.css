@@ -111,6 +111,23 @@
 }
 
 @media screen and (max-width: 768px)  {
+    .container {
+        justify-content: left;
+        align-items: left;
+    }
+
+    .boards_container {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .MyBoards,
+    .MyFavoriteBoards {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    }
+
     .add_board_container {
         position: fixed;
         right: 10px;

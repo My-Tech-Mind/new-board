@@ -1,7 +1,7 @@
 .edit_box_container {
     position: absolute;
-    top: calc(50% - 175px);
-    left: calc(50% - 150px);
+    top: calc(50% - 195px);
+    left: calc(50% - 170px);
     background-color: var(--background-color-header);
     padding: 20px;
     border-radius: 5px;
