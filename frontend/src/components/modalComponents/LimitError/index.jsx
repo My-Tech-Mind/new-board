@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import limitError from '../../../assets/limit-error.png'
+=======
+import limitError from '../../../assets/limit-error.png';
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
 import Button from '../../Button';
 import styles from './index.module.css'
 import { FaRegCheckCircle } from 'react-icons/fa';
@@ -6,6 +10,7 @@ import { IoMdCloseCircleOutline } from 'react-icons/io';
 import { MdWorkspacePremium } from 'react-icons/md';
 import { FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
+<<<<<<< HEAD
 const LimitError = () => {
 
     const [closeModal, setCloseModal] = useState(false)
@@ -17,6 +22,21 @@ const LimitError = () => {
 
     const handleUpgradePlan = () => {
         setUpgradePlan(true)
+=======
+
+const LimitError = ({onOpenModal}) => {
+
+    const [closeModal, setCloseModal] = useState(false);
+    const [upgradePlan, setUpgradePlan] = useState(false);
+
+    const handleCloseModal = () => {
+        setCloseModal(true);
+        onOpenModal(false);
+    }
+
+    const handleUpgradePlan = () => {
+        setUpgradePlan(true);
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
     }
     return ( 
         <>
@@ -46,7 +66,11 @@ const LimitError = () => {
                                     <p>Limit of 20 tasks;</p>
                                 </li>
                                     <div onClick={handleCloseModal}>
+<<<<<<< HEAD
                                     <Button title="Free Plan" style="outline" className={ styles.button} />
+=======
+                                    <Button title="Free Plan" style="outline" size='size_default' className={ styles.button} />
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
                                     </div>
                             </ul>
                         </div>
@@ -69,7 +93,17 @@ const LimitError = () => {
                                     <p>Tasks unlimited;</p>
                                 </li>
                                 <p className={styles.price}><strong>$ 4.99/ month</strong></p>
+<<<<<<< HEAD
                                     <div onClick={handleUpgradePlan}><Button title="Upgrade" style="default" className={styles.button} /></div>
+=======
+                                    <div onClick={handleUpgradePlan}>
+                                        <Button
+                                            title="Upgrade"
+                                            style="default"
+                                            size="size_default"
+                                            className={styles.button} />
+                                    </div>
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
                                     {upgradePlan && (
                                         <p className={styles.upgrade_message}>Sorry! We're developing the premium plan! That will be available soon.</p>
                                     )}

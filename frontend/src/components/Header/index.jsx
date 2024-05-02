@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './index.module.css';
 import logo from '../../assets/logo-light.png';
+import darkLogo from '../../assets/logo-dark.png';
 import Button from '../Button';
 import Menu from '../modalComponents/Board/Menu';
 
@@ -19,25 +20,39 @@ const Header = ({ logged }) => {
         };
     }, []);
 
-    return ( 
+    const mode = localStorage.getItem('mode');
+
+    return (
         <header className={styles.header} id={styles.header_light}>
             <div className={styles.header_container}>
                 <div className={styles.container_image}>
                     {logged ? (
                         <a href="/boards">
-                            <img src={logo} alt="logo" />
+                            {mode === 'dark' ? (
+                                <img src={darkLogo} alt="dark logo" />
+                            ) : (
+                                <img src={logo} alt="logo" />
+                            )}
                         </a>
-                    ): (
+                    ) : (
                         <a href="/#">
-                            <img src={logo} alt="logo" />
-                        </a>  
+                            {mode === 'dark' ? (
+                                <img src={darkLogo} alt="dark logo" />
+                            ) : (
+                                <img src={logo} alt="logo" />
+                            )}
+                        </a>
                     )}
                 </div>
                 {logged && <Menu />}
+<<<<<<< HEAD
                 {windowSize > 768 && !logged && <Button title="Login" style="outline" href="/login" />}
+=======
+                {windowSize > 768 && !logged && <Button title="Login" style="outline" href="/login" size='size_small' />}
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
             </div>
         </header>
-     );
-}
+    );
+};
  
 export default Header;

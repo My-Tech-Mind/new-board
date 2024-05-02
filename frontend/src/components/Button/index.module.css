@@ -1,6 +1,14 @@
-.default {
+.size_default {
     width: var(--button-width-mobile);
     height: var(--button-height-mobile);
+}
+
+.size_small {
+    width: 100px;
+    height: 40px;
+}
+
+.default {
     border-radius: 20px;
     border: none;
     background-color: var(--color1);
@@ -17,11 +25,20 @@
 }
 
 .negative {
-    width: var(--button-width-mobile);
-    height: var(--button-height-mobile);
     border-radius: 20px;
     border: none;
     background-color: var(--color-negative);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.disabled {
+    border-radius: 20px;
+    border: none;
+    background-color: #7b7b7b;
     color: #ffffff;
     font-weight: 600;
     font-size: 16px;
@@ -34,8 +51,11 @@
 }
 
 .outline {
+<<<<<<< HEAD
     width: var(--button-width-mobile);
     height: var(--button-height-mobile);
+=======
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
     border-radius: 20px;
     border: solid var(--color3) 2px;
     background-color: transparent;
@@ -93,6 +113,7 @@
 }
 
 @media screen and (min-width: 768px) {
+<<<<<<< HEAD
     .default {
         width: var(--button-width-desktop);
         height: var(--button-height-desktop);
@@ -104,6 +125,9 @@
     }
 
     .negative {
+=======
+    .size_default {
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
         width: var(--button-width-desktop);
         height: var(--button-height-desktop);
     }

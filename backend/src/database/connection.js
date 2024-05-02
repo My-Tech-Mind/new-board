@@ -1,8 +1,4 @@
 import knex from 'knex';
-import dotenv from 'dotenv';
-
-dotenv.config()
-
 const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DATABASE } = process.env;
 
 const connection = knex({
@@ -13,7 +9,7 @@ const connection = knex({
 		user: DB_USER,
 		password: DB_PASSWORD,
 		database: DATABASE,
-		// ssl: { rejectUnauthorized: false }
+		ssl: { rejectUnauthorized: false }
 	}
 });
 

@@ -6,18 +6,32 @@ import { FaPlus, FaStar } from 'react-icons/fa';
 import LoadBoards from '../LoadBoards';
 import Modal from '../modalComponents/Boards/ModalEditBoard';
 import ModalDelete from '../modalComponents/Boards/ModalDelete';
+import Loading from '../../components/Loading/index';
+import ServerError from '../../components/modalComponents/ServerError';
+import LimitError from '../../components/modalComponents/LimitError';
 
 const MyBoard = () => {
+<<<<<<< HEAD
     const { boards, createBoard, toggleFavorite, deleteBoard, updateBoardTitle } = LoadBoards();
+=======
+    const { serverError, loading, boards, createBoard, toggleFavorite, deleteBoard, updateBoardTitle } = LoadBoards();
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
 
     const [editingBoardId, setEditingBoardId] = useState(null);
     const [inputValue, setInputValue] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
     const [boardIdToDelete, setBoardIdToDelete] = useState(null);
+    const [limitPlan, setLimitPlan] = useState(false)
+    const [caracteresOver, setCaracteresOver] = useState(false);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
+        if (e.target.value.length < 20) {
+            setCaracteresOver(false)
+        } else {
+            setCaracteresOver(true)
+        }
     };
 
     const handleCreateBoard = () => {
@@ -26,9 +40,9 @@ const MyBoard = () => {
 
     const Edition = (action) => {
         if (action === 'finish') {
-            createNewBoard(inputValue);
-            setIsModalOpen(false);
-            setInputValue('');
+                createNewBoard(inputValue);
+                setIsModalOpen(false);
+                setInputValue('');   
         } else {
             setIsModalOpen(false);
             setInputValue('');
@@ -37,11 +51,30 @@ const MyBoard = () => {
 
     const createNewBoard = async (boardTitle) => {
         try {
+<<<<<<< HEAD
             await createBoard(boardTitle);
+=======
+            const response = await createBoard(boardTitle);
+            if (response === true) {
+                setLimitPlan(true);
+            }
         } catch (error) {
             console.error('Erro ao criar board:', error);
         }
     };
+    const duplicateBoard = async (boardId) => {
+        try {
+            const name = boards.filter(board => board.id === boardId)[0]?.title;
+            const response = await createBoard(name);
+            if (response === true) {
+                setLimitPlan(true);
+            }
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
+        } catch (error) {
+            console.error('Erro ao criar board:', error);
+        }
+    };
+<<<<<<< HEAD
     const duplicateBoard = async (boardId) => {
         try {
             const name = boards.filter(board => board.id === boardId)[0]?.title;
@@ -51,6 +84,8 @@ const MyBoard = () => {
         }
 
     };
+=======
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
 
     const handleBoardTitleBlur = () => {
         setEditingBoardId(null);
@@ -69,6 +104,7 @@ const MyBoard = () => {
         setIsModalDeleteOpen(true);
         setBoardIdToDelete(boardId);
     };
+<<<<<<< HEAD
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Meus favoritos</h1>
@@ -92,10 +128,55 @@ const MyBoard = () => {
                                     {board.title}
                                 </div>
                             )}
+=======
+
+    const handleLimitPlan = (status) => {
+        setLimitPlan(status)
+    }
+
+    const handleCaracteresEdit = (status) => {
+        setCaracteresOver(status)
+    }
+
+    const isFavorited = boards.find(board => board?.favorited);
+    
+    return (
+        <>
+            {loading && <Loading/>}
+            {serverError && <ServerError />}
+            {limitPlan && (<LimitError onOpenModal={handleLimitPlan} />)}
+            <div className={styles.container}>
+                {isFavorited?.favorited &&
+                    <h1 className={styles.title}>Favorite</h1>
+                }
+                <div className={styles.MyFavoriteBoards}>
+                    {boards.filter(board => board?.favorited).map(board => (
+                        <div key={board?.id} className={styles.boards}>
+                            <Link to={`/board/${board?.id}`} className={styles.boardLink}>
+                                {editingBoardId === board.id ? (
+                                    < textarea
+                                        type="text"
+                                        className={styles.boards_name}
+                                        value={board.title}
+                                        onChange={(e) => updateBoardTitle(board.id, e.target.value)}
+                                        onBlur={handleBoardTitleBlur}
+                                    />
+                                ) : (
+                                    <div
+                                        className={styles.boards_name}
+                                        onDoubleClick={() => setEditingBoardId(board.id)}
+                                    >
+                                        {board.title}
+                                    </div>
+                                )}
+                                
+                            </Link>
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
                             <FaStar className={board.favorited ? styles.icon_boards_star_active : styles.icon_boards_star_inactive} onClick={() => toggleFavorite(board.id)} />
                             <MenuCrud boardsId={board.id}
                                 onEdit={(text) => updateBoardTitle(board.id, text)}
                                 onUpdate={() => handleDeleteBoard(board.id)}
+<<<<<<< HEAD
                                 onDuplicate={() => duplicateBoard(board.id)} />
                         </Link>
                     </div>
@@ -141,21 +222,81 @@ const MyBoard = () => {
                         isModalOpen && (
                             <Modal
                                 Edition={Edition}
+=======
+                                onDuplicate={() => duplicateBoard(board.id)}
+                                onLimitCaracteres={handleCaracteresEdit}
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
                                 handleInputChange={handleInputChange}
-                                inputValue={inputValue} />
-                        )}
-
-                    {
-                        isModalDeleteOpen && (
-                            <ModalDelete
-                                Delete={Delete} boardId={boardIdToDelete}
                             />
+<<<<<<< HEAD
                         )
                     }
+=======
+                        </div>
+                    ))}
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
 
                 </div>
-            </div>
-        </div >
+                <h1 className={styles.title}>My Boards</h1>
+                <div className={styles.MyBoards}>
+                    <div className={styles.add_board_container} onClick={() => handleCreateBoard()}>
+                        <FaPlus className={styles.icon_boards_plus} />
+                    </div>
+                    <div className={styles.boards_container}>
+                        {boards.map(board => (
+                            <div key={board?.id} className={styles.boards}>
+                                <Link to={`/board/${board?.id}`} className={styles.boardLink}>
+                                    {editingBoardId === board?.id ? (
+                                        <div
+                                            className={styles.boards_name}
+                                            onDoubleClick={() => setEditingBoardId(board?.id)}
+                                        >
+                                            {board?.title}
+                                        </div>
+                                    ) : (
+                                        <div
+                                            className={styles.boards_name}
+                                            onDoubleClick={() => setEditingBoardId(board?.id)}
+                                        >
+                                            {board?.title}
+                                        </div>
+                                    )}
+                                
+                                </Link>
+                                <FaStar className={board?.favorited ? styles.icon_boards_star_active : styles.icon_boards_star_inactive}
+                                        onClick={() => toggleFavorite(board.id)} />
+
+                                    <MenuCrud boardsId={board?.id}
+                                        onEdit={(text) => updateBoardTitle(board.id, text)}
+                                        onUpdate={() => handleDeleteBoard(board.id)}
+                                        onDuplicate={() => duplicateBoard(board.id)}
+                                        onLimitCaracteres={handleCaracteresEdit}
+                                        handleInputChange={handleInputChange}
+                                />
+                            </div>
+                        ))}
+                        {
+                            isModalOpen && (
+                                <Modal
+                                    Edition={Edition}
+                                    handleInputChange={handleInputChange}
+                                    inputValue={inputValue}
+                                    limitCaracteres = {caracteresOver}
+                                />
+                            )}
+
+                        {
+                            isModalDeleteOpen && (
+                                <ModalDelete
+                                    Delete={Delete} boardId={boardIdToDelete}
+                                />
+                            )
+                        }
+
+                    </div>
+                </div>
+            </div >
+        </>
     );
 };
 

@@ -3,7 +3,7 @@ import Input from '../../components/Input/index';
 import styles from './index.module.css';
 import usePasswordToggle from '../../components/Hook/usePasswordToogle';
 
-const PasswordInput = ({ name, placeholder, register, errors, watch }) => {
+const PasswordInput = ({ name, placeholder, register, errors, watch, noValidation, onFormSubmit }) => {
     const [PasswordInputType, ToggleIcon] = usePasswordToggle();
 
     return (
@@ -21,13 +21,19 @@ const PasswordInput = ({ name, placeholder, register, errors, watch }) => {
                         },
                         validate: (value) => {
                             const password = watch('password');
-                            return value === password || 'Password do not match';
+                            if (noValidation) {
+                                return;
+                            } else {
+                                return value === password || 'Password do not match';
+                            }
+                            
                         },
                     })
                 }
                 type={PasswordInputType}
                 placeholder={placeholder}
                 style={errors[name]?.message ? 'input_error' : 'input_default'}
+                onEnterPress={onFormSubmit}
             />
             <div className={styles.icon}>{ToggleIcon}</div>
             <p className={styles.message_error}>{errors[name]?.message}</p>

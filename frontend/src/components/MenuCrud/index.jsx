@@ -4,11 +4,12 @@ import styles from './index.module.css';
 import Modal from '../modalComponents/Boards/ModalEditBoard';
 import { useEffect, useRef, useState } from 'react';
 
-const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
+const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate, onLimitCaracteres }) => {
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuEditOpen, setEditMenuOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const [caracteresOver, setCaracteresOver] = useState(false)
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -24,10 +25,16 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
         }
     }, [])
 
-    console.log(menuOpen)
-
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
+        if (e.target.value.length === 0) {
+            setCaracteresOver(true)
+        }
+        else if (e.target.value.length > 20) {
+            setCaracteresOver(true)
+        } else {
+            setCaracteresOver(false)
+        }
     };
     const toggleEditMenu = () => {
         setEditMenuOpen(!menuEditOpen);
@@ -63,33 +70,40 @@ const MenuCrud = ({ boardsId, onUpdate, onEdit, onDuplicate }) => {
                 {
                     (menuOpen) && (
                         <nav className={styles.menu_open} ref={menuRef}>
-                            <ul className={styles.menu_items}>
-                                <li onClick={duplicateBoard} className={styles.menu_item}>
-                                    <a className={styles.link} >
-                                        <FaRegClone className={styles.icon} />
-                                        <p className={styles.descriptions}>Duplicar</p>
-                                    </a>
-                                </li>
-                                <li onClick={toggleEditMenu} className={styles.menu_item}>
-                                    <a className={styles.link} >
-                                        <FaEdit className={styles.icon} />
-                                        <p className={styles.descriptions}>Editar</p>
-                                    </a>
-                                </li>
-                                <li onClick={deleteBoard} className={styles.menu_item}>
-                                    <a className={styles.link} >
-                                        <FaRegTrashAlt className={styles.icon} />
-                                        <p className={`${styles.descriptions} ${styles.text}`} >Excluir</p>
-                                    </a>
-                                </li>
-                            </ul>
+                            <div className={styles.teste}>
+                                <ul className={styles.menu_items}>
+                                    <li onClick={duplicateBoard} className={styles.menu_item}>
+                                        <a className={styles.link} >
+                                            <FaRegClone className={styles.icon} />
+                                            <p className={styles.descriptions}>Duplicate</p>
+                                        </a>
+                                    </li>
+                                    <li onClick={toggleEditMenu} className={styles.menu_item}>
+                                        <a className={styles.link} >
+                                            <FaEdit className={styles.icon} />
+                                            <p className={styles.descriptions}>Edit</p>
+                                        </a>
+                                    </li>
+                                    <li onClick={deleteBoard} className={styles.menu_item}>
+                                        <a className={styles.link} >
+                                            <FaRegTrashAlt className={styles.icon} />
+                                            <p className={`${styles.descriptions} ${styles.text}`} >Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </nav>
                     )
                 }
             </div>
             {
                 (menuEditOpen) && (
-                    <Modal Edition={Edition} inputValue={inputValue} handleInputChange={handleInputChange} />
+                    <Modal
+                        Edition={Edition}
+                        inputValue={inputValue}
+                        handleInputChange={handleInputChange}
+                        limitCaracteres={caracteresOver}
+                    />
                 )}
         </>
     );

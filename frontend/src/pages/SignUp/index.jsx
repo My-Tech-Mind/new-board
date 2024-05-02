@@ -1,27 +1,56 @@
+import { useState } from "react";
 import styles from './index.module.css';
 import Button from '../../components/Button/index';
+import { createNotification } from '../../components/Notifications/index';
+import Loading from '../../components/Loading/index';
 import PasswordInput from '../../components/Input/PasswordInput';
 import NameInput from '../../components/Input/NameInput';
 import EmailInput from '../../components/Input/EmailInput';
 import ilustrationLogin from '../../assets/ilustrationLogin.png';
 import logoLight from '../../assets/logo-light.png';
+import logoDark from '../../assets/logo-dark.png';
 import { useForm } from 'react-hook-form';
+import { createAccount } from '../../services/api/sign-up/index';
 import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    function handleSignUp(data, event) {
-        event.preventDefault();
-        console.log(data);
-        navigate('/login');
+    const mode = localStorage.getItem('mode');
+
+    async function handleSignUp(data) {
+        try{
+            setLoading(true);
+            const signup = await createAccount(data);
+
+            if(signup.request.status < 300){
+                createNotification('success', "Account created successfully!", "Log in to continue!");
+                setLoading(false);
+                setTimeout(() => {
+                  navigate('/login');
+                }, 1500);
+            } else if(signup.request.status >= 300){
+                createNotification('error', "Account not created!", JSON.parse(signup.request.response).message);
+                setLoading(false);
+            }
+        } catch(error){
+            setLoading(false);
+        }
     }
     return (
-        <>
-            <main>
+        <>  
+            { loading && <Loading/> }
+            <main className={styles.main}>
                 <form onSubmit={handleSubmit(handleSignUp)} >
                     <div className={styles.main_container}>
-                        <img className={styles.logo} src={logoLight} alt="Logo" />
+                    {
+                            mode === 'dark' ? (
+                                <img className={styles.logo} src={logoDark} alt="Logo" />
+                            ): (
+                                <img className={styles.logo} src={logoLight} alt="Logo" />
+                            )
+                        }
                         <p className={styles.texto}>SignUp to newBoard</p>
                         <NameInput
                             name="name"
@@ -41,6 +70,7 @@ const SignUp = () => {
                             register={register}
                             errors={errors}
                             watch={watch}
+                            onFormSubmit={handleSubmit(handleSignUp)}
                         />
                         <PasswordInput
                             name="password_confirmation"
@@ -48,9 +78,10 @@ const SignUp = () => {
                             register={register}
                             errors={errors}
                             watch={watch}
+                            onFormSubmit={handleSubmit(handleSignUp)}
                         />
                         <div className={styles.container_buttons}>
-                            <Button buttonType='submit' title='Continue' style='default' />
+                            <Button buttonType='submit' title='Continue' style='default' size='size_default' />
                         </div>
                         <Link className={styles.container_account} to="/login">Back to login</Link>
                     </div>

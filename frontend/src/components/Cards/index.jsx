@@ -6,6 +6,7 @@ import { FaPlus, FaTimes } from "react-icons/fa";
 import styles from './index.module.css';
 import CardBox from '../modalComponents/Board/CardBox';
 import CardMenuCrud from '../modalComponents/Board/CardMenuCrud';
+<<<<<<< HEAD
 import { v4 as uuidv4 } from 'uuid';
 import { createCard, deleteCard, ordenateCard, updateCard } from '../../services/api/card/card';
 import LimitError from '../modalComponents/LimitError';
@@ -45,6 +46,44 @@ const Cards = () => {
     const [openCreateCardBox, setOpenCreateCardBox] = useState(false)
     const [openEditCardBox, setOpenEditCardBox] = useState(false)
     const [limitPlan, setLimitPlan] = useState(false)
+=======
+import { createCard, deleteCard, detailCard, ordenateCard, updateCard } from '../../services/api/card/card';
+import LimitError from '../modalComponents/LimitError';
+import detailBoard from '../../services/api/board/board';
+import { useParams } from 'react-router-dom';
+import { createTask, ordenateTask } from '../../services/api/task/task';
+
+const Cards = () => {
+
+    let [cards, setCards] = useState([]);
+    const [cardToBeEdited, setCardToBeEdited] = useState({});
+    const [openCreateCardBox, setOpenCreateCardBox] = useState(false);
+    const [openEditCardBox, setOpenEditCardBox] = useState(false);
+    const [limitPlan, setLimitPlan] = useState(false);
+    const [cardWithTask, setCardWithTask] = useState(null);
+    const { boardId } = useParams();
+
+    useEffect(() => {
+        const handleGetBoard = async () => {
+            try {
+                const response = await detailBoard(boardId);
+                const updateCardsId = response.data.cards.map((card) => {
+                    return {
+                        ...card,
+                        id: String(card.id),
+                    };
+                });
+                setCards(updateCardsId);
+                const { cards, ...rest } = response.data;
+                const boardUpdated = { rest, cards: updateCardsId };
+                return boardUpdated;
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+        handleGetBoard();
+    }, []);
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
 
     const onDragEnd = (result) => {
 
@@ -63,6 +102,7 @@ const Cards = () => {
 
             const cardMoved = {
                 cardId: draggableId,
+<<<<<<< HEAD
                 cardIdSourcePosition: source.index,
                 cardIdDestinationPosition: destination.index,
             }
@@ -71,17 +111,15 @@ const Cards = () => {
             handleOrdenateCard(cardMoved)
 
 
+=======
+                cardSourcePosition: source.index,
+                cardDestinationPosition: destination.index,
+            };
+
+            handleOrdenateCard(cardMoved);
+
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
         } else if (type === 'task') {
-
-            const taskMoved = {
-                taskId: draggableId[5],
-                taskSourcePosition: source.index,
-                taskDestinationPosition: destination.index,
-                cardIdSource: source.droppableId,
-                cardIdDestination: destination.droppableId,
-            }
-
-            setMovedPosition(taskMoved)
 
             const sourceCard = cards.find((card) => card.id === source.droppableId);
             const destinationCard = cards.find((card) => card.id === destination.droppableId);
@@ -126,11 +164,62 @@ const Cards = () => {
                 );
 
                 setCards(newCards);
-
             }
+
+            const taskMoved = {
+                taskId: draggableId.slice(5, draggableId.length),
+                taskSourcePosition: source.index,
+                taskDestinationPosition: destination.index,
+                cardIdSource: source.droppableId,
+                cardIdDestination: destination.droppableId,
+            };
+
+            handleOrdenateTask(taskMoved);
+        }
+    };
+        
+    const handleDuplicateCard = async (card) => {
+        if (cards.length < 10) {
+            const cardCopy = { title: card.title, board_id: boardId };
+            try {
+                const responseCard = await createCard(cardCopy);
+                const createTasks = card.tasks.map(async (task) => {
+                    const taskCopy = {
+                        title: task.title,
+                        card_id: responseCard.id
+                    };
+                    try {
+                        const responseTask = await createTask(taskCopy);
+                        return responseTask;
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                });
+            
+                await Promise.all(createTasks);
+
+                const handleDetailCard = async () => {
+                    try {
+                        const response = await detailCard(responseCard.id)
+                        const { id, title, tasks } = response
+                        const duplicatedCard = { id: `${id}`, title, tasks }
+                        setCards([...cards, duplicatedCard])
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                };
+
+                handleDetailCard();
+                
+            } catch (error) {
+                console.log(error.message);
+            }
+        } else {
+            setLimitPlan(true);
         }
     };
 
+<<<<<<< HEAD
     console.log(movedPosition)
 
     const handleDuplicateCard = (card) => {
@@ -150,9 +239,20 @@ const Cards = () => {
             setCards(cards)
         } else {
             setLimitPlan(true)
+=======
+    const handleDeleteCard = async (id, index) => {
+        try {
+            await deleteCard(id);
+            const cardsCopy = [...cards];
+            cardsCopy.splice(index, 1);
+            setCards(cardsCopy);
+        } catch (error) {
+            console.log(error.message);
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
         }
-    }
+    };
 
+<<<<<<< HEAD
     const handleDeleteCard = async (id, index) => {
         try {
             await deleteCard(id)
@@ -178,15 +278,30 @@ const Cards = () => {
         } else {
             // console.log(`error: it's not allowed to create more than 10 card in the free plan.`)
             setLimitPlan(true)
+=======
+    const handleCreateCard = async (cardTitle) => {
+        if (cards.length < 10) {
+            try {
+                const response = await createCard({ title: cardTitle, board_id: boardId });
+                const { id, title } = response;
+                const card = { id: `${id}`, title, tasks: [] };
+                setCards([...cards, card]);
+            } catch (error) {
+                console.log(error.message);
+            }
+        } else {
+            setLimitPlan(true);
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
         }
-    }
+    };
 
     const handleEditCard = (card) => {
-        setOpenEditCardBox(true)
-        setCardToBeEdited(card)
-    }
+        setOpenEditCardBox(true);
+        setCardToBeEdited(card);
+    };
 
     const handleEditTitle = async (newTitle) => {
+<<<<<<< HEAD
         const card = { title: newTitle, board_id: "5" }
         try {
             const response = await updateCard(cardToBeEdited.id, card)
@@ -209,19 +324,63 @@ const Cards = () => {
             console.log(error.message)
         }
     }
+=======
+        const card = { title: newTitle, board_id: boardId };
+        try {
+            const response = await updateCard(cardToBeEdited.id, card);
+            const { id, title, tasks } = response;
+            const updatedCard = { id: `${id}`, title, tasks };
+            const cardsCopy = [...cards];
+            cardsCopy.splice(cardToBeEdited.index, 1, updatedCard);
+            setCards(cardsCopy);
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    const handleOrdenateCard = async (ordenation) => {
+        try {
+            const response = await ordenateCard(ordenation);
+            return response;
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    const handleOrdenateTask = async (ordenation) => {
+        try {
+            const response = await ordenateTask(ordenation);
+            return response;
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
 
     const handleSaveCard = (save) => {
-        setOpenEditCardBox(!save)
-        setOpenCreateCardBox(!save)
-    }
+        setOpenEditCardBox(!save);
+        setOpenCreateCardBox(!save);
+    };
 
     const openCloseCardBox = () => {
-        setOpenCreateCardBox(!openCreateCardBox)
-    }
+        setOpenCreateCardBox(!openCreateCardBox);
+    };
 
     const openEditTitleCard = () => {
-        setOpenEditCardBox(!openEditCardBox)
-    }
+        setOpenEditCardBox(!openEditCardBox);
+    };
+
+    const handleUpdateCards = (card) => {
+        const updatedCards = cards.map((theCard) => {
+            return theCard.id == card.id ? card : theCard
+        });
+        setCards(updatedCards);
+    };
+
+    useEffect(() => {
+        handleUpdateCards(cardWithTask);
+    }, [cardWithTask]);
 
     return (
         <>
@@ -238,13 +397,21 @@ const Cards = () => {
                 openEditCardBox && (
                     <>
                         <FaTimes className={styles.close_icon} onClick={openEditTitleCard} />
+<<<<<<< HEAD
                         < CardBox title='Edit card' buttonName='Save' onEdit={handleEditCard} onCreateOrEdit={handleEditTitle} onSave={handleSaveCard} />
+=======
+                        < CardBox title='Edit card' buttonName='Save' onEdit={handleEditCard} onCreateOrEdit={handleEditTitle} onSave={handleSaveCard} cardTitle={cardToBeEdited.title} />
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
 
                     </>
                 )
             }
             {
+<<<<<<< HEAD
                 limitPlan && (<LimitError />)
+=======
+                limitPlan && (<LimitError onOpenModal={(status) => setLimitPlan(status)} />)
+>>>>>>> 0fa81851cfb70329104edc706937917542abb70c
             }
             <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="all-cards" direction="horizontal" type='card' key="all-cards">
@@ -298,6 +465,7 @@ const Cards = () => {
                                                             <Tasks
                                                                 tasks={card.tasks}
                                                                 card={card}
+                                                                onUpdatedCard={handleUpdateCards}
                                                             />
                                                             {provided.placeholder}
                                                         </div>

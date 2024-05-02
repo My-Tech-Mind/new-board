@@ -11,24 +11,24 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
     const taskWithPosition = {
         card,
         task: { taskIndex, ...task }
-}
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setMenuOpen(false)
+                setMenuOpen(false);
             }
-        }
+        };
         document.addEventListener('mousedown', handleClickOutside);
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside)
         }
-    }, [])
+    }, []);
 
     const toggleMenu = (event) => {
-        let xPosition = event.clientX
-        let rightPosition = 'none'
+        let xPosition = event.clientX;
+        let rightPosition = 'none';
 
         if (event.clientX > 0.80 * window.innerWidth) {
             rightPosition = '20px'
@@ -37,15 +37,15 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
                 x: xPosition,
                 y: event.clientY,
                 r: rightPosition
-            })
+            });
         } else {
             setMenuPosition({
                 x: xPosition,
                 y: event.clientY,
                 r: rightPosition
-            })
-        }
-        setMenuOpen(true)
+            });
+        };
+        setMenuOpen(true);
     };
 
     return (
@@ -74,7 +74,7 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
                                 >
                                     <FaRegClone
                                         className={`${styles.crud_icons} ${styles.icon}`} />
-                                            <p className={styles.menu_crud_title}>Duplicar</p>
+                                            <p className={styles.menu_crud_title}>Duplicate</p>
                                 </div>
                             </li>
                     
@@ -89,7 +89,7 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
                                         className={`${styles.crud_icons} ${styles.icon}`}
                                     />
                                     <p className={styles.menu_crud_title}>
-                                        Editar
+                                        Edit
                                     </p>
                                 </div>
                             </li>
@@ -104,7 +104,7 @@ const TaskMenuCrud = ({ task, taskIndex, card, onDuplicateTask, onEditTask, onDe
                                         className={` ${styles.trash}`}
                                     />
                                     <p className={`${styles.menu_crud_title} ${styles.text}`}>
-                                        Excluir
+                                        Delete
                                     </p>
                                 </div>
                             </li>
