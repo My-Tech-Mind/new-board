@@ -1,5 +1,3 @@
-# New Board - Gerenciador de tarefas
-
 # New Board
 
 ## Introduction
@@ -77,7 +75,7 @@ Run the development server: `npm run dev`
 
 <details>
 
-<summary><b>Database</b></summary>
+<summary><strong>Database</strong></summary>
 
 -   users
     - id
@@ -110,11 +108,11 @@ Run the development server: `npm run dev`
 
 <details>
 
-<summary><b>Routers</b></summary>
+<summary><strong>Routers</strong></summary>
 
 <details>
 
-<summary><b>Users</b></summary>
+<summary><strong>Users</strong></summary>
 
 #### Create user route: `[POST]/user`
 
